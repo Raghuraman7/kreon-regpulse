@@ -1,6 +1,6 @@
-# Deploy Regnote (free, no paid services)
+# Deploy StuCred RegPulse (free, no paid services)
 
-Regnote is a static site: `index.html` + `data/master-directions.json`. You can host it for **$0** and point a custom domain at it.
+StuCred RegPulse is a static site: `index.html` + `data/master-directions.json` + `data/sebi-regulations.json`. You can host it for **$0** and point a custom domain at it.
 
 ## 1. Refresh data (manual or daily automatic)
 
@@ -8,7 +8,7 @@ Regnote is a static site: `index.html` + `data/master-directions.json`. You can 
 
 ```bash
 npm install
-npm run fetch          # updates data/master-directions.json from RBI
+npm run fetch          # updates JSON data from RBI & SEBI
 npm run serve          # open the printed local URL
 ```
 
@@ -28,14 +28,14 @@ crontab -e
 Add this line (runs every day at **9:00 AM IST**):
 
 ```
-0 9 * * * /Users/raghu/Code/rbi-compliance-tracker/scripts/daily-fetch.sh >> /tmp/regnote-fetch.log 2>&1
+0 9 * * * /Users/raghu/Code/rbi-compliance-tracker/scripts/daily-fetch.sh >> /tmp/regpulse-fetch.log 2>&1
 ```
 
 Adjust the path if the project lives elsewhere. Your Mac must be on (or awake) at 9 AM for cron to run.
 
-**Check it worked:** `cat /tmp/regnote-fetch.log`
+**Check it worked:** `cat /tmp/regpulse-fetch.log`
 
-**Important:** This updates `data/master-directions.json` on your machine only. To refresh the **live website** automatically too, use GitHub Actions (see Option C below) so fetch + deploy happen in the cloud without your Mac.
+**Important:** This updates the data on your machine only. To refresh the **live website** automatically too, use GitHub Actions (see Option C below) so fetch + deploy happen in the cloud.
 
 ---
 
@@ -46,14 +46,14 @@ After `npm run fetch`, upload the **project root** (not `node_modules`):
 | What to upload | Files |
 |---|---|
 | Site | `index.html` |
-| Data | `data/master-directions.json` |
+| Data | `data/master-directions.json`, `data/sebi-regulations.json` |
 | Optional | `README.md`, `LICENSE` |
 
 ### Option A — Cloudflare Pages (recommended)
 
 1. Sign up at [pages.cloudflare.com](https://pages.cloudflare.com) (free).
 2. **Create a project** → **Direct Upload** → drag the folder (or zip of the files above).
-3. You get a URL like `https://regnote-abc.pages.dev`.
+3. You get a URL like `https://regpulse-abc.pages.dev`.
 4. **Custom domain:** Pages → your project → **Custom domains** → add e.g. `rbi.yourdomain.com`.
 5. In your domain registrar (or Cloudflare DNS), add the CNAME Cloudflare shows you.
 
@@ -71,7 +71,7 @@ Vercel is extremely easy to host static sites on:
 
 1. Push repo to GitHub.
 2. **Settings → Pages** → deploy from `main`, root `/`.
-3. Enable **Actions → Read and write** so the daily workflow can commit `master-directions.json`.
+3. Enable **Actions → Read and write** so the daily workflow can commit data updates.
 4. Custom domain: add `CNAME` file or Pages domain settings.
 
 The workflow in `.github/workflows/update-feed.yml` already refreshes data **once daily at 9:00 AM IST** and on manual trigger from the Actions tab.
@@ -89,7 +89,9 @@ The workflow in `.github/workflows/update-feed.yml` already refreshes data **onc
 
 ## 4. What it does
 
-- **One page** instead of browsing the main RBI site
+- **One page** instead of browsing the main RBI or SEBI sites
 - **Filters** by categories like Capital Adequacy, NPA/Provisioning, Governance, KYC, etc.
-- **Search** by direction title or topic
-- **Direct download** for PDFs
+- **Search** by direction title or topic with real-time keyword highlighting
+- **SBR applicability badges** for easy layer-based checks
+- **Descriptive summaries** to read policies at a glance
+- **Quick View** buttons with instant fallbacks to open PDFs cleanly

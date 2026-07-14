@@ -12,10 +12,12 @@ const NBFC_PAGE_URL = "https://www.rbi.org.in/Scripts/BS_ViewMasterDirections.as
 const BASE_URL = "https://www.rbi.org.in/Scripts/";
 
 // Configured recipients
-const RECIPIENTS = [
-  "raghuraman@stucred.com",
-  "umamaheswari.s@stucred.com"
-];
+const RECIPIENTS = process.env.EMAIL_RECIPIENTS
+  ? process.env.EMAIL_RECIPIENTS.split(",").map(e => e.trim())
+  : [
+    "raghuraman@stucred.com",
+    "umamaheswari.s@stucred.com"
+  ];
 
 /**
  * Parse a date string like "Nov 28, 2025" to ISO string.
@@ -55,36 +57,36 @@ function parseDirectionsFromViewstate(html) {
 
   const rows = [];
   const tableContent = vsDecoded;
-  
+
   const linkRegex = /<a\s+class="link2"\s+href=([^>]+)>\s*([\s\S]*?)<\/a>/g;
   const dateHeaderRegex = /<b>((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},\s+\d{4})<\/b>/g;
   const pdfLinkRegex = /href='(https:\/\/rbidocs\.rbi\.org\.in\/[^']+\.PDF)'/g;
-  
+
   const dates = [];
   let dm;
   while ((dm = dateHeaderRegex.exec(tableContent)) !== null) {
     dates.push({ index: dm.index, date: dm[1] });
   }
-  
+
   const pdfLinks = [];
   let pm;
   while ((pm = pdfLinkRegex.exec(tableContent)) !== null) {
     pdfLinks.push({ index: pm.index, url: pm[1] });
   }
-  
+
   let lm;
   let dirIndex = 0;
   while ((lm = linkRegex.exec(tableContent)) !== null) {
     const rawHref = lm[1].trim();
     const title = lm[2].replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
-    
+
     let link;
     if (rawHref.startsWith("http")) {
       link = rawHref;
     } else {
       link = BASE_URL + rawHref.replace(/^\.\//, "");
     }
-    
+
     let dateStr = null;
     for (let i = dates.length - 1; i >= 0; i--) {
       if (dates[i].index < lm.index) {
@@ -92,7 +94,7 @@ function parseDirectionsFromViewstate(html) {
         break;
       }
     }
-    
+
     let pdfUrl = null;
     for (const pl of pdfLinks) {
       if (pl.index > lm.index) {
@@ -100,7 +102,7 @@ function parseDirectionsFromViewstate(html) {
         break;
       }
     }
-    
+
     if (title && title.length > 5) {
       rows.push({
         id: `md-${dirIndex++}`,
@@ -112,7 +114,7 @@ function parseDirectionsFromViewstate(html) {
       });
     }
   }
-  
+
   return rows;
 }
 
@@ -174,21 +176,21 @@ async function sendEmailNotification(updatedDirs) {
 
   const emailBody = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
-      <h2 style="color: #1F3A5F; border-bottom: 2px solid #1F3A5F; padding-bottom: 8px;">Regnote: RBI NBFC-ICC Master Directions Update</h2>
+      <h2 style="color: #1F3A5F; border-bottom: 2px solid #1F3A5F; padding-bottom: 8px;">StuCred RegPulse</h2>
       <p>Hello,</p>
       <p>A new or updated RBI Master Direction applicable to NBFC-ICC has been detected:</p>
       ${updatesHtml}
       <p style="font-size: 12px; color: #777; margin-top: 30px; border-top: 1px solid #ccc; padding-top: 10px;">
-        This is an automated notification from your Regnote instance.
+        This is an automated notification from your StuCred RegPulse instance.
       </p>
     </div>
   `;
 
   try {
     const info = await transporter.sendMail({
-      from: `"Regnote Compliance" <${user}>`,
+      from: `"StuCred RegPulse" <${user}>`,
       to: RECIPIENTS.join(", "),
-      subject: `🚨 Regnote Alert: RBI NBFC-ICC Master Directions Updates (${updatedDirs.length})`,
+      subject: `🚨 StuCred RegPulse Alert: RBI NBFC-ICC Master Directions Updates (${updatedDirs.length})`,
       html: emailBody,
     });
     console.log(`RBI Email notification successfully sent! Message ID: ${info.messageId}`);
@@ -199,37 +201,37 @@ async function sendEmailNotification(updatedDirs) {
 
 async function main() {
   console.log("Fetching RBI Master Directions for NBFCs...");
-  
+
   const res = await fetch(NBFC_PAGE_URL, {
     headers: {
       "User-Agent": "rbi-compliance-tracker/1.0 (open source; CS/compliance teams)",
       "Accept": "text/html,application/xhtml+xml",
     },
   });
-  
+
   if (!res.ok) {
     throw new Error(`HTTP ${res.status} fetching ${NBFC_PAGE_URL}`);
   }
-  
+
   const html = await res.text();
   const allDirections = parseDirectionsFromViewstate(html);
-  
+
   // Filter to NBFC-ICC applicable directions
   const nbfcIccDirections = allDirections
     .filter((d) => isNBFCICCApplicable(d.title))
     .map((d) => ({ ...d, applicableTo: "NBFC-ICC" }));
-  
+
   const excludedDirections = allDirections
     .filter((d) => !isNBFCICCApplicable(d.title))
     .map((d) => ({ ...d, applicableTo: "Other NBFC sub-type" }));
-  
+
   console.log(`NBFC-ICC applicable: ${nbfcIccDirections.length}`);
   console.log(`Excluded (other sub-types): ${excludedDirections.length}`);
-  
+
   // Compare with previous state to detect updates
   const previousData = await loadPreviousData();
   const updatedDirs = [];
-  
+
   nbfcIccDirections.forEach(dir => {
     // Find direction in previous run by matching partial titles
     const prev = previousData.directions.find(p => p.link === dir.link);
@@ -256,7 +258,7 @@ async function main() {
     directions: nbfcIccDirections,
     excluded: excludedDirections,
   };
-  
+
   await mkdir(new URL("../data/", import.meta.url), { recursive: true });
   await writeFile(OUTPUT_PATH, JSON.stringify(payload, null, 2));
   console.log(

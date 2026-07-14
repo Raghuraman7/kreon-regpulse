@@ -1,5 +1,5 @@
 {
-  "name": "regnote-rbi-register",
+  "name": "stucred-regpulse",
   "version": "1.0.0",
   "description": "Open-source, single-page register of RBI compliance updates (notifications, circulars) for CS/compliance teams.",
   "type": "module",

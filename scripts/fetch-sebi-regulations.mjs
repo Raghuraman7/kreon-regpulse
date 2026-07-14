@@ -10,10 +10,12 @@ const SEBI_LISTING_URL = "https://www.sebi.gov.in/sebiweb/home/HomeAction.do?doL
 const BASE_URL = "https://www.sebi.gov.in";
 
 // Configured recipients
-const RECIPIENTS = [
-  "raghuraman@stucred.com",
-  "umamaheswari.s@stucred.com"
-];
+const RECIPIENTS = process.env.EMAIL_RECIPIENTS
+  ? process.env.EMAIL_RECIPIENTS.split(",").map(e => e.trim())
+  : [
+    "raghuraman@stucred.com",
+    "umamaheswari.s@stucred.com"
+  ];
 
 // Regs we want to track specifically
 const TRACKED_REGS = [
@@ -120,21 +122,21 @@ async function sendEmailNotification(updatedRegs) {
 
   const emailBody = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
-      <h2 style="color: #1F3A5F; border-bottom: 2px solid #1F3A5F; padding-bottom: 8px;">Regnote: SEBI Regulation Updates</h2>
+      <h2 style="color: #1F3A5F; border-bottom: 2px solid #1F3A5F; padding-bottom: 8px;">StuCred RegPulse</h2>
       <p>Hello,</p>
       <p>A new amendment/update has been detected in the following SEBI regulations:</p>
       ${updatesHtml}
       <p style="font-size: 12px; color: #777; margin-top: 30px; border-top: 1px solid #ccc; padding-top: 10px;">
-        This is an automated notification from your Regnote instance.
+        This is an automated notification from your StuCred RegPulse instance.
       </p>
     </div>
   `;
 
   try {
     const info = await transporter.sendMail({
-      from: `"Regnote Compliance" <${user}>`,
+      from: `"StuCred RegPulse" <${user}>`,
       to: RECIPIENTS.join(", "),
-      subject: `🚨 Regnote Alert: SEBI Regulation Updates (${updatedRegs.length})`,
+      subject: `🚨 StuCred RegPulse Alert: SEBI Regulation Updates (${updatedRegs.length})`,
       html: emailBody,
     });
     console.log(`Email notification successfully sent! Message ID: ${info.messageId}`);
@@ -146,32 +148,32 @@ async function sendEmailNotification(updatedRegs) {
 async function main() {
   console.log("Fetching SEBI Regulations listing page...");
   const html = await fetchPage(SEBI_LISTING_URL);
-  
+
   // Find links to regulation detail pages
   // e.g. <a href="https://www.sebi.gov.in/legal/regulations/..."
   const linkMatches = [...html.matchAll(/href="([^"]+\/legal\/regulations\/[^"]+)"/g)];
-  
+
   console.log(`Found ${linkMatches.length} raw regulation links on the page`);
-  
+
   const previousData = await loadPreviousData();
   const nextRegulations = { ...previousData.regulations };
   const updatedRegs = [];
-  
+
   for (const trackRule of TRACKED_REGS) {
     const matchedLink = linkMatches.find(m => trackRule.searchPattern.test(m[1]));
-    
+
     if (matchedLink) {
       const url = matchedLink[1];
       console.log(`Found matching link for ${trackRule.shortName}: ${url}`);
-      
+
       try {
         console.log(`Fetching details for ${trackRule.shortName}...`);
         const detailHtml = await fetchPage(url);
-        
+
         const title = extractTitle(detailHtml) || trackRule.shortName;
         const amendedDate = extractDate(detailHtml) || "Unknown Date";
         const pdfUrl = extractPdfLink(detailHtml);
-        
+
         const currentData = {
           key: trackRule.key,
           shortName: trackRule.shortName,
@@ -181,15 +183,15 @@ async function main() {
           amendedDate,
           lastUpdated: new Date().toISOString(),
         };
-        
+
         const prevData = previousData.regulations[trackRule.key];
-        
+
         // Detect change in URL or amended date
         if (!prevData || prevData.link !== currentData.link || prevData.amendedDate !== currentData.amendedDate) {
           console.log(`🚨 Update detected in ${trackRule.shortName}!`);
           updatedRegs.push(currentData);
         }
-        
+
         nextRegulations[trackRule.key] = currentData;
       } catch (err) {
         console.error(`Error processing detail page for ${trackRule.shortName}:`, err);
@@ -207,11 +209,11 @@ async function main() {
     generatedAt: new Date().toISOString(),
     regulations: nextRegulations,
   };
-  
+
   await mkdir(new URL("../data/", import.meta.url), { recursive: true });
   await writeFile(DATA_PATH, JSON.stringify(payload, null, 2));
   console.log("Wrote updated SEBI regulations to data/sebi-regulations.json");
-  
+
   // Trigger notification if there are changes
   if (updatedRegs.length > 0) {
     await sendEmailNotification(updatedRegs);
