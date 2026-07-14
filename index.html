@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Regnote — NBFC-ICC Master Directions</title>
+<meta name="description" content="Complete register of RBI Master Directions applicable to NBFC-ICC (Investment and Credit Companies). Built for compliance teams and company secretaries." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #EDEEE7;
+    --paper-raised: #F7F7F2;
+    --ink: #1C2321;
+    --ink-soft: #565F5C;
+    --rule: #C9CBC0;
+    --navy: #1F3A5F;
+    --navy-deep: #14263D;
+    --navy-light: #2A4F80;
+    --amber: #B8742A;
+    --amber-bg: #F3E4CE;
+    --red: #93372F;
+    --green: #3A6B35;
+    --green-bg: #DFF0DC;
+    --focus: #1F3A5F;
+    --tag-misc: #5A4FCF;
+    --tag-misc-bg: #EDEAFF;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  /* ---------- Masthead ---------- */
+  .masthead {
+    background: var(--navy-deep);
+    color: #fff;
+    padding: 32px clamp(16px, 4vw, 56px) 28px;
+  }
+  .masthead-inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .masthead-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .brand h1 {
+    font-family: "Source Serif 4", serif;
+    font-weight: 700;
+    font-size: clamp(26px, 3.5vw, 36px);
+    margin: 0;
+    letter-spacing: -0.01em;
+    color: #fff;
+  }
+  .brand .tag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+
+  .category-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .category-badge {
+    background: var(--amber);
+    color: #fff;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 6px 14px;
+    border-radius: 3px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .category-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.75);
+    max-width: 62ch;
+  }
+
+  /* ---------- Info banner ---------- */
+  .info-banner {
+    background: var(--amber-bg);
+    border-bottom: 2px solid var(--amber);
+    padding: 12px clamp(16px, 4vw, 56px);
+  }
+  .info-banner-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    font-size: 13px;
+    color: var(--amber);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .info-banner-inner strong { font-weight: 600; }
+
+  /* ---------- Toolbar ---------- */
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: 14px clamp(16px, 4vw, 56px);
+  }
+  .toolbar-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .toolbar input[type="search"] {
+    flex: 1 1 260px;
+    min-width: 0;
+    padding: 9px 12px;
+    border: 1px solid var(--rule);
+    background: var(--paper-raised);
+    border-radius: 3px;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .toolbar input[type="search"]:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 1px;
+  }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    padding: 6px 11px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    background: var(--paper-raised);
+    color: var(--ink-soft);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+  }
+  .chip[aria-pressed="true"] {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: #fff;
+  }
+  .chip:hover:not([aria-pressed="true"]) {
+    background: #E4E5DE;
+  }
+  .chip:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  /* ---------- Status ---------- */
+  .status-bar {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 10px clamp(16px, 4vw, 56px) 0;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .status-bar .dot { color: #6B8F5C; }
+
+  /* ---------- Main content ---------- */
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 18px clamp(16px, 4vw, 56px) 80px;
+  }
+
+  /* ---------- Topic group ---------- */
+  .topic-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 6px;
+    margin: 28px 0 12px;
+  }
+  .topic-label:first-of-type { margin-top: 8px; }
+
+  /* ---------- Direction card ---------- */
+  .direction-card {
+    background: var(--paper-raised);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--navy);
+    border-radius: 3px;
+    margin-bottom: 10px;
+    padding: 16px 18px 14px 20px;
+    transition: box-shadow 0.15s;
+  }
+  .direction-card:hover {
+    box-shadow: 0 2px 8px rgba(31,58,95,0.08);
+  }
+
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+  .card-meta {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .updated-badge {
+    background: var(--green-bg);
+    color: var(--green);
+    padding: 2px 7px;
+    border-radius: 2px;
+    font-weight: 500;
+    font-size: 11px;
+  }
+
+  .direction-card h2 {
+    font-family: "Source Serif 4", serif;
+    font-weight: 600;
+    font-size: 16.5px;
+    line-height: 1.4;
+    margin: 0 0 10px;
+    color: var(--ink);
+  }
+
+  .topic-chips {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .topic-chip {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.03em;
+  }
+  .tc-prudential { background: #E8EEF7; color: #2A4F80; }
+  .tc-governance  { background: #EEF3E8; color: #3A6B35; }
+  .tc-conduct     { background: var(--amber-bg); color: var(--amber); }
+  .tc-reporting   { background: #F4EEF8; color: #6B3D9A; }
+  .tc-registration{ background: #F8EEE8; color: #8B4513; }
+  .tc-risk        { background: #F8F3E8; color: #7A5F10; }
+  .tc-operations  { background: #E8F4F8; color: #1A6B8A; }
+  .tc-other       { background: #F0F0F0; color: #555; }
+
+  .card-actions {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .card-actions a {
+    font-size: 13px;
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    transition: color 0.12s, border-color 0.12s;
+  }
+  .card-actions .primary-link {
+    color: var(--navy);
+    font-weight: 500;
+    border-color: var(--navy-light);
+  }
+  .card-actions .primary-link:hover { color: var(--navy-deep); }
+  .card-actions .pdf-link {
+    color: var(--ink-soft);
+  }
+  .card-actions .pdf-link:hover { color: var(--red); border-color: var(--red); }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--ink-soft);
+  }
+  .empty-state h3 {
+    font-family: "Source Serif 4", serif;
+    font-size: 20px;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  /* ---------- Summary panel ---------- */
+  .summary-panel {
+    background: var(--navy-deep);
+    color: #fff;
+    border-radius: 4px;
+    padding: 20px 22px;
+    margin-bottom: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 16px;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: "Source Serif 4", serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    display: block;
+  }
+  .stat-label {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.6);
+    font-family: "IBM Plex Mono", monospace;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 4px;
+    display: block;
+  }
+
+  footer {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 clamp(16px, 4vw, 56px) 60px;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  footer a { color: var(--navy); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="masthead-top">
+      <div class="brand">
+        <h1>Regnote</h1>
+        <span class="tag">NBFC-ICC Register</span>
+      </div>
+    </div>
+    <div class="category-info">
+      <span class="category-badge">NBFC-ICC</span>
+      <p class="category-desc">
+        Investment and Credit Company — the residual NBFC category under RBI's Scale Based Regulation.
+        All Master Directions listed here are applicable to NBFC-ICCs as of the date shown.
+      </p>
+    </div>
+  </div>
+</header>
+
+<div class="info-banner">
+  <div class="info-banner-inner">
+    <strong>⚠ Compliance note:</strong>&nbsp;
+    Always verify applicability to your specific NBFC registration layer (Base/Middle/Upper) before acting on any direction. Click "View on rbi.org.in" to access the official text.
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="toolbar-inner">
+    <input type="search" id="search" placeholder="Search directions by title or topic…" aria-label="Search Master Directions" />
+    <div class="chips" id="topicChips" role="group" aria-label="Filter by topic"></div>
+  </div>
+</div>
+
+<div class="status-bar" id="statusBar">
+  <span id="statusText">Loading register…</span>
+  <span id="lastSync"></span>
+</div>
+
+<main id="list" aria-live="polite">
+</main>
+
+<footer>
+  <p>Sourced from <a href="https://www.rbi.org.in/Scripts/BS_ViewMasterDirections.aspx?did=411" target="_blank" rel="noopener">RBI Master Directions — Non-Banking Financial Companies</a>.
+  Filtered to show only directions applicable to <strong>NBFC-ICC (Investment and Credit Company)</strong> under the Scale Based Regulation framework.
+  Refresh with <code>npm run fetch</code>.
+  This is an independent, open-source project and is not affiliated with or endorsed by the Reserve Bank of India.</p>
+</footer>
+
+<script>
+(async function () {
+  const listEl = document.getElementById("list");
+  const statusEl = document.getElementById("statusText");
+  const syncEl = document.getElementById("lastSync");
+  const searchEl = document.getElementById("search");
+  const topicChipsEl = document.getElementById("topicChips");
+
+  let data = { directions: [], count: 0 };
+  let activeTopic = "all";
+  let query = "";
+
+  // Topic classification for directions
+  const TOPIC_RULES = [
+    { pattern: /capital.adequacy|CAR|CRAR/i,         topic: "prudential",   label: "Capital Adequacy",    cls: "tc-prudential" },
+    { pattern: /income.recogni|asset.classif|NPA|provisioning/i, topic: "npa-provisioning", label: "NPA / Provisioning", cls: "tc-prudential" },
+    { pattern: /governance/i,                         topic: "governance",   label: "Governance",          cls: "tc-governance" },
+    { pattern: /know.your.customer|KYC/i,             topic: "kyc",          label: "KYC",                 cls: "tc-conduct" },
+    { pattern: /responsible.business|fair.practice/i, topic: "conduct",      label: "Conduct",             cls: "tc-conduct" },
+    { pattern: /credit.card|debit.card/i,             topic: "credit-cards", label: "Credit Cards",        cls: "tc-conduct" },
+    { pattern: /financial.statement|disclosure/i,     topic: "reporting",    label: "Disclosures",         cls: "tc-reporting" },
+    { pattern: /credit.information.report/i,          topic: "reporting",    label: "Credit Reporting",    cls: "tc-reporting" },
+    { pattern: /registration|scale.based|exemption/i, topic: "registration", label: "Registration & SBR",  cls: "tc-registration" },
+    { pattern: /branch.authoris/i,                    topic: "registration", label: "Branch Auth",         cls: "tc-registration" },
+    { pattern: /acquisition.of.sharehold|amalgamat|undertaking.of.financial/i, topic: "operations", label: "M&A / Subsidiaries", cls: "tc-operations" },
+    { pattern: /credit.risk|concentration.risk|outsourc/i, topic: "risk",    label: "Risk Management",     cls: "tc-risk" },
+    { pattern: /asset.liability|ALM/i,                topic: "risk",         label: "ALM",                 cls: "tc-risk" },
+    { pattern: /securitisation|transfer.and.distrib/i,topic: "risk",         label: "Securitisation",      cls: "tc-risk" },
+    { pattern: /investment.portfolio|classif.valuat/i, topic: "risk",        label: "Investment Portfolio", cls: "tc-risk" },
+    { pattern: /climate|ESG/i,                        topic: "esg",          label: "Climate / ESG",       cls: "tc-governance" },
+    { pattern: /wilful.default/i,                     topic: "credit-cards", label: "Wilful Defaulters",   cls: "tc-prudential" },
+    { pattern: /resolution.of.stress/i,               topic: "prudential",   label: "Stressed Assets",     cls: "tc-prudential" },
+    { pattern: /acceptance.of.public.deposit/i,       topic: "deposits",     label: "Public Deposits",     cls: "tc-registration" },
+    { pattern: /dividend/i,                           topic: "prudential",   label: "Dividends",           cls: "tc-prudential" },
+    { pattern: /credit.facilit/i,                     topic: "credit",       label: "Credit Facilities",   cls: "tc-prudential" },
+    { pattern: /voluntary.amalgam/i,                  topic: "operations",   label: "Amalgamation",        cls: "tc-operations" },
+    { pattern: /miscellaneous/i,                      topic: "misc",         label: "Miscellaneous",       cls: "tc-other" },
+  ];
+
+  function classifyDirection(title) {
+    for (const rule of TOPIC_RULES) {
+      if (rule.pattern.test(title)) {
+        return { topic: rule.topic, label: rule.label, cls: rule.cls };
+      }
+    }
+    return { topic: "other", label: "Other", cls: "tc-other" };
+  }
+
+  // Check if direction title contains updated suffix
+  function isUpdated(title) {
+    if (!title) return false;
+    return /updated.as.on|updated.as.of/i.test(title);
+  }
+
+  function extractUpdatedDate(title) {
+    const m = title.match(/[Uu]pdated as on\s+([A-Za-z]+ \d{1,2},? \d{4})/);
+    return m ? m[1] : null;
+  }
+
+  function cleanTitle(title) {
+    // Remove "Updated as on ..." suffix for display
+    return title.replace(/\s*\((?:[Uu]pdated|updated)\s+as\s+on\s+[^)]+\)\s*$/, "").trim();
+  }
+
+  function fmtDate(iso) {
+    if (!iso) return "—";
+    const d = new Date(iso);
+    if (isNaN(d)) return iso;
+    return d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+  }
+
+  function escapeHtml(str) {
+    return String(str || "").replace(/[&<>"']/g, (c) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[c]));
+  }
+
+  // Compute all unique topics from data
+  function getTopics(directions) {
+    const seen = new Map();
+    for (const d of directions) {
+      const cls = classifyDirection(d.title);
+      if (!seen.has(cls.topic)) seen.set(cls.topic, cls.label);
+    }
+    return seen;
+  }
+
+  function renderChips(directions) {
+    topicChipsEl.innerHTML = "";
+    const all = document.createElement("button");
+    all.className = "chip";
+    all.textContent = "All topics";
+    all.setAttribute("aria-pressed", activeTopic === "all");
+    all.addEventListener("click", () => { activeTopic = "all"; render(); });
+    topicChipsEl.appendChild(all);
+
+    const topics = getTopics(directions);
+    topics.forEach((label, topicKey) => {
+      const chip = document.createElement("button");
+      chip.className = "chip";
+      chip.textContent = label;
+      chip.setAttribute("aria-pressed", activeTopic === topicKey);
+      chip.addEventListener("click", () => { activeTopic = topicKey; render(); });
+      topicChipsEl.appendChild(chip);
+    });
+  }
+
+  function filteredDirections() {
+    return data.directions.filter((d) => {
+      const cls = classifyDirection(d.title);
+      if (activeTopic !== "all" && cls.topic !== activeTopic) return false;
+      if (!query) return true;
+      return (d.title + " " + (cls.label || "")).toLowerCase().includes(query.toLowerCase());
+    });
+  }
+
+  function renderSummary(directions) {
+    const total = data.directions.length;
+    const updated = data.directions.filter(d => isUpdated(d.title)).length;
+    const topics = getTopics(data.directions).size;
+    return `
+      <div class="summary-panel" aria-label="NBFC-ICC Master Directions summary">
+        <div class="stat-item">
+          <span class="stat-num">${total}</span>
+          <span class="stat-label">Directions</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">${updated}</span>
+          <span class="stat-label">Recently Updated</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">${topics}</span>
+          <span class="stat-label">Topic Areas</span>
+        </div>
+      </div>
+    `;
+  }
+
+  function render() {
+    renderChips(data.directions);
+    const items = filteredDirections();
+
+    if (items.length === 0) {
+      listEl.innerHTML = renderSummary(data.directions) + '<div class="empty-state"><h3>No directions match</h3><p>Try a different keyword or clear the filter.</p></div>';
+      statusEl.textContent = "0 of " + data.directions.length + " directions shown";
+      return;
+    }
+
+    statusEl.innerHTML = '<span class="dot">●</span> ' + items.length + " of " + data.directions.length + " directions shown";
+
+    const cardsHtml = items.map((dir, idx) => {
+      const cls = classifyDirection(dir.title);
+      const upd = isUpdated(dir.title);
+      const updDate = extractUpdatedDate(dir.title);
+      const displayTitle = escapeHtml(cleanTitle(dir.title));
+
+      return `
+        <article class="direction-card" id="direction-${idx}">
+          <div class="card-head">
+            <div class="card-meta">
+              ${upd ? `<span class="updated-badge">Updated ${updDate ? escapeHtml(updDate) : ""}</span>` : ""}
+              <span>Issued: ${fmtDate(dir.issuedDate)}</span>
+            </div>
+          </div>
+          <h2>${displayTitle}</h2>
+          <div class="topic-chips">
+            <span class="topic-chip ${escapeHtml(cls.cls)}">${escapeHtml(cls.label)}</span>
+            <span class="topic-chip tc-other">NBFC-ICC</span>
+          </div>
+          <div class="card-actions">
+            ${dir.link ? `<a class="primary-link" href="${escapeHtml(dir.link)}" target="_blank" rel="noopener">View on rbi.org.in ↗</a>` : ""}
+            ${dir.pdfUrl ? `<a class="pdf-link" href="${escapeHtml(dir.pdfUrl)}" target="_blank" rel="noopener">📄 Download PDF</a>` : ""}
+          </div>
+        </article>
+      `;
+    }).join("");
+
+    listEl.innerHTML = renderSummary(data.directions) + cardsHtml;
+  }
+
+  searchEl.addEventListener("input", (e) => { query = e.target.value; render(); });
+
+  try {
+    const res = await fetch("./data/master-directions.json", { cache: "no-store" });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    data = await res.json();
+    const genDate = new Date(data.generatedAt);
+    syncEl.textContent = "Last synced " + (isNaN(genDate) ? data.generatedAt : genDate.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }));
+    render();
+  } catch (err) {
+    listEl.innerHTML = '<div class="empty-state"><h3>Register unavailable</h3><p>Could not load data/master-directions.json. Run <code>npm run fetch</code> to generate it.</p></div>';
+    statusEl.textContent = "Failed to load";
+    console.error(err);
+  }
+})();
+</script>
+
+</body>
+</html>

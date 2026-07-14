@@ -1,0 +1,15 @@
+{
+  "name": "regnote-rbi-register",
+  "version": "1.0.0",
+  "description": "Open-source, single-page register of RBI compliance updates (notifications, circulars) for CS/compliance teams.",
+  "type": "module",
+  "scripts": {
+    "fetch": "node scripts/fetch-master-directions.mjs",
+    "serve": "npx serve .",
+    "start": "node scripts/fetch-master-directions.mjs && npx serve ."
+  },
+  "license": "MIT",
+  "dependencies": {
+    "fast-xml-parser": "^5.10.0"
+  }
+}
