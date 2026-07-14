@@ -349,42 +349,48 @@
     .chip:hover:not([aria-pressed="true"]) {
       background: #E4E5DE;
     }
-
-    /* ---------- Timeframe Banner ---------- */
-    .timeframe-banner {
-      background: rgba(31, 58, 95, 0.05);
-      border: 1px solid rgba(31, 58, 95, 0.15);
-      color: var(--navy-deep);
-      padding: 10px 14px;
-      border-radius: 3px;
-      font-size: 13px;
-      margin-bottom: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .timeframe-banner span strong {
-      font-weight: 600;
-    }
-
-    .show-history-btn {
-      background: var(--navy);
-      color: #fff;
-      border: none;
-      padding: 5px 12px;
-      border-radius: 3px;
-      font-size: 12px;
-      font-weight: 600;
+    .refresh-btn {
+      background: var(--paper-raised);
+      border: 1px solid var(--rule);
+      color: var(--ink-soft);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      font-family: inherit;
       cursor: pointer;
-      transition: background 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
     }
 
-    .show-history-btn:hover {
-      background: var(--navy-light);
+    .refresh-btn:hover {
+      background: rgba(31, 58, 95, 0.05);
+      border-color: var(--navy);
+      color: var(--navy);
     }
+
+    .refresh-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    .refresh-btn svg {
+      width: 12px;
+      height: 12px;
+      fill: currentColor;
+    }
+
+    .refresh-btn.spinning svg {
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+
 
     /* ---------- Status ---------- */
     .status-bar {
@@ -888,20 +894,19 @@
 
   <div class="status-bar" id="statusBar">
     <span id="statusText">Loading register…</span>
-    <div class="sync-indicator">
+    <div class="sync-indicator" style="display: flex; align-items: center; gap: 12px;">
+      <button type="button" id="refreshBtn" class="refresh-btn" title="Refresh local data">
+        <svg viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+        Refresh
+      </button>
       <span class="sync-dot"></span>
       <span id="lastSync">Synced</span>
     </div>
   </div>
 
-  <main>
-    <!-- Timeframe Filter Banner -->
-    <div class="timeframe-banner" id="timeframeBanner" style="display: none;">
-      <span>Showing only updates/releases from the <strong>last 6 months</strong> (historical baseline standards are
-        hidden).</span>
-      <button type="button" class="show-history-btn" id="showAllHistoryBtn">Show All History</button>
-    </div>
 
+
+  <main>
     <div id="list" aria-live="polite"></div>
   </main>
 
@@ -931,24 +936,21 @@
       const actsCategoryInfo = document.getElementById("actsCategoryInfo");
       const ssCategoryInfo = document.getElementById("ssCategoryInfo");
 
-      const infoBannerText = document.getElementById("infoBannerText");
-      const footerSourceText = document.getElementById("footerSourceText");
-      const timeframeBanner = document.getElementById("timeframeBanner");
-      const showAllHistoryBtn = document.getElementById("showAllHistoryBtn");
-
-      let currentTab = "rbi"; // "rbi", "sebi", "acts", "ss"
-      let rbiData = { directions: [], count: 0 };
-      let sebiData = { regulations: {} };
-      let actsData = { acts: [] };
-      let ssData = { standards: [] };
-
-      let activeTopic = "all";
-      let query = "";
-      let filterYear = "";   // e.g. "2025"
-      let filterMonth = "";  // e.g. "12"
-      let filterFrom = "";   // YYYY-MM-DD
-      let filterTo = "";     // YYYY-MM-DD
-      let filterLast6Months = true;
+       const infoBannerText = document.getElementById("infoBannerText");
+       const footerSourceText = document.getElementById("footerSourceText");
+ 
+       let currentTab = "rbi"; // "rbi", "sebi", "acts", "ss"
+       let rbiData = { directions: [], count: 0 };
+       let sebiData = { regulations: {} };
+       let actsData = { acts: [] };
+       let ssData = { standards: [] };
+ 
+       let activeTopic = "all";
+       let query = "";
+       let filterYear = "";   // e.g. "2025"
+       let filterMonth = "";  // e.g. "12"
+       let filterFrom = "";   // YYYY-MM-DD
+       let filterTo = "";     // YYYY-MM-DD
 
       // DOM refs for new filter controls
       const filterYearEl = document.getElementById("filterYear");
@@ -1199,47 +1201,73 @@
         return "Outlines compliance standards, applicability limits, and operational procedures issued by the regulator.";
       }
 
-      // Robustly parse any date string into a plain { y, m, d } object using LOCAL time
-      // Handles both ISO timestamps ("2025-11-27T18:30:00.000Z") and
-      // human strings ("Dec 24, 2025" / "Mar 21, 2026")
-      function parseToLocal(dateStr) {
+      // Parses any date string (ISO, calendar YYYY-MM-DD, or human-readable format)
+      // into a plain { y, m, d } object without timezone shifting.
+      function parseToCalendarDate(dateStr) {
         if (!dateStr) return null;
+        dateStr = dateStr.trim();
+
+        // 1. Match YYYY-MM-DD pattern (e.g. "2025-11-28T00:00:00.000Z", "2013-08-29")
+        const isoMatch = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})/);
+        if (isoMatch) {
+          return {
+            y: parseInt(isoMatch[1], 10),
+            m: parseInt(isoMatch[2], 10),
+            d: parseInt(isoMatch[3], 10)
+          };
+        }
+
+        // 2. Match human-readable format (e.g. "Mar 21, 2026", "July 01, 2026")
+        const humanMatch = dateStr.match(/^([A-Za-z]+)\s+(\d{1,2}),?\s+(\d{4})/);
+        if (humanMatch) {
+          const monthMap = {
+            jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6,
+            jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12
+          };
+          const monthName = humanMatch[1].toLowerCase().slice(0, 3);
+          const m = monthMap[monthName];
+          if (m) {
+            return {
+              y: parseInt(humanMatch[3], 10),
+              m: m,
+              d: parseInt(humanMatch[2], 10)
+            };
+          }
+        }
+
+        // 3. Fallback to native Date parsing if needed, using local timezone values
         const d = new Date(dateStr);
         if (isNaN(d)) return null;
-        // For ISO strings RBI stores dates as midnight IST = 18:30 UTC prev day.
-        // Convert to IST (UTC+5:30) by adding offset before reading local parts.
-        const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000;
-        const istMs = d.getTime() + IST_OFFSET_MS;
-        const ist = new Date(istMs);
-        return { y: ist.getUTCFullYear(), m: ist.getUTCMonth() + 1, d: ist.getUTCDate() };
-      }
-
-      // Helper to check if a date is within the last 6 months (180 days)
-      function isWithinLast6Months(dateStr) {
-        if (!dateStr) return false;
-        const d = new Date(dateStr);
-        if (isNaN(d)) return false;
-        const sixMonthsAgo = Date.now() - (180 * 24 * 60 * 60 * 1000);
-        return d.getTime() >= sixMonthsAgo;
+        return {
+          y: d.getFullYear(),
+          m: d.getMonth() + 1,
+          d: d.getDate()
+        };
       }
 
       // Returns true if the item's date passes all active date filters
       function matchesDateFilters(dateStr) {
-        const ld = parseToLocal(dateStr);
+        const ld = parseToCalendarDate(dateStr);
         if (!ld) return (!filterYear && !filterMonth && !filterFrom && !filterTo);
 
-        if (filterYear && ld.y !== parseInt(filterYear)) return false;
-        if (filterMonth && ld.m !== parseInt(filterMonth)) return false;
+        if (filterYear && ld.y !== parseInt(filterYear, 10)) return false;
+        if (filterMonth && ld.m !== parseInt(filterMonth, 10)) return false;
+
+        const ldVal = ld.y * 10000 + ld.m * 100 + ld.d;
 
         if (filterFrom) {
-          const from = parseToLocal(filterFrom);
-          if (from && (ld.y < from.y || (ld.y === from.y && ld.m < from.m) ||
-            (ld.y === from.y && ld.m === from.m && ld.d < from.d))) return false;
+          const from = parseToCalendarDate(filterFrom);
+          if (from) {
+            const fromVal = from.y * 10000 + from.m * 100 + from.d;
+            if (ldVal < fromVal) return false;
+          }
         }
         if (filterTo) {
-          const to = parseToLocal(filterTo);
-          if (to && (ld.y > to.y || (ld.y === to.y && ld.m > to.m) ||
-            (ld.y === to.y && ld.m === to.m && ld.d > to.d))) return false;
+          const to = parseToCalendarDate(filterTo);
+          if (to) {
+            const toVal = to.y * 10000 + to.m * 100 + to.d;
+            if (ldVal > toVal) return false;
+          }
         }
         return true;
       }
@@ -1366,12 +1394,10 @@
       }
 
       function filteredRbiItems() {
-        const active = hasActiveDateFilter();
         return rbiData.directions.filter((d) => {
           const cls = classifyDirection(d.title);
           if (activeTopic !== "all" && cls.topic !== activeTopic) return false;
-          if (active && !matchesDateFilters(d.issuedDate)) return false;
-          if (!active && filterLast6Months && !query && !isWithinLast6Months(d.issuedDate)) return false;
+          if (!matchesDateFilters(d.issuedDate)) return false;
           if (!query) return true;
           return (d.title + " " + (cls.label || "")).toLowerCase().includes(query.toLowerCase());
         });
@@ -1379,40 +1405,36 @@
 
       function filteredSebiItems() {
         const regs = Object.values(sebiData.regulations);
-        const active = hasActiveDateFilter();
         return regs.filter((reg) => {
           if (activeTopic !== "all" && reg.key !== activeTopic) return false;
-          // Use amendedDate for SEBI (human string like "Dec 24, 2025")
           const dateRef = reg.amendedDate || reg.lastUpdated;
-          if (active && !matchesDateFilters(dateRef)) return false;
-          if (!active && filterLast6Months && !query && !isWithinLast6Months(dateRef)) return false;
+          if (!matchesDateFilters(dateRef)) return false;
           if (!query) return true;
           return (reg.title + " " + reg.shortName).toLowerCase().includes(query.toLowerCase());
         });
       }
 
       function filteredActsItems() {
-        const active = hasActiveDateFilter();
         return actsData.acts.filter((act) => {
-          if (active && !matchesDateFilters(act.enactedDate)) return false;
+          if (!matchesDateFilters(act.enactedDate)) return false;
           if (!query) return true;
           return (act.title + " " + act.summary).toLowerCase().includes(query.toLowerCase());
         });
       }
 
       function filteredSsItems() {
-        const active = hasActiveDateFilter();
         return ssData.standards.filter((std) => {
-          if (active && !matchesDateFilters(std.effectiveDate)) return false;
+          if (!matchesDateFilters(std.effectiveDate)) return false;
           if (!query) return true;
           return (std.title + " " + std.summary).toLowerCase().includes(query.toLowerCase());
         });
       }
 
-      function renderSummary() {
+      function renderSummary(items) {
+        if (!items) items = [];
         if (currentTab === "rbi") {
-          const total = rbiData.directions.length;
-          const updated = rbiData.directions.filter(d => isUpdated(d.title)).length;
+          const total = items.length;
+          const updated = items.filter(d => isUpdated(d.title)).length;
           return `
         <div class="summary-panel" aria-label="RBI summary">
           <div class="stat-item">
@@ -1430,9 +1452,8 @@
         </div>
       `;
         } else if (currentTab === "sebi") {
-          const regs = Object.values(sebiData.regulations);
-          const total = regs.length;
-          const updated = regs.filter(r => isUpdated(r.title)).length;
+          const total = items.length;
+          const updated = items.filter(r => isUpdated(r.title)).length;
           return `
         <div class="summary-panel sebi-panel" aria-label="SEBI summary">
           <div class="stat-item">
@@ -1450,27 +1471,31 @@
         </div>
       `;
         } else if (currentTab === "acts") {
+          const total = items.length;
+          const actsCount = items.filter(a => a.type === "Act").length;
+          const rulesCount = items.filter(a => a.type === "Rules").length;
           return `
         <div class="summary-panel acts-panel" aria-label="Acts summary">
           <div class="stat-item">
-            <span class="stat-num">${actsData.acts.length}</span>
-            <span class="stat-label">Acts & Rules</span>
+            <span class="stat-num">${total}</span>
+            <span class="stat-label">Total Acts & Rules</span>
           </div>
           <div class="stat-item">
-            <span class="stat-num">Statutory</span>
-            <span class="stat-label">Compliance Baseline</span>
+            <span class="stat-num">${actsCount}</span>
+            <span class="stat-label">Acts</span>
           </div>
           <div class="stat-item">
-            <span class="stat-num">Kreon</span>
-            <span class="stat-label">Applicable</span>
+            <span class="stat-num">${rulesCount}</span>
+            <span class="stat-label">Rules Checklist</span>
           </div>
         </div>
       `;
         } else {
+          const total = items.length;
           return `
         <div class="summary-panel ss-panel" aria-label="Secretarial Standards summary">
           <div class="stat-item">
-            <span class="stat-num">${ssData.standards.length}</span>
+            <span class="stat-num">${total}</span>
             <span class="stat-label">ICSI Standards</span>
           </div>
           <div class="stat-item">
@@ -1512,20 +1537,13 @@
       function render() {
         renderChips();
 
-        // Manage Timeframe Banner visibility
-        // Show timeframe banner only when no date filter is active
-        if ((currentTab === "rbi" || currentTab === "sebi") && filterLast6Months && !hasActiveDateFilter() && !query) {
-          timeframeBanner.style.display = "flex";
-        } else {
-          timeframeBanner.style.display = "none";
-        }
         // Show/hide the Clear Filters button
         clearAllFiltersBtnEl.style.display = hasActiveDateFilter() ? "inline-flex" : "none";
 
         if (currentTab === "rbi") {
           const items = filteredRbiItems();
           if (items.length === 0) {
-            listEl.innerHTML = renderSummary() + '<div class="empty-state"><h3>No RBI directions match</h3><p>Try a different keyword, adjust the date filter, or click "Show All History".</p></div>';
+            listEl.innerHTML = renderSummary(items) + '<div class="empty-state"><h3>No RBI directions match</h3><p>Try a different keyword or adjust the date filter.</p></div>';
             statusEl.textContent = "0 of " + rbiData.directions.length + " directions shown";
             return;
           }
@@ -1582,12 +1600,12 @@
           </article>
         `;
           }).join("");
-          listEl.innerHTML = renderSummary() + cardsHtml;
+          listEl.innerHTML = renderSummary(items) + cardsHtml;
 
         } else if (currentTab === "sebi") {
           const items = filteredSebiItems();
           if (items.length === 0) {
-            listEl.innerHTML = renderSummary() + '<div class="empty-state"><h3>No SEBI regulations match</h3><p>Try a different keyword, adjust the date filter, or click "Show All History".</p></div>';
+            listEl.innerHTML = renderSummary(items) + '<div class="empty-state"><h3>No SEBI regulations match</h3><p>Try a different keyword or adjust the date filter.</p></div>';
             statusEl.textContent = "0 of " + Object.keys(sebiData.regulations).length + " regulations shown";
             return;
           }
@@ -1638,12 +1656,12 @@
           </article>
         `;
           }).join("");
-          listEl.innerHTML = renderSummary() + cardsHtml;
+          listEl.innerHTML = renderSummary(items) + cardsHtml;
 
         } else if (currentTab === "acts") {
           const items = filteredActsItems();
           if (items.length === 0) {
-            listEl.innerHTML = renderSummary() + '<div class="empty-state"><h3>No Acts or Rules match</h3><p>Try searching for a different keyword or resetting the date picker.</p></div>';
+            listEl.innerHTML = renderSummary(items) + '<div class="empty-state"><h3>No Acts or Rules match</h3><p>Try searching for a different keyword or resetting the date picker.</p></div>';
             statusEl.textContent = "0 of " + actsData.acts.length + " items shown";
             return;
           }
@@ -1690,12 +1708,12 @@
           </article>
         `;
           }).join("");
-          listEl.innerHTML = renderSummary() + cardsHtml;
+          listEl.innerHTML = renderSummary(items) + cardsHtml;
 
         } else if (currentTab === "ss") {
           const items = filteredSsItems();
           if (items.length === 0) {
-            listEl.innerHTML = renderSummary() + '<div class="empty-state"><h3>No Secretarial Standards match</h3><p>Try searching for a different keyword or resetting the date picker.</p></div>';
+            listEl.innerHTML = renderSummary(items) + '<div class="empty-state"><h3>No Secretarial Standards match</h3><p>Try searching for a different keyword or resetting the date picker.</p></div>';
             statusEl.textContent = "0 of " + ssData.standards.length + " standards shown";
             return;
           }
@@ -1742,7 +1760,7 @@
           </article>
         `;
           }).join("");
-          listEl.innerHTML = renderSummary() + cardsHtml;
+          listEl.innerHTML = renderSummary(items) + cardsHtml;
         }
       }
 
@@ -1854,37 +1872,64 @@
         render();
       });
 
-      // Timeframe Banner toggle click
-      showAllHistoryBtn.addEventListener("click", () => {
-        filterLast6Months = false;
-        timeframeBanner.style.display = "none";
-        render();
-      });
+
+      // Load Data function (supports silent initial load and visual refresh action)
+      async function loadData(isRefresh = false) {
+        const refreshBtn = document.getElementById("refreshBtn");
+        if (isRefresh && refreshBtn) {
+          refreshBtn.classList.add("spinning");
+          refreshBtn.disabled = true;
+          statusEl.textContent = "Checking for latest updates...";
+        }
+
+        try {
+          // Load RBI Data
+          const rbiRes = await fetch("./data/master-directions.json", { cache: "no-store" });
+          if (rbiRes.ok) rbiData = await rbiRes.json();
+
+          // Load SEBI Data
+          const sebiRes = await fetch("./data/sebi-regulations.json", { cache: "no-store" });
+          if (sebiRes.ok) sebiData = await sebiRes.json();
+
+          // Load Acts Data
+          const actsRes = await fetch("./data/acts-rules.json", { cache: "no-store" });
+          if (actsRes.ok) actsData = await actsRes.json();
+
+          // Load Secretarial Standards Data
+          const ssRes = await fetch("./data/secretarial-standards.json", { cache: "no-store" });
+          if (ssRes.ok) ssData = await ssRes.json();
+
+          if (isRefresh) {
+            // Re-render current view with the new data
+            switchTab(currentTab);
+            statusEl.innerHTML = '<span class="dot" style="color: #6B8F5C">●</span> Data refreshed successfully!';
+            setTimeout(() => {
+              // Restore standard tab item count text in status bar after 3 seconds
+              switchTab(currentTab);
+            }, 3000);
+          } else {
+            switchTab("rbi");
+          }
+        } catch (err) {
+          listEl.innerHTML = '<div class="empty-state"><h3>Register load error</h3><p>Could not initialize compliance data files. Please run <code>npm run fetch</code>.</p></div>';
+          statusEl.textContent = "Failed to load";
+          console.error(err);
+        } finally {
+          if (isRefresh && refreshBtn) {
+            refreshBtn.classList.remove("spinning");
+            refreshBtn.disabled = false;
+          }
+        }
+      }
+
+      // Add refresh button listener
+      const refreshBtn = document.getElementById("refreshBtn");
+      if (refreshBtn) {
+        refreshBtn.addEventListener("click", () => loadData(true));
+      }
 
       // Initial Load
-      try {
-        // Load RBI Data
-        const rbiRes = await fetch("./data/master-directions.json", { cache: "no-store" });
-        if (rbiRes.ok) rbiData = await rbiRes.json();
-
-        // Load SEBI Data
-        const sebiRes = await fetch("./data/sebi-regulations.json", { cache: "no-store" });
-        if (sebiRes.ok) sebiData = await sebiRes.json();
-
-        // Load Acts Data
-        const actsRes = await fetch("./data/acts-rules.json", { cache: "no-store" });
-        if (actsRes.ok) actsData = await actsRes.json();
-
-        // Load Secretarial Standards Data
-        const ssRes = await fetch("./data/secretarial-standards.json", { cache: "no-store" });
-        if (ssRes.ok) ssData = await ssRes.json();
-
-        switchTab("rbi");
-      } catch (err) {
-        listEl.innerHTML = '<div class="empty-state"><h3>Register load error</h3><p>Could not initialize compliance data files. Please run <code>npm run fetch</code>.</p></div>';
-        statusEl.textContent = "Failed to load";
-        console.error(err);
-      }
+      loadData(false);
     })();
   </script>
 
