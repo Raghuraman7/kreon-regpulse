@@ -4,12 +4,15 @@
   "description": "Open-source, single-page register of RBI compliance updates (notifications, circulars) for CS/compliance teams.",
   "type": "module",
   "scripts": {
-    "fetch": "node scripts/fetch-master-directions.mjs",
+    "fetch:rbi": "node scripts/fetch-master-directions.mjs",
+    "fetch:sebi": "node scripts/fetch-sebi-regulations.mjs",
+    "fetch": "npm run fetch:rbi && npm run fetch:sebi",
     "serve": "npx serve .",
-    "start": "node scripts/fetch-master-directions.mjs && npx serve ."
+    "start": "npm run fetch && npx serve ."
   },
   "license": "MIT",
   "dependencies": {
-    "fast-xml-parser": "^5.10.0"
+    "fast-xml-parser": "^5.10.0",
+    "nodemailer": "^9.0.3"
   }
 }

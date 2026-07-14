@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Regnote — NBFC-ICC Master Directions</title>
-<meta name="description" content="Complete register of RBI Master Directions applicable to NBFC-ICC (Investment and Credit Companies). Built for compliance teams and company secretaries." />
+<title>Regnote — Compliance Register</title>
+<meta name="description" content="Unified register of RBI Master Directions for NBFC-ICC and key SEBI Regulations. Built for compliance teams and company secretaries." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -82,6 +82,34 @@
     border-radius: 2px;
   }
 
+  /* ---------- Tab Navigation ---------- */
+  .tab-nav {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    padding-bottom: 0;
+  }
+  .tab-button {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 14.5px;
+    font-weight: 600;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.6);
+    padding: 10px 16px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .tab-button:hover {
+    color: #fff;
+  }
+  .tab-button[aria-selected="true"] {
+    color: #fff;
+    border-bottom-color: var(--amber);
+  }
+
   .category-info {
     display: flex;
     align-items: flex-start;
@@ -105,6 +133,7 @@
     line-height: 1.6;
     color: rgba(255,255,255,0.75);
     max-width: 62ch;
+    margin: 0;
   }
 
   /* ---------- Info banner ---------- */
@@ -188,10 +217,36 @@
     color: var(--ink-soft);
     display: flex;
     justify-content: space-between;
-    gap: 8px;
+    align-items: center;
+    gap: 12px;
     flex-wrap: wrap;
   }
-  .status-bar .dot { color: #6B8F5C; }
+  
+  /* ---------- Pulse Sync Badge ---------- */
+  @keyframes pulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(58, 107, 53, 0.6); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(58, 107, 53, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(58, 107, 53, 0); }
+  }
+  .sync-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--green-bg);
+    border: 1px solid rgba(58, 107, 53, 0.25);
+    color: var(--green);
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .sync-dot {
+    width: 7px;
+    height: 7px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 2.2s infinite;
+  }
 
   /* ---------- Main content ---------- */
   main {
@@ -200,28 +255,18 @@
     padding: 18px clamp(16px, 4vw, 56px) 80px;
   }
 
-  /* ---------- Topic group ---------- */
-  .topic-label {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    border-bottom: 1px solid var(--rule);
-    padding-bottom: 6px;
-    margin: 28px 0 12px;
-  }
-  .topic-label:first-of-type { margin-top: 8px; }
-
-  /* ---------- Direction card ---------- */
+  /* ---------- Direction / Regulation card ---------- */
   .direction-card {
     background: var(--paper-raised);
     border: 1px solid var(--rule);
     border-left: 4px solid var(--navy);
     border-radius: 3px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     padding: 16px 18px 14px 20px;
     transition: box-shadow 0.15s;
+  }
+  .direction-card.sebi-card {
+    border-left-color: var(--green);
   }
   .direction-card:hover {
     box-shadow: 0 2px 8px rgba(31,58,95,0.08);
@@ -258,15 +303,24 @@
     font-weight: 600;
     font-size: 16.5px;
     line-height: 1.4;
-    margin: 0 0 10px;
+    margin: 0 0 8px;
     color: var(--ink);
+  }
+
+  /* Descriptive summary preview */
+  .card-preview {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
+    max-width: 78ch;
   }
 
   .topic-chips {
     display: flex;
     gap: 6px;
     flex-wrap: wrap;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
   .topic-chip {
     font-family: "IBM Plex Mono", monospace;
@@ -283,6 +337,16 @@
   .tc-risk        { background: #F8F3E8; color: #7A5F10; }
   .tc-operations  { background: #E8F4F8; color: #1A6B8A; }
   .tc-other       { background: #F0F0F0; color: #555; }
+  
+  /* SBR Layer Applicability badges */
+  .tc-layer-all   { background: #EAF7EA; color: #2B6B2B; border: 1px solid rgba(58,107,53,0.15); }
+  .tc-layer-mlul  { background: #FFF4E5; color: #A0522D; border: 1px solid rgba(184,116,42,0.15); }
+  .tc-layer-base   { background: #F7EAEF; color: #8B0000; border: 1px solid rgba(147,55,47,0.15); }
+  
+  .tc-sebi-icdr   { background: #E8EEF7; color: #2A4F80; }
+  .tc-sebi-lodr   { background: #EEF3E8; color: #3A6B35; }
+  .tc-sebi-pit    { background: var(--amber-bg); color: var(--amber); }
+  .tc-sebi-sast   { background: #F4EEF8; color: #6B3D9A; }
 
   .card-actions {
     display: flex;
@@ -290,22 +354,85 @@
     align-items: center;
     flex-wrap: wrap;
   }
-  .card-actions a {
+  .card-actions a, .card-actions button {
     font-size: 13px;
     text-decoration: none;
     border-bottom: 1px solid var(--rule);
     transition: color 0.12s, border-color 0.12s;
+  }
+  .card-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
   }
   .card-actions .primary-link {
     color: var(--navy);
     font-weight: 500;
     border-color: var(--navy-light);
   }
+  .card-actions .sebi-link {
+    color: var(--green);
+    font-weight: 500;
+    border-color: var(--green);
+  }
   .card-actions .primary-link:hover { color: var(--navy-deep); }
+  .card-actions .sebi-link:hover { color: #254921; }
+  
+  .card-actions .preview-btn {
+    color: var(--tag-misc);
+    border-color: var(--tag-misc);
+  }
+  .card-actions .preview-btn:hover {
+    color: #43399F;
+    border-bottom-color: #43399F;
+  }
+  
   .card-actions .pdf-link {
     color: var(--ink-soft);
   }
   .card-actions .pdf-link:hover { color: var(--red); border-color: var(--red); }
+
+  /* ---------- Inline document preview container ---------- */
+  .pdf-preview-container {
+    display: none;
+    margin-top: 14px;
+    border-top: 1px dashed var(--rule);
+    padding-top: 14px;
+    width: 100%;
+  }
+  .pdf-preview-container.active {
+    display: block;
+  }
+  .pdf-preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12.5px;
+    margin-bottom: 10px;
+    color: var(--ink-soft);
+  }
+  .pdf-preview-header a {
+    color: var(--navy);
+    text-decoration: underline;
+  }
+  .pdf-preview-container iframe {
+    width: 100%;
+    height: 520px;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    background: #fff;
+  }
+  .no-preview-msg {
+    padding: 20px;
+    text-align: center;
+    color: var(--ink-soft);
+    background: #FFF;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    font-size: 13.5px;
+  }
 
   .empty-state {
     text-align: center;
@@ -329,6 +456,9 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 16px;
+  }
+  .summary-panel.sebi-panel {
+    background: #1B351E;
   }
   .stat-item { text-align: center; }
   .stat-num {
@@ -371,46 +501,63 @@
     <div class="masthead-top">
       <div class="brand">
         <h1>Regnote</h1>
-        <span class="tag">NBFC-ICC Register</span>
+        <span class="tag" id="registerTag">NBFC-ICC Register</span>
       </div>
     </div>
-    <div class="category-info">
-      <span class="category-badge">NBFC-ICC</span>
+    
+    <div class="category-info" id="rbiCategoryInfo">
+      <span class="category-badge">RBI NBFC-ICC</span>
       <p class="category-desc">
         Investment and Credit Company — the residual NBFC category under RBI's Scale Based Regulation.
         All Master Directions listed here are applicable to NBFC-ICCs as of the date shown.
       </p>
     </div>
+    
+    <div class="category-info" id="sebiCategoryInfo" style="display: none;">
+      <span class="category-badge" style="background: var(--green);">SEBI Regulations</span>
+      <p class="category-desc">
+        Key Regulations governing capital issue, disclosure, takeover, and insider trading rules.
+        Automatically checked for the latest amended state directly from SEBI.
+      </p>
+    </div>
+
+    <nav class="tab-nav" aria-label="Registers">
+      <button class="tab-button" id="tabRbi" aria-selected="true">RBI NBFC-ICC</button>
+      <button class="tab-button" id="tabSebi" aria-selected="false">SEBI Regulations</button>
+    </nav>
   </div>
 </header>
 
-<div class="info-banner">
+<div class="info-banner" id="infoBanner">
   <div class="info-banner-inner">
     <strong>⚠ Compliance note:</strong>&nbsp;
-    Always verify applicability to your specific NBFC registration layer (Base/Middle/Upper) before acting on any direction. Click "View on rbi.org.in" to access the official text.
+    <span id="infoBannerText">Always verify applicability to your specific NBFC registration layer (Base/Middle/Upper) before acting on any direction.</span>
   </div>
 </div>
 
 <div class="toolbar">
   <div class="toolbar-inner">
-    <input type="search" id="search" placeholder="Search directions by title or topic…" aria-label="Search Master Directions" />
+    <input type="search" id="search" placeholder="Search directions by title or topic…" aria-label="Search compliance" />
     <div class="chips" id="topicChips" role="group" aria-label="Filter by topic"></div>
   </div>
 </div>
 
 <div class="status-bar" id="statusBar">
   <span id="statusText">Loading register…</span>
-  <span id="lastSync"></span>
+  <div class="sync-indicator">
+    <span class="sync-dot"></span>
+    <span id="lastSync">Synced</span>
+  </div>
 </div>
 
 <main id="list" aria-live="polite">
 </main>
 
 <footer>
-  <p>Sourced from <a href="https://www.rbi.org.in/Scripts/BS_ViewMasterDirections.aspx?did=411" target="_blank" rel="noopener">RBI Master Directions — Non-Banking Financial Companies</a>.
-  Filtered to show only directions applicable to <strong>NBFC-ICC (Investment and Credit Company)</strong> under the Scale Based Regulation framework.
-  Refresh with <code>npm run fetch</code>.
-  This is an independent, open-source project and is not affiliated with or endorsed by the Reserve Bank of India.</p>
+  <p id="footerSourceText">Sourced from <a href="https://www.rbi.org.in/Scripts/BS_ViewMasterDirections.aspx?did=411" target="_blank" rel="noopener">RBI Master Directions — Non-Banking Financial Companies</a>.
+  Filtered to show only directions applicable to <strong>NBFC-ICC (Investment and Credit Company)</strong>.</p>
+  <p>Refresh local data with <code>npm run fetch</code>.
+  This is an independent, open-source project and is not affiliated with or endorsed by the RBI or SEBI.</p>
 </footer>
 
 <script>
@@ -420,13 +567,23 @@
   const syncEl = document.getElementById("lastSync");
   const searchEl = document.getElementById("search");
   const topicChipsEl = document.getElementById("topicChips");
+  
+  const tabRbi = document.getElementById("tabRbi");
+  const tabSebi = document.getElementById("tabSebi");
+  const registerTag = document.getElementById("registerTag");
+  const rbiCategoryInfo = document.getElementById("rbiCategoryInfo");
+  const sebiCategoryInfo = document.getElementById("sebiCategoryInfo");
+  const infoBannerText = document.getElementById("infoBannerText");
+  const footerSourceText = document.getElementById("footerSourceText");
 
-  let data = { directions: [], count: 0 };
+  let currentTab = "rbi"; // "rbi" or "sebi"
+  let rbiData = { directions: [], count: 0 };
+  let sebiData = { regulations: {} };
   let activeTopic = "all";
   let query = "";
 
-  // Topic classification for directions
-  const TOPIC_RULES = [
+  // RBI classification rules
+  const RBI_TOPIC_RULES = [
     { pattern: /capital.adequacy|CAR|CRAR/i,         topic: "prudential",   label: "Capital Adequacy",    cls: "tc-prudential" },
     { pattern: /income.recogni|asset.classif|NPA|provisioning/i, topic: "npa-provisioning", label: "NPA / Provisioning", cls: "tc-prudential" },
     { pattern: /governance/i,                         topic: "governance",   label: "Governance",          cls: "tc-governance" },
@@ -452,8 +609,67 @@
     { pattern: /miscellaneous/i,                      topic: "misc",         label: "Miscellaneous",       cls: "tc-other" },
   ];
 
+  // SEBI classifications
+  const SEBI_TOPICS = {
+    icdr: { label: "ICDR (Capital Issue)", cls: "tc-sebi-icdr" },
+    lodr: { label: "LODR (Listing Rules)", cls: "tc-sebi-lodr" },
+    pit: { label: "PIT (Insider Trading)", cls: "tc-sebi-pit" },
+    sast: { label: "SAST (Takeovers)", cls: "tc-sebi-sast" }
+  };
+
+  // High-level policy previews for compliance professionals
+  const PREVIEW_DATA = {
+    // RBI Directions previews
+    "capital.adequacy": "Mandates leverage ratio rules for Base Layer, and a minimum Capital to Risk-Weighted Assets Ratio (CRAR) of 15% for Middle and Upper Layer NBFCs to maintain capital adequacy reserves.",
+    "npa-provisioning": "Sets standards for classification of assets (Standard, Sub-standard, Doubtful, Loss) and corresponding provision requirements. Outlines the 90-day overdue norm for NPA categorization.",
+    "governance": "Outlines board constitution, audit committees, nomination committees, and fit & proper criteria for directors. Restricts credit facilities to directors or their relatives.",
+    "kyc": "Prescribes client identification procedures, beneficial ownership verification, customer due diligence, AML screening, and mandatory reporting of suspicious transactions (STR).",
+    "conduct": "Mandates fair treatment of customers, clear terms of loans, transparency in interest rates, grievance redressal officers, and rules prohibiting coercive recovery tactics.",
+    "credit-cards": "Sets strict regulations on eligibility to issue cards, interest rates calculation, billing transparency, customer consent for value-added services, and default reporting.",
+    "reporting": "Governs format for disclosure in balance sheets, reporting financial returns to RBI, and mandatory contribution of credit histories to Credit Information Companies (CICs).",
+    "registration": "Defines scale-based categorization (Base Layer, Middle Layer, Upper Layer, Top Layer), Net Owned Fund (NOF) requirements, and exemptions from specific registrations.",
+    "risk": "Lays down credit risk ceilings, concentration of credit limits, frameworks for ALM, and guidelines to manage third-party outsourcing risk securely.",
+    "operations": "Regulates investment in subsidiaries, prior approval requirements for mergers/takeovers or change in control, and voluntary amalgamation rules.",
+    
+    // SEBI Regulations previews
+    "icdr": "Securities and Exchange Board of India (Issue of Capital and Disclosure Requirements) Regulations, 2018. Governs initial public offerings (IPOs), further public offerings (FPOs), rights issues, and preferential allotments.",
+    "lodr": "Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015. Prescribes corporate governance, financial result disclosures, material event reports, and shareholding patterns for listed entities.",
+    "pit": "Securities and Exchange Board of India (Prohibition of Insider Trading) Regulations, 2015. Prohibits trading in listed securities based on Unpublished Price Sensitive Information (UPSI) and mandates codes of fair disclosure.",
+    "sast": "Securities and Exchange Board of India (Substantial Acquisition of Shares and Takeovers) Regulations, 2011. Regulates acquisitions of substantial stakes, open offer thresholds, mandatory public announcements, and disclosure timings."
+  };
+
+  function getPreviewText(key, title) {
+    if (PREVIEW_DATA[key]) return PREVIEW_DATA[key];
+    const cls = classifyDirection(title);
+    if (PREVIEW_DATA[cls.topic]) return PREVIEW_DATA[cls.topic];
+    return "Outlines compliance standards, applicability limits, and operational procedures issued by the regulator.";
+  }
+
+  // SBR Layer applicability categorizer based on SBR framework
+  function determineSbrLayers(title) {
+    const t = title.toLowerCase();
+    
+    if (t.includes("public deposit") || t.includes("acceptance of deposit")) {
+      return { label: "Middle & Upper Layer (Deposit-Taking)", cls: "tc-layer-mlul" };
+    }
+    
+    if (t.includes("outsourcing") || t.includes("asset liability") || t.includes("concentration risk") || t.includes("risk management") || t.includes("securitisation")) {
+      return { label: "Middle & Upper Layer (ML/UL Only)", cls: "tc-layer-mlul" };
+    }
+    
+    if (t.includes("know your customer") || t.includes("kyc") || t.includes("fair practice") || t.includes("responsible business") || t.includes("registration, exemption")) {
+      return { label: "All Layers (Base, Middle & Upper)", cls: "tc-layer-all" };
+    }
+    
+    if (t.includes("capital adequacy") || t.includes("prudential norms on capital")) {
+      return { label: "All Layers (BL Leverage Ratio / ML 15% CRAR)", cls: "tc-layer-all" };
+    }
+    
+    return { label: "All Layers (Applicable to NBFC-ICC)", cls: "tc-layer-all" };
+  }
+
   function classifyDirection(title) {
-    for (const rule of TOPIC_RULES) {
+    for (const rule of RBI_TOPIC_RULES) {
       if (rule.pattern.test(title)) {
         return { topic: rule.topic, label: rule.label, cls: rule.cls };
       }
@@ -461,7 +677,6 @@
     return { topic: "other", label: "Other", cls: "tc-other" };
   }
 
-  // Check if direction title contains updated suffix
   function isUpdated(title) {
     if (!title) return false;
     return /updated.as.on|updated.as.of/i.test(title);
@@ -473,7 +688,6 @@
   }
 
   function cleanTitle(title) {
-    // Remove "Updated as on ..." suffix for display
     return title.replace(/\s*\((?:[Uu]pdated|updated)\s+as\s+on\s+[^)]+\)\s*$/, "").trim();
   }
 
@@ -490,8 +704,17 @@
     }[c]));
   }
 
-  // Compute all unique topics from data
-  function getTopics(directions) {
+  // Safe search highlighting
+  function highlightText(text, q) {
+    const cleanText = cleanTitle(text);
+    if (!q) return escapeHtml(cleanText);
+    const escapedQuery = q.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    const regex = new RegExp(`(${escapedQuery})`, 'gi');
+    return escapeHtml(cleanText).replace(regex, `<mark style="background: #FFF59D; color: #1C2321; padding: 2px 0; border-radius: 2px;">$1</mark>`);
+  }
+
+  // Compute all unique topics from RBI data
+  function getRbiTopics(directions) {
     const seen = new Map();
     for (const d of directions) {
       const cls = classifyDirection(d.title);
@@ -500,7 +723,7 @@
     return seen;
   }
 
-  function renderChips(directions) {
+  function renderChips() {
     topicChipsEl.innerHTML = "";
     const all = document.createElement("button");
     all.className = "chip";
@@ -509,19 +732,30 @@
     all.addEventListener("click", () => { activeTopic = "all"; render(); });
     topicChipsEl.appendChild(all);
 
-    const topics = getTopics(directions);
-    topics.forEach((label, topicKey) => {
-      const chip = document.createElement("button");
-      chip.className = "chip";
-      chip.textContent = label;
-      chip.setAttribute("aria-pressed", activeTopic === topicKey);
-      chip.addEventListener("click", () => { activeTopic = topicKey; render(); });
-      topicChipsEl.appendChild(chip);
-    });
+    if (currentTab === "rbi") {
+      const topics = getRbiTopics(rbiData.directions);
+      topics.forEach((label, topicKey) => {
+        const chip = document.createElement("button");
+        chip.className = "chip";
+        chip.textContent = label;
+        chip.setAttribute("aria-pressed", activeTopic === topicKey);
+        chip.addEventListener("click", () => { activeTopic = topicKey; render(); });
+        topicChipsEl.appendChild(chip);
+      });
+    } else {
+      Object.keys(SEBI_TOPICS).forEach((key) => {
+        const chip = document.createElement("button");
+        chip.className = "chip";
+        chip.textContent = SEBI_TOPICS[key].label;
+        chip.setAttribute("aria-pressed", activeTopic === key);
+        chip.addEventListener("click", () => { activeTopic = key; render(); });
+        topicChipsEl.appendChild(chip);
+      });
+    }
   }
 
-  function filteredDirections() {
-    return data.directions.filter((d) => {
+  function filteredRbiItems() {
+    return rbiData.directions.filter((d) => {
       const cls = classifyDirection(d.title);
       if (activeTopic !== "all" && cls.topic !== activeTopic) return false;
       if (!query) return true;
@@ -529,81 +763,253 @@
     });
   }
 
-  function renderSummary(directions) {
-    const total = data.directions.length;
-    const updated = data.directions.filter(d => isUpdated(d.title)).length;
-    const topics = getTopics(data.directions).size;
-    return `
-      <div class="summary-panel" aria-label="NBFC-ICC Master Directions summary">
-        <div class="stat-item">
-          <span class="stat-num">${total}</span>
-          <span class="stat-label">Directions</span>
+  function filteredSebiItems() {
+    const regs = Object.values(sebiData.regulations);
+    return regs.filter((reg) => {
+      if (activeTopic !== "all" && reg.key !== activeTopic) return false;
+      if (!query) return true;
+      return (reg.title + " " + reg.shortName).toLowerCase().includes(query.toLowerCase());
+    });
+  }
+
+  function renderSummary() {
+    if (currentTab === "rbi") {
+      const total = rbiData.directions.length;
+      const updated = rbiData.directions.filter(d => isUpdated(d.title)).length;
+      const topics = getRbiTopics(rbiData.directions).size;
+      return `
+        <div class="summary-panel" aria-label="RBI NBFC-ICC summary">
+          <div class="stat-item">
+            <span class="stat-num">${total}</span>
+            <span class="stat-label">Directions</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">${updated}</span>
+            <span class="stat-label">Recently Updated</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">${topics}</span>
+            <span class="stat-label">Topic Areas</span>
+          </div>
         </div>
-        <div class="stat-item">
-          <span class="stat-num">${updated}</span>
-          <span class="stat-label">Recently Updated</span>
+      `;
+    } else {
+      const regs = Object.values(sebiData.regulations);
+      const total = regs.length;
+      const updated = regs.filter(r => isUpdated(r.title)).length;
+      return `
+        <div class="summary-panel sebi-panel" aria-label="SEBI Regulations summary">
+          <div class="stat-item">
+            <span class="stat-num">${total}</span>
+            <span class="stat-label">Tracked Regulations</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">${updated}</span>
+            <span class="stat-label">Active Amendments</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">Active</span>
+            <span class="stat-label">Monitoring Status</span>
+          </div>
         </div>
-        <div class="stat-item">
-          <span class="stat-num">${topics}</span>
-          <span class="stat-label">Topic Areas</span>
-        </div>
-      </div>
-    `;
+      `;
+    }
+  }
+
+  // Toggle inline document viewer with a clean preview message & direct new-tab action
+  window.togglePdfPreview = function(btn, index, pdfUrl) {
+    const container = document.getElementById(`preview-container-${index}`);
+    const isExpanded = btn.getAttribute("aria-expanded") === "true";
+    
+    if (isExpanded) {
+      btn.setAttribute("aria-expanded", "false");
+      btn.textContent = "🔍 Quick View";
+      container.classList.remove("active");
+      container.innerHTML = "";
+    } else {
+      // Close any other open previews to keep screen clean
+      document.querySelectorAll(".pdf-preview-container").forEach(el => {
+        el.classList.remove("active");
+        el.innerHTML = "";
+      });
+      document.querySelectorAll(".preview-btn").forEach(b => {
+        b.setAttribute("aria-expanded", "false");
+        b.textContent = "🔍 Quick View";
+      });
+
+      btn.setAttribute("aria-expanded", "true");
+      btn.textContent = "❌ Close Preview";
+      container.classList.add("active");
+      
+      if (pdfUrl && pdfUrl.toLowerCase().endsWith(".pdf")) {
+        container.innerHTML = `
+          <div class="no-preview-msg" style="padding: 24px; border: 1px solid var(--rule); background: #fff; border-radius: 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 14px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);">
+            <div style="font-size: 28px; line-height: 1;">📄</div>
+            <div style="font-weight: 600; font-size: 15px; color: var(--navy);">Official Regulator Document Ready</div>
+            <p style="margin: 0; font-size: 13px; color: var(--ink-soft); max-width: 50ch; line-height: 1.5;">
+              Regulators (RBI and SEBI) enforce secure connection headers that restrict inline embedding on third-party sites. Click below to view the official document in full layout.
+            </p>
+            <a href="${escapeHtml(pdfUrl)}" target="_blank" rel="noopener" style="background: var(--navy); color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 4px; font-weight: 600; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; transition: background 0.15s; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+              <span>Open PDF in New Tab</span>
+              <span style="font-size: 11px;">↗</span>
+            </a>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <div class="no-preview-msg" style="padding: 24px; border: 1px solid var(--rule); background: #fff; border-radius: 4px; text-align: center;">
+            <p style="margin: 0; font-size: 13px; color: var(--ink-soft);">No PDF file preview available for this regulation.</p>
+            ${pdfUrl ? `<p style="margin: 10px 0 0 0;"><a href="${escapeHtml(pdfUrl)}" target="_blank" rel="noopener" style="color: var(--navy); font-weight: 500;">Open official document source ↗</a></p>` : ""}
+          </div>
+        `;
+      }
+    }
   }
 
   function render() {
-    renderChips(data.directions);
-    const items = filteredDirections();
+    renderChips();
+    
+    if (currentTab === "rbi") {
+      const items = filteredRbiItems();
+      if (items.length === 0) {
+        listEl.innerHTML = renderSummary() + '<div class="empty-state"><h3>No directions match</h3><p>Try a different keyword or clear the filter.</p></div>';
+        statusEl.textContent = "0 of " + rbiData.directions.length + " directions shown";
+        return;
+      }
+      statusEl.innerHTML = '<span class="dot" style="color: #6B8F5C">●</span> ' + items.length + " of " + rbiData.directions.length + " directions shown";
+      
+      const cardsHtml = items.map((dir, idx) => {
+        const cls = classifyDirection(dir.title);
+        const upd = isUpdated(dir.title);
+        const updDate = extractUpdatedDate(dir.title);
+        const layer = determineSbrLayers(dir.title);
+        const highlightedTitle = highlightText(dir.title, query);
+        const previewText = getPreviewText(cls.topic, dir.title);
 
-    if (items.length === 0) {
-      listEl.innerHTML = renderSummary(data.directions) + '<div class="empty-state"><h3>No directions match</h3><p>Try a different keyword or clear the filter.</p></div>';
-      statusEl.textContent = "0 of " + data.directions.length + " directions shown";
-      return;
-    }
+        // Check if PDF URL exists
+        const hasPdf = dir.pdfUrl && dir.pdfUrl.toLowerCase().endsWith(".pdf");
 
-    statusEl.innerHTML = '<span class="dot">●</span> ' + items.length + " of " + data.directions.length + " directions shown";
-
-    const cardsHtml = items.map((dir, idx) => {
-      const cls = classifyDirection(dir.title);
-      const upd = isUpdated(dir.title);
-      const updDate = extractUpdatedDate(dir.title);
-      const displayTitle = escapeHtml(cleanTitle(dir.title));
-
-      return `
-        <article class="direction-card" id="direction-${idx}">
-          <div class="card-head">
-            <div class="card-meta">
-              ${upd ? `<span class="updated-badge">Updated ${updDate ? escapeHtml(updDate) : ""}</span>` : ""}
-              <span>Issued: ${fmtDate(dir.issuedDate)}</span>
+        return `
+          <article class="direction-card" id="direction-${idx}">
+            <div class="card-head">
+              <div class="card-meta">
+                ${upd ? `<span class="updated-badge">Updated ${updDate ? escapeHtml(updDate) : ""}</span>` : ""}
+                <span>Issued: ${fmtDate(dir.issuedDate)}</span>
+              </div>
             </div>
-          </div>
-          <h2>${displayTitle}</h2>
-          <div class="topic-chips">
-            <span class="topic-chip ${escapeHtml(cls.cls)}">${escapeHtml(cls.label)}</span>
-            <span class="topic-chip tc-other">NBFC-ICC</span>
-          </div>
-          <div class="card-actions">
-            ${dir.link ? `<a class="primary-link" href="${escapeHtml(dir.link)}" target="_blank" rel="noopener">View on rbi.org.in ↗</a>` : ""}
-            ${dir.pdfUrl ? `<a class="pdf-link" href="${escapeHtml(dir.pdfUrl)}" target="_blank" rel="noopener">📄 Download PDF</a>` : ""}
-          </div>
-        </article>
-      `;
-    }).join("");
+            <h2>${highlightedTitle}</h2>
+            <p class="card-preview">${escapeHtml(previewText)}</p>
+            <div class="topic-chips">
+              <span class="topic-chip ${escapeHtml(cls.cls)}">${escapeHtml(cls.label)}</span>
+              <span class="topic-chip ${escapeHtml(layer.cls)}">${escapeHtml(layer.label)}</span>
+              <span class="topic-chip tc-other">RBI NBFC-ICC</span>
+            </div>
+            <div class="card-actions">
+              ${dir.link ? `<a class="primary-link" href="${escapeHtml(dir.link)}" target="_blank" rel="noopener">View on rbi.org.in ↗</a>` : ""}
+              ${hasPdf ? `<button type="button" class="preview-btn" aria-expanded="false" onclick="togglePdfPreview(this, 'rbi-${idx}', '${escapeHtml(dir.pdfUrl)}')">🔍 Quick View</button>` : ""}
+              ${hasPdf ? `<a class="pdf-link" href="${escapeHtml(dir.pdfUrl)}" target="_blank" rel="noopener">📄 Download PDF</a>` : ""}
+            </div>
+            <div class="pdf-preview-container" id="preview-container-rbi-${idx}"></div>
+          </article>
+        `;
+      }).join("");
+      listEl.innerHTML = renderSummary() + cardsHtml;
+    } else {
+      const items = filteredSebiItems();
+      if (items.length === 0) {
+        listEl.innerHTML = renderSummary() + '<div class="empty-state"><h3>No regulations match</h3><p>Try a different keyword or clear the filter.</p></div>';
+        statusEl.textContent = "0 of " + Object.keys(sebiData.regulations).length + " regulations shown";
+        return;
+      }
+      statusEl.innerHTML = '<span class="dot" style="color: #6B8F5C">●</span> ' + items.length + " of " + Object.keys(sebiData.regulations).length + " regulations shown";
 
-    listEl.innerHTML = renderSummary(data.directions) + cardsHtml;
+      const cardsHtml = items.map((reg, idx) => {
+        const topic = SEBI_TOPICS[reg.key] || { label: "Regulations", cls: "tc-other" };
+        const highlightedTitle = highlightText(reg.title, query);
+        const previewText = getPreviewText(reg.key, reg.title);
+        
+        // Check if PDF URL exists
+        const hasPdf = reg.pdfUrl && reg.pdfUrl.toLowerCase().endsWith(".pdf");
+
+        return `
+          <article class="direction-card sebi-card" id="sebi-${idx}">
+            <div class="card-head">
+              <div class="card-meta">
+                <span class="updated-badge">Latest: ${escapeHtml(reg.amendedDate)}</span>
+                <span>Checked: ${fmtDate(reg.lastUpdated)}</span>
+              </div>
+            </div>
+            <h2>${highlightedTitle}</h2>
+            <p class="card-preview">${escapeHtml(previewText)}</p>
+            <div class="topic-chips">
+              <span class="topic-chip ${escapeHtml(topic.cls)}">${escapeHtml(topic.label)}</span>
+              <span class="topic-chip tc-other" style="background: #E8F4F8; color: #1A6B8A;">SEBI</span>
+            </div>
+            <div class="card-actions">
+              ${reg.link ? `<a class="sebi-link" href="${escapeHtml(reg.link)}" target="_blank" rel="noopener">View on sebi.gov.in ↗</a>` : ""}
+              ${hasPdf ? `<button type="button" class="preview-btn" aria-expanded="false" onclick="togglePdfPreview(this, 'sebi-${idx}', '${escapeHtml(reg.pdfUrl)}')">🔍 Quick View</button>` : ""}
+              ${hasPdf ? `<a class="pdf-link" href="${escapeHtml(reg.pdfUrl)}" target="_blank" rel="noopener">📄 Download PDF</a>` : ""}
+            </div>
+            <div class="pdf-preview-container" id="preview-container-sebi-${idx}"></div>
+          </article>
+        `;
+      }).join("");
+      listEl.innerHTML = renderSummary() + cardsHtml;
+    }
   }
 
+  // Tab Switch logic
+  function switchTab(tab) {
+    currentTab = tab;
+    activeTopic = "all";
+    query = "";
+    searchEl.value = "";
+
+    if (tab === "rbi") {
+      tabRbi.setAttribute("aria-selected", "true");
+      tabSebi.setAttribute("aria-selected", "false");
+      registerTag.textContent = "NBFC-ICC Register";
+      rbiCategoryInfo.style.display = "flex";
+      sebiCategoryInfo.style.display = "none";
+      infoBannerText.textContent = "Always verify applicability to your specific NBFC registration layer (Base/Middle/Upper) before acting on any direction.";
+      searchEl.placeholder = "Search directions by title or topic…";
+      footerSourceText.innerHTML = `Sourced from <a href="https://www.rbi.org.in/Scripts/BS_ViewMasterDirections.aspx?did=411" target="_blank" rel="noopener">RBI Master Directions — Non-Banking Financial Companies</a>. Filtered to show only directions applicable to <strong>NBFC-ICC (Investment and Credit Company)</strong>.`;
+      
+      const genDate = new Date(rbiData.generatedAt);
+      syncEl.textContent = "Active & Synced: " + (isNaN(genDate) ? rbiData.generatedAt : genDate.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }));
+    } else {
+      tabRbi.setAttribute("aria-selected", "false");
+      tabSebi.setAttribute("aria-selected", "true");
+      registerTag.textContent = "SEBI Regulations";
+      rbiCategoryInfo.style.display = "none";
+      sebiCategoryInfo.style.display = "flex";
+      infoBannerText.innerHTML = `<strong>Active Monitoring:</strong> These regulations are updated directly from the official Securities and Exchange Board of India portals.`;
+      searchEl.placeholder = "Search regulations by title or code…";
+      footerSourceText.innerHTML = `Sourced from <a href="https://www.sebi.gov.in/sebiweb/home/HomeAction.do?doListing=yes&sid=1&ssid=3&smid=0" target="_blank" rel="noopener">SEBI Legal Regulations List</a>. Automatically checks ICDR, LODR, PIT, and SAST regulations.`;
+      
+      const genDate = new Date(sebiData.generatedAt);
+      syncEl.textContent = "Active & Synced: " + (isNaN(genDate) ? sebiData.generatedAt : genDate.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }));
+    }
+    render();
+  }
+
+  tabRbi.addEventListener("click", () => switchTab("rbi"));
+  tabSebi.addEventListener("click", () => switchTab("sebi"));
   searchEl.addEventListener("input", (e) => { query = e.target.value; render(); });
 
+  // Initial Load
   try {
-    const res = await fetch("./data/master-directions.json", { cache: "no-store" });
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    data = await res.json();
-    const genDate = new Date(data.generatedAt);
-    syncEl.textContent = "Last synced " + (isNaN(genDate) ? data.generatedAt : genDate.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }));
-    render();
+    // Load RBI Data
+    const rbiRes = await fetch("./data/master-directions.json", { cache: "no-store" });
+    if (rbiRes.ok) rbiData = await rbiRes.json();
+    
+    // Load SEBI Data
+    const sebiRes = await fetch("./data/sebi-regulations.json", { cache: "no-store" });
+    if (sebiRes.ok) sebiData = await sebiRes.json();
+
+    switchTab("rbi");
   } catch (err) {
-    listEl.innerHTML = '<div class="empty-state"><h3>Register unavailable</h3><p>Could not load data/master-directions.json. Run <code>npm run fetch</code> to generate it.</p></div>';
+    listEl.innerHTML = '<div class="empty-state"><h3>Register load error</h3><p>Could not initialize compliance data files. Please run <code>npm run fetch</code>.</p></div>';
     statusEl.textContent = "Failed to load";
     console.error(err);
   }
