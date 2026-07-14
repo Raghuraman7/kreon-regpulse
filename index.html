@@ -1,658 +1,854 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Kreon RegPulse</title>
-<link rel="icon" type="image/png" href="./kreon-logo.png" />
-<meta name="description" content="Unified register of RBI Master Directions, SEBI Regulations, Acts & Rules, and Secretarial Standards for corporate compliance." />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --paper: #EDEEE7;
-    --paper-raised: #F7F7F2;
-    --ink: #1C2321;
-    --ink-soft: #565F5C;
-    --rule: #C9CBC0;
-    --navy: #1F3A5F;
-    --navy-deep: #14263D;
-    --navy-light: #2A4F80;
-    --amber: #B8742A;
-    --amber-bg: #F3E4CE;
-    --red: #93372F;
-    --green: #3A6B35;
-    --green-bg: #DFF0DC;
-    --focus: #1F3A5F;
-    --tag-misc: #5A4FCF;
-    --tag-misc-bg: #EDEAFF;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kreon RegPulse</title>
+  <link rel="icon" type="image/png" href="./kreon-logo.png" />
+  <meta name="description"
+    content="Unified register of RBI Master Directions, SEBI Regulations, Acts & Rules, and Secretarial Standards for corporate compliance." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --paper: #EDEEE7;
+      --paper-raised: #F7F7F2;
+      --ink: #1C2321;
+      --ink-soft: #565F5C;
+      --rule: #C9CBC0;
+      --navy: #1F3A5F;
+      --navy-deep: #14263D;
+      --navy-light: #2A4F80;
+      --amber: #B8742A;
+      --amber-bg: #F3E4CE;
+      --red: #93372F;
+      --green: #3A6B35;
+      --green-bg: #DFF0DC;
+      --focus: #1F3A5F;
+      --tag-misc: #5A4FCF;
+      --tag-misc-bg: #EDEAFF;
+    }
 
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+    }
 
-  body {
-    margin: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: "IBM Plex Sans", system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
+    html {
+      scroll-behavior: smooth;
+    }
 
-  a { color: inherit; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
 
-  /* ---------- Masthead ---------- */
-  .masthead {
-    background: var(--navy-deep);
-    color: #fff;
-    padding: 32px clamp(16px, 4vw, 56px) 28px;
-  }
-  .masthead-inner {
-    max-width: 960px;
-    margin: 0 auto;
-  }
-  .masthead-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-  }
-  .brand {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-  }
-  .brand h1 {
-    font-family: "Source Serif 4", serif;
-    font-weight: 700;
-    font-size: clamp(26px, 3.5vw, 36px);
-    margin: 0;
-    letter-spacing: -0.01em;
-    color: #fff;
-  }
+    a {
+      color: inherit;
+    }
 
-  /* ---------- Tab Navigation ---------- */
-  .tab-nav {
-    display: flex;
-    gap: 8px;
-    margin-top: 24px;
-    border-bottom: 1px solid rgba(255,255,255,0.15);
-    padding-bottom: 0;
-    overflow-x: auto;
-    scrollbar-width: none; /* Firefox */
-  }
-  .tab-nav::-webkit-scrollbar { display: none; /* Safari/Chrome */ }
-  
-  .tab-button {
-    font-family: "IBM Plex Sans", sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    background: none;
-    border: none;
-    color: rgba(255,255,255,0.6);
-    padding: 10px 14px;
-    cursor: pointer;
-    border-bottom: 3px solid transparent;
-    transition: color 0.15s, border-color 0.15s;
-    white-space: nowrap;
-  }
-  .tab-button:hover {
-    color: #fff;
-  }
-  .tab-button[aria-selected="true"] {
-    color: #fff;
-    border-bottom-color: var(--amber);
-  }
+    /* ---------- Masthead ---------- */
+    .masthead {
+      background: var(--navy-deep);
+      color: #fff;
+      padding: 32px clamp(16px, 4vw, 56px) 28px;
+    }
 
-  .category-info {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .category-badge {
-    background: var(--amber);
-    color: #fff;
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    padding: 6px 14px;
-    border-radius: 3px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .category-desc {
-    font-size: 14px;
-    line-height: 1.6;
-    color: rgba(255,255,255,0.75);
-    max-width: 62ch;
-    margin: 0;
-  }
+    .masthead-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
 
-  /* ---------- Info banner ---------- */
-  .info-banner {
-    background: var(--amber-bg);
-    border-bottom: 2px solid var(--amber);
-    padding: 12px clamp(16px, 4vw, 56px);
-  }
-  .info-banner-inner {
-    max-width: 960px;
-    margin: 0 auto;
-    font-size: 13px;
-    color: var(--amber);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .info-banner-inner strong { font-weight: 600; }
+    .masthead-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
 
-  /* ---------- Toolbar ---------- */
-  .toolbar {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: var(--paper);
-    border-bottom: 1px solid var(--rule);
-    padding: 14px clamp(16px, 4vw, 56px);
-  }
-  .toolbar-inner {
-    max-width: 960px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    flex-wrap: wrap;
-  }
-  .toolbar input[type="search"] {
-    flex: 1 1 240px;
-    min-width: 0;
-    padding: 9px 12px;
-    border: 1px solid var(--rule);
-    background: var(--paper-raised);
-    border-radius: 3px;
-    font-family: "IBM Plex Sans", sans-serif;
-    font-size: 14px;
-    color: var(--ink);
-  }
-  
-  /* Date Filter Bar */
-  .date-filter-bar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    width: 100%;
-    margin-top: 10px;
-    padding: 10px 12px;
-    background: var(--paper-raised);
-    border: 1px solid var(--rule);
-    border-radius: 4px;
-  }
-  .date-filter-bar label {
-    font-size: 11.5px;
-    color: var(--ink-soft);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    white-space: nowrap;
-  }
-  .date-filter-bar select,
-  .date-filter-bar input[type="date"] {
-    padding: 6px 10px;
-    border: 1px solid var(--rule);
-    background: #fff;
-    border-radius: 3px;
-    font-family: inherit;
-    font-size: 13px;
-    color: var(--ink);
-    cursor: pointer;
-  }
-  .date-filter-bar select:focus,
-  .date-filter-bar input[type="date"]:focus {
-    outline: 2px solid var(--navy);
-    outline-offset: 1px;
-  }
-  .filter-sep {
-    color: var(--rule);
-    font-size: 18px;
-    line-height: 1;
-    padding: 0 2px;
-  }
-  .filter-group {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-  .filter-group + .filter-group {
-    border-left: 1px solid var(--rule);
-    padding-left: 12px;
-    margin-left: 4px;
-  }
-  .clear-all-filters-btn {
-    margin-left: auto;
-    background: none;
-    border: 1px solid var(--red);
-    color: var(--red);
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 3px;
-    transition: background 0.12s, color 0.12s;
-    white-space: nowrap;
-  }
-  .clear-all-filters-btn:hover {
-    background: var(--red);
-    color: #fff;
-  }
-  .filter-active-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--navy);
-    color: #fff;
-    font-size: 11.5px;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 999px;
-  }
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
 
-  .chips { display: flex; gap: 8px; flex-wrap: wrap; width: 100%; margin-top: 10px; }
-  .chip {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 12px;
-    padding: 5px 10px;
-    border: 1px solid var(--rule);
-    border-radius: 999px;
-    background: var(--paper-raised);
-    color: var(--ink-soft);
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.12s, color 0.12s, border-color 0.12s;
-  }
-  .chip[aria-pressed="true"] {
-    background: var(--navy);
-    border-color: var(--navy);
-    color: #fff;
-  }
-  .chip:hover:not([aria-pressed="true"]) {
-    background: #E4E5DE;
-  }
+    .brand h1 {
+      font-family: "Source Serif 4", serif;
+      font-weight: 700;
+      font-size: clamp(26px, 3.5vw, 36px);
+      margin: 0;
+      letter-spacing: -0.01em;
+      color: #fff;
+    }
 
-  /* ---------- Timeframe Banner ---------- */
-  .timeframe-banner {
-    background: rgba(31, 58, 95, 0.05);
-    border: 1px solid rgba(31, 58, 95, 0.15);
-    color: var(--navy-deep);
-    padding: 10px 14px;
-    border-radius: 3px;
-    font-size: 13px;
-    margin-bottom: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  .timeframe-banner span strong {
-    font-weight: 600;
-  }
-  .show-history-btn {
-    background: var(--navy);
-    color: #fff;
-    border: none;
-    padding: 5px 12px;
-    border-radius: 3px;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.15s;
-  }
-  .show-history-btn:hover { background: var(--navy-light); }
+    /* ---------- Tab Navigation ---------- */
+    .tab-nav {
+      display: flex;
+      gap: 8px;
+      margin-top: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      /* Firefox */
+    }
 
-  /* ---------- Status ---------- */
-  .status-bar {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 10px clamp(16px, 4vw, 56px) 0;
-    font-size: 12.5px;
-    color: var(--ink-soft);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  
-  /* ---------- Pulse Sync Badge ---------- */
-  @keyframes pulse {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(58, 107, 53, 0.6); }
-    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(58, 107, 53, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(58, 107, 53, 0); }
-  }
-  .sync-indicator {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--green-bg);
-    border: 1px solid rgba(58, 107, 53, 0.25);
-    color: var(--green);
-    padding: 4px 12px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 500;
-  }
-  .sync-dot {
-    width: 7px;
-    height: 7px;
-    background: var(--green);
-    border-radius: 50%;
-    animation: pulse 2.2s infinite;
-  }
+    .tab-nav::-webkit-scrollbar {
+      display: none;
+      /* Safari/Chrome */
+    }
 
-  /* ---------- Main content ---------- */
-  main {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 18px clamp(16px, 4vw, 56px) 80px;
-  }
+    .tab-button {
+      font-family: "IBM Plex Sans", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      padding: 10px 14px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
 
-  /* ---------- Direction / Regulation card ---------- */
-  .direction-card {
-    background: var(--paper-raised);
-    border: 1px solid var(--rule);
-    border-left: 4px solid var(--navy);
-    border-radius: 3px;
-    margin-bottom: 12px;
-    padding: 18px 20px 16px 20px;
-    transition: box-shadow 0.15s;
-  }
-  .direction-card.sebi-card { border-left-color: var(--green); }
-  .direction-card.act-card { border-left-color: var(--tag-misc); }
-  .direction-card.ss-card { border-left-color: var(--amber); }
+    .tab-button:hover {
+      color: #fff;
+    }
 
-  .direction-card:hover {
-    box-shadow: 0 2px 8px rgba(31,58,95,0.08);
-  }
+    .tab-button[aria-selected="true"] {
+      color: #fff;
+      border-bottom-color: var(--amber);
+    }
 
-  .card-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 6px;
-  }
-  .card-meta {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 11.5px;
-    color: var(--ink-soft);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .updated-badge {
-    background: var(--green-bg);
-    color: var(--green);
-    padding: 2px 7px;
-    border-radius: 2px;
-    font-weight: 500;
-    font-size: 11px;
-  }
+    .category-info {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
 
-  .direction-card h2 {
-    font-family: "Source Serif 4", serif;
-    font-weight: 600;
-    font-size: 16.5px;
-    line-height: 1.4;
-    margin: 0 0 8px;
-    color: var(--ink);
-  }
+    .category-badge {
+      background: var(--amber);
+      color: #fff;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 6px 14px;
+      border-radius: 3px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
 
-  /* Descriptive summary preview */
-  .card-preview {
-    font-size: 13.5px;
-    line-height: 1.55;
-    color: var(--ink-soft);
-    margin-bottom: 12px;
-    max-width: 78ch;
-  }
+    .category-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.75);
+      max-width: 62ch;
+      margin: 0;
+    }
 
-  /* ---------- Amendment / Update block ---------- */
-  .amendment-summary-block {
-    background: rgba(31, 58, 95, 0.04);
-    border: 1px solid rgba(31, 58, 95, 0.09);
-    border-radius: 3px;
-    padding: 10px 14px;
-    margin-bottom: 14px;
-    font-size: 13px;
-    line-height: 1.55;
-    color: var(--ink);
-  }
-  .amendment-summary-block strong {
-    display: block;
-    color: var(--navy-deep);
-    font-size: 10.5px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 4px;
-  }
+    /* ---------- Info banner ---------- */
+    .info-banner {
+      background: var(--amber-bg);
+      border-bottom: 2px solid var(--amber);
+      padding: 12px clamp(16px, 4vw, 56px);
+    }
 
-  /* ---------- Gist Panel ---------- */
-  .gist-panel {
-    background: #fff;
-    border: 1px solid var(--rule);
-    border-radius: 4px;
-    padding: 14px 16px;
-    margin-top: 12px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
-  }
+    .info-banner-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      font-size: 13px;
+      color: var(--amber);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-  .topic-chips {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-bottom: 14px;
-  }
-  .topic-chip {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 2px;
-    letter-spacing: 0.03em;
-  }
-  .tc-prudential { background: #E8EEF7; color: #2A4F80; }
-  .tc-governance  { background: #EEF3E8; color: #3A6B35; }
-  .tc-conduct     { background: var(--amber-bg); color: var(--amber); }
-  .tc-reporting   { background: #F4EEF8; color: #6B3D9A; }
-  .tc-registration{ background: #F8EEE8; color: #8B4513; }
-  .tc-risk        { background: #F8F3E8; color: #7A5F10; }
-  .tc-operations  { background: #E8F4F8; color: #1A6B8A; }
-  .tc-other       { background: #F0F0F0; color: #555; }
-  
-  .tc-layer-all   { background: #EAF7EA; color: #2B6B2B; border: 1px solid rgba(58,107,53,0.15); }
-  .tc-layer-mlul  { background: #FFF4E5; color: #A0522D; border: 1px solid rgba(184,116,42,0.15); }
-  
-  .tc-sebi-icdr   { background: #E8EEF7; color: #2A4F80; }
-  .tc-sebi-lodr   { background: #EEF3E8; color: #3A6B35; }
-  .tc-sebi-pit    { background: var(--amber-bg); color: var(--amber); }
-  .tc-sebi-sast   { background: #F4EEF8; color: #6B3D9A; }
+    .info-banner-inner strong {
+      font-weight: 600;
+    }
 
-  .card-actions {
-    display: flex;
-    gap: 14px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  .card-actions a, .card-actions button {
-    font-size: 13px;
-    text-decoration: none;
-    border-bottom: 1px solid var(--rule);
-    transition: color 0.12s, border-color 0.12s;
-  }
-  .card-actions button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-family: inherit;
-    padding: 0;
-  }
-  .card-actions .primary-link {
-    color: var(--navy);
-    font-weight: 600;
-    border-color: var(--navy-light);
-  }
-  .card-actions .sebi-link {
-    color: var(--green);
-    font-weight: 600;
-    border-color: var(--green);
-  }
-  .card-actions .primary-link:hover { color: var(--navy-deep); border-bottom-color: var(--navy-deep); }
-  .card-actions .sebi-link:hover { color: #254921; border-bottom-color: #254921; }
-  
-  .card-actions .pdf-link {
-    color: var(--red);
-    font-weight: 600;
-    border-color: var(--red);
-  }
-  .card-actions .pdf-link:hover { color: #7B2A22; border-bottom-color: #7B2A22; }
+    /* ---------- Toolbar ---------- */
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--paper);
+      border-bottom: 1px solid var(--rule);
+      padding: 14px clamp(16px, 4vw, 56px);
+    }
 
-  .card-actions .preview-btn {
-    color: var(--tag-misc);
-    font-weight: 600;
-    border-color: var(--tag-misc);
-  }
-  .card-actions .preview-btn:hover {
-    color: #43399F;
-    border-bottom-color: #43399F;
-  }
+    .toolbar-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
 
-  .empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--ink-soft);
-  }
-  .empty-state h3 {
-    font-family: "Source Serif 4", serif;
-    font-size: 20px;
-    color: var(--ink);
-    margin-bottom: 6px;
-  }
+    .toolbar input[type="search"] {
+      flex: 1 1 240px;
+      min-width: 0;
+      padding: 9px 12px;
+      border: 1px solid var(--rule);
+      background: var(--paper-raised);
+      border-radius: 3px;
+      font-family: "IBM Plex Sans", sans-serif;
+      font-size: 14px;
+      color: var(--ink);
+    }
 
-  /* ---------- Summary panel ---------- */
-  .summary-panel {
-    background: var(--navy-deep);
-    color: #fff;
-    border-radius: 4px;
-    padding: 20px 22px;
-    margin-bottom: 24px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 16px;
-  }
-  .summary-panel.sebi-panel { background: #1B351E; }
-  .summary-panel.acts-panel { background: #2A1F45; }
-  .summary-panel.ss-panel { background: #5F3D1F; }
-  .stat-item { text-align: center; }
-  .stat-num {
-    font-family: "Source Serif 4", serif;
-    font-size: 32px;
-    font-weight: 700;
-    color: #fff;
-    line-height: 1;
-    display: block;
-  }
-  .stat-label {
-    font-size: 11.5px;
-    color: rgba(255,255,255,0.6);
-    font-family: "IBM Plex Mono", monospace;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-top: 4px;
-    display: block;
-  }
+    /* Filter Row */
+    .filter-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      width: 100%;
+      margin-top: 10px;
+    }
 
-  footer {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 clamp(16px, 4vw, 56px) 60px;
-    font-size: 12.5px;
-    color: var(--ink-soft);
-    line-height: 1.6;
-  }
-  footer a { color: var(--navy); }
-</style>
+    .filter-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+      margin-right: 2px;
+    }
+
+    .filter-select {
+      padding: 6px 10px;
+      border: 1px solid var(--rule);
+      background: var(--paper-raised);
+      border-radius: 20px;
+      font-family: inherit;
+      font-size: 13px;
+      color: var(--ink);
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23565F5C'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      padding-right: 28px;
+      transition: border-color 0.15s, background-color 0.15s;
+    }
+
+    .filter-select:focus {
+      outline: 2px solid var(--navy);
+      outline-offset: 1px;
+      border-color: var(--navy);
+    }
+
+    .filter-select.active {
+      border-color: var(--navy);
+      background-color: #E8EEF7;
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    .filter-date {
+      padding: 6px 10px;
+      border: 1px solid var(--rule);
+      background: var(--paper-raised);
+      border-radius: 20px;
+      font-family: inherit;
+      font-size: 13px;
+      color: var(--ink);
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+
+    .filter-date:focus {
+      outline: 2px solid var(--navy);
+      border-color: var(--navy);
+      outline-offset: 1px;
+    }
+
+    .filter-date.active {
+      border-color: var(--navy);
+      background: #E8EEF7;
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    .filter-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--rule);
+      flex-shrink: 0;
+    }
+
+    .filter-range-sep {
+      font-size: 13px;
+      color: var(--ink-soft);
+    }
+
+    .clear-filters-btn {
+      margin-left: auto;
+      display: none;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: 1px solid var(--red);
+      color: var(--red);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: inherit;
+      padding: 5px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+      transition: background 0.12s, color 0.12s;
+    }
+
+    .clear-filters-btn:hover {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .chip {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      padding: 5px 10px;
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      background: var(--paper-raised);
+      color: var(--ink-soft);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.12s, color 0.12s, border-color 0.12s;
+    }
+
+    .chip[aria-pressed="true"] {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: #fff;
+    }
+
+    .chip:hover:not([aria-pressed="true"]) {
+      background: #E4E5DE;
+    }
+
+    /* ---------- Timeframe Banner ---------- */
+    .timeframe-banner {
+      background: rgba(31, 58, 95, 0.05);
+      border: 1px solid rgba(31, 58, 95, 0.15);
+      color: var(--navy-deep);
+      padding: 10px 14px;
+      border-radius: 3px;
+      font-size: 13px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .timeframe-banner span strong {
+      font-weight: 600;
+    }
+
+    .show-history-btn {
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .show-history-btn:hover {
+      background: var(--navy-light);
+    }
+
+    /* ---------- Status ---------- */
+    .status-bar {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 10px clamp(16px, 4vw, 56px) 0;
+      font-size: 12.5px;
+      color: var(--ink-soft);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* ---------- Pulse Sync Badge ---------- */
+    @keyframes pulse {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(58, 107, 53, 0.6);
+      }
+
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 6px rgba(58, 107, 53, 0);
+      }
+
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(58, 107, 53, 0);
+      }
+    }
+
+    .sync-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green-bg);
+      border: 1px solid rgba(58, 107, 53, 0.25);
+      color: var(--green);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .sync-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2.2s infinite;
+    }
+
+    /* ---------- Main content ---------- */
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 18px clamp(16px, 4vw, 56px) 80px;
+    }
+
+    /* ---------- Direction / Regulation card ---------- */
+    .direction-card {
+      background: var(--paper-raised);
+      border: 1px solid var(--rule);
+      border-left: 4px solid var(--navy);
+      border-radius: 3px;
+      margin-bottom: 12px;
+      padding: 18px 20px 16px 20px;
+      transition: box-shadow 0.15s;
+    }
+
+    .direction-card.sebi-card {
+      border-left-color: var(--green);
+    }
+
+    .direction-card.act-card {
+      border-left-color: var(--tag-misc);
+    }
+
+    .direction-card.ss-card {
+      border-left-color: var(--amber);
+    }
+
+    .direction-card:hover {
+      box-shadow: 0 2px 8px rgba(31, 58, 95, 0.08);
+    }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .card-meta {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11.5px;
+      color: var(--ink-soft);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .updated-badge {
+      background: var(--green-bg);
+      color: var(--green);
+      padding: 2px 7px;
+      border-radius: 2px;
+      font-weight: 500;
+      font-size: 11px;
+    }
+
+    .direction-card h2 {
+      font-family: "Source Serif 4", serif;
+      font-weight: 600;
+      font-size: 16.5px;
+      line-height: 1.4;
+      margin: 0 0 8px;
+      color: var(--ink);
+    }
+
+    /* Descriptive summary preview */
+    .card-preview {
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      margin-bottom: 12px;
+      max-width: 78ch;
+    }
+
+    /* ---------- Amendment / Update block ---------- */
+    .amendment-summary-block {
+      background: rgba(31, 58, 95, 0.04);
+      border: 1px solid rgba(31, 58, 95, 0.09);
+      border-radius: 3px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--ink);
+    }
+
+    .amendment-summary-block strong {
+      display: block;
+      color: var(--navy-deep);
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    /* ---------- Gist Panel ---------- */
+    .gist-panel {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: 14px 16px;
+      margin-top: 12px;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .topic-chip {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 2px;
+      letter-spacing: 0.03em;
+    }
+
+    .tc-prudential {
+      background: #E8EEF7;
+      color: #2A4F80;
+    }
+
+    .tc-governance {
+      background: #EEF3E8;
+      color: #3A6B35;
+    }
+
+    .tc-conduct {
+      background: var(--amber-bg);
+      color: var(--amber);
+    }
+
+    .tc-reporting {
+      background: #F4EEF8;
+      color: #6B3D9A;
+    }
+
+    .tc-registration {
+      background: #F8EEE8;
+      color: #8B4513;
+    }
+
+    .tc-risk {
+      background: #F8F3E8;
+      color: #7A5F10;
+    }
+
+    .tc-operations {
+      background: #E8F4F8;
+      color: #1A6B8A;
+    }
+
+    .tc-other {
+      background: #F0F0F0;
+      color: #555;
+    }
+
+    .tc-layer-all {
+      background: #EAF7EA;
+      color: #2B6B2B;
+      border: 1px solid rgba(58, 107, 53, 0.15);
+    }
+
+    .tc-layer-mlul {
+      background: #FFF4E5;
+      color: #A0522D;
+      border: 1px solid rgba(184, 116, 42, 0.15);
+    }
+
+    .tc-sebi-icdr {
+      background: #E8EEF7;
+      color: #2A4F80;
+    }
+
+    .tc-sebi-lodr {
+      background: #EEF3E8;
+      color: #3A6B35;
+    }
+
+    .tc-sebi-pit {
+      background: var(--amber-bg);
+      color: var(--amber);
+    }
+
+    .tc-sebi-sast {
+      background: #F4EEF8;
+      color: #6B3D9A;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .card-actions a,
+    .card-actions button {
+      font-size: 13px;
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+      transition: color 0.12s, border-color 0.12s;
+    }
+
+    .card-actions button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      padding: 0;
+    }
+
+    .card-actions .primary-link {
+      color: var(--navy);
+      font-weight: 600;
+      border-color: var(--navy-light);
+    }
+
+    .card-actions .sebi-link {
+      color: var(--green);
+      font-weight: 600;
+      border-color: var(--green);
+    }
+
+    .card-actions .primary-link:hover {
+      color: var(--navy-deep);
+      border-bottom-color: var(--navy-deep);
+    }
+
+    .card-actions .sebi-link:hover {
+      color: #254921;
+      border-bottom-color: #254921;
+    }
+
+    .card-actions .pdf-link {
+      color: var(--red);
+      font-weight: 600;
+      border-color: var(--red);
+    }
+
+    .card-actions .pdf-link:hover {
+      color: #7B2A22;
+      border-bottom-color: #7B2A22;
+    }
+
+    .card-actions .preview-btn {
+      color: var(--tag-misc);
+      font-weight: 600;
+      border-color: var(--tag-misc);
+    }
+
+    .card-actions .preview-btn:hover {
+      color: #43399F;
+      border-bottom-color: #43399F;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--ink-soft);
+    }
+
+    .empty-state h3 {
+      font-family: "Source Serif 4", serif;
+      font-size: 20px;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    /* ---------- Summary panel ---------- */
+    .summary-panel {
+      background: var(--navy-deep);
+      color: #fff;
+      border-radius: 4px;
+      padding: 20px 22px;
+      margin-bottom: 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 16px;
+    }
+
+    .summary-panel.sebi-panel {
+      background: #1B351E;
+    }
+
+    .summary-panel.acts-panel {
+      background: #2A1F45;
+    }
+
+    .summary-panel.ss-panel {
+      background: #5F3D1F;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: "Source Serif 4", serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 11.5px;
+      color: rgba(255, 255, 255, 0.6);
+      font-family: "IBM Plex Mono", monospace;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 4px;
+      display: block;
+    }
+
+    footer {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 clamp(16px, 4vw, 56px) 60px;
+      font-size: 12.5px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    footer a {
+      color: var(--navy);
+    }
+  </style>
 </head>
+
 <body>
 
-<header class="masthead">
-  <div class="masthead-inner">
-    <div class="masthead-top">
-      <div class="brand" style="display: flex; align-items: center; gap: 12px;">
-        <img src="./kreon-logo.png" alt="Kreon Logo" style="height: 36px; width: auto; border-radius: 3px;" />
-        <h1>Kreon RegPulse</h1>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="masthead-top">
+        <div class="brand" style="display: flex; align-items: center; gap: 12px;">
+          <img src="./kreon-logo.png" alt="Kreon Logo" style="height: 36px; width: auto; border-radius: 3px;" />
+          <h1>Kreon RegPulse</h1>
+        </div>
       </div>
-    </div>
-    
-    <div class="category-info" id="rbiCategoryInfo">
-      <span class="category-badge">RBI Master Directions</span>
-      <p class="category-desc">
-        Master Directions issued by the Reserve Bank of India applicable to Non-Banking Financial Companies (NBFC-ICC) under the Scale Based Regulation (SBR).
-      </p>
-    </div>
-    
-    <div class="category-info" id="sebiCategoryInfo" style="display: none;">
-      <span class="category-badge" style="background: var(--green);">SEBI Regulations</span>
-      <p class="category-desc">
-        Regulations governing listed entities, insider trading, substantial takeovers, capital disclosure rules, and depositories under SEBI Act.
-      </p>
-    </div>
 
-    <div class="category-info" id="actsCategoryInfo" style="display: none;">
-      <span class="category-badge" style="background: var(--tag-misc);">Acts & Rules</span>
-      <p class="category-desc">
-        Primary statutes and company rules applicable to corporate governance, prevention of money laundering, data privacy, and electronic services.
-      </p>
-    </div>
+      <div class="category-info" id="rbiCategoryInfo">
+        <span class="category-badge">RBI Master Directions</span>
+        <p class="category-desc">
+          Master Directions issued by the Reserve Bank of India applicable to Non-Banking Financial Companies (NBFC-ICC)
+          under the Scale Based Regulation (SBR).
+        </p>
+      </div>
 
-    <div class="category-info" id="ssCategoryInfo" style="display: none;">
-      <span class="category-badge" style="background: var(--amber);">Secretarial Standards</span>
-      <p class="category-desc">
-        Mandatory Secretarial Standards (SS-1 on Board Meetings, SS-2 on General Meetings, SS-4 on Board Reports) formulated by the ICSI.
-      </p>
-    </div>
+      <div class="category-info" id="sebiCategoryInfo" style="display: none;">
+        <span class="category-badge" style="background: var(--green);">SEBI Regulations</span>
+        <p class="category-desc">
+          Regulations governing listed entities, insider trading, substantial takeovers, capital disclosure rules, and
+          depositories under SEBI Act.
+        </p>
+      </div>
 
-    <nav class="tab-nav" aria-label="Registers">
-      <button class="tab-button" id="tabRbi" aria-selected="true">RBI Directions</button>
-      <button class="tab-button" id="tabSebi" aria-selected="false">SEBI Regulations</button>
-      <button class="tab-button" id="tabActs" aria-selected="false">Acts & Rules</button>
-      <button class="tab-button" id="tabSs" aria-selected="false">Secretarial Standards</button>
-    </nav>
+      <div class="category-info" id="actsCategoryInfo" style="display: none;">
+        <span class="category-badge" style="background: var(--tag-misc);">Acts & Rules</span>
+        <p class="category-desc">
+          Primary statutes and company rules applicable to corporate governance, prevention of money laundering, data
+          privacy, and electronic services.
+        </p>
+      </div>
+
+      <div class="category-info" id="ssCategoryInfo" style="display: none;">
+        <span class="category-badge" style="background: var(--amber);">Secretarial Standards</span>
+        <p class="category-desc">
+          Mandatory Secretarial Standards (SS-1 on Board Meetings, SS-2 on General Meetings, SS-4 on Board Reports)
+          formulated by the ICSI.
+        </p>
+      </div>
+
+      <nav class="tab-nav" aria-label="Registers">
+        <button class="tab-button" id="tabRbi" aria-selected="true">RBI Directions</button>
+        <button class="tab-button" id="tabSebi" aria-selected="false">SEBI Regulations</button>
+        <button class="tab-button" id="tabActs" aria-selected="false">Acts & Rules</button>
+        <button class="tab-button" id="tabSs" aria-selected="false">Secretarial Standards</button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="info-banner" id="infoBanner">
+    <div class="info-banner-inner">
+      <strong>⚠ Compliance note:</strong>&nbsp;
+      <span id="infoBannerText">Always verify applicability to your specific NBFC registration layer (Base/Middle/Upper)
+        before acting on any direction.</span>
+    </div>
   </div>
-</header>
 
-<div class="info-banner" id="infoBanner">
-  <div class="info-banner-inner">
-    <strong>⚠ Compliance note:</strong>&nbsp;
-    <span id="infoBannerText">Always verify applicability to your specific NBFC registration layer (Base/Middle/Upper) before acting on any direction.</span>
-  </div>
-</div>
+  <div class="toolbar">
+    <div class="toolbar-inner">
+      <input type="search" id="search" placeholder="Search directions by title or topic…"
+        aria-label="Search compliance" />
 
-<div class="toolbar">
-  <div class="toolbar-inner">
-    <input type="search" id="search" placeholder="Search directions by title or topic…" aria-label="Search compliance" />
+      <!-- Filter Row -->
+      <div class="filter-row">
+        <span class="filter-label">Filter:</span>
 
-    <!-- Date Filter Bar -->
-    <div class="date-filter-bar" id="dateFilterBar">
-      <!-- Quick: Year -->
-      <div class="filter-group">
-        <label for="filterYear">Year</label>
-        <select id="filterYear">
+        <select id="filterYear" class="filter-select" title="Filter by year">
           <option value="">All years</option>
           <option value="2026">2026</option>
           <option value="2025">2025</option>
@@ -660,568 +856,564 @@
           <option value="2023">2023</option>
           <option value="2022">2022</option>
         </select>
-      </div>
-      <!-- Quick: Month -->
-      <div class="filter-group">
-        <label for="filterMonth">Month</label>
-        <select id="filterMonth">
+
+        <select id="filterMonth" class="filter-select" title="Filter by month">
           <option value="">All months</option>
-          <option value="1">January</option>
-          <option value="2">February</option>
-          <option value="3">March</option>
-          <option value="4">April</option>
+          <option value="1">Jan</option>
+          <option value="2">Feb</option>
+          <option value="3">Mar</option>
+          <option value="4">Apr</option>
           <option value="5">May</option>
-          <option value="6">June</option>
-          <option value="7">July</option>
-          <option value="8">August</option>
-          <option value="9">September</option>
-          <option value="10">October</option>
-          <option value="11">November</option>
-          <option value="12">December</option>
+          <option value="6">Jun</option>
+          <option value="7">Jul</option>
+          <option value="8">Aug</option>
+          <option value="9">Sep</option>
+          <option value="10">Oct</option>
+          <option value="11">Nov</option>
+          <option value="12">Dec</option>
         </select>
+
+        <div class="filter-divider"></div>
+
+        <input type="date" id="filterFrom" class="filter-date" title="From date" />
+        <span class="filter-range-sep">→</span>
+        <input type="date" id="filterTo" class="filter-date" title="To date" />
+
+        <button type="button" id="clearAllFiltersBtn" class="clear-filters-btn">✕ Clear</button>
       </div>
-      <!-- Date Range -->
-      <div class="filter-group">
-        <label>Range</label>
-        <input type="date" id="filterFrom" title="From date" />
-        <span class="filter-sep">→</span>
-        <input type="date" id="filterTo" title="To date" />
-      </div>
-      <button type="button" id="clearAllFiltersBtn" class="clear-all-filters-btn" style="display:none;">✕ Clear Filters</button>
+
+      <div class="chips" id="topicChips" role="group" aria-label="Filter by topic"></div>
+    </div>
+  </div>
+
+  <div class="status-bar" id="statusBar">
+    <span id="statusText">Loading register…</span>
+    <div class="sync-indicator">
+      <span class="sync-dot"></span>
+      <span id="lastSync">Synced</span>
+    </div>
+  </div>
+
+  <main>
+    <!-- Timeframe Filter Banner -->
+    <div class="timeframe-banner" id="timeframeBanner" style="display: none;">
+      <span>Showing only updates/releases from the <strong>last 6 months</strong> (historical baseline standards are
+        hidden).</span>
+      <button type="button" class="show-history-btn" id="showAllHistoryBtn">Show All History</button>
     </div>
 
-    <div class="chips" id="topicChips" role="group" aria-label="Filter by topic"></div>
-  </div>
-</div>
+    <div id="list" aria-live="polite"></div>
+  </main>
 
-<div class="status-bar" id="statusBar">
-  <span id="statusText">Loading register…</span>
-  <div class="sync-indicator">
-    <span class="sync-dot"></span>
-    <span id="lastSync">Synced</span>
-  </div>
-</div>
+  <footer>
+    <p id="footerSourceText">Sourced from <a href="https://www.rbi.org.in/Scripts/BS_ViewMasterDirections.aspx?did=411"
+        target="_blank" rel="noopener">RBI Master Directions — Non-Banking Financial Companies</a>.
+      Filtered to show only directions applicable to <strong>NBFC-ICC (Investment and Credit Company)</strong>.</p>
+    <p>Refresh local data with <code>npm run fetch</code>.
+      This is an independent, open-source project and is not affiliated with or endorsed by the RBI or SEBI.</p>
+  </footer>
 
-<main>
-  <!-- Timeframe Filter Banner -->
-  <div class="timeframe-banner" id="timeframeBanner" style="display: none;">
-    <span>Showing only updates/releases from the <strong>last 6 months</strong> (historical baseline standards are hidden).</span>
-    <button type="button" class="show-history-btn" id="showAllHistoryBtn">Show All History</button>
-  </div>
+  <script>
+    (async function () {
+      const listEl = document.getElementById("list");
+      const statusEl = document.getElementById("statusText");
+      const syncEl = document.getElementById("lastSync");
+      const searchEl = document.getElementById("search");
+      const topicChipsEl = document.getElementById("topicChips");
 
-  <div id="list" aria-live="polite"></div>
-</main>
+      const tabRbi = document.getElementById("tabRbi");
+      const tabSebi = document.getElementById("tabSebi");
+      const tabActs = document.getElementById("tabActs");
+      const tabSs = document.getElementById("tabSs");
 
-<footer>
-  <p id="footerSourceText">Sourced from <a href="https://www.rbi.org.in/Scripts/BS_ViewMasterDirections.aspx?did=411" target="_blank" rel="noopener">RBI Master Directions — Non-Banking Financial Companies</a>.
-  Filtered to show only directions applicable to <strong>NBFC-ICC (Investment and Credit Company)</strong>.</p>
-  <p>Refresh local data with <code>npm run fetch</code>.
-  This is an independent, open-source project and is not affiliated with or endorsed by the RBI or SEBI.</p>
-</footer>
+      const rbiCategoryInfo = document.getElementById("rbiCategoryInfo");
+      const sebiCategoryInfo = document.getElementById("sebiCategoryInfo");
+      const actsCategoryInfo = document.getElementById("actsCategoryInfo");
+      const ssCategoryInfo = document.getElementById("ssCategoryInfo");
 
-<script>
-(async function () {
-  const listEl = document.getElementById("list");
-  const statusEl = document.getElementById("statusText");
-  const syncEl = document.getElementById("lastSync");
-  const searchEl = document.getElementById("search");
-  const dateFilterEl = document.getElementById("dateFilter");
-  const clearDateBtnEl = document.getElementById("clearDateBtn");
-  const topicChipsEl = document.getElementById("topicChips");
-  
-  const tabRbi = document.getElementById("tabRbi");
-  const tabSebi = document.getElementById("tabSebi");
-  const tabActs = document.getElementById("tabActs");
-  const tabSs = document.getElementById("tabSs");
-  
-  const rbiCategoryInfo = document.getElementById("rbiCategoryInfo");
-  const sebiCategoryInfo = document.getElementById("sebiCategoryInfo");
-  const actsCategoryInfo = document.getElementById("actsCategoryInfo");
-  const ssCategoryInfo = document.getElementById("ssCategoryInfo");
-  
-  const infoBannerText = document.getElementById("infoBannerText");
-  const footerSourceText = document.getElementById("footerSourceText");
-  const timeframeBanner = document.getElementById("timeframeBanner");
-  const showAllHistoryBtn = document.getElementById("showAllHistoryBtn");
+      const infoBannerText = document.getElementById("infoBannerText");
+      const footerSourceText = document.getElementById("footerSourceText");
+      const timeframeBanner = document.getElementById("timeframeBanner");
+      const showAllHistoryBtn = document.getElementById("showAllHistoryBtn");
 
-  let currentTab = "rbi"; // "rbi", "sebi", "acts", "ss"
-  let rbiData = { directions: [], count: 0 };
-  let sebiData = { regulations: {} };
-  let actsData = { acts: [] };
-  let ssData = { standards: [] };
+      let currentTab = "rbi"; // "rbi", "sebi", "acts", "ss"
+      let rbiData = { directions: [], count: 0 };
+      let sebiData = { regulations: {} };
+      let actsData = { acts: [] };
+      let ssData = { standards: [] };
 
-  let activeTopic = "all";
-  let query = "";
-  let filterYear = "";   // e.g. "2025"
-  let filterMonth = "";  // e.g. "12"
-  let filterFrom = "";   // YYYY-MM-DD
-  let filterTo = "";     // YYYY-MM-DD
-  let filterLast6Months = true;
+      let activeTopic = "all";
+      let query = "";
+      let filterYear = "";   // e.g. "2025"
+      let filterMonth = "";  // e.g. "12"
+      let filterFrom = "";   // YYYY-MM-DD
+      let filterTo = "";     // YYYY-MM-DD
+      let filterLast6Months = true;
 
-  // DOM refs for new filter controls
-  const filterYearEl  = document.getElementById("filterYear");
-  const filterMonthEl = document.getElementById("filterMonth");
-  const filterFromEl  = document.getElementById("filterFrom");
-  const filterToEl    = document.getElementById("filterTo");
-  const clearAllFiltersBtnEl = document.getElementById("clearAllFiltersBtn");
+      // DOM refs for new filter controls
+      const filterYearEl = document.getElementById("filterYear");
+      const filterMonthEl = document.getElementById("filterMonth");
+      const filterFromEl = document.getElementById("filterFrom");
+      const filterToEl = document.getElementById("filterTo");
+      const clearAllFiltersBtnEl = document.getElementById("clearAllFiltersBtn");
 
-  // Detailed compliance summaries & amendment highlights (bulleted details for preview)
-  const COMPLIANCE_GISTS = {
-    // RBI Directions summaries
-    "prudential": [
-      "Minimum CRAR of 15% (Tier I: 10%) must be maintained by Middle & Upper Layer NBFCs.",
-      "Leverage ratio must not exceed 7% for Base Layer NBFC-ICC.",
-      "Requires Board-approved policies for credit concentration limits and investment classification.",
-      "Mandates standard provisioning rates on outstanding assets, ranging from 0.25% to 1.0%."
-    ],
-    "npa-provisioning": [
-      "Standardizes asset classification timeline to a strict 90 days past due (dpd) limit for NPA classification.",
-      "Mandates standard asset provisioning: 0.25% for standard debt, 15% for sub-standard, and 20% to 100% for doubtful debt.",
-      "Restructured loans must immediately be classified as NPAs unless a specific RBI restructuring scheme applies."
-    ],
-    "governance": [
-      "Mandates setting up an Audit Committee (minimum 3 directors), Nomination Committee, and Risk Management Committee.",
-      "Requires annual 'Fit and Proper' criteria verification for all directors.",
-      "Imposes strict disclosure requirements in balance sheets regarding director remuneration and related party transactions.",
-      "Restricts NBFCs from lending to directors, their relatives, or companies they control."
-    ],
-    "kyc": [
-      "Enforces Customer Due Diligence (CDD) procedures before opening any account or credit line.",
-      "Mandates Video Customer Identification Process (V-CIP) as an official channel for digital identity verification.",
-      "Establishes periodic updation: High-risk KYC every 2 years, Medium-risk every 8 years, and Low-risk every 10 years.",
-      "Requires transaction monitoring and screening of client databases against sanctions lists."
-    ],
-    "conduct": [
-      "Mandates the adoption of the Fair Practices Code (FPC) to ensure transparency in loan pricing and terms.",
-      "Requires appointing a Grievance Redressal Officer (GRO) and displaying their contact information in all offices.",
-      "Strictly prohibits coercive loan recovery tactics and establishes rules on recovery agent conducts.",
-      "Enforces simple, transparent interest rate structures without hidden fee clauses."
-    ],
-    "credit-cards": [
-      "NBFCs require prior approval from RBI and a minimum Net Owned Fund of ₹100 Crore to issue credit cards.",
-      "Enforces strict billing transparency, penalty calculation limits, and customer consent protocols.",
-      "Prohibits reporting default data to credit bureaus prior to a 30-day grace period."
-    ],
-    "reporting": [
-      "Governs submission of statutory regulatory returns (e.g. DNBS01, DNBS03) to the RBI portal.",
-      "Mandates joining all four Credit Information Companies (CICs) in India.",
-      "Lenders must report credit data to bureaus monthly within 7 days of the end of the month."
-    ],
-    "registration": [
-      "Scale Based Regulation (SBR) categorizes NBFCs into Base, Middle, Upper, and Top Layers based on asset size.",
-      "Sets the minimum Net Owned Fund (NOF) requirement to ₹10 Crore for NBFC-ICCs.",
-      "Requires prior written RBI approval for acquisitions, mergers, or change in control exceeding 26%."
-    ],
-    "risk": [
-      "Mandates appointing a Chief Risk Officer (CRO) for NBFCs with assets of ₹5,000 Crore and above.",
-      "Enforces Single Borrower exposure limits capped at 15% (extendable to 25% for specific layers).",
-      "Lays down governance policies for managing third-party IT and business outsourcing risk."
-    ],
-    "operations": [
-      "Regulates investments in subsidiaries, joint ventures, and overseas banking operations.",
-      "Requires prior permission from RBI before undertaking any new financial service business.",
-      "Imposes restrictions on acquisition of control, transfer of shares, or change in management."
-    ],
+      // Detailed compliance summaries & amendment highlights (bulleted details for preview)
+      const COMPLIANCE_GISTS = {
+        // RBI Directions summaries
+        "prudential": [
+          "Minimum CRAR of 15% (Tier I: 10%) must be maintained by Middle & Upper Layer NBFCs.",
+          "Leverage ratio must not exceed 7% for Base Layer NBFC-ICC.",
+          "Requires Board-approved policies for credit concentration limits and investment classification.",
+          "Mandates standard provisioning rates on outstanding assets, ranging from 0.25% to 1.0%."
+        ],
+        "npa-provisioning": [
+          "Standardizes asset classification timeline to a strict 90 days past due (dpd) limit for NPA classification.",
+          "Mandates standard asset provisioning: 0.25% for standard debt, 15% for sub-standard, and 20% to 100% for doubtful debt.",
+          "Restructured loans must immediately be classified as NPAs unless a specific RBI restructuring scheme applies."
+        ],
+        "governance": [
+          "Mandates setting up an Audit Committee (minimum 3 directors), Nomination Committee, and Risk Management Committee.",
+          "Requires annual 'Fit and Proper' criteria verification for all directors.",
+          "Imposes strict disclosure requirements in balance sheets regarding director remuneration and related party transactions.",
+          "Restricts NBFCs from lending to directors, their relatives, or companies they control."
+        ],
+        "kyc": [
+          "Enforces Customer Due Diligence (CDD) procedures before opening any account or credit line.",
+          "Mandates Video Customer Identification Process (V-CIP) as an official channel for digital identity verification.",
+          "Establishes periodic updation: High-risk KYC every 2 years, Medium-risk every 8 years, and Low-risk every 10 years.",
+          "Requires transaction monitoring and screening of client databases against sanctions lists."
+        ],
+        "conduct": [
+          "Mandates the adoption of the Fair Practices Code (FPC) to ensure transparency in loan pricing and terms.",
+          "Requires appointing a Grievance Redressal Officer (GRO) and displaying their contact information in all offices.",
+          "Strictly prohibits coercive loan recovery tactics and establishes rules on recovery agent conducts.",
+          "Enforces simple, transparent interest rate structures without hidden fee clauses."
+        ],
+        "credit-cards": [
+          "NBFCs require prior approval from RBI and a minimum Net Owned Fund of ₹100 Crore to issue credit cards.",
+          "Enforces strict billing transparency, penalty calculation limits, and customer consent protocols.",
+          "Prohibits reporting default data to credit bureaus prior to a 30-day grace period."
+        ],
+        "reporting": [
+          "Governs submission of statutory regulatory returns (e.g. DNBS01, DNBS03) to the RBI portal.",
+          "Mandates joining all four Credit Information Companies (CICs) in India.",
+          "Lenders must report credit data to bureaus monthly within 7 days of the end of the month."
+        ],
+        "registration": [
+          "Scale Based Regulation (SBR) categorizes NBFCs into Base, Middle, Upper, and Top Layers based on asset size.",
+          "Sets the minimum Net Owned Fund (NOF) requirement to ₹10 Crore for NBFC-ICCs.",
+          "Requires prior written RBI approval for acquisitions, mergers, or change in control exceeding 26%."
+        ],
+        "risk": [
+          "Mandates appointing a Chief Risk Officer (CRO) for NBFCs with assets of ₹5,000 Crore and above.",
+          "Enforces Single Borrower exposure limits capped at 15% (extendable to 25% for specific layers).",
+          "Lays down governance policies for managing third-party IT and business outsourcing risk."
+        ],
+        "operations": [
+          "Regulates investments in subsidiaries, joint ventures, and overseas banking operations.",
+          "Requires prior permission from RBI before undertaking any new financial service business.",
+          "Imposes restrictions on acquisition of control, transfer of shares, or change in management."
+        ],
 
-    // SEBI Regulations summaries
-    "icdr": [
-      "Regulates Initial Public Offerings (IPOs), Further Public Offerings (FPOs), Rights Issues, and QIPs.",
-      "Mandates promoters must contribute a minimum of 20% of post-issue capital (locked in for 18 months to 3 years).",
-      "Establishes rules on allocation sizes, anchor investor lock-ins, and draft prospectus disclosures."
-    ],
-    "lodr": [
-      "Mandates listed entities submit audited quarterly financial results within 45 days of quarter-end.",
-      "Requires immediate disclosure (within 24 hours) of material events under Regulation 30.",
-      "Enforces corporate governance rules (e.g. independent board chairman rules, audit committee composition).",
-      "Requires top 250 listed entities to verify, confirm, or deny market rumors within specific timelines."
-    ],
-    "pit": [
-      "Strictly prohibits trading in listed securities while holding Unpublished Price Sensitive Information (UPSI).",
-      "Mandates maintaining a tamper-proof Structured Digital Database (SDD) to log all persons sharing UPSI.",
-      "Enforces trading window closures starting from quarter-end until 48 hours after financial results publication."
-    ],
-    "sast": [
-      "Triggers mandatory open offer to public shareholders upon acquiring 25% or more shares or voting rights.",
-      "Allows creeping acquisition of up to 5% shares annually for shareholders holding between 25% and 75% voting rights.",
-      "Requires public announcements of open offers to be made on the same day the transaction is agreed."
-    ],
-    "depositories": [
-      "Regulates depository participants, demat account opening, and account maintenance procedures.",
-      "Mandates safe preservation of electronic registers, transactions, and ownership databases.",
-      "Enforces timelines for settlement reconciliations and investor grievance responses via SCORES portal."
-    ],
-    "registrars": [
-      "Lays down standard codes of conduct for Registrars to an Issue (RTA) and Share Transfer Agents.",
-      "Governs digital processing of demat requests, transfer approvals, and dividend distributions.",
-      "Enforces regular auditing of security registries and reporting shareholding patterns to stock exchanges."
-    ],
-    "ipef": [
-      "Governs the SEBI Investor Protection and Education Fund's administration and operations.",
-      "Provides resources for conducting investor education programs, camps, and market awareness activities.",
-      "Outlines the legal procedures for claiming dividends or shares transferred to the protection fund."
-    ],
-    "pfutp": [
-      "Prohibits any manipulative, deceptive, or fraudulent practices in connection with the buying/selling of securities.",
-      "Explicitly bans front-running, wash sales, insider spoofing, and spreading malicious market rumors.",
-      "Authorizes SEBI to conduct search and seizure, freeze accounts, and levy penalties on manipulative entities."
-    ],
+        // SEBI Regulations summaries
+        "icdr": [
+          "Regulates Initial Public Offerings (IPOs), Further Public Offerings (FPOs), Rights Issues, and QIPs.",
+          "Mandates promoters must contribute a minimum of 20% of post-issue capital (locked in for 18 months to 3 years).",
+          "Establishes rules on allocation sizes, anchor investor lock-ins, and draft prospectus disclosures."
+        ],
+        "lodr": [
+          "Mandates listed entities submit audited quarterly financial results within 45 days of quarter-end.",
+          "Requires immediate disclosure (within 24 hours) of material events under Regulation 30.",
+          "Enforces corporate governance rules (e.g. independent board chairman rules, audit committee composition).",
+          "Requires top 250 listed entities to verify, confirm, or deny market rumors within specific timelines."
+        ],
+        "pit": [
+          "Strictly prohibits trading in listed securities while holding Unpublished Price Sensitive Information (UPSI).",
+          "Mandates maintaining a tamper-proof Structured Digital Database (SDD) to log all persons sharing UPSI.",
+          "Enforces trading window closures starting from quarter-end until 48 hours after financial results publication."
+        ],
+        "sast": [
+          "Triggers mandatory open offer to public shareholders upon acquiring 25% or more shares or voting rights.",
+          "Allows creeping acquisition of up to 5% shares annually for shareholders holding between 25% and 75% voting rights.",
+          "Requires public announcements of open offers to be made on the same day the transaction is agreed."
+        ],
+        "depositories": [
+          "Regulates depository participants, demat account opening, and account maintenance procedures.",
+          "Mandates safe preservation of electronic registers, transactions, and ownership databases.",
+          "Enforces timelines for settlement reconciliations and investor grievance responses via SCORES portal."
+        ],
+        "registrars": [
+          "Lays down standard codes of conduct for Registrars to an Issue (RTA) and Share Transfer Agents.",
+          "Governs digital processing of demat requests, transfer approvals, and dividend distributions.",
+          "Enforces regular auditing of security registries and reporting shareholding patterns to stock exchanges."
+        ],
+        "ipef": [
+          "Governs the SEBI Investor Protection and Education Fund's administration and operations.",
+          "Provides resources for conducting investor education programs, camps, and market awareness activities.",
+          "Outlines the legal procedures for claiming dividends or shares transferred to the protection fund."
+        ],
+        "pfutp": [
+          "Prohibits any manipulative, deceptive, or fraudulent practices in connection with the buying/selling of securities.",
+          "Explicitly bans front-running, wash sales, insider spoofing, and spreading malicious market rumors.",
+          "Authorizes SEBI to conduct search and seizure, freeze accounts, and levy penalties on manipulative entities."
+        ],
 
-    // Acts summaries
-    "act-1": [
-      "Establishes statutory rules for board meetings, quorum (1/3rd of total strength or 2 directors), and minutes.",
-      "Governs Corporate Social Responsibility (CSR) spending (2% of average net profits if net worth > ₹500Cr).",
-      "Regulates related party transactions (RPTs), requiring audit committee and board approvals."
-    ],
-    "act-2": [
-      "Forms the legal baseline for anti-money laundering (AML) and counter-terrorist financing (CFT) in India.",
-      "Mandates maintaining transaction records and reporting Cash Transactions (CTR) exceeding ₹10 Lakhs to FIU-IND.",
-      "Enforces Suspicious Transaction Reporting (STR) within 7 days of identifying potential laundering activity."
-    ],
-    "act-3": [
-      "Chapter III-B provides the statutory power to RBI to register, inspect, audit, and regulate NBFCs.",
-      "Mandates setting up a Statutory Reserve Fund (transferring minimum 20% of net profits annually).",
-      "Grants RBI power to issue directions, cancel licenses, and inspect credit portfolios."
-    ],
-    "act-4": [
-      "Provides detailed rules for client identification checks (KYC) for individuals, firms, and trusts.",
-      "Designates roles of Principal Officer (PO) and Designated Director for monitoring PMLA compliance.",
-      "Requires matching client registries against United Nations and government sanctions lists."
-    ],
-    "act-5": [
-      "Provides SEBI with statutory authority to protect investor interests and regulate market intermediaries.",
-      "Establishes the Securities Appellate Tribunal (SAT) to appeal decisions issued by SEBI.",
-      "Provides framework for conducting search, seizure, and freezing of accounts of fraudulent entities."
-    ],
-    "act-6": [
-      "Establishes legal rules for digital personal data processing, storage, and erasure.",
-      "Requires explicit, unconditional, and informed consent from users before collecting data.",
-      "Data fiduciaries must implement robust cybersecurity measures and appoint a Data Protection Officer (DPO)."
-    ],
-    "act-7": [
-      "Lenders must report credit histories of all active borrowers to credit bureaus monthly.",
-      "Requires pulling credit reports only after obtaining prior written consent from the borrower.",
-      "Mandates correction of disputed credit records within 30 days of receiving a customer complaint."
-    ],
-    "act-8": [
-      "Governs cross-border transaction compliance, foreign direct investments (FDI), and overseas investments.",
-      "Requires reporting of foreign equity inflows via the Single Master Form (SMF) on the RBI FIRMS portal.",
-      "Outlines regulatory compliance for registering and reporting External Commercial Borrowings (ECB)."
-    ],
-    "act-9": [
-      "Provides legal validity to digital contracts, electronic signatures, and dematerialized registries.",
-      "Imposes strict liability on corporations for negligence in securing personal data under Section 43A.",
-      "Defines cybercrimes, computer tampering, and parameters for corporate cybersecurity compliance."
-    ],
-    "act-10": [
-      "Protects consumer rights against unfair trade, deceptive advertisements, and digital dark patterns.",
-      "Applies to digital lenders, requiring transparent disclosures of interest rates and terms.",
-      "Sets up dispute redressing commissions for fast resolution of service deficiencies."
-    ],
+        // Acts summaries
+        "act-1": [
+          "Establishes statutory rules for board meetings, quorum (1/3rd of total strength or 2 directors), and minutes.",
+          "Governs Corporate Social Responsibility (CSR) spending (2% of average net profits if net worth > ₹500Cr).",
+          "Regulates related party transactions (RPTs), requiring audit committee and board approvals."
+        ],
+        "act-2": [
+          "Forms the legal baseline for anti-money laundering (AML) and counter-terrorist financing (CFT) in India.",
+          "Mandates maintaining transaction records and reporting Cash Transactions (CTR) exceeding ₹10 Lakhs to FIU-IND.",
+          "Enforces Suspicious Transaction Reporting (STR) within 7 days of identifying potential laundering activity."
+        ],
+        "act-3": [
+          "Chapter III-B provides the statutory power to RBI to register, inspect, audit, and regulate NBFCs.",
+          "Mandates setting up a Statutory Reserve Fund (transferring minimum 20% of net profits annually).",
+          "Grants RBI power to issue directions, cancel licenses, and inspect credit portfolios."
+        ],
+        "act-4": [
+          "Provides detailed rules for client identification checks (KYC) for individuals, firms, and trusts.",
+          "Designates roles of Principal Officer (PO) and Designated Director for monitoring PMLA compliance.",
+          "Requires matching client registries against United Nations and government sanctions lists."
+        ],
+        "act-5": [
+          "Provides SEBI with statutory authority to protect investor interests and regulate market intermediaries.",
+          "Establishes the Securities Appellate Tribunal (SAT) to appeal decisions issued by SEBI.",
+          "Provides framework for conducting search, seizure, and freezing of accounts of fraudulent entities."
+        ],
+        "act-6": [
+          "Establishes legal rules for digital personal data processing, storage, and erasure.",
+          "Requires explicit, unconditional, and informed consent from users before collecting data.",
+          "Data fiduciaries must implement robust cybersecurity measures and appoint a Data Protection Officer (DPO)."
+        ],
+        "act-7": [
+          "Lenders must report credit histories of all active borrowers to credit bureaus monthly.",
+          "Requires pulling credit reports only after obtaining prior written consent from the borrower.",
+          "Mandates correction of disputed credit records within 30 days of receiving a customer complaint."
+        ],
+        "act-8": [
+          "Governs cross-border transaction compliance, foreign direct investments (FDI), and overseas investments.",
+          "Requires reporting of foreign equity inflows via the Single Master Form (SMF) on the RBI FIRMS portal.",
+          "Outlines regulatory compliance for registering and reporting External Commercial Borrowings (ECB)."
+        ],
+        "act-9": [
+          "Provides legal validity to digital contracts, electronic signatures, and dematerialized registries.",
+          "Imposes strict liability on corporations for negligence in securing personal data under Section 43A.",
+          "Defines cybercrimes, computer tampering, and parameters for corporate cybersecurity compliance."
+        ],
+        "act-10": [
+          "Protects consumer rights against unfair trade, deceptive advertisements, and digital dark patterns.",
+          "Applies to digital lenders, requiring transparent disclosures of interest rates and terms.",
+          "Sets up dispute redressing commissions for fast resolution of service deficiencies."
+        ],
 
-    // Secretarial Standards summaries
-    "ss-1": [
-      "Notice of Board meeting must be delivered to every director at least 7 days before the meeting.",
-      "Agenda and notes on agenda must be circulated to the Board at least 7 days in advance.",
-      "Draft minutes of the meeting must be circulated within 15 days of the meeting for director feedback."
-    ],
-    "ss-2": [
-      "Notice of General Meetings (AGM/EGM) must be sent to all members at least 21 clear days in advance.",
-      "Explanatory statements must accompany the notice for all items of special business.",
-      "General meeting minutes must be entered in the books within 30 days and signed by the chairman."
-    ],
-    "ss-4": [
-      "Requires the Board's Report to disclose details on corporate CSR, audit recommendations, and related party contracts.",
-      "Mandates Board declaration confirming compliance with all secretarial and statutory standards.",
-      "Requires explanation in the Board Report for any qualifications in the auditor's or secretarial reports."
-    ]
-  };
+        // Secretarial Standards summaries
+        "ss-1": [
+          "Notice of Board meeting must be delivered to every director at least 7 days before the meeting.",
+          "Agenda and notes on agenda must be circulated to the Board at least 7 days in advance.",
+          "Draft minutes of the meeting must be circulated within 15 days of the meeting for director feedback."
+        ],
+        "ss-2": [
+          "Notice of General Meetings (AGM/EGM) must be sent to all members at least 21 clear days in advance.",
+          "Explanatory statements must accompany the notice for all items of special business.",
+          "General meeting minutes must be entered in the books within 30 days and signed by the chairman."
+        ],
+        "ss-4": [
+          "Requires the Board's Report to disclose details on corporate CSR, audit recommendations, and related party contracts.",
+          "Mandates Board declaration confirming compliance with all secretarial and statutory standards.",
+          "Requires explanation in the Board Report for any qualifications in the auditor's or secretarial reports."
+        ]
+      };
 
-  // RBI classification rules
-  const RBI_TOPIC_RULES = [
-    { pattern: /capital.adequacy|CAR|CRAR/i,         topic: "prudential",   label: "Capital Adequacy",    cls: "tc-prudential" },
-    { pattern: /income.recogni|asset.classif|NPA|provisioning/i, topic: "npa-provisioning", label: "NPA / Provisioning", cls: "tc-prudential" },
-    { pattern: /governance/i,                         topic: "governance",   label: "Governance",          cls: "tc-governance" },
-    { pattern: /know.your.customer|KYC/i,             topic: "kyc",          label: "KYC",                 cls: "tc-conduct" },
-    { pattern: /responsible.business|fair.practice/i, topic: "conduct",      label: "Conduct",             cls: "tc-conduct" },
-    { pattern: /credit.card|debit.card/i,             topic: "credit-cards", label: "Credit Cards",        cls: "tc-conduct" },
-    { pattern: /financial.statement|disclosure/i,     topic: "reporting",    label: "Disclosures",         cls: "tc-reporting" },
-    { pattern: /credit.information.report/i,          topic: "reporting",    label: "Credit Reporting",    cls: "tc-reporting" },
-    { pattern: /registration|scale.based|exemption/i, topic: "registration", label: "Registration & SBR",  cls: "tc-registration" },
-    { pattern: /branch.authoris/i,                    topic: "registration", label: "Branch Auth",         cls: "tc-registration" },
-    { pattern: /acquisition.of.sharehold|amalgamat|undertaking.of.financial/i, topic: "operations", label: "M&A / Subsidiaries", cls: "tc-operations" },
-    { pattern: /credit.risk|concentration.risk|outsourc/i, topic: "risk",    label: "Risk Management",     cls: "tc-risk" },
-    { pattern: /asset.liability|ALM/i,                topic: "risk",         label: "ALM",                 cls: "tc-risk" },
-    { pattern: /securitisation|transfer.and.distrib/i,topic: "risk",         label: "Securitisation",      cls: "tc-risk" },
-    { pattern: /investment.portfolio|classif.valuat/i, topic: "risk",        label: "Investment Portfolio", cls: "tc-risk" },
-    { pattern: /climate|ESG/i,                        topic: "esg",          label: "Climate / ESG",       cls: "tc-governance" },
-    { pattern: /wilful.default/i,                     topic: "credit-cards", label: "Wilful Defaulters",   cls: "tc-prudential" },
-    { pattern: /resolution.of.stress/i,               topic: "prudential",   label: "Stressed Assets",     cls: "tc-prudential" },
-    { pattern: /acceptance.of.public.deposit/i,       topic: "deposits",     label: "Public Deposits",     cls: "tc-registration" },
-    { pattern: /dividend/i,                           topic: "prudential",   label: "Dividends",           cls: "tc-prudential" },
-    { pattern: /credit.facilit/i,                     topic: "credit",       label: "Credit Facilities",   cls: "tc-prudential" },
-    { pattern: /voluntary.amalgam/i,                  topic: "operations",   label: "Amalgamation",        cls: "tc-operations" },
-    { pattern: /miscellaneous/i,                      topic: "misc",         label: "Miscellaneous",       cls: "tc-other" },
-  ];
+      // RBI classification rules
+      const RBI_TOPIC_RULES = [
+        { pattern: /capital.adequacy|CAR|CRAR/i, topic: "prudential", label: "Capital Adequacy", cls: "tc-prudential" },
+        { pattern: /income.recogni|asset.classif|NPA|provisioning/i, topic: "npa-provisioning", label: "NPA / Provisioning", cls: "tc-prudential" },
+        { pattern: /governance/i, topic: "governance", label: "Governance", cls: "tc-governance" },
+        { pattern: /know.your.customer|KYC/i, topic: "kyc", label: "KYC", cls: "tc-conduct" },
+        { pattern: /responsible.business|fair.practice/i, topic: "conduct", label: "Conduct", cls: "tc-conduct" },
+        { pattern: /credit.card|debit.card/i, topic: "credit-cards", label: "Credit Cards", cls: "tc-conduct" },
+        { pattern: /financial.statement|disclosure/i, topic: "reporting", label: "Disclosures", cls: "tc-reporting" },
+        { pattern: /credit.information.report/i, topic: "reporting", label: "Credit Reporting", cls: "tc-reporting" },
+        { pattern: /registration|scale.based|exemption/i, topic: "registration", label: "Registration & SBR", cls: "tc-registration" },
+        { pattern: /branch.authoris/i, topic: "registration", label: "Branch Auth", cls: "tc-registration" },
+        { pattern: /acquisition.of.sharehold|amalgamat|undertaking.of.financial/i, topic: "operations", label: "M&A / Subsidiaries", cls: "tc-operations" },
+        { pattern: /credit.risk|concentration.risk|outsourc/i, topic: "risk", label: "Risk Management", cls: "tc-risk" },
+        { pattern: /asset.liability|ALM/i, topic: "risk", label: "ALM", cls: "tc-risk" },
+        { pattern: /securitisation|transfer.and.distrib/i, topic: "risk", label: "Securitisation", cls: "tc-risk" },
+        { pattern: /investment.portfolio|classif.valuat/i, topic: "risk", label: "Investment Portfolio", cls: "tc-risk" },
+        { pattern: /climate|ESG/i, topic: "esg", label: "Climate / ESG", cls: "tc-governance" },
+        { pattern: /wilful.default/i, topic: "credit-cards", label: "Wilful Defaulters", cls: "tc-prudential" },
+        { pattern: /resolution.of.stress/i, topic: "prudential", label: "Stressed Assets", cls: "tc-prudential" },
+        { pattern: /acceptance.of.public.deposit/i, topic: "deposits", label: "Public Deposits", cls: "tc-registration" },
+        { pattern: /dividend/i, topic: "prudential", label: "Dividends", cls: "tc-prudential" },
+        { pattern: /credit.facilit/i, topic: "credit", label: "Credit Facilities", cls: "tc-prudential" },
+        { pattern: /voluntary.amalgam/i, topic: "operations", label: "Amalgamation", cls: "tc-operations" },
+        { pattern: /miscellaneous/i, topic: "misc", label: "Miscellaneous", cls: "tc-other" },
+      ];
 
-  // SEBI classifications
-  const SEBI_TOPICS = {
-    icdr: { label: "ICDR (Capital Issue)", cls: "tc-sebi-icdr" },
-    lodr: { label: "LODR (Listing Rules)", cls: "tc-sebi-lodr" },
-    pit: { label: "PIT (Insider Trading)", cls: "tc-sebi-pit" },
-    sast: { label: "SAST (Takeovers)", cls: "tc-sebi-sast" },
-    depositories: { label: "Depositories", cls: "tc-sebi-icdr" },
-    registrars: { label: "Registrars & STA", cls: "tc-sebi-lodr" },
-    ipef: { label: "Investor Protection", cls: "tc-sebi-pit" },
-    pfutp: { label: "PFUTP Rules", cls: "tc-sebi-sast" }
-  };
+      // SEBI classifications
+      const SEBI_TOPICS = {
+        icdr: { label: "ICDR (Capital Issue)", cls: "tc-sebi-icdr" },
+        lodr: { label: "LODR (Listing Rules)", cls: "tc-sebi-lodr" },
+        pit: { label: "PIT (Insider Trading)", cls: "tc-sebi-pit" },
+        sast: { label: "SAST (Takeovers)", cls: "tc-sebi-sast" },
+        depositories: { label: "Depositories", cls: "tc-sebi-icdr" },
+        registrars: { label: "Registrars & STA", cls: "tc-sebi-lodr" },
+        ipef: { label: "Investor Protection", cls: "tc-sebi-pit" },
+        pfutp: { label: "PFUTP Rules", cls: "tc-sebi-sast" }
+      };
 
-  // High-level policy previews for compliance professionals
-  const PREVIEW_DATA = {
-    // RBI Directions previews
-    "capital.adequacy": "Mandates leverage ratio rules for Base Layer, and a minimum Capital to Risk-Weighted Assets Ratio (CRAR) of 15% for Middle and Upper Layer NBFCs to maintain capital adequacy reserves.",
-    "npa-provisioning": "Sets standards for classification of assets (Standard, Sub-standard, Doubtful, Loss) and corresponding provision requirements. Outlines the 90-day overdue norm for NPA categorization.",
-    "governance": "Outlines board constitution, audit committees, nomination committees, and fit & proper criteria for directors. Restricts credit facilities to directors or their relatives.",
-    "kyc": "Prescribes client identification procedures, beneficial ownership verification, customer due diligence, AML screening, and mandatory reporting of suspicious transactions (STR).",
-    "conduct": "Mandates fair treatment of customers, clear terms of loans, transparency in interest rates, grievance redressal officers, and rules prohibiting coercive recovery tactics.",
-    "credit-cards": "Sets strict regulations on eligibility to issue cards, interest rates calculation, billing transparency, customer consent for value-added services, and default reporting.",
-    "reporting": "Governs format for disclosure in balance sheets, reporting financial returns to RBI, and mandatory contribution of credit histories to Credit Information Companies (CICs).",
-    "registration": "Defines scale-based categorization (Base Layer, Middle Layer, Upper Layer, Top Layer), Net Owned Fund (NOF) requirements, and exemptions from specific registrations.",
-    "risk": "Lays down credit risk ceilings, concentration of credit limits, frameworks for ALM, and guidelines to manage third-party outsourcing risk securely.",
-    "operations": "Regulates investment in subsidiaries, prior approval requirements for mergers/takeovers or change in control, and voluntary amalgamation rules.",
-    
-    // SEBI Regulations previews
-    "icdr": "Securities and Exchange Board of India (Issue of Capital and Disclosure Requirements) Regulations, 2018. Governs initial public offerings (IPOs), further public offerings (FPOs), rights issues, and preferential allotments.",
-    "lodr": "Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015. Prescribes corporate governance, financial result disclosures, material event reports, and shareholding patterns for listed entities.",
-    "pit": "Securities and Exchange Board of India (Prohibition of Insider Trading) Regulations, 2015. Prohibits trading in listed securities based on Unpublished Price Sensitive Information (UPSI) and mandates codes of fair disclosure.",
-    "sast": "Securities and Exchange Board of India (Substantial Acquisition of Shares and Takeovers) Regulations, 2011. Regulates acquisitions of substantial stakes, open offer thresholds, mandatory public announcements, and disclosure timings.",
-    "depositories": "Securities and Exchange Board of India (Depositories and Participants) Regulations, 2018. Regulates depositories, safe-keeping of records, and mutual rules between participants and trading systems.",
-    "registrars": "Securities and Exchange Board of India (Registrars to an Issue and Share Transfer Agents) Regulations, 1993. Sets standards of code of conduct for registrars, public issue registration, and share transfer actions.",
-    "ipef": "Securities and Exchange Board of India (Investor Protection and Education Fund) Regulations, 2009. Outlines rules for utilization and administration of funds designated for investor protection and public trading awareness.",
-    "pfutp": "Securities and Exchange Board of India (Prohibition of Fraudulent and Unfair Trade Practices) Regulations, 2003. Formulates definitions of market manipulation, misleading disclosures, and prohibited trade activities."
-  };
+      // High-level policy previews for compliance professionals
+      const PREVIEW_DATA = {
+        // RBI Directions previews
+        "capital.adequacy": "Mandates leverage ratio rules for Base Layer, and a minimum Capital to Risk-Weighted Assets Ratio (CRAR) of 15% for Middle and Upper Layer NBFCs to maintain capital adequacy reserves.",
+        "npa-provisioning": "Sets standards for classification of assets (Standard, Sub-standard, Doubtful, Loss) and corresponding provision requirements. Outlines the 90-day overdue norm for NPA categorization.",
+        "governance": "Outlines board constitution, audit committees, nomination committees, and fit & proper criteria for directors. Restricts credit facilities to directors or their relatives.",
+        "kyc": "Prescribes client identification procedures, beneficial ownership verification, customer due diligence, AML screening, and mandatory reporting of suspicious transactions (STR).",
+        "conduct": "Mandates fair treatment of customers, clear terms of loans, transparency in interest rates, grievance redressal officers, and rules prohibiting coercive recovery tactics.",
+        "credit-cards": "Sets strict regulations on eligibility to issue cards, interest rates calculation, billing transparency, customer consent for value-added services, and default reporting.",
+        "reporting": "Governs format for disclosure in balance sheets, reporting financial returns to RBI, and mandatory contribution of credit histories to Credit Information Companies (CICs).",
+        "registration": "Defines scale-based categorization (Base Layer, Middle Layer, Upper Layer, Top Layer), Net Owned Fund (NOF) requirements, and exemptions from specific registrations.",
+        "risk": "Lays down credit risk ceilings, concentration of credit limits, frameworks for ALM, and guidelines to manage third-party outsourcing risk securely.",
+        "operations": "Regulates investment in subsidiaries, prior approval requirements for mergers/takeovers or change in control, and voluntary amalgamation rules.",
 
-  function getPreviewText(key, title) {
-    if (PREVIEW_DATA[key]) return PREVIEW_DATA[key];
-    const cls = classifyDirection(title);
-    if (PREVIEW_DATA[cls.topic]) return PREVIEW_DATA[cls.topic];
-    return "Outlines compliance standards, applicability limits, and operational procedures issued by the regulator.";
-  }
+        // SEBI Regulations previews
+        "icdr": "Securities and Exchange Board of India (Issue of Capital and Disclosure Requirements) Regulations, 2018. Governs initial public offerings (IPOs), further public offerings (FPOs), rights issues, and preferential allotments.",
+        "lodr": "Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015. Prescribes corporate governance, financial result disclosures, material event reports, and shareholding patterns for listed entities.",
+        "pit": "Securities and Exchange Board of India (Prohibition of Insider Trading) Regulations, 2015. Prohibits trading in listed securities based on Unpublished Price Sensitive Information (UPSI) and mandates codes of fair disclosure.",
+        "sast": "Securities and Exchange Board of India (Substantial Acquisition of Shares and Takeovers) Regulations, 2011. Regulates acquisitions of substantial stakes, open offer thresholds, mandatory public announcements, and disclosure timings.",
+        "depositories": "Securities and Exchange Board of India (Depositories and Participants) Regulations, 2018. Regulates depositories, safe-keeping of records, and mutual rules between participants and trading systems.",
+        "registrars": "Securities and Exchange Board of India (Registrars to an Issue and Share Transfer Agents) Regulations, 1993. Sets standards of code of conduct for registrars, public issue registration, and share transfer actions.",
+        "ipef": "Securities and Exchange Board of India (Investor Protection and Education Fund) Regulations, 2009. Outlines rules for utilization and administration of funds designated for investor protection and public trading awareness.",
+        "pfutp": "Securities and Exchange Board of India (Prohibition of Fraudulent and Unfair Trade Practices) Regulations, 2003. Formulates definitions of market manipulation, misleading disclosures, and prohibited trade activities."
+      };
 
-  // Robustly parse any date string into a plain { y, m, d } object using LOCAL time
-  // Handles both ISO timestamps ("2025-11-27T18:30:00.000Z") and
-  // human strings ("Dec 24, 2025" / "Mar 21, 2026")
-  function parseToLocal(dateStr) {
-    if (!dateStr) return null;
-    const d = new Date(dateStr);
-    if (isNaN(d)) return null;
-    // For ISO strings RBI stores dates as midnight IST = 18:30 UTC prev day.
-    // Convert to IST (UTC+5:30) by adding offset before reading local parts.
-    const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000;
-    const istMs = d.getTime() + IST_OFFSET_MS;
-    const ist = new Date(istMs);
-    return { y: ist.getUTCFullYear(), m: ist.getUTCMonth() + 1, d: ist.getUTCDate() };
-  }
-
-  // Helper to check if a date is within the last 6 months (180 days)
-  function isWithinLast6Months(dateStr) {
-    if (!dateStr) return false;
-    const d = new Date(dateStr);
-    if (isNaN(d)) return false;
-    const sixMonthsAgo = Date.now() - (180 * 24 * 60 * 60 * 1000);
-    return d.getTime() >= sixMonthsAgo;
-  }
-
-  // Returns true if the item's date passes all active date filters
-  function matchesDateFilters(dateStr) {
-    const ld = parseToLocal(dateStr);
-    if (!ld) return (!filterYear && !filterMonth && !filterFrom && !filterTo);
-
-    if (filterYear && ld.y !== parseInt(filterYear)) return false;
-    if (filterMonth && ld.m !== parseInt(filterMonth)) return false;
-
-    if (filterFrom) {
-      const from = parseToLocal(filterFrom);
-      if (from && (ld.y < from.y || (ld.y === from.y && ld.m < from.m) ||
-          (ld.y === from.y && ld.m === from.m && ld.d < from.d))) return false;
-    }
-    if (filterTo) {
-      const to = parseToLocal(filterTo);
-      if (to && (ld.y > to.y || (ld.y === to.y && ld.m > to.m) ||
-          (ld.y === to.y && ld.m === to.m && ld.d > to.d))) return false;
-    }
-    return true;
-  }
-
-  function hasActiveDateFilter() {
-    return !!(filterYear || filterMonth || filterFrom || filterTo);
-  }
-
-  // SBR Layer applicability categorizer based on SBR framework
-  function determineSbrLayers(title) {
-    const t = title.toLowerCase();
-    
-    if (t.includes("public deposit") || t.includes("acceptance of deposit")) {
-      return { label: "Middle & Upper Layer (Deposit-Taking)", cls: "tc-layer-mlul" };
-    }
-    
-    if (t.includes("outsourcing") || t.includes("asset liability") || t.includes("concentration risk") || t.includes("risk management") || t.includes("securitisation")) {
-      return { label: "Middle & Upper Layer (ML/UL Only)", cls: "tc-layer-mlul" };
-    }
-    
-    if (t.includes("know your customer") || t.includes("kyc") || t.includes("fair practice") || t.includes("responsible business") || t.includes("registration, exemption")) {
-      return { label: "All Layers (Base, Middle & Upper)", cls: "tc-layer-all" };
-    }
-    
-    if (t.includes("capital adequacy") || t.includes("prudential norms on capital")) {
-      return { label: "All Layers (BL Leverage Ratio / ML 15% CRAR)", cls: "tc-layer-all" };
-    }
-    
-    return { label: "All Layers (Applicable to NBFC-ICC)", cls: "tc-layer-all" };
-  }
-
-  function classifyDirection(title) {
-    for (const rule of RBI_TOPIC_RULES) {
-      if (rule.pattern.test(title)) {
-        return { topic: rule.topic, label: rule.label, cls: rule.cls };
+      function getPreviewText(key, title) {
+        if (PREVIEW_DATA[key]) return PREVIEW_DATA[key];
+        const cls = classifyDirection(title);
+        if (PREVIEW_DATA[cls.topic]) return PREVIEW_DATA[cls.topic];
+        return "Outlines compliance standards, applicability limits, and operational procedures issued by the regulator.";
       }
-    }
-    return { topic: "other", label: "Other", cls: "tc-other" };
-  }
 
-  function isUpdated(title) {
-    if (!title) return false;
-    return /updated.as.on|updated.as.of/i.test(title);
-  }
+      // Robustly parse any date string into a plain { y, m, d } object using LOCAL time
+      // Handles both ISO timestamps ("2025-11-27T18:30:00.000Z") and
+      // human strings ("Dec 24, 2025" / "Mar 21, 2026")
+      function parseToLocal(dateStr) {
+        if (!dateStr) return null;
+        const d = new Date(dateStr);
+        if (isNaN(d)) return null;
+        // For ISO strings RBI stores dates as midnight IST = 18:30 UTC prev day.
+        // Convert to IST (UTC+5:30) by adding offset before reading local parts.
+        const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000;
+        const istMs = d.getTime() + IST_OFFSET_MS;
+        const ist = new Date(istMs);
+        return { y: ist.getUTCFullYear(), m: ist.getUTCMonth() + 1, d: ist.getUTCDate() };
+      }
 
-  function extractUpdatedDate(title) {
-    const m = title.match(/[Uu]pdated as on\s+([A-Za-z]+ \d{1,2},? \d{4})/);
-    return m ? m[1] : null;
-  }
+      // Helper to check if a date is within the last 6 months (180 days)
+      function isWithinLast6Months(dateStr) {
+        if (!dateStr) return false;
+        const d = new Date(dateStr);
+        if (isNaN(d)) return false;
+        const sixMonthsAgo = Date.now() - (180 * 24 * 60 * 60 * 1000);
+        return d.getTime() >= sixMonthsAgo;
+      }
 
-  function cleanTitle(title) {
-    return title.replace(/\s*\((?:[Uu]pdated|updated)\s+as\s+on\s+[^)]+\)\s*$/, "").trim();
-  }
+      // Returns true if the item's date passes all active date filters
+      function matchesDateFilters(dateStr) {
+        const ld = parseToLocal(dateStr);
+        if (!ld) return (!filterYear && !filterMonth && !filterFrom && !filterTo);
 
-  function fmtDate(iso) {
-    if (!iso) return "—";
-    const d = new Date(iso);
-    if (isNaN(d)) return iso;
-    return d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
-  }
+        if (filterYear && ld.y !== parseInt(filterYear)) return false;
+        if (filterMonth && ld.m !== parseInt(filterMonth)) return false;
 
-  function escapeHtml(str) {
-    return String(str || "").replace(/[&<>"']/g, (c) => ({
-      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-    }[c]));
-  }
+        if (filterFrom) {
+          const from = parseToLocal(filterFrom);
+          if (from && (ld.y < from.y || (ld.y === from.y && ld.m < from.m) ||
+            (ld.y === from.y && ld.m === from.m && ld.d < from.d))) return false;
+        }
+        if (filterTo) {
+          const to = parseToLocal(filterTo);
+          if (to && (ld.y > to.y || (ld.y === to.y && ld.m > to.m) ||
+            (ld.y === to.y && ld.m === to.m && ld.d > to.d))) return false;
+        }
+        return true;
+      }
 
-  // Safe search highlighting
-  function highlightText(text, q) {
-    const cleanText = cleanTitle(text);
-    if (!q) return escapeHtml(cleanText);
-    const escapedQuery = q.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-    const regex = new RegExp(`(${escapedQuery})`, 'gi');
-    return escapeHtml(cleanText).replace(regex, `<mark style="background: #FFF59D; color: #1C2321; padding: 2px 0; border-radius: 2px;">$1</mark>`);
-  }
+      function hasActiveDateFilter() {
+        return !!(filterYear || filterMonth || filterFrom || filterTo);
+      }
 
-  // Compute all unique topics from RBI data
-  function getRbiTopics(directions) {
-    const seen = new Map();
-    for (const d of directions) {
-      const cls = classifyDirection(d.title);
-      if (!seen.has(cls.topic)) seen.set(cls.topic, cls.label);
-    }
-    return seen;
-  }
+      // SBR Layer applicability categorizer based on SBR framework
+      function determineSbrLayers(title) {
+        const t = title.toLowerCase();
 
-  function renderChips() {
-    topicChipsEl.innerHTML = "";
-    
-    // Chips only apply to RBI & SEBI tabs
-    if (currentTab !== "rbi" && currentTab !== "sebi") {
-      topicChipsEl.style.display = "none";
-      return;
-    }
-    topicChipsEl.style.display = "flex";
+        if (t.includes("public deposit") || t.includes("acceptance of deposit")) {
+          return { label: "Middle & Upper Layer (Deposit-Taking)", cls: "tc-layer-mlul" };
+        }
 
-    const all = document.createElement("button");
-    all.className = "chip";
-    all.textContent = "All topics";
-    all.setAttribute("aria-pressed", activeTopic === "all");
-    all.addEventListener("click", () => { activeTopic = "all"; render(); });
-    topicChipsEl.appendChild(all);
+        if (t.includes("outsourcing") || t.includes("asset liability") || t.includes("concentration risk") || t.includes("risk management") || t.includes("securitisation")) {
+          return { label: "Middle & Upper Layer (ML/UL Only)", cls: "tc-layer-mlul" };
+        }
 
-    if (currentTab === "rbi") {
-      const topics = getRbiTopics(rbiData.directions);
-      topics.forEach((label, topicKey) => {
-        const chip = document.createElement("button");
-        chip.className = "chip";
-        chip.textContent = label;
-        chip.setAttribute("aria-pressed", activeTopic === topicKey);
-        chip.addEventListener("click", () => { activeTopic = topicKey; render(); });
-        topicChipsEl.appendChild(chip);
-      });
-    } else {
-      Object.keys(SEBI_TOPICS).forEach((key) => {
-        const chip = document.createElement("button");
-        chip.className = "chip";
-        chip.textContent = SEBI_TOPICS[key].label;
-        chip.setAttribute("aria-pressed", activeTopic === key);
-        chip.addEventListener("click", () => { activeTopic = key; render(); });
-        topicChipsEl.appendChild(chip);
-      });
-    }
-  }
+        if (t.includes("know your customer") || t.includes("kyc") || t.includes("fair practice") || t.includes("responsible business") || t.includes("registration, exemption")) {
+          return { label: "All Layers (Base, Middle & Upper)", cls: "tc-layer-all" };
+        }
 
-  function filteredRbiItems() {
-    const active = hasActiveDateFilter();
-    return rbiData.directions.filter((d) => {
-      const cls = classifyDirection(d.title);
-      if (activeTopic !== "all" && cls.topic !== activeTopic) return false;
-      if (active && !matchesDateFilters(d.issuedDate)) return false;
-      if (!active && filterLast6Months && !query && !isWithinLast6Months(d.issuedDate)) return false;
-      if (!query) return true;
-      return (d.title + " " + (cls.label || "")).toLowerCase().includes(query.toLowerCase());
-    });
-  }
+        if (t.includes("capital adequacy") || t.includes("prudential norms on capital")) {
+          return { label: "All Layers (BL Leverage Ratio / ML 15% CRAR)", cls: "tc-layer-all" };
+        }
 
-  function filteredSebiItems() {
-    const regs = Object.values(sebiData.regulations);
-    const active = hasActiveDateFilter();
-    return regs.filter((reg) => {
-      if (activeTopic !== "all" && reg.key !== activeTopic) return false;
-      // Use amendedDate for SEBI (human string like "Dec 24, 2025")
-      const dateRef = reg.amendedDate || reg.lastUpdated;
-      if (active && !matchesDateFilters(dateRef)) return false;
-      if (!active && filterLast6Months && !query && !isWithinLast6Months(dateRef)) return false;
-      if (!query) return true;
-      return (reg.title + " " + reg.shortName).toLowerCase().includes(query.toLowerCase());
-    });
-  }
+        return { label: "All Layers (Applicable to NBFC-ICC)", cls: "tc-layer-all" };
+      }
 
-  function filteredActsItems() {
-    const active = hasActiveDateFilter();
-    return actsData.acts.filter((act) => {
-      if (active && !matchesDateFilters(act.enactedDate)) return false;
-      if (!query) return true;
-      return (act.title + " " + act.summary).toLowerCase().includes(query.toLowerCase());
-    });
-  }
+      function classifyDirection(title) {
+        for (const rule of RBI_TOPIC_RULES) {
+          if (rule.pattern.test(title)) {
+            return { topic: rule.topic, label: rule.label, cls: rule.cls };
+          }
+        }
+        return { topic: "other", label: "Other", cls: "tc-other" };
+      }
 
-  function filteredSsItems() {
-    const active = hasActiveDateFilter();
-    return ssData.standards.filter((std) => {
-      if (active && !matchesDateFilters(std.effectiveDate)) return false;
-      if (!query) return true;
-      return (std.title + " " + std.summary).toLowerCase().includes(query.toLowerCase());
-    });
-  }
+      function isUpdated(title) {
+        if (!title) return false;
+        return /updated.as.on|updated.as.of/i.test(title);
+      }
 
-  function renderSummary() {
-    if (currentTab === "rbi") {
-      const total = rbiData.directions.length;
-      const updated = rbiData.directions.filter(d => isUpdated(d.title)).length;
-      return `
+      function extractUpdatedDate(title) {
+        const m = title.match(/[Uu]pdated as on\s+([A-Za-z]+ \d{1,2},? \d{4})/);
+        return m ? m[1] : null;
+      }
+
+      function cleanTitle(title) {
+        return title.replace(/\s*\((?:[Uu]pdated|updated)\s+as\s+on\s+[^)]+\)\s*$/, "").trim();
+      }
+
+      function fmtDate(iso) {
+        if (!iso) return "—";
+        const d = new Date(iso);
+        if (isNaN(d)) return iso;
+        return d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+      }
+
+      function escapeHtml(str) {
+        return String(str || "").replace(/[&<>"']/g, (c) => ({
+          "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+        }[c]));
+      }
+
+      // Safe search highlighting
+      function highlightText(text, q) {
+        const cleanText = cleanTitle(text);
+        if (!q) return escapeHtml(cleanText);
+        const escapedQuery = q.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        const regex = new RegExp(`(${escapedQuery})`, 'gi');
+        return escapeHtml(cleanText).replace(regex, `<mark style="background: #FFF59D; color: #1C2321; padding: 2px 0; border-radius: 2px;">$1</mark>`);
+      }
+
+      // Compute all unique topics from RBI data
+      function getRbiTopics(directions) {
+        const seen = new Map();
+        for (const d of directions) {
+          const cls = classifyDirection(d.title);
+          if (!seen.has(cls.topic)) seen.set(cls.topic, cls.label);
+        }
+        return seen;
+      }
+
+      function renderChips() {
+        topicChipsEl.innerHTML = "";
+
+        // Chips only apply to RBI & SEBI tabs
+        if (currentTab !== "rbi" && currentTab !== "sebi") {
+          topicChipsEl.style.display = "none";
+          return;
+        }
+        topicChipsEl.style.display = "flex";
+
+        const all = document.createElement("button");
+        all.className = "chip";
+        all.textContent = "All topics";
+        all.setAttribute("aria-pressed", activeTopic === "all");
+        all.addEventListener("click", () => { activeTopic = "all"; render(); });
+        topicChipsEl.appendChild(all);
+
+        if (currentTab === "rbi") {
+          const topics = getRbiTopics(rbiData.directions);
+          topics.forEach((label, topicKey) => {
+            const chip = document.createElement("button");
+            chip.className = "chip";
+            chip.textContent = label;
+            chip.setAttribute("aria-pressed", activeTopic === topicKey);
+            chip.addEventListener("click", () => { activeTopic = topicKey; render(); });
+            topicChipsEl.appendChild(chip);
+          });
+        } else {
+          Object.keys(SEBI_TOPICS).forEach((key) => {
+            const chip = document.createElement("button");
+            chip.className = "chip";
+            chip.textContent = SEBI_TOPICS[key].label;
+            chip.setAttribute("aria-pressed", activeTopic === key);
+            chip.addEventListener("click", () => { activeTopic = key; render(); });
+            topicChipsEl.appendChild(chip);
+          });
+        }
+      }
+
+      function filteredRbiItems() {
+        const active = hasActiveDateFilter();
+        return rbiData.directions.filter((d) => {
+          const cls = classifyDirection(d.title);
+          if (activeTopic !== "all" && cls.topic !== activeTopic) return false;
+          if (active && !matchesDateFilters(d.issuedDate)) return false;
+          if (!active && filterLast6Months && !query && !isWithinLast6Months(d.issuedDate)) return false;
+          if (!query) return true;
+          return (d.title + " " + (cls.label || "")).toLowerCase().includes(query.toLowerCase());
+        });
+      }
+
+      function filteredSebiItems() {
+        const regs = Object.values(sebiData.regulations);
+        const active = hasActiveDateFilter();
+        return regs.filter((reg) => {
+          if (activeTopic !== "all" && reg.key !== activeTopic) return false;
+          // Use amendedDate for SEBI (human string like "Dec 24, 2025")
+          const dateRef = reg.amendedDate || reg.lastUpdated;
+          if (active && !matchesDateFilters(dateRef)) return false;
+          if (!active && filterLast6Months && !query && !isWithinLast6Months(dateRef)) return false;
+          if (!query) return true;
+          return (reg.title + " " + reg.shortName).toLowerCase().includes(query.toLowerCase());
+        });
+      }
+
+      function filteredActsItems() {
+        const active = hasActiveDateFilter();
+        return actsData.acts.filter((act) => {
+          if (active && !matchesDateFilters(act.enactedDate)) return false;
+          if (!query) return true;
+          return (act.title + " " + act.summary).toLowerCase().includes(query.toLowerCase());
+        });
+      }
+
+      function filteredSsItems() {
+        const active = hasActiveDateFilter();
+        return ssData.standards.filter((std) => {
+          if (active && !matchesDateFilters(std.effectiveDate)) return false;
+          if (!query) return true;
+          return (std.title + " " + std.summary).toLowerCase().includes(query.toLowerCase());
+        });
+      }
+
+      function renderSummary() {
+        if (currentTab === "rbi") {
+          const total = rbiData.directions.length;
+          const updated = rbiData.directions.filter(d => isUpdated(d.title)).length;
+          return `
         <div class="summary-panel" aria-label="RBI summary">
           <div class="stat-item">
             <span class="stat-num">${total}</span>
@@ -1237,11 +1429,11 @@
           </div>
         </div>
       `;
-    } else if (currentTab === "sebi") {
-      const regs = Object.values(sebiData.regulations);
-      const total = regs.length;
-      const updated = regs.filter(r => isUpdated(r.title)).length;
-      return `
+        } else if (currentTab === "sebi") {
+          const regs = Object.values(sebiData.regulations);
+          const total = regs.length;
+          const updated = regs.filter(r => isUpdated(r.title)).length;
+          return `
         <div class="summary-panel sebi-panel" aria-label="SEBI summary">
           <div class="stat-item">
             <span class="stat-num">${total}</span>
@@ -1257,8 +1449,8 @@
           </div>
         </div>
       `;
-    } else if (currentTab === "acts") {
-      return `
+        } else if (currentTab === "acts") {
+          return `
         <div class="summary-panel acts-panel" aria-label="Acts summary">
           <div class="stat-item">
             <span class="stat-num">${actsData.acts.length}</span>
@@ -1274,8 +1466,8 @@
           </div>
         </div>
       `;
-    } else {
-      return `
+        } else {
+          return `
         <div class="summary-panel ss-panel" aria-label="Secretarial Standards summary">
           <div class="stat-item">
             <span class="stat-num">${ssData.standards.length}</span>
@@ -1291,66 +1483,66 @@
           </div>
         </div>
       `;
-    }
-  }
-
-  // Toggle dynamic summary panel inside cards
-  window.toggleGistPanel = function(btn, panelId) {
-    const panel = document.getElementById(`gist-panel-${panelId}`);
-    const isExpanded = btn.getAttribute("aria-expanded") === "true";
-    
-    if (isExpanded) {
-      btn.setAttribute("aria-expanded", "false");
-      btn.innerHTML = "🔍 View Summary Gist";
-      panel.style.display = "none";
-    } else {
-      // Close other open panels to keep UI clean
-      document.querySelectorAll(".gist-panel").forEach(p => p.style.display = "none");
-      document.querySelectorAll(".preview-btn").forEach(b => {
-        b.setAttribute("aria-expanded", "false");
-        b.innerHTML = "🔍 View Summary Gist";
-      });
-
-      btn.setAttribute("aria-expanded", "true");
-      btn.innerHTML = "❌ Hide Summary Gist";
-      panel.style.display = "block";
-    }
-  };
-
-  function render() {
-    renderChips();
-    
-    // Manage Timeframe Banner visibility
-    // Show timeframe banner only when no date filter is active
-    if ((currentTab === "rbi" || currentTab === "sebi") && filterLast6Months && !hasActiveDateFilter() && !query) {
-      timeframeBanner.style.display = "flex";
-    } else {
-      timeframeBanner.style.display = "none";
-    }
-    // Show/hide the Clear Filters button
-    clearAllFiltersBtnEl.style.display = hasActiveDateFilter() ? "inline-flex" : "none";
-
-    if (currentTab === "rbi") {
-      const items = filteredRbiItems();
-      if (items.length === 0) {
-        listEl.innerHTML = renderSummary() + '<div class="empty-state"><h3>No RBI directions match</h3><p>Try a different keyword, adjust the date filter, or click "Show All History".</p></div>';
-        statusEl.textContent = "0 of " + rbiData.directions.length + " directions shown";
-        return;
+        }
       }
-      statusEl.innerHTML = '<span class="dot" style="color: #6B8F5C">●</span> ' + items.length + " of " + rbiData.directions.length + " directions shown";
-      
-      const cardsHtml = items.map((dir, idx) => {
-        const cls = classifyDirection(dir.title);
-        const upd = isUpdated(dir.title);
-        const updDate = extractUpdatedDate(dir.title);
-        const layer = determineSbrLayers(dir.title);
-        const highlightedTitle = highlightText(dir.title, query);
-        const previewText = getPreviewText(cls.topic, dir.title);
-        const hasPdf = dir.pdfUrl && dir.pdfUrl.toLowerCase().endsWith(".pdf");
-        
-        const gistPoints = COMPLIANCE_GISTS[cls.topic] || ["Core compliance guidelines issued by the Reserve Bank of India."];
 
-        return `
+      // Toggle dynamic summary panel inside cards
+      window.toggleGistPanel = function (btn, panelId) {
+        const panel = document.getElementById(`gist-panel-${panelId}`);
+        const isExpanded = btn.getAttribute("aria-expanded") === "true";
+
+        if (isExpanded) {
+          btn.setAttribute("aria-expanded", "false");
+          btn.innerHTML = "🔍 View Summary Gist";
+          panel.style.display = "none";
+        } else {
+          // Close other open panels to keep UI clean
+          document.querySelectorAll(".gist-panel").forEach(p => p.style.display = "none");
+          document.querySelectorAll(".preview-btn").forEach(b => {
+            b.setAttribute("aria-expanded", "false");
+            b.innerHTML = "🔍 View Summary Gist";
+          });
+
+          btn.setAttribute("aria-expanded", "true");
+          btn.innerHTML = "❌ Hide Summary Gist";
+          panel.style.display = "block";
+        }
+      };
+
+      function render() {
+        renderChips();
+
+        // Manage Timeframe Banner visibility
+        // Show timeframe banner only when no date filter is active
+        if ((currentTab === "rbi" || currentTab === "sebi") && filterLast6Months && !hasActiveDateFilter() && !query) {
+          timeframeBanner.style.display = "flex";
+        } else {
+          timeframeBanner.style.display = "none";
+        }
+        // Show/hide the Clear Filters button
+        clearAllFiltersBtnEl.style.display = hasActiveDateFilter() ? "inline-flex" : "none";
+
+        if (currentTab === "rbi") {
+          const items = filteredRbiItems();
+          if (items.length === 0) {
+            listEl.innerHTML = renderSummary() + '<div class="empty-state"><h3>No RBI directions match</h3><p>Try a different keyword, adjust the date filter, or click "Show All History".</p></div>';
+            statusEl.textContent = "0 of " + rbiData.directions.length + " directions shown";
+            return;
+          }
+          statusEl.innerHTML = '<span class="dot" style="color: #6B8F5C">●</span> ' + items.length + " of " + rbiData.directions.length + " directions shown";
+
+          const cardsHtml = items.map((dir, idx) => {
+            const cls = classifyDirection(dir.title);
+            const upd = isUpdated(dir.title);
+            const updDate = extractUpdatedDate(dir.title);
+            const layer = determineSbrLayers(dir.title);
+            const highlightedTitle = highlightText(dir.title, query);
+            const previewText = getPreviewText(cls.topic, dir.title);
+            const hasPdf = dir.pdfUrl && dir.pdfUrl.toLowerCase().endsWith(".pdf");
+
+            const gistPoints = COMPLIANCE_GISTS[cls.topic] || ["Core compliance guidelines issued by the Reserve Bank of India."];
+
+            return `
           <article class="direction-card" id="direction-${idx}">
             <div class="card-head">
               <div class="card-meta">
@@ -1363,7 +1555,7 @@
             
             <div class="amendment-summary-block">
               <strong>Latest Update / Amendment:</strong>
-              ${updDate 
+              ${updDate
                 ? `Consolidated Master Direction containing amendments updated as of <strong>${escapeHtml(updDate)}</strong>.`
                 : `Active baseline Master Direction issued on <strong>${fmtDate(dir.issuedDate)}</strong>.`}
             </div>
@@ -1389,27 +1581,27 @@
             </div>
           </article>
         `;
-      }).join("");
-      listEl.innerHTML = renderSummary() + cardsHtml;
-      
-    } else if (currentTab === "sebi") {
-      const items = filteredSebiItems();
-      if (items.length === 0) {
-        listEl.innerHTML = renderSummary() + '<div class="empty-state"><h3>No SEBI regulations match</h3><p>Try a different keyword, adjust the date filter, or click "Show All History".</p></div>';
-        statusEl.textContent = "0 of " + Object.keys(sebiData.regulations).length + " regulations shown";
-        return;
-      }
-      statusEl.innerHTML = '<span class="dot" style="color: #6B8F5C">●</span> ' + items.length + " of " + Object.keys(sebiData.regulations).length + " regulations shown";
+          }).join("");
+          listEl.innerHTML = renderSummary() + cardsHtml;
 
-      const cardsHtml = items.map((reg, idx) => {
-        const topic = SEBI_TOPICS[reg.key] || { label: "Regulations", cls: "tc-other" };
-        const highlightedTitle = highlightText(reg.title, query);
-        const previewText = getPreviewText(reg.key, reg.title);
-        const hasPdf = reg.pdfUrl && reg.pdfUrl.toLowerCase().endsWith(".pdf");
-        
-        const gistPoints = COMPLIANCE_GISTS[reg.key] || ["Corporate and capital disclosure rules issued under the SEBI Act."];
+        } else if (currentTab === "sebi") {
+          const items = filteredSebiItems();
+          if (items.length === 0) {
+            listEl.innerHTML = renderSummary() + '<div class="empty-state"><h3>No SEBI regulations match</h3><p>Try a different keyword, adjust the date filter, or click "Show All History".</p></div>';
+            statusEl.textContent = "0 of " + Object.keys(sebiData.regulations).length + " regulations shown";
+            return;
+          }
+          statusEl.innerHTML = '<span class="dot" style="color: #6B8F5C">●</span> ' + items.length + " of " + Object.keys(sebiData.regulations).length + " regulations shown";
 
-        return `
+          const cardsHtml = items.map((reg, idx) => {
+            const topic = SEBI_TOPICS[reg.key] || { label: "Regulations", cls: "tc-other" };
+            const highlightedTitle = highlightText(reg.title, query);
+            const previewText = getPreviewText(reg.key, reg.title);
+            const hasPdf = reg.pdfUrl && reg.pdfUrl.toLowerCase().endsWith(".pdf");
+
+            const gistPoints = COMPLIANCE_GISTS[reg.key] || ["Corporate and capital disclosure rules issued under the SEBI Act."];
+
+            return `
           <article class="direction-card sebi-card" id="sebi-${idx}">
             <div class="card-head">
               <div class="card-meta">
@@ -1445,23 +1637,23 @@
             </div>
           </article>
         `;
-      }).join("");
-      listEl.innerHTML = renderSummary() + cardsHtml;
-      
-    } else if (currentTab === "acts") {
-      const items = filteredActsItems();
-      if (items.length === 0) {
-        listEl.innerHTML = renderSummary() + '<div class="empty-state"><h3>No Acts or Rules match</h3><p>Try searching for a different keyword or resetting the date picker.</p></div>';
-        statusEl.textContent = "0 of " + actsData.acts.length + " items shown";
-        return;
-      }
-      statusEl.innerHTML = '<span class="dot" style="color: #5A4FCF">●</span> ' + items.length + " of " + actsData.acts.length + " Acts & Rules shown";
+          }).join("");
+          listEl.innerHTML = renderSummary() + cardsHtml;
 
-      const cardsHtml = items.map((act, idx) => {
-        const highlightedTitle = highlightText(act.title, query);
-        const gistPoints = COMPLIANCE_GISTS[act.id] || ["Corporate and statutory rules regulating financial services in India."];
+        } else if (currentTab === "acts") {
+          const items = filteredActsItems();
+          if (items.length === 0) {
+            listEl.innerHTML = renderSummary() + '<div class="empty-state"><h3>No Acts or Rules match</h3><p>Try searching for a different keyword or resetting the date picker.</p></div>';
+            statusEl.textContent = "0 of " + actsData.acts.length + " items shown";
+            return;
+          }
+          statusEl.innerHTML = '<span class="dot" style="color: #5A4FCF">●</span> ' + items.length + " of " + actsData.acts.length + " Acts & Rules shown";
 
-        return `
+          const cardsHtml = items.map((act, idx) => {
+            const highlightedTitle = highlightText(act.title, query);
+            const gistPoints = COMPLIANCE_GISTS[act.id] || ["Corporate and statutory rules regulating financial services in India."];
+
+            return `
           <article class="direction-card act-card" id="act-${idx}">
             <div class="card-head">
               <div class="card-meta">
@@ -1497,23 +1689,23 @@
             </div>
           </article>
         `;
-      }).join("");
-      listEl.innerHTML = renderSummary() + cardsHtml;
-      
-    } else if (currentTab === "ss") {
-      const items = filteredSsItems();
-      if (items.length === 0) {
-        listEl.innerHTML = renderSummary() + '<div class="empty-state"><h3>No Secretarial Standards match</h3><p>Try searching for a different keyword or resetting the date picker.</p></div>';
-        statusEl.textContent = "0 of " + ssData.standards.length + " standards shown";
-        return;
-      }
-      statusEl.innerHTML = '<span class="dot" style="color: #B8742A">●</span> ' + items.length + " of " + ssData.standards.length + " standards shown";
+          }).join("");
+          listEl.innerHTML = renderSummary() + cardsHtml;
 
-      const cardsHtml = items.map((std, idx) => {
-        const highlightedTitle = highlightText(std.title, query);
-        const gistPoints = COMPLIANCE_GISTS[std.id] || ["Secretarial standards issued by the Institute of Company Secretaries of India."];
+        } else if (currentTab === "ss") {
+          const items = filteredSsItems();
+          if (items.length === 0) {
+            listEl.innerHTML = renderSummary() + '<div class="empty-state"><h3>No Secretarial Standards match</h3><p>Try searching for a different keyword or resetting the date picker.</p></div>';
+            statusEl.textContent = "0 of " + ssData.standards.length + " standards shown";
+            return;
+          }
+          statusEl.innerHTML = '<span class="dot" style="color: #B8742A">●</span> ' + items.length + " of " + ssData.standards.length + " standards shown";
 
-        return `
+          const cardsHtml = items.map((std, idx) => {
+            const highlightedTitle = highlightText(std.title, query);
+            const gistPoints = COMPLIANCE_GISTS[std.id] || ["Secretarial standards issued by the Institute of Company Secretaries of India."];
+
+            return `
           <article class="direction-card ss-card" id="ss-${idx}">
             <div class="card-head">
               <div class="card-meta">
@@ -1549,126 +1741,153 @@
             </div>
           </article>
         `;
-      }).join("");
-      listEl.innerHTML = renderSummary() + cardsHtml;
-    }
-  }
+          }).join("");
+          listEl.innerHTML = renderSummary() + cardsHtml;
+        }
+      }
 
-  // Tab Switch logic
-  function switchTab(tab) {
-    currentTab = tab;
-    activeTopic = "all";
-    query = "";
-    searchEl.value = "";
-    
-    // Reset date filters on tab switch
-    filterYear = ""; filterYearEl.value = "";
-    filterMonth = ""; filterMonthEl.value = "";
-    filterFrom = ""; filterFromEl.value = "";
-    filterTo = ""; filterToEl.value = "";
-    clearAllFiltersBtnEl.style.display = "none";
+      // Tab Switch logic
+      function switchTab(tab) {
+        currentTab = tab;
+        activeTopic = "all";
+        query = "";
+        searchEl.value = "";
 
-    // Set tab elements selected state
-    tabRbi.setAttribute("aria-selected", tab === "rbi");
-    tabSebi.setAttribute("aria-selected", tab === "sebi");
-    tabActs.setAttribute("aria-selected", tab === "acts");
-    tabSs.setAttribute("aria-selected", tab === "ss");
+        // Reset date filters on tab switch
+        filterYear = ""; filterYearEl.value = "";
+        filterMonth = ""; filterMonthEl.value = "";
+        filterFrom = ""; filterFromEl.value = "";
+        filterTo = ""; filterToEl.value = "";
+        syncFilterUI();
 
-    // Show/hide category descriptors
-    rbiCategoryInfo.style.display = tab === "rbi" ? "flex" : "none";
-    sebiCategoryInfo.style.display = tab === "sebi" ? "flex" : "none";
-    actsCategoryInfo.style.display = tab === "acts" ? "flex" : "none";
-    ssCategoryInfo.style.display = tab === "ss" ? "flex" : "none";
+        // Set tab elements selected state
+        tabRbi.setAttribute("aria-selected", tab === "rbi");
+        tabSebi.setAttribute("aria-selected", tab === "sebi");
+        tabActs.setAttribute("aria-selected", tab === "acts");
+        tabSs.setAttribute("aria-selected", tab === "ss");
 
-    if (tab === "rbi") {
-      infoBannerText.textContent = "Always verify applicability to your specific NBFC registration layer (Base/Middle/Upper) before acting on any direction.";
-      searchEl.placeholder = "Search directions by title or topic…";
-      footerSourceText.innerHTML = `Sourced from <a href="https://www.rbi.org.in/Scripts/BS_ViewMasterDirections.aspx?did=411" target="_blank" rel="noopener">RBI Master Directions — Non-Banking Financial Companies</a>. Filtered to show only directions applicable to <strong>NBFC-ICC (Investment and Credit Company)</strong>.`;
-      
-      const genDate = new Date(rbiData.generatedAt);
-      syncEl.textContent = "Active & Synced: " + (isNaN(genDate) ? rbiData.generatedAt : genDate.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }));
-    } else if (tab === "sebi") {
-      infoBannerText.innerHTML = `<strong>Active Monitoring:</strong> These regulations are updated directly from the official Securities and Exchange Board of India portals.`;
-      searchEl.placeholder = "Search regulations by title or code…";
-      footerSourceText.innerHTML = `Sourced from <a href="https://www.sebi.gov.in/sebiweb/home/HomeAction.do?doListing=yes&sid=1&ssid=3&smid=0" target="_blank" rel="noopener">SEBI Legal Regulations List</a>. Automatically monitors key regulations.`;
-      
-      const genDate = new Date(sebiData.generatedAt);
-      syncEl.textContent = "Active & Synced: " + (isNaN(genDate) ? sebiData.generatedAt : genDate.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }));
-    } else if (tab === "acts") {
-      infoBannerText.innerHTML = `<strong>Baseline Corporate Laws:</strong> Key statutory acts and corporate governance rules applicable to Kreon Financial Services.`;
-      searchEl.placeholder = "Search acts or rules by keyword…";
-      footerSourceText.innerHTML = `Checklist of statutory rules compiled for <strong>Kreon Financial Services Limited</strong>.`;
-      
-      const genDate = new Date(actsData.generatedAt);
-      syncEl.textContent = "Static Database: " + (isNaN(genDate) ? actsData.generatedAt : genDate.toLocaleString("en-IN", { dateStyle: "medium" }));
-    } else {
-      infoBannerText.innerHTML = `<strong>ICSI Standards:</strong> Mandated standards under the Companies Act to ensure standardisation of corporate secretarial records.`;
-      searchEl.placeholder = "Search standards by keyword…";
-      footerSourceText.innerHTML = `Sourced from the <strong>Institute of Company Secretaries of India (ICSI)</strong>.`;
-      
-      const genDate = new Date(ssData.generatedAt);
-      syncEl.textContent = "Static Database: " + (isNaN(genDate) ? ssData.generatedAt : genDate.toLocaleString("en-IN", { dateStyle: "medium" }));
-    }
-    render();
-  }
+        // Show/hide category descriptors
+        rbiCategoryInfo.style.display = tab === "rbi" ? "flex" : "none";
+        sebiCategoryInfo.style.display = tab === "sebi" ? "flex" : "none";
+        actsCategoryInfo.style.display = tab === "acts" ? "flex" : "none";
+        ssCategoryInfo.style.display = tab === "ss" ? "flex" : "none";
 
-  tabRbi.addEventListener("click", () => switchTab("rbi"));
-  tabSebi.addEventListener("click", () => switchTab("sebi"));
-  tabActs.addEventListener("click", () => switchTab("acts"));
-  tabSs.addEventListener("click", () => switchTab("ss"));
-  
-  searchEl.addEventListener("input", (e) => { 
-    query = e.target.value; 
-    render(); 
-  });
+        if (tab === "rbi") {
+          infoBannerText.textContent = "Always verify applicability to your specific NBFC registration layer (Base/Middle/Upper) before acting on any direction.";
+          searchEl.placeholder = "Search directions by title or topic…";
+          footerSourceText.innerHTML = `Sourced from <a href="https://www.rbi.org.in/Scripts/BS_ViewMasterDirections.aspx?did=411" target="_blank" rel="noopener">RBI Master Directions — Non-Banking Financial Companies</a>. Filtered to show only directions applicable to <strong>NBFC-ICC (Investment and Credit Company)</strong>.`;
 
-  // Date Filter Bar event handlers
-  filterYearEl.addEventListener("change", (e) => { filterYear = e.target.value; render(); });
-  filterMonthEl.addEventListener("change", (e) => { filterMonth = e.target.value; render(); });
-  filterFromEl.addEventListener("change", (e) => { filterFrom = e.target.value; render(); });
-  filterToEl.addEventListener("change", (e) => { filterTo = e.target.value; render(); });
+          const genDate = new Date(rbiData.generatedAt);
+          syncEl.textContent = "Active & Synced: " + (isNaN(genDate) ? rbiData.generatedAt : genDate.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }));
+        } else if (tab === "sebi") {
+          infoBannerText.innerHTML = `<strong>Active Monitoring:</strong> These regulations are updated directly from the official Securities and Exchange Board of India portals.`;
+          searchEl.placeholder = "Search regulations by title or code…";
+          footerSourceText.innerHTML = `Sourced from <a href="https://www.sebi.gov.in/sebiweb/home/HomeAction.do?doListing=yes&sid=1&ssid=3&smid=0" target="_blank" rel="noopener">SEBI Legal Regulations List</a>. Automatically monitors key regulations.`;
 
-  clearAllFiltersBtnEl.addEventListener("click", () => {
-    filterYear = ""; filterYearEl.value = "";
-    filterMonth = ""; filterMonthEl.value = "";
-    filterFrom = ""; filterFromEl.value = "";
-    filterTo = ""; filterToEl.value = "";
-    render();
-  });
+          const genDate = new Date(sebiData.generatedAt);
+          syncEl.textContent = "Active & Synced: " + (isNaN(genDate) ? sebiData.generatedAt : genDate.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }));
+        } else if (tab === "acts") {
+          infoBannerText.innerHTML = `<strong>Baseline Corporate Laws:</strong> Key statutory acts and corporate governance rules applicable to Kreon Financial Services.`;
+          searchEl.placeholder = "Search acts or rules by keyword…";
+          footerSourceText.innerHTML = `Checklist of statutory rules compiled for <strong>Kreon Financial Services Limited</strong>.`;
 
-  // Timeframe Banner toggle click
-  showAllHistoryBtn.addEventListener("click", () => {
-    filterLast6Months = false;
-    timeframeBanner.style.display = "none";
-    render();
-  });
+          const genDate = new Date(actsData.generatedAt);
+          syncEl.textContent = "Static Database: " + (isNaN(genDate) ? actsData.generatedAt : genDate.toLocaleString("en-IN", { dateStyle: "medium" }));
+        } else {
+          infoBannerText.innerHTML = `<strong>ICSI Standards:</strong> Mandated standards under the Companies Act to ensure standardisation of corporate secretarial records.`;
+          searchEl.placeholder = "Search standards by keyword…";
+          footerSourceText.innerHTML = `Sourced from the <strong>Institute of Company Secretaries of India (ICSI)</strong>.`;
 
-  // Initial Load
-  try {
-    // Load RBI Data
-    const rbiRes = await fetch("./data/master-directions.json", { cache: "no-store" });
-    if (rbiRes.ok) rbiData = await rbiRes.json();
-    
-    // Load SEBI Data
-    const sebiRes = await fetch("./data/sebi-regulations.json", { cache: "no-store" });
-    if (sebiRes.ok) sebiData = await sebiRes.json();
+          const genDate = new Date(ssData.generatedAt);
+          syncEl.textContent = "Static Database: " + (isNaN(genDate) ? ssData.generatedAt : genDate.toLocaleString("en-IN", { dateStyle: "medium" }));
+        }
+        render();
+      }
 
-    // Load Acts Data
-    const actsRes = await fetch("./data/acts-rules.json", { cache: "no-store" });
-    if (actsRes.ok) actsData = await actsRes.json();
+      tabRbi.addEventListener("click", () => switchTab("rbi"));
+      tabSebi.addEventListener("click", () => switchTab("sebi"));
+      tabActs.addEventListener("click", () => switchTab("acts"));
+      tabSs.addEventListener("click", () => switchTab("ss"));
 
-    // Load Secretarial Standards Data
-    const ssRes = await fetch("./data/secretarial-standards.json", { cache: "no-store" });
-    if (ssRes.ok) ssData = await ssRes.json();
+      searchEl.addEventListener("input", (e) => {
+        query = e.target.value;
+        render();
+      });
 
-    switchTab("rbi");
-  } catch (err) {
-    listEl.innerHTML = '<div class="empty-state"><h3>Register load error</h3><p>Could not initialize compliance data files. Please run <code>npm run fetch</code>.</p></div>';
-    statusEl.textContent = "Failed to load";
-    console.error(err);
-  }
-})();
-</script>
+      // Sync .active classes and Clear button visibility after any filter change
+      function syncFilterUI() {
+        filterYearEl.classList.toggle("active", !!filterYear);
+        filterMonthEl.classList.toggle("active", !!filterMonth);
+        filterFromEl.classList.toggle("active", !!filterFrom);
+        filterToEl.classList.toggle("active", !!filterTo);
+        clearAllFiltersBtnEl.style.display = hasActiveDateFilter() ? "inline-flex" : "none";
+      }
+
+      // Date Filter Bar event handlers
+      filterYearEl.addEventListener("change", (e) => {
+        filterYear = e.target.value;
+        syncFilterUI();
+        render();
+      });
+      filterMonthEl.addEventListener("change", (e) => {
+        filterMonth = e.target.value;
+        syncFilterUI();
+        render();
+      });
+      filterFromEl.addEventListener("change", (e) => {
+        filterFrom = e.target.value;
+        syncFilterUI();
+        render();
+      });
+      filterToEl.addEventListener("change", (e) => {
+        filterTo = e.target.value;
+        syncFilterUI();
+        render();
+      });
+
+      clearAllFiltersBtnEl.addEventListener("click", () => {
+        filterYear = ""; filterYearEl.value = "";
+        filterMonth = ""; filterMonthEl.value = "";
+        filterFrom = ""; filterFromEl.value = "";
+        filterTo = ""; filterToEl.value = "";
+        syncFilterUI();
+        render();
+      });
+
+      // Timeframe Banner toggle click
+      showAllHistoryBtn.addEventListener("click", () => {
+        filterLast6Months = false;
+        timeframeBanner.style.display = "none";
+        render();
+      });
+
+      // Initial Load
+      try {
+        // Load RBI Data
+        const rbiRes = await fetch("./data/master-directions.json", { cache: "no-store" });
+        if (rbiRes.ok) rbiData = await rbiRes.json();
+
+        // Load SEBI Data
+        const sebiRes = await fetch("./data/sebi-regulations.json", { cache: "no-store" });
+        if (sebiRes.ok) sebiData = await sebiRes.json();
+
+        // Load Acts Data
+        const actsRes = await fetch("./data/acts-rules.json", { cache: "no-store" });
+        if (actsRes.ok) actsData = await actsRes.json();
+
+        // Load Secretarial Standards Data
+        const ssRes = await fetch("./data/secretarial-standards.json", { cache: "no-store" });
+        if (ssRes.ok) ssData = await ssRes.json();
+
+        switchTab("rbi");
+      } catch (err) {
+        listEl.innerHTML = '<div class="empty-state"><h3>Register load error</h3><p>Could not initialize compliance data files. Please run <code>npm run fetch</code>.</p></div>';
+        statusEl.textContent = "Failed to load";
+        console.error(err);
+      }
+    })();
+  </script>
 
 </body>
+
 </html>
