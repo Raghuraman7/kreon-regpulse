@@ -39,6 +39,26 @@ const TRACKED_REGS = [
     shortName: "SEBI (SAST) Regulations, 2011",
     searchPattern: /substantial-acquisition-of-shares-and-takeovers/i,
   },
+  {
+    key: "depositories",
+    shortName: "SEBI (Depositories and Participants) Regulations, 2018",
+    searchPattern: /depositories-and-participants/i,
+  },
+  {
+    key: "registrars",
+    shortName: "SEBI (Registrars to an Issue and Share Transfer Agents) Regulations, 1993",
+    searchPattern: /registrars-to-an-issue-and-share-transfer-agents/i,
+  },
+  {
+    key: "ipef",
+    shortName: "SEBI (Investor Protection and Education Fund) Regulations, 2009",
+    searchPattern: /investor-protection-and-education-fund/i,
+  },
+  {
+    key: "pfutp",
+    shortName: "SEBI (Prohibition of Fraudulent and Unfair Trade Practices) Regulations, 2003",
+    searchPattern: /prohibition-of-fraudulent-and-unfair-trade-practices/i,
+  }
 ];
 
 async function loadPreviousData() {
@@ -122,21 +142,21 @@ async function sendEmailNotification(updatedRegs) {
 
   const emailBody = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
-      <h2 style="color: #1F3A5F; border-bottom: 2px solid #1F3A5F; padding-bottom: 8px;">StuCred RegPulse</h2>
+      <h2 style="color: #1F3A5F; border-bottom: 2px solid #1F3A5F; padding-bottom: 8px;">Kreon RegPulse</h2>
       <p>Hello,</p>
       <p>A new amendment/update has been detected in the following SEBI regulations:</p>
       ${updatesHtml}
       <p style="font-size: 12px; color: #777; margin-top: 30px; border-top: 1px solid #ccc; padding-top: 10px;">
-        This is an automated notification from your StuCred RegPulse instance.
+        This is an automated notification from your Kreon RegPulse instance.
       </p>
     </div>
   `;
 
   try {
     const info = await transporter.sendMail({
-      from: `"StuCred RegPulse" <${user}>`,
+      from: `"Kreon RegPulse" <${user}>`,
       to: RECIPIENTS.join(", "),
-      subject: `🚨 StuCred RegPulse Alert: SEBI Regulation Updates (${updatedRegs.length})`,
+      subject: `🚨 Kreon RegPulse Alert: SEBI Regulation Updates (${updatedRegs.length})`,
       html: emailBody,
     });
     console.log(`Email notification successfully sent! Message ID: ${info.messageId}`);

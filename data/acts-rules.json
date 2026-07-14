@@ -1,0 +1,105 @@
+{
+  "generatedAt": "2026-07-14T06:52:08.463Z",
+  "acts": [
+    {
+      "id": "act-1",
+      "title": "Companies Act, 2013",
+      "type": "Act",
+      "link": "https://www.mca.gov.in/content/mca/global/en/acts-rules/ebooks/companies-act-2013.html",
+      "pdfUrl": "https://www.mca.gov.in/Ministry/pdf/CompaniesAct2013.pdf",
+      "enactedDate": "2013-08-29",
+      "lastAmended": "Amended regularly via MCA notifications",
+      "summary": "Governs the incorporation, responsibilities, governance, and dissolution of companies in India, including rules on board structure, audit, disclosure, share capital, and director duties."
+    },
+    {
+      "id": "act-2",
+      "title": "PMLA Act, 2002 (Prevention of Money Laundering Act)",
+      "type": "Act",
+      "link": "https://www.indiacode.nic.in/handle/123456789/2056",
+      "pdfUrl": "https://www.indiacode.nic.in/bitstream/123456789/2056/1/A2003-15.pdf",
+      "enactedDate": "2003-01-17",
+      "lastAmended": "Amended in line with FATF standards",
+      "summary": "Forms the legal core of India's AML/CFT framework. Mandates that financial institutions and NBFCs verify client identity, maintain transaction records, and report suspicious transactions to FIU-IND."
+    },
+    {
+      "id": "act-3",
+      "title": "Reserve Bank of India Act, 1934",
+      "type": "Act",
+      "link": "https://www.rbi.org.in/scripts/publicationsview.aspx?id=12109",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/Publications/PDFs/RBIact1934.pdf",
+      "enactedDate": "1934-03-06",
+      "lastAmended": "Amended by Finance Acts",
+      "summary": "Establishes the Reserve Bank of India and provides the statutory framework for the regulation of NBFCs under Chapter III-B, governing registration, reserve funds, and directions."
+    },
+    {
+      "id": "act-4",
+      "title": "Prevention of Money Laundering (Maintenance of Records) Rules, 2005",
+      "type": "Rules",
+      "link": "https://fiuindia.gov.in/files/downloads/Filing_Information.html",
+      "pdfUrl": "https://fiuindia.gov.in/files/downloads/PML_Rules_2005.pdf",
+      "enactedDate": "2005-07-01",
+      "lastAmended": "Amended regularly by Finance Ministry",
+      "summary": "Detailed rules under PMLA defining standard customer due diligence (CDD) procedures, transaction reporting forms (CTR, STR, CCR), and record preservation periods (5 years)."
+    },
+    {
+      "id": "act-5",
+      "title": "Securities and Exchange Board of India Act, 1992",
+      "type": "Act",
+      "link": "https://www.sebi.gov.in/legal/acts/apr-1992/securities-and-exchange-board-of-india-act-1992_3.html",
+      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/1456302830832.pdf",
+      "enactedDate": "1992-04-12",
+      "lastAmended": "Last amended in 2021",
+      "summary": "Establishes SEBI as the regulatory body for India's securities markets. Grants powers to protect investors, promote market development, and regulate intermediaries and listed companies."
+    },
+    {
+      "id": "act-6",
+      "title": "Digital Personal Data Protection Act, 2023",
+      "type": "Act",
+      "link": "https://www.meity.gov.in/content/digital-personal-data-protection-act-2023",
+      "pdfUrl": "https://www.meity.gov.in/writereaddata/files/Digital%20Personal%20Data%20Protection%20Act%202023.pdf",
+      "enactedDate": "2023-08-11",
+      "lastAmended": "Enacted in 2023",
+      "summary": "Regulates the processing of digital personal data in India. Requires data fiduciaries (like fintechs/NBFCs) to obtain explicit consent, ensure data accuracy, implement security safeguards, and respect user rights."
+    },
+    {
+      "id": "act-7",
+      "title": "Credit Information Companies (Regulation) Act, 2005",
+      "type": "Act",
+      "link": "https://www.rbi.org.in/Scripts/bs_viewcontent.aspx?Id=312",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/Publications/PDFs/66048.pdf",
+      "enactedDate": "2005-06-23",
+      "lastAmended": "Last amended in 2021",
+      "summary": "Governs credit bureaus (CIBIL, Equifax, Experian, CRIF High Mark) in India. Mandates that all lending NBFCs become members of all four CICs and update credit data monthly."
+    },
+    {
+      "id": "act-8",
+      "title": "Foreign Exchange Management Act, 1999 (FEMA)",
+      "type": "Act",
+      "link": "https://www.indiacode.nic.in/handle/123456789/1988",
+      "pdfUrl": "https://www.indiacode.nic.in/bitstream/123456789/1988/1/A1999-42.pdf",
+      "enactedDate": "1999-12-29",
+      "lastAmended": "Amended regularly by RBI notifications",
+      "summary": "Governs cross-border trade, external commercial borrowings (ECB), and foreign direct investments (FDI) in Indian companies, including compliance for foreign-owned fintech entities."
+    },
+    {
+      "id": "act-9",
+      "title": "Information Technology Act, 2000",
+      "type": "Act",
+      "link": "https://www.meity.gov.in/content/information-technology-act-2000",
+      "pdfUrl": "https://www.meity.gov.in/writereaddata/files/it_act_2000_updated.pdf",
+      "enactedDate": "2000-06-09",
+      "lastAmended": "Last amended in 2008",
+      "summary": "Provides legal recognition for electronic transactions, digital signatures, and electronic records. Outlines liability for data leaks, cybercrimes, and security procedures for corporations."
+    },
+    {
+      "id": "act-10",
+      "title": "Consumer Protection Act, 2019",
+      "type": "Act",
+      "link": "https://www.indiacode.nic.in/handle/123456789/15256",
+      "pdfUrl": "https://www.indiacode.nic.in/bitstream/123456789/15256/1/A2019-35.pdf",
+      "enactedDate": "2019-08-09",
+      "lastAmended": "Enacted in 2019",
+      "summary": "Protects consumer interests against unfair trade practices and product liability. Sets rules on consumer dispute redressing forums and applies to digital lending services and fintech applications."
+    }
+  ]
+}

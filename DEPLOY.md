@@ -1,6 +1,6 @@
-# Deploy StuCred RegPulse (free, no paid services)
+# Deploy Kreon RegPulse (free, no paid services)
 
-StuCred RegPulse is a static site: `index.html` + `data/master-directions.json` + `data/sebi-regulations.json`. You can host it for **$0** and point a custom domain at it.
+Kreon RegPulse is a static site: `index.html` + `data/master-directions.json` + `data/sebi-regulations.json`. You can host it for **$0** and point a custom domain at it.
 
 ## 1. Refresh data (manual or daily automatic)
 

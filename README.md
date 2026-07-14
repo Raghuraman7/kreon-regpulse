@@ -1,4 +1,4 @@
-# StuCred RegPulse — Compliance Register
+# Kreon RegPulse — Compliance Register
 
 A single-page application that scrapes and tracks RBI's Master Directions applicable to **Non-Banking Financial Companies - Investment and Credit Companies (NBFC-ICC)**. 
 

@@ -176,21 +176,21 @@ async function sendEmailNotification(updatedDirs) {
 
   const emailBody = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
-      <h2 style="color: #1F3A5F; border-bottom: 2px solid #1F3A5F; padding-bottom: 8px;">StuCred RegPulse</h2>
+      <h2 style="color: #1F3A5F; border-bottom: 2px solid #1F3A5F; padding-bottom: 8px;">Kreon RegPulse</h2>
       <p>Hello,</p>
       <p>A new or updated RBI Master Direction applicable to NBFC-ICC has been detected:</p>
       ${updatesHtml}
       <p style="font-size: 12px; color: #777; margin-top: 30px; border-top: 1px solid #ccc; padding-top: 10px;">
-        This is an automated notification from your StuCred RegPulse instance.
+        This is an automated notification from your Kreon RegPulse instance.
       </p>
     </div>
   `;
 
   try {
     const info = await transporter.sendMail({
-      from: `"StuCred RegPulse" <${user}>`,
+      from: `"Kreon RegPulse" <${user}>`,
       to: RECIPIENTS.join(", "),
-      subject: `🚨 StuCred RegPulse Alert: RBI NBFC-ICC Master Directions Updates (${updatedDirs.length})`,
+      subject: `🚨 Kreon RegPulse Alert: RBI NBFC-ICC Master Directions Updates (${updatedDirs.length})`,
       html: emailBody,
     });
     console.log(`RBI Email notification successfully sent! Message ID: ${info.messageId}`);
