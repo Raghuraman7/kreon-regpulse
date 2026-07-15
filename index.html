@@ -96,6 +96,7 @@
       display: flex;
       align-items: baseline;
       gap: 12px;
+      cursor: pointer;
     }
 
     .brand h1 {
@@ -1137,7 +1138,7 @@
   <header class="masthead">
     <div class="masthead-inner">
       <div class="masthead-top" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-        <div class="brand" style="display: flex; align-items: center; gap: 12px;">
+        <div class="brand" onclick="window.location.reload()" title="Reload dashboard" style="display: flex; align-items: center; gap: 12px;">
           <img src="./kreon-logo.png" alt="Kreon Logo" style="height: 36px; width: auto; border-radius: 3px;" />
           <h1>Kreon RegPulse</h1>
         </div>
