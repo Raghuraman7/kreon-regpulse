@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-19T06:12:51.929Z",
+  "generatedAt": "2026-07-20T06:31:52.168Z",
   "regulations": {
     "icdr": {
       "key": "icdr",
@@ -8,7 +8,7 @@
       "link": "https://www.sebi.gov.in/legal/regulations/mar-2026/securities-and-exchange-board-of-india-issue-of-capital-and-disclosure-requirements-regulations-2018-last-amended-on-march-21-2026-_100581.html",
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/mar-2026/1774592300989.pdf",
       "amendedDate": "Mar 21, 2026",
-      "lastUpdated": "2026-07-19T06:12:49.580Z"
+      "lastUpdated": "2026-07-20T06:31:49.771Z"
     },
     "lodr": {
       "key": "lodr",
@@ -17,7 +17,7 @@
       "link": "https://www.sebi.gov.in/legal/regulations/jan-2026/securities-and-exchange-board-of-india-listing-obligations-and-disclosure-requirements-regulations-2015-last-amended-on-january-22-2026-_99375.html",
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jun-2026/1780915347745.pdf",
       "amendedDate": "Jan 22, 2026",
-      "lastUpdated": "2026-07-19T06:12:50.318Z"
+      "lastUpdated": "2026-07-20T06:31:50.672Z"
     },
     "pit": {
       "key": "pit",
@@ -26,7 +26,7 @@
       "link": "https://www.sebi.gov.in/legal/regulations/mar-2025/securities-and-exchange-board-of-india-prohibition-of-insider-trading-regulations-2015-last-amended-on-march-12-2025-_92672.html",
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jul-2025/1752572636085.pdf",
       "amendedDate": "Mar 12, 2025",
-      "lastUpdated": "2026-07-19T06:12:50.571Z"
+      "lastUpdated": "2026-07-20T06:31:50.902Z"
     },
     "sast": {
       "key": "sast",
@@ -35,7 +35,7 @@
       "link": "https://www.sebi.gov.in/legal/regulations/dec-2025/securities-and-exchange-board-of-india-substantial-acquisition-of-shares-and-takeovers-regulations-2011-last-amended-on-december-5-2025-_98643.html",
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/dec-2025/1766569598336.pdf",
       "amendedDate": "Dec 24, 2025",
-      "lastUpdated": "2026-07-19T06:12:50.921Z"
+      "lastUpdated": "2026-07-20T06:31:51.231Z"
     },
     "depositories": {
       "key": "depositories",
@@ -44,7 +44,7 @@
       "link": "https://www.sebi.gov.in/legal/regulations/nov-2025/securities-and-exchange-board-of-india-depositories-and-participants-regulations-2018-last-amended-on-november-22-2025-_98196.html",
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/dec-2025/1764930261886.pdf",
       "amendedDate": "Nov 22, 2025",
-      "lastUpdated": "2026-07-19T06:12:51.172Z"
+      "lastUpdated": "2026-07-20T06:31:51.463Z"
     },
     "registrars": {
       "key": "registrars",
@@ -53,7 +53,7 @@
       "link": "https://www.sebi.gov.in/legal/regulations/dec-2025/securities-and-exchange-board-of-india-registrars-to-an-issue-and-share-transfer-agents-regulations-2025_98477.html",
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/dec-2025/1766125665223.pdf",
       "amendedDate": "Dec 16, 2025",
-      "lastUpdated": "2026-07-19T06:12:51.425Z"
+      "lastUpdated": "2026-07-20T06:31:51.696Z"
     },
     "ipef": {
       "key": "ipef",
@@ -62,7 +62,7 @@
       "link": "https://www.sebi.gov.in/legal/regulations/sep-2025/securities-and-exchange-board-of-india-investor-protection-and-education-fund-regulations-2009-last-amended-on-september-2-2025-_96546.html",
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/sep-2025/1757506918321.pdf",
       "amendedDate": "Sep 02, 2025",
-      "lastUpdated": "2026-07-19T06:12:51.680Z"
+      "lastUpdated": "2026-07-20T06:31:51.932Z"
     },
     "pfutp": {
       "key": "pfutp",
@@ -71,7 +71,7 @@
       "link": "https://www.sebi.gov.in/legal/regulations/dec-2025/securities-and-exchange-board-of-india-prohibition-of-fraudulent-and-unfair-trade-practices-relating-to-securities-market-regulations-2003-last-amended-on-december-05-2025-_98694.html",
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/dec-2025/1766747237712.pdf",
       "amendedDate": "Dec 05, 2025",
-      "lastUpdated": "2026-07-19T06:12:51.929Z"
+      "lastUpdated": "2026-07-20T06:31:52.168Z"
     }
   }
 }
