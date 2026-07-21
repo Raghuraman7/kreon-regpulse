@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-07-21T09:17:03.235Z",
-  "count": 25,
+  "lastChecked": "2026-07-21T11:20:34.329Z",
+  "count": 26,
   "circulars": [
+    {
+      "id": "sebi-circ-102978",
+      "link": "https://www.sebi.gov.in/legal/circulars/jul-2026/operationalisation-of-freezing-of-holdings-of-promoter-and-promoter-group-including-their-associates-promoter-holdings-at-the-isin-level-under-regulation-24-i-ea-of-the-sebi-buy-back-of-securitie-_102978.html",
+      "title": "Operationalisation of freezing of holdings of promoter and promoter group including their associates (promoter holdings) at the ISIN level under Regulation 24(i)(ea) of the SEBI (Buy-back of Securities) Regulations, 2018 dated July 21, 2026",
+      "date": "Jul 21, 2026",
+      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jul-2026/1784632576164.pdf",
+      "department": null,
+      "summary": "Circular issued by SEBI: Operationalisation of freezing of holdings of promoter and promoter group including their associates (promoter holdings) at the ISIN level under Regulation 24(i)(ea) of the SEBI (Buy-back of Securities) Regulations, 2018 dated July 21, 2026",
+      "detectedAt": "2026-07-21T11:20:34.329Z"
+    },
     {
       "id": "sebi-circ-102914",
       "link": "https://www.sebi.gov.in/legal/circulars/jul-2026/extending-facility-of-creating-standing-instructions-for-systematic-withdrawal-plan-swp-systematic-transfer-plan-stp-for-mutual-fund-units-held-in-demat-form_102914.html",
