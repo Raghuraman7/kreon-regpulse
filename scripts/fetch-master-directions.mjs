@@ -186,7 +186,7 @@ export async function checkRbiMasterDirections() {
     sourceUrl: NBFC_PAGE_URL,
     category: "NBFC-ICC",
     categoryDescription:
-      "Investment and Credit Companies — the residual NBFC category under RBI's Scale Based Regulation (SBR).",
+      "Investment and Credit Companies — the residual NBFC category.",
     count: nbfcIccDirections.length,
     directions: nbfcIccDirections,
     excluded: excludedDirections,
@@ -199,19 +199,7 @@ export async function checkRbiMasterDirections() {
   );
 
   if (updatedDirs.length > 0 && previousData.directions.length > 0) {
-    console.log(`🚨 Triggering INSTANT EMAIL ALERT for ${updatedDirs.length} updated RBI Master Direction(s)...`);
-    await sendRegulatoryAlert({
-      source: "RBI",
-      category: "Master Direction",
-      updates: updatedDirs.map(d => ({
-        id: d.id,
-        title: d.title,
-        link: d.link,
-        pdfUrl: d.pdfUrl,
-        date: d.issuedDateRaw,
-        summary: `Updated RBI Master Direction for NBFC-ICC: ${d.title}`
-      }))
-    });
+    console.log(`✨ Detected ${updatedDirs.length} updated RBI Master Direction(s). (Real-time email notification disabled)`);
   } else {
     console.log("No new RBI Master Direction updates detected.");
   }

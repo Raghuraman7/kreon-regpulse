@@ -100,6 +100,36 @@
       "enactedDate": "2019-08-09",
       "lastAmended": "Enacted in 2019",
       "summary": "Protects consumer interests against unfair trade practices and product liability. Sets rules on consumer dispute redressing forums and applies to digital lending services and fintech applications."
+    },
+    {
+      "id": "act-11",
+      "title": "Indian Contract Act, 1872",
+      "type": "Act",
+      "link": "https://www.indiacode.nic.in/handle/123456789/2187",
+      "pdfUrl": "https://www.indiacode.nic.in/bitstream/123456789/2187/24/A1872-9.pdf",
+      "enactedDate": "1872-04-25",
+      "lastAmended": "Amended regularly by central legislation",
+      "summary": "Defines the law relating to contracts in India. Governs the formation of contracts, performance, breach, indemnity, guarantee, bailment, and agency."
+    },
+    {
+      "id": "act-12",
+      "title": "Securities Contracts (Regulation) Act, 1956",
+      "type": "Act",
+      "link": "https://www.sebi.gov.in/legal/acts/apr-1956/securities-contracts-regulation-act-1956_5.html",
+      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/1456303273393.pdf",
+      "enactedDate": "1956-09-04",
+      "lastAmended": "Last amended in 2021",
+      "summary": "Prevents undesirable transactions in securities by regulating the business of dealing therein, governing stock exchanges, contracts in securities, and listing of securities."
+    },
+    {
+      "id": "act-13",
+      "title": "Depositories Act, 1996",
+      "type": "Act",
+      "link": "https://www.sebi.gov.in/legal/acts/aug-1996/depositories-act-1996_8.html",
+      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/1456303024888.pdf",
+      "enactedDate": "1996-08-10",
+      "lastAmended": "Last amended in 2021",
+      "summary": "Provides for the regulation of depositories in securities and for matters connected therewith or incidental thereto. Establishes the legal framework for dematerialisation."
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
-  "lastChecked": "2026-07-22T04:22:37.215Z",
-  "count": 27,
+  "lastChecked": "2026-07-22T05:00:48.676Z",
+  "count": 26,
   "circulars": [
     {
       "id": "sebi-circ-102986",
@@ -10,17 +10,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jul-2026/1784633350069.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Certification Requirements for Distribution of Specialized Investment Funds (SIFs)",
-      "detectedAt": "2026-07-21T12:48:16.142Z"
-    },
-    {
-      "id": "sebi-circ-102978",
-      "link": "https://www.sebi.gov.in/legal/circulars/jul-2026/operationalisation-of-freezing-of-holdings-of-promoter-and-promoter-group-including-their-associates-promoter-holdings-at-the-isin-level-under-regulation-24-i-ea-of-the-sebi-buy-back-of-securitie-_102978.html",
-      "title": "Operationalisation of freezing of holdings of promoter and promoter group including their associates (promoter holdings) at the ISIN level under Regulation 24(i)(ea) of the SEBI (Buy-back of Securities) Regulations, 2018 dated July 21, 2026",
-      "date": "Jul 21, 2026",
-      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jul-2026/1784632576164.pdf",
-      "department": null,
-      "summary": "Circular issued by SEBI: Operationalisation of freezing of holdings of promoter and promoter group including their associates (promoter holdings) at the ISIN level under Regulation 24(i)(ea) of the SEBI (Buy-back of Securities) Regulations, 2018 dated July 21, 2026",
-      "detectedAt": "2026-07-21T11:20:34.329Z"
+      "detectedAt": "2026-07-22T04:34:20.293Z"
     },
     {
       "id": "sebi-circ-102914",
@@ -30,7 +20,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jul-2026/1784285542603.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Extending facility of creating standing instructions for Systematic Withdrawal Plan (SWP)/ Systematic Transfer Plan (STP) for Mutual Fund units held in demat form",
-      "detectedAt": "2026-07-21T04:22:49.501Z"
+      "detectedAt": "2026-07-22T04:34:20.356Z"
     },
     {
       "id": "sebi-circ-102762",
@@ -40,7 +30,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jul-2026/1783685402131.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Intraday borrowing facility availed by mutual funds",
-      "detectedAt": "2026-07-21T04:22:49.583Z"
+      "detectedAt": "2026-07-22T04:34:20.399Z"
     },
     {
       "id": "sebi-circ-102639",
@@ -50,7 +40,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jul-2026/1783423471963.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Review of norms for utilization of interest or income from IPF of the Depositories",
-      "detectedAt": "2026-07-21T04:22:49.695Z"
+      "detectedAt": "2026-07-22T04:34:20.435Z"
     },
     {
       "id": "sebi-circ-102584",
@@ -60,7 +50,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jul-2026/1783077132079.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Handling of Client’s Unpaid Securities by Trading Members",
-      "detectedAt": "2026-07-21T04:22:49.732Z"
+      "detectedAt": "2026-07-22T04:34:20.467Z"
     },
     {
       "id": "sebi-circ-102385",
@@ -70,7 +60,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jun-2026/1782299902147.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Ease of Doing Business – Relaxation in certification requirement for Persons Associated with Investment Advice (PAIA) – Sales and other non-core services",
-      "detectedAt": "2026-07-21T04:22:49.751Z"
+      "detectedAt": "2026-07-22T04:34:20.491Z"
     },
     {
       "id": "sebi-circ-102229",
@@ -80,7 +70,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jun-2026/1781863954185.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Clarification with respect to applicability of the benefit of early pay-in in Commodity Derivatives Segment",
-      "detectedAt": "2026-07-21T04:22:49.777Z"
+      "detectedAt": "2026-07-22T04:34:20.532Z"
     },
     {
       "id": "sebi-circ-102171",
@@ -90,7 +80,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jun-2026/1781613591249.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Guidelines for winding up of AIFs with respect to retention of proceeds and ‘Inoperative Fund’ status",
-      "detectedAt": "2026-07-21T04:22:49.796Z"
+      "detectedAt": "2026-07-22T04:34:20.564Z"
     },
     {
       "id": "sebi-circ-102121",
@@ -100,7 +90,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jun-2026/1781524158363.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Norms for Base Price, Price Bands, Call Auction in pre-open session and Close-out procedure for Exchange Traded Funds (ETFs)",
-      "detectedAt": "2026-07-21T04:22:49.819Z"
+      "detectedAt": "2026-07-22T04:34:20.614Z"
     },
     {
       "id": "sebi-circ-102083",
@@ -110,7 +100,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jun-2026/1781182579546.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Extension of timelines for compliance with certain provisions of Circular dated January 02, 2026",
-      "detectedAt": "2026-07-21T04:22:49.840Z"
+      "detectedAt": "2026-07-22T04:34:20.639Z"
     },
     {
       "id": "sebi-circ-101703",
@@ -120,7 +110,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jun-2026/1780397706130.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Ease of doing investments - Modified Norms for Nomination in Demat Accounts and Mutual Fund Folios",
-      "detectedAt": "2026-07-21T04:22:49.862Z"
+      "detectedAt": "2026-07-22T04:34:20.665Z"
     },
     {
       "id": "sebi-circ-101522",
@@ -130,7 +120,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/may-2026/1779193408747.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Revision of Monthly Cumulative Report (MCR) Format",
-      "detectedAt": "2026-07-21T04:22:49.884Z"
+      "detectedAt": "2026-07-22T04:34:20.692Z"
     },
     {
       "id": "sebi-circ-101467",
@@ -140,7 +130,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/may-2026/1778844282193.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Status of SPVs post conclusion or termination of Concession Agreement",
-      "detectedAt": "2026-07-21T04:22:49.907Z"
+      "detectedAt": "2026-07-22T04:34:20.724Z"
     },
     {
       "id": "sebi-circ-101465",
@@ -150,7 +140,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/may-2026/1778844118656.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Permitted use of fresh borrowings for InvITs where Net Borrowings exceeds forty-nine percent of the value of InvIT assets",
-      "detectedAt": "2026-07-21T04:22:49.928Z"
+      "detectedAt": "2026-07-22T04:34:20.748Z"
     },
     {
       "id": "sebi-circ-101293",
@@ -160,7 +150,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/may-2026/1778242522289.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Norms for sharing and usage of price data for educational purposes",
-      "detectedAt": "2026-07-21T04:22:49.948Z"
+      "detectedAt": "2026-07-22T04:34:20.781Z"
     },
     {
       "id": "sebi-circ-101300",
@@ -170,7 +160,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/may-2026/1778149088029.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Discontinuation of Investor Risk Reduction Access (IRRA) platform",
-      "detectedAt": "2026-07-21T04:22:49.972Z"
+      "detectedAt": "2026-07-22T04:34:20.805Z"
     },
     {
       "id": "sebi-circ-101271",
@@ -180,7 +170,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/may-2026/1777994522786.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: ‘Significant Indices’ under SEBI (Index Providers) Regulations, 2024",
-      "detectedAt": "2026-07-21T04:22:49.993Z"
+      "detectedAt": "2026-07-22T04:34:20.856Z"
     },
     {
       "id": "sebi-circ-101270",
@@ -190,7 +180,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/may-2026/1777992004516.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Advisory on Emerging Advanced Artificial Intelligence (AI) Tools for Vulnerability Detection",
-      "detectedAt": "2026-07-21T04:22:50.011Z"
+      "detectedAt": "2026-07-22T04:34:20.935Z"
     },
     {
       "id": "sebi-circ-101213",
@@ -200,7 +190,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/apr-2026/1777545192885.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Fast-Track Mechanism for Processing of Placement Memorandum of AIFs filed with SEBI",
-      "detectedAt": "2026-07-21T04:22:50.111Z"
+      "detectedAt": "2026-07-22T04:34:21.066Z"
     },
     {
       "id": "sebi-circ-101185",
@@ -210,7 +200,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/apr-2026/1777473564120.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Operationalisation of Past Risk and Return Verification Agency (“PaRRVA”)",
-      "detectedAt": "2026-07-21T04:22:50.144Z"
+      "detectedAt": "2026-07-22T04:34:21.156Z"
     },
     {
       "id": "sebi-circ-101152",
@@ -220,7 +210,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/apr-2026/1777434657240.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Extension of timeline for compliance with terms and conditions by Debenture Trustees for carrying out activities outside the purview of SEBI",
-      "detectedAt": "2026-07-21T04:22:50.164Z"
+      "detectedAt": "2026-07-22T04:34:21.239Z"
     },
     {
       "id": "sebi-circ-101090",
@@ -230,7 +220,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/apr-2026/1777030013013.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Framework for net settlement of funds for transactions done by Foreign Portfolio Investors (FPIs) in cash market",
-      "detectedAt": "2026-07-21T04:22:50.196Z"
+      "detectedAt": "2026-07-22T04:34:21.413Z"
     },
     {
       "id": "sebi-circ-100935",
@@ -240,7 +230,7 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/apr-2026/1776311392280.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: Review of requirement relating to registration for a Not for Profit Organization on Social Stock Exchange and minimum subscription requirement for issuance of Zero Coupon Zero Principal Instruments",
-      "detectedAt": "2026-07-21T04:22:50.224Z"
+      "detectedAt": "2026-07-22T04:34:21.560Z"
     },
     {
       "id": "sebi-circ-100911",
@@ -250,17 +240,17 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/apr-2026/1776082646745.pdf",
       "department": null,
       "summary": "Circular issued by SEBI: NISM Certification for Social Impact Assessors",
-      "detectedAt": "2026-07-21T04:22:50.252Z"
+      "detectedAt": "2026-07-22T04:34:21.718Z"
     },
     {
-      "id": "sebi-circ-100826",
-      "link": "https://www.sebi.gov.in/legal/circulars/apr-2026/ease-of-doing-business-mechanism-for-lock-in-of-pledged-shares-under-sebi-issue-of-capital-and-disclosure-requirements-regulations-2018_100826.html",
-      "title": "Ease of doing business - mechanism for lock-in of pledged shares under SEBI (Issue of Capital and Disclosure Requirements) Regulations, 2018",
-      "date": "Apr 08, 2026",
-      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/apr-2026/1775650797133.pdf",
+      "id": "sebi-circ-102978",
+      "link": "https://www.sebi.gov.in/legal/circulars/jul-2026/operationalisation-of-freezing-of-holdings-of-promoter-and-promoter-group-including-their-associates-promoter-holdings-at-the-isin-level-under-regulation-24-i-ea-of-the-sebi-buy-back-of-securitie-_102978.html",
+      "title": "Operationalisation of freezing of holdings of promoter and promoter group including their associates (promoter holdings) at the ISIN level under Regulation 24(i)(ea) of the SEBI (Buy-back of Securities) Regulations, 2018 dated July 21, 2026",
+      "date": "Jul 21, 2026",
+      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jul-2026/1784632576164.pdf",
       "department": null,
-      "summary": "Circular issued by SEBI: Ease of doing business - mechanism for lock-in of pledged shares under SEBI (Issue of Capital and Disclosure Requirements) Regulations, 2018",
-      "detectedAt": "2026-07-21T04:22:50.286Z"
+      "summary": "Circular issued by SEBI: Operationalisation of freezing of holdings of promoter and promoter group including their associates (promoter holdings) at the ISIN level under Regulation 24(i)(ea) of the SEBI (Buy-back of Securities) Regulations, 2018 dated July 21, 2026",
+      "detectedAt": "2026-07-21T11:17:55.376Z"
     },
     {
       "id": "sebi-circ-100787",

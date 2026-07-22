@@ -25,26 +25,6 @@ const TRACKED_REGS = [
     key: "sast",
     shortName: "SEBI (SAST) Regulations, 2011",
     searchPattern: /substantial-acquisition-of-shares-and-takeovers/i,
-  },
-  {
-    key: "depositories",
-    shortName: "SEBI (Depositories and Participants) Regulations, 2018",
-    searchPattern: /depositories-and-participants/i,
-  },
-  {
-    key: "registrars",
-    shortName: "SEBI (Registrars to an Issue and Share Transfer Agents) Regulations, 1993",
-    searchPattern: /registrars-to-an-issue-and-share-transfer-agents/i,
-  },
-  {
-    key: "ipef",
-    shortName: "SEBI (Investor Protection and Education Fund) Regulations, 2009",
-    searchPattern: /investor-protection-and-education-fund/i,
-  },
-  {
-    key: "pfutp",
-    shortName: "SEBI (Prohibition of Fraudulent and Unfair Trade Practices) Regulations, 2003",
-    searchPattern: /prohibition-of-fraudulent-and-unfair-trade-practices/i,
   }
 ];
 
@@ -154,19 +134,7 @@ export async function checkSebiRegulations() {
   console.log("Wrote updated SEBI regulations to data/sebi-regulations.json");
 
   if (updatedRegs.length > 0 && Object.keys(previousData.regulations).length > 0) {
-    console.log(`🚨 Triggering INSTANT EMAIL ALERT for ${updatedRegs.length} SEBI regulation update(s)...`);
-    await sendRegulatoryAlert({
-      source: "SEBI",
-      category: "Regulation Amendment",
-      updates: updatedRegs.map(r => ({
-        id: r.key,
-        title: `${r.shortName}: ${r.title}`,
-        link: r.link,
-        pdfUrl: r.pdfUrl,
-        date: r.amendedDate,
-        summary: `Amendment updated in ${r.shortName} (Last amended: ${r.amendedDate})`
-      }))
-    });
+    console.log(`✨ Detected ${updatedRegs.length} updated SEBI regulation(s). (Real-time email notification disabled)`);
   } else {
     console.log("No new SEBI regulation updates detected.");
   }

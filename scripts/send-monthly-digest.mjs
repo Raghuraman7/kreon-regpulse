@@ -386,6 +386,7 @@ if (process.argv[1] && process.argv[1].endsWith("send-monthly-digest.mjs")) {
     else if (val === "30" || val === "31") period = "monthly";
   }
 
+  /* Custom date testing is currently disabled
   const monthIdx = process.argv.indexOf("--month");
   if (monthIdx !== -1 && process.argv[monthIdx + 1]) {
     month = parseInt(process.argv[monthIdx + 1], 10);
@@ -395,6 +396,7 @@ if (process.argv[1] && process.argv[1].endsWith("send-monthly-digest.mjs")) {
   if (yearIdx !== -1 && process.argv[yearIdx + 1]) {
     year = parseInt(process.argv[yearIdx + 1], 10);
   }
+  */
 
   generateAndSendPeriodicDigest({ period, month, year }).catch(err => {
     console.error("Fatal error in generateAndSendPeriodicDigest:", err);

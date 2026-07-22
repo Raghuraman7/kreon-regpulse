@@ -192,11 +192,33 @@
       border-bottom-color: var(--amber);
     }
 
+    .category-info-container {
+      position: relative;
+      min-height: 48px;
+      margin-top: 20px;
+      margin-bottom: 12px;
+    }
+
     .category-info {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
       display: flex;
       align-items: flex-start;
       gap: 16px;
       flex-wrap: wrap;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, visibility 0.3s;
+      visibility: visible;
+    }
+
+    .category-info.hidden {
+      opacity: 0;
+      transform: translateY(8px);
+      visibility: hidden;
+      pointer-events: none;
     }
 
     .category-badge {
@@ -430,7 +452,13 @@
       color: var(--ink-soft);
       cursor: pointer;
       white-space: nowrap;
-      transition: background 0.12s, color 0.12s, border-color 0.12s;
+      transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .chip:hover {
+      transform: scale(1.05);
+    }
+    .chip:active {
+      transform: scale(0.95);
     }
 
     .chip[aria-pressed="true"] {
@@ -550,10 +578,11 @@
       background: var(--paper-raised);
       border: 1px solid var(--rule);
       border-left: 4px solid var(--navy);
-      border-radius: 3px;
+      border-radius: 6px;
       margin-bottom: 12px;
       padding: 18px 20px 16px 20px;
-      transition: box-shadow 0.15s, background-color 0.25s, border-color 0.25s, border-left-color 0.25s;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.25s, border-color 0.25s, border-left-color 0.25s;
+      will-change: transform, box-shadow;
     }
 
     .direction-card.sebi-card {
@@ -569,7 +598,9 @@
     }
 
     .direction-card:hover {
-      box-shadow: 0 2px 8px rgba(31, 58, 95, 0.08);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(31, 58, 95, 0.08);
+      border-color: var(--navy-light);
     }
 
     .card-head {
@@ -652,12 +683,14 @@
       background: rgba(90, 79, 207, 0.05);
       border: 1px solid rgba(90, 79, 207, 0.2);
       cursor: pointer;
-      transition: background-color 0.2s, border-color 0.2s;
+      transition: background-color 0.2s, border-color 0.2s, transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      will-change: transform;
     }
 
     .amendment-summary-block.has-changes:hover {
       background: rgba(90, 79, 207, 0.08);
       border-color: rgba(90, 79, 207, 0.35);
+      transform: scale(1.008);
     }
 
     .amendment-meta-row {
@@ -714,14 +747,15 @@
     .gist-panel {
       background: var(--paper-raised);
       border: 1px solid transparent;
-      border-radius: 4px;
+      border-radius: 6px;
       max-height: 0;
       overflow: hidden;
       opacity: 0;
       padding: 0 16px;
       margin-top: 0;
       box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.02);
-      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease, padding 0.3s ease, margin-top 0.3s ease, border-color 0.3s ease, background-color 0.25s;
+      transition: display 0.3s, max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease, padding 0.3s ease, margin-top 0.3s ease, border-color 0.3s ease, background-color 0.25s;
+      transition-behavior: allow-discrete;
     }
 
     body.dark-mode .gist-panel {
@@ -735,6 +769,13 @@
       padding: 14px 16px;
       margin-top: 12px;
       border-color: var(--rule);
+    }
+
+    @starting-style {
+      .gist-panel.open {
+        max-height: 0;
+        opacity: 0;
+      }
     }
 
     /* Custom Scrollbar for Gist Panel */
@@ -822,6 +863,16 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
+      opacity: 1;
+      transform: translateX(0);
+      transition: opacity 0.35s ease-out, transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @starting-style {
+      .change-item {
+        opacity: 0;
+        transform: translateX(-12px);
+      }
     }
 
     .change-item.type-added {
@@ -1057,6 +1108,47 @@
       border-bottom-color: #43399F;
     }
 
+    .card-actions .mark-read-btn {
+      color: var(--navy);
+      font-weight: 600;
+      border: 1px solid var(--navy-light);
+      background: var(--paper-raised);
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 12px;
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      transition: background 0.12s, border-color 0.12s;
+    }
+
+    .card-actions .mark-read-btn:hover {
+      background: var(--paper);
+      border-color: var(--navy-deep);
+    }
+
+    .mark-all-read-btn:hover {
+      background: var(--paper) !important;
+      border-color: var(--navy-deep) !important;
+    }
+
+    /* Style read card highlights as muted/grayed-out instead of hiding them instantly (prevents layout shake) */
+    .direction-card.is-read .amendment-summary-block {
+      background: var(--paper-raised) !important;
+      border-color: var(--rule) !important;
+      color: var(--ink-soft) !important;
+      opacity: 0.65;
+      cursor: default;
+      transition: background-color 0.4s ease, border-color 0.4s ease, opacity 0.4s ease;
+    }
+    .direction-card.is-read .amendment-summary-block strong {
+      color: var(--ink-soft) !important;
+    }
+    .direction-card.is-read .pulse-dot {
+      display: none !important;
+    }
 
     .empty-state {
       text-align: center;
@@ -1150,36 +1242,37 @@
         </button>
       </div>
 
-      <div class="category-info" id="rbiCategoryInfo">
-        <span class="category-badge">RBI Master Directions</span>
-        <p class="category-desc">
-          Master Directions issued by the Reserve Bank of India applicable to Non-Banking Financial Companies (NBFC-ICC)
-          under the Scale Based Regulation (SBR).
-        </p>
-      </div>
+      <div class="category-info-container">
+        <div class="category-info" id="rbiCategoryInfo">
+          <span class="category-badge">RBI Master Directions</span>
+          <p class="category-desc">
+            Master Directions issued by the Reserve Bank of India applicable to Non-Banking Financial Companies (NBFC-ICC).
+          </p>
+        </div>
 
-      <div class="category-info" id="sebiCategoryInfo" style="display: none;">
-        <span class="category-badge" style="background: var(--green);">SEBI Regulations</span>
-        <p class="category-desc">
-          Regulations governing listed entities, insider trading, substantial takeovers, capital disclosure rules, and
-          depositories under SEBI Act.
-        </p>
-      </div>
+        <div class="category-info hidden" id="sebiCategoryInfo">
+          <span class="category-badge" style="background: var(--green);">SEBI Regulations</span>
+          <p class="category-desc">
+            Regulations governing listed entities, insider trading, substantial takeovers, capital disclosure rules, and
+            depositories under SEBI Act.
+          </p>
+        </div>
 
-      <div class="category-info" id="actsCategoryInfo" style="display: none;">
-        <span class="category-badge" style="background: var(--tag-misc);">Acts & Rules</span>
-        <p class="category-desc">
-          Primary statutes and company rules applicable to corporate governance, prevention of money laundering, data
-          privacy, and electronic services.
-        </p>
-      </div>
+        <div class="category-info hidden" id="actsCategoryInfo">
+          <span class="category-badge" style="background: var(--tag-misc);">Acts & Rules</span>
+          <p class="category-desc">
+            Primary statutes and company rules applicable to corporate governance, prevention of money laundering, data
+            privacy, and electronic services.
+          </p>
+        </div>
 
-      <div class="category-info" id="ssCategoryInfo" style="display: none;">
-        <span class="category-badge" style="background: var(--amber);">Secretarial Standards</span>
-        <p class="category-desc">
-          Mandatory Secretarial Standards (SS-1 on Board Meetings, SS-2 on General Meetings, SS-4 on Board Reports)
-          formulated by the ICSI.
-        </p>
+        <div class="category-info hidden" id="ssCategoryInfo">
+          <span class="category-badge" style="background: var(--amber);">Secretarial Standards</span>
+          <p class="category-desc">
+            Mandatory Secretarial Standards (SS-1 on Board Meetings, SS-2 on General Meetings, SS-4 on Board Reports)
+            formulated by the ICSI.
+          </p>
+        </div>
       </div>
 
       <nav class="tab-nav" aria-label="Registers">
@@ -1240,6 +1333,22 @@
         <input type="date" id="filterTo" class="filter-date" title="To date" />
 
         <button type="button" id="clearAllFiltersBtn" class="clear-filters-btn">✕ Clear</button>
+
+        <div class="filter-divider"></div>
+        <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer; color: var(--ink-soft); user-select: none;">
+          <input type="checkbox" id="last90DaysCheckbox" style="cursor: pointer; transform: translateY(1px);" />
+          <span>Last 90 days only</span>
+        </label>
+
+        <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer; color: var(--ink-soft); user-select: none; margin-left: 12px;">
+          <input type="checkbox" id="showReadCheckbox" style="cursor: pointer; transform: translateY(1px);" />
+          <span>Show read updates</span>
+        </label>
+
+        <button type="button" id="markAllReadBtn" class="mark-all-read-btn" onclick="markAllCurrentTabRead()" style="margin-left: 16px; display: inline-flex; align-items: center; gap: 4px; color: var(--navy); border: 1px solid var(--navy-light); border-radius: 4px; padding: 4px 10px; font-size: 12px; font-weight: 600; cursor: pointer; background: var(--paper-raised); transition: background 0.12s, border-color 0.12s;">
+          <svg style="width: 13px; height: 13px; fill: currentColor;" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+          Mark all as read
+        </button>
       </div>
 
       <div class="chips" id="topicChips" role="group" aria-label="Filter by topic"></div>
@@ -1493,69 +1602,69 @@
         "prudential": {
           lastUpdated: "July 01, 2026",
           changes: [
-            { type: "revised", severity: "high", text: "Risk weights for consumer credit exposure increased from 100% to 125% for Middle and Upper Layer NBFCs." },
-            { type: "added", severity: "medium", text: "Leverage ratio must not exceed 7% for Base Layer NBFC-ICC." },
-            { type: "revised", severity: "low", text: "Tier-II capital inclusion eligibility criteria for Middle Layer revised." }
+            { type: "revised", severity: "high", text: "Risk weights for consumer credit exposure increased from 100% to 125% for Middle and Upper Layer NBFCs.", link: "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12561&Mode=0" },
+            { type: "added", severity: "medium", text: "Leverage ratio must not exceed 7% for Base Layer NBFC-ICC.", link: "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=12959" },
+            { type: "revised", severity: "low", text: "Tier-II capital inclusion eligibility criteria for Middle Layer revised.", link: "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=12959" }
           ]
         },
         "npa-provisioning": {
           lastUpdated: "July 01, 2026",
           changes: [
-            { type: "revised", severity: "high", text: "Clarified the 90-day overdue asset classification norm to be calculated calendar-day wise rather than month-end." },
-            { type: "added", severity: "medium", text: "Mandated provisioning rate of 0.40% for standard housing loans." }
+            { type: "revised", severity: "high", text: "Clarified the 90-day overdue asset classification norm to be calculated calendar-day wise rather than month-end.", link: "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12185&Mode=0" },
+            { type: "added", severity: "medium", text: "Mandated provisioning rate of 0.40% for standard housing loans.", link: "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=12948" }
           ]
         },
         "governance": {
           lastUpdated: "June 24, 2026",
           changes: [
-            { type: "added", severity: "high", text: "Mandatorily requires Middle and Upper Layer NBFCs to appoint a Chief Compliance Officer (CCO) with a fixed tenure of 3 years." },
-            { type: "revised", severity: "medium", text: "Fit and proper criteria updated for independent directors; maximum age limit capped at 75 years." }
+            { type: "added", severity: "high", text: "Mandatorily requires Middle and Upper Layer NBFCs to appoint a Chief Compliance Officer (CCO) with a fixed tenure of 3 years.", link: "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12272&Mode=0" },
+            { type: "revised", severity: "medium", text: "Fit and proper criteria updated for independent directors; maximum age limit capped at 75 years.", link: "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=12960" }
           ]
         },
         "kyc": {
           lastUpdated: "December 29, 2025",
           changes: [
-            { type: "added", severity: "high", text: "Integration with Central KYC Records Registry (CKYCR) is now mandatory for sole proprietorships and legal entities." },
-            { type: "added", severity: "medium", text: "Allowed Video Customer Identification Process (V-CIP) for onboarding of small businesses." },
-            { type: "revised", severity: "high", text: "KYC re-verification timeline for High-Risk customers reduced from 3 years to 2 years." }
+            { type: "added", severity: "high", text: "Integration with Central KYC Records Registry (CKYCR) is now mandatory for sole proprietorships and legal entities.", link: "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=12943" },
+            { type: "added", severity: "medium", text: "Allowed Video Customer Identification Process (V-CIP) for onboarding of small businesses.", link: "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12089&Mode=0" },
+            { type: "revised", severity: "high", text: "KYC re-verification timeline for High-Risk customers reduced from 3 years to 2 years.", link: "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=12943" }
           ]
         },
         "conduct": {
           lastUpdated: "July 01, 2026",
           changes: [
-            { type: "added", severity: "high", text: "Digital lending partners (LSPs) must be disclosed on the homepage; customer consent must be obtained for any fee changes." },
-            { type: "revised", severity: "medium", text: "Redressal turnaround time for customer complaints reduced to 21 days from 30 days." }
+            { type: "added", severity: "high", text: "Digital lending partners (LSPs) must be disclosed on the homepage; customer consent must be obtained for any fee changes.", link: "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12382&Mode=0" },
+            { type: "revised", severity: "medium", text: "Redressal turnaround time for customer complaints reduced to 21 days from 30 days.", link: "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12382&Mode=0" }
           ]
         },
         "credit-cards": {
           lastUpdated: "November 28, 2025",
           changes: [
-            { type: "added", severity: "high", text: "NBFCs require prior approval from RBI and a minimum Net Owned Fund of ₹100 Crore to issue credit cards." }
+            { type: "added", severity: "high", text: "NBFCs require prior approval from RBI and a minimum Net Owned Fund of ₹100 Crore to issue credit cards.", link: "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=12956" }
           ]
         },
         "reporting": {
           lastUpdated: "July 01, 2026",
           changes: [
-            { type: "added", severity: "medium", text: "Disclosures for climate risk exposures and ESG lending portfolios." },
-            { type: "revised", severity: "low", text: "Format of Notes to Accounts for credit concentration exposures." }
+            { type: "added", severity: "medium", text: "Disclosures for climate risk exposures and ESG lending portfolios.", link: "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=12940" },
+            { type: "revised", severity: "low", text: "Format of Notes to Accounts for credit concentration exposures.", link: "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=12955" }
           ]
         },
         "registration": {
           lastUpdated: "July 01, 2026",
           changes: [
-            { type: "added", severity: "high", text: "Net Owned Fund (NOF) requirement raised to ₹10 Crore for NBFC-ICCs." }
+            { type: "added", severity: "high", text: "Net Owned Fund (NOF) requirement raised to ₹10 Crore for NBFC-ICCs.", link: "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=12965" }
           ]
         },
         "risk": {
           lastUpdated: "July 01, 2026",
           changes: [
-            { type: "added", severity: "medium", text: "Mandates appointing a Chief Risk Officer (CRO) for NBFCs with assets of ₹5,000 Crore and above." }
+            { type: "added", severity: "medium", text: "Mandates appointing a Chief Risk Officer (CRO) for NBFCs with assets of ₹5,000 Crore and above.", link: "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=12960" }
           ]
         },
         "operations": {
           lastUpdated: "July 01, 2026",
           changes: [
-            { type: "added", severity: "high", text: "Prior written RBI approval required for acquisitions/mergers exceeding 26% shareholding." }
+            { type: "added", severity: "high", text: "Prior written RBI approval required for acquisitions/mergers exceeding 26% shareholding.", link: "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=12964" }
           ]
         },
 
@@ -1563,52 +1672,28 @@
         "icdr": {
           lastUpdated: "March 21, 2026",
           changes: [
-            { type: "added", severity: "medium", text: "Fast-track rights issues allowed without SEBI filing if issuer has no regulatory complaints." },
-            { type: "revised", severity: "medium", text: "Lock-in period for promoter contribution reduced from 3 years to 18 months under specified conditions." }
+            { type: "added", severity: "medium", text: "Fast-track rights issues allowed without SEBI filing if issuer has no regulatory complaints.", link: "https://www.sebi.gov.in/legal/circulars/jun-2023/simplified-norms-for-rights-issues_73021.html" },
+            { type: "revised", severity: "medium", text: "Lock-in period for promoter contribution reduced from 3 years to 18 months under specified conditions.", link: "https://www.sebi.gov.in/legal/regulations/aug-2021/securities-and-exchange-board-of-india-issue-of-capital-and-disclosure-requirements-third-amendment-regulations-2021_51829.html" }
           ]
         },
         "lodr": {
           lastUpdated: "January 22, 2026",
           changes: [
-            { type: "added", severity: "high", text: "Verification of market rumors by top 100 listed entities (effective Feb 1, 2026) and top 250 (effective Aug 1, 2026)." },
-            { type: "revised", severity: "high", text: "Timeline for disclosure of material events under Regulation 30 reduced from 24 hours to 12 hours (if originating within the entity)." }
+            { type: "added", severity: "high", text: "Verification of market rumors by top 100 listed entities (effective Feb 1, 2026) and top 250 (effective Aug 1, 2026).", link: "https://www.sebi.gov.in/legal/circulars/may-2024/industry-standards-on-verification-of-market-rumours_83584.html" },
+            { type: "revised", severity: "high", text: "Timeline for disclosure of material events under Regulation 30 reduced from 24 hours to 12 hours (if originating within the entity).", link: "https://www.sebi.gov.in/legal/regulations/jun-2023/securities-and-exchange-board-of-india-listing-obligations-and-disclosure-requirements-second-amendment-regulations-2023_72600.html" }
           ]
         },
         "pit": {
           lastUpdated: "March 12, 2025",
           changes: [
-            { type: "revised", severity: "medium", text: "Definition of Unpublished Price Sensitive Information (UPSI) aligned to include specific list of material events under LODR." },
-            { type: "added", severity: "high", text: "Structured Digital Database (SDD) logs must be preserved for 8 years." }
+            { type: "revised", severity: "medium", text: "Definition of Unpublished Price Sensitive Information (UPSI) aligned to include specific list of material events under LODR.", link: "https://www.sebi.gov.in/legal/regulations/nov-2022/securities-and-exchange-board-of-india-prohibition-of-insider-trading-amendment-regulations-2022_65416.html" },
+            { type: "added", severity: "high", text: "Structured Digital Database (SDD) logs must be preserved for 8 years.", link: "https://www.sebi.gov.in/legal/regulations/jul-2020/securities-and-exchange-board-of-india-prohibition-of-insider-trading-amendment-regulations-2020_47055.html" }
           ]
         },
         "sast": {
           lastUpdated: "December 05, 2025",
           changes: [
-            { type: "revised", severity: "medium", text: "Trigger threshold for open offers aligned with substantial acquisitions rules." }
-          ]
-        },
-        "depositories": {
-          lastUpdated: "November 22, 2025",
-          changes: [
-            { type: "added", severity: "medium", text: "Enforces online settlement reconciliations and investor grievance responses via SCORES portal." }
-          ]
-        },
-        "registrars": {
-          lastUpdated: "December 16, 2025",
-          changes: [
-            { type: "revised", severity: "low", text: "Registrar standard codes of conduct updated for digital processing of demat requests." }
-          ]
-        },
-        "ipef": {
-          lastUpdated: "September 02, 2025",
-          changes: [
-            { type: "revised", severity: "low", text: "Guidelines for utilizing Investor Protection and Education funds updated." }
-          ]
-        },
-        "pfutp": {
-          lastUpdated: "December 05, 2025",
-          changes: [
-            { type: "added", severity: "high", text: "Prohibition of manipulative and unfair trade practices (front-running, wash sales)." }
+            { type: "revised", severity: "medium", text: "Trigger threshold for open offers aligned with substantial acquisitions rules.", link: "https://www.sebi.gov.in/legal/regulations/dec-2021/securities-and-exchange-board-of-india-substantial-acquisition-of-shares-and-takeovers-amendment-regulations-2021_54452.html" }
           ]
         },
 
@@ -1616,20 +1701,20 @@
         "act-1": {
           lastUpdated: "Regular MCA Updates",
           changes: [
-            { type: "added", severity: "medium", text: "MCA notification on CSR funding (unspent CSR account transfer regulations)." },
-            { type: "revised", severity: "medium", text: "Small company thresholds revised (Paid-up capital up to ₹4 Crore and turnover up to ₹40 Crore)." }
+            { type: "added", severity: "medium", text: "MCA notification on CSR funding (unspent CSR account transfer regulations).", link: "https://www.mca.gov.in/content/mca/global/en/acts-rules/ebooks/companies-act-2013.html" },
+            { type: "revised", severity: "medium", text: "Small company thresholds revised (Paid-up capital up to ₹4 Crore and turnover up to ₹40 Crore).", link: "https://www.mca.gov.in/content/mca/global/en/acts-rules/ebooks/companies-act-2013.html" }
           ]
         },
         "act-2": {
           lastUpdated: "FATF Alignment",
           changes: [
-            { type: "revised", severity: "high", text: "Client due diligence rules updated to cover beneficial ownership identification at 10% threshold (previously 15%)." }
+            { type: "revised", severity: "high", text: "Client due diligence rules updated to cover beneficial ownership identification at 10% threshold (previously 15%).", link: "https://www.indiacode.nic.in/handle/123456789/2056" }
           ]
         },
         "act-6": {
           lastUpdated: "Enacted 2023",
           changes: [
-            { type: "added", severity: "high", text: "Mandatory consent architectures and penalty framework for data leaks up to ₹250 Crore." }
+            { type: "added", severity: "high", text: "Mandatory consent architectures and penalty framework for data leaks up to ₹250 Crore.", link: "https://www.meity.gov.in/content/digital-personal-data-protection-act-2023" }
           ]
         },
 
@@ -1637,13 +1722,13 @@
         "ss-1": {
           lastUpdated: "October 01, 2017",
           changes: [
-            { type: "revised", severity: "medium", text: "Circulation of notice at least 7 days before meeting; draft minutes circulation within 15 days." }
+            { type: "revised", severity: "medium", text: "Circulation of notice at least 7 days before meeting; draft minutes circulation within 15 days.", link: "https://www.icsi.edu/ss-1-board-meetings/" }
           ]
         },
         "ss-2": {
           lastUpdated: "October 01, 2017",
           changes: [
-            { type: "revised", severity: "medium", text: "Explanatory statement requirements and clear 21-day notice for members." }
+            { type: "revised", severity: "medium", text: "Explanatory statement requirements and clear 21-day notice for members.", link: "https://www.icsi.edu/ss-2-general-meetings/" }
           ]
         }
       };
@@ -1680,11 +1765,7 @@
         icdr: { label: "ICDR (Capital Issue)", cls: "tc-sebi-icdr" },
         lodr: { label: "LODR (Listing Rules)", cls: "tc-sebi-lodr" },
         pit: { label: "PIT (Insider Trading)", cls: "tc-sebi-pit" },
-        sast: { label: "SAST (Takeovers)", cls: "tc-sebi-sast" },
-        depositories: { label: "Depositories", cls: "tc-sebi-icdr" },
-        registrars: { label: "Registrars & STA", cls: "tc-sebi-lodr" },
-        ipef: { label: "Investor Protection", cls: "tc-sebi-pit" },
-        pfutp: { label: "PFUTP Rules", cls: "tc-sebi-sast" }
+        sast: { label: "SAST (Takeovers)", cls: "tc-sebi-sast" }
       };
 
       // High-level policy previews for compliance professionals
@@ -1831,6 +1912,119 @@
         return /updated.as.on|updated.as.of/i.test(title);
       }
 
+      function isUpdatedThisMonth(dateStr) {
+        if (!dateStr) return false;
+        const d = new Date(dateStr);
+        const now = new Date();
+        if (isNaN(d.getTime())) {
+          const monthNames = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+          const lower = dateStr.toLowerCase();
+          const currentMonthName = monthNames[now.getMonth()];
+          return lower.includes(currentMonthName) && lower.includes(String(now.getFullYear()));
+        }
+        return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+      }
+
+      function isWithinLast90Days(dateStr) {
+        if (!dateStr) return false;
+        const d = new Date(dateStr);
+        if (isNaN(d.getTime())) return false;
+        const now = new Date();
+        const diffTime = now.getTime() - d.getTime();
+        const diffDays = diffTime / (1000 * 60 * 60 * 24);
+        return diffDays >= 0 && diffDays <= 90;
+      }
+
+      function getReadItems() {
+        try {
+          return JSON.parse(localStorage.getItem("regpulse_read_items")) || [];
+        } catch {
+          return [];
+        }
+      }
+
+      function isItemRead(id) {
+        return getReadItems().includes(id);
+      }
+
+      window.toggleReadState = function (id) {
+        let read = getReadItems();
+        const idx = read.indexOf(id);
+        if (idx !== -1) {
+          read.splice(idx, 1);
+        } else {
+          read.push(id);
+        }
+        localStorage.setItem("regpulse_read_items", JSON.stringify(read));
+        render();
+      };
+
+      window.markAsRead = function (id) {
+        let read = getReadItems();
+        if (!read.includes(id)) {
+          read.push(id);
+          localStorage.setItem("regpulse_read_items", JSON.stringify(read));
+          
+          // In-place DOM update (no re-render!)
+          const cards = document.querySelectorAll(`[data-key="${id}"]`);
+          cards.forEach(card => {
+            card.classList.add("is-read");
+          });
+        }
+      };
+
+      window.markAllCurrentTabRead = function () {
+        let read = getReadItems();
+        let changed = false;
+        const visibleKeys = [];
+
+        if (currentTab === "rbi") {
+          const items = filteredRbiItems();
+          items.forEach(d => {
+            const cls = classifyDirection(d.title);
+            if (COMPLIANCE_AMENDMENTS[cls.topic]) {
+              visibleKeys.push(cls.topic);
+            }
+          });
+        } else if (currentTab === "sebi") {
+          const items = filteredSebiItems();
+          items.forEach(reg => {
+            if (COMPLIANCE_AMENDMENTS[reg.key]) {
+              visibleKeys.push(reg.key);
+            }
+          });
+        } else if (currentTab === "acts") {
+          const items = filteredActsItems();
+          items.forEach(act => {
+            if (COMPLIANCE_AMENDMENTS[act.id]) {
+              visibleKeys.push(act.id);
+            }
+          });
+        } else if (currentTab === "ss") {
+          const items = filteredSsItems();
+          items.forEach(std => {
+            if (COMPLIANCE_AMENDMENTS[std.id]) {
+              visibleKeys.push(std.id);
+            }
+          });
+        }
+
+        visibleKeys.forEach(id => {
+          if (!read.includes(id)) {
+            read.push(id);
+            changed = true;
+          }
+          const cards = document.querySelectorAll(`[data-key="${id}"]`);
+          cards.forEach(card => {
+            card.classList.add("is-read");
+          });
+        });
+
+        if (changed) {
+          localStorage.setItem("regpulse_read_items", JSON.stringify(read));
+        }
+      };
+
       function extractUpdatedDate(title) {
         const m = title.match(/[Uu]pdated as on\s+([A-Za-z]+ \d{1,2},? \d{4})/);
         return m ? m[1] : null;
@@ -1951,22 +2145,19 @@
       function getAmendmentHtml(idOrKey, fallbackText) {
         const data = COMPLIANCE_AMENDMENTS[idOrKey];
         if (!data || !data.changes || data.changes.length === 0) {
-          return `
-            <div class="amendment-summary-block">
-              <strong>Latest Update / Amendment:</strong>
-              <span class="amendment-text">${escapeHtml(fallbackText)}</span>
-            </div>
-          `;
+          return "";
         }
 
-        // Determine if the amendment is recent (e.g., from 2025 onwards or ongoing)
-        let isRecent = true;
-        const yearMatch = data.lastUpdated.match(/\b(20\d{2})\b/);
-        if (yearMatch) {
-          const year = parseInt(yearMatch[1], 10);
-          if (year < 2025) {
-            isRecent = false;
-          }
+        // Check if updates fall in last 90 days
+        const last90Only = typeof last90DaysCheckboxEl !== "undefined" && last90DaysCheckboxEl ? last90DaysCheckboxEl.checked : false;
+        if (last90Only && !isWithinLast90Days(data.lastUpdated)) {
+          return "";
+        }
+
+        // Check if updates are marked as read
+        const showRead = typeof showReadCheckboxEl !== "undefined" && showReadCheckboxEl ? showReadCheckboxEl.checked : false;
+        if (!showRead && isItemRead(idOrKey)) {
+          return "";
         }
 
         const additions = data.changes.filter(c => c.type === 'added').length;
@@ -1980,34 +2171,33 @@
 
         const summaryStr = summaryParts.join(", ");
         
-        if (isRecent) {
-          return `
-            <div class="amendment-summary-block has-changes" onclick="triggerGistToggle(this)" title="Click to view details of updates">
-              <strong>Latest Update / Amendment (${escapeHtml(data.lastUpdated)}):</strong>
-              <div class="amendment-meta-row">
-                <span class="amendment-text">Consolidated amendments including <strong>${summaryStr}</strong>. <span style="text-decoration: underline; color: var(--navy); font-weight: 500; font-size: 12px; margin-left: 6px;">Click to view changes</span></span>
-                <span class="change-tag-summary"><span class="pulse-dot"></span> Updates Available</span>
-              </div>
+        return `
+          <div class="amendment-summary-block has-changes" onclick="triggerGistToggle(this)" title="Click to view details of updates">
+            <strong>Latest Update / Amendment (${escapeHtml(data.lastUpdated)}):</strong>
+            <div class="amendment-meta-row">
+              <span class="amendment-text">Consolidated amendments including <strong>${summaryStr}</strong>. <span style="text-decoration: underline; color: var(--navy); font-weight: 500; font-size: 12px; margin-left: 6px;">Click to view changes</span></span>
+              <span class="change-tag-summary"><span class="pulse-dot"></span> Updates Available</span>
             </div>
-          `;
-        } else {
-          return `
-            <div class="amendment-summary-block">
-              <strong>Latest Update / Amendment (${escapeHtml(data.lastUpdated)}):</strong>
-              <div class="amendment-meta-row">
-                <span class="amendment-text">Consolidated amendments including <strong>${summaryStr}</strong>.</span>
-                <span class="change-tag-summary" style="background: rgba(86, 95, 92, 0.08); color: var(--ink-soft); border-radius: 3px; font-family: inherit; font-size: 10px; font-weight: normal; text-transform: none; letter-spacing: 0;">Historical Reference</span>
-              </div>
-            </div>
-          `;
-        }
+          </div>
+        `;
       }
 
       function renderGistPanelHtml(idOrKey, gistPoints, panelId) {
         const data = COMPLIANCE_AMENDMENTS[idOrKey];
-        const hasAmendments = data && data.changes && data.changes.length > 0;
+        const last90Only = typeof last90DaysCheckboxEl !== "undefined" && last90DaysCheckboxEl ? last90DaysCheckboxEl.checked : false;
+        const showRead = typeof showReadCheckboxEl !== "undefined" && showReadCheckboxEl ? showReadCheckboxEl.checked : false;
+
+        let showAmendmentsList = data && data.changes && data.changes.length > 0;
+        if (showAmendmentsList) {
+          if (last90Only && !isWithinLast90Days(data.lastUpdated)) {
+            showAmendmentsList = false;
+          }
+          if (!showRead && isItemRead(idOrKey)) {
+            showAmendmentsList = false;
+          }
+        }
         
-        if (!hasAmendments) {
+        if (!showAmendmentsList) {
           return `
             <div id="${panelId}" class="gist-panel" style="display: none;">
               <div class="gist-sections">
@@ -2020,16 +2210,6 @@
               </div>
             </div>
           `;
-        }
-
-        // Determine if the amendment is recent (e.g., from 2025 onwards or ongoing)
-        let isRecent = true;
-        const yearMatch = data.lastUpdated.match(/\b(20\d{2})\b/);
-        if (yearMatch) {
-          const year = parseInt(yearMatch[1], 10);
-          if (year < 2025) {
-            isRecent = false;
-          }
         }
 
         const changesHtml = data.changes.map(c => {
@@ -2049,7 +2229,10 @@
                 <span class="badge-change ${badgeClass}">${badgeText}</span>
                 <span class="severity-tag severity-${c.severity}">${c.severity} Impact</span>
               </div>
-              <p class="change-desc">${escapeHtml(c.text)}</p>
+              <p class="change-desc">
+                ${escapeHtml(c.text)}
+                ${c.link ? `<a href="${escapeHtml(c.link)}" target="_blank" rel="noopener" class="amendment-doc-link" style="margin-left: 6px; display: inline-flex; align-items: center; gap: 2px; font-size: 11px; font-weight: 500; text-decoration: underline; color: var(--navy);">View Notification ↗</a>` : ""}
+              </p>
             </li>
           `;
         }).join("");
@@ -2064,7 +2247,7 @@
                 </ul>
               </div>
               <div class="gist-section">
-                <h4>${isRecent ? '⚡ Recent Amendments' : '📋 Consolidated Amendments'} (${escapeHtml(data.lastUpdated)})</h4>
+                <h4>⚡ Recent Amendments (${escapeHtml(data.lastUpdated)})</h4>
                 <ul class="change-list">
                   ${changesHtml}
                 </ul>
@@ -2079,9 +2262,11 @@
         if (currentTab === "rbi") {
           const total = items.length;
           const updated = items.filter(d => isUpdated(d.title)).length;
-          const trackedAmendmentsCount = items.filter(d => {
+          const thisMonthCount = items.filter(d => {
+            if (isUpdatedThisMonth(d.issuedDate)) return true;
             const cls = classifyDirection(d.title);
-            return COMPLIANCE_AMENDMENTS[cls.topic] !== undefined;
+            const amd = COMPLIANCE_AMENDMENTS[cls.topic];
+            return amd && isUpdatedThisMonth(amd.lastUpdated);
           }).length;
           return `
         <div class="summary-panel" aria-label="RBI summary">
@@ -2094,15 +2279,19 @@
             <span class="stat-label">Recently Updated</span>
           </div>
           <div class="stat-item">
-            <span class="stat-num">${trackedAmendmentsCount}</span>
-            <span class="stat-label">Detailed Changelogs</span>
+            <span class="stat-num">${thisMonthCount}</span>
+            <span class="stat-label">Updated this month</span>
           </div>
         </div>
       `;
         } else if (currentTab === "sebi") {
           const total = items.length;
           const updated = items.filter(r => isUpdated(r.title)).length;
-          const trackedAmendmentsCount = items.filter(reg => COMPLIANCE_AMENDMENTS[reg.key] !== undefined).length;
+          const thisMonthCount = items.filter(reg => {
+            if (isUpdatedThisMonth(reg.amendedDate) || isUpdatedThisMonth(reg.lastUpdated)) return true;
+            const amd = COMPLIANCE_AMENDMENTS[reg.key];
+            return amd && isUpdatedThisMonth(amd.lastUpdated);
+          }).length;
           return `
         <div class="summary-panel sebi-panel" aria-label="SEBI summary">
           <div class="stat-item">
@@ -2111,18 +2300,22 @@
           </div>
           <div class="stat-item">
             <span class="stat-num">${updated}</span>
-            <span class="stat-label">Active Amendments</span>
+            <span class="stat-label">Recently Updated</span>
           </div>
           <div class="stat-item">
-            <span class="stat-num">${trackedAmendmentsCount}</span>
-            <span class="stat-label">Detailed Changelogs</span>
+            <span class="stat-num">${thisMonthCount}</span>
+            <span class="stat-label">Updated this month</span>
           </div>
         </div>
       `;
         } else if (currentTab === "acts") {
           const total = items.length;
-          const actsCount = items.filter(a => a.type === "Act").length;
-          const trackedAmendmentsCount = items.filter(act => COMPLIANCE_AMENDMENTS[act.id] !== undefined).length;
+          const updated = items.filter(a => isUpdated(a.title || a.summary)).length;
+          const thisMonthCount = items.filter(act => {
+            if (isUpdatedThisMonth(act.enactedDate)) return true;
+            const amd = COMPLIANCE_AMENDMENTS[act.id];
+            return amd && isUpdatedThisMonth(amd.lastUpdated);
+          }).length;
           return `
         <div class="summary-panel acts-panel" aria-label="Acts summary">
           <div class="stat-item">
@@ -2130,18 +2323,23 @@
             <span class="stat-label">Total Acts & Rules</span>
           </div>
           <div class="stat-item">
-            <span class="stat-num">${actsCount}</span>
-            <span class="stat-label">Acts</span>
+            <span class="stat-num">${updated}</span>
+            <span class="stat-label">Recently Updated</span>
           </div>
           <div class="stat-item">
-            <span class="stat-num">${trackedAmendmentsCount}</span>
-            <span class="stat-label">Detailed Changelogs</span>
+            <span class="stat-num">${thisMonthCount}</span>
+            <span class="stat-label">Updated this month</span>
           </div>
         </div>
       `;
         } else {
           const total = items.length;
-          const trackedAmendmentsCount = items.filter(std => COMPLIANCE_AMENDMENTS[std.id] !== undefined).length;
+          const updated = items.filter(std => isUpdated(std.title || std.summary)).length;
+          const thisMonthCount = items.filter(std => {
+            if (isUpdatedThisMonth(std.effectiveDate)) return true;
+            const amd = COMPLIANCE_AMENDMENTS[std.id];
+            return amd && isUpdatedThisMonth(amd.lastUpdated);
+          }).length;
           return `
         <div class="summary-panel ss-panel" aria-label="Secretarial Standards summary">
           <div class="stat-item">
@@ -2149,12 +2347,12 @@
             <span class="stat-label">ICSI Standards</span>
           </div>
           <div class="stat-item">
-            <span class="stat-num">Mandatory</span>
-            <span class="stat-label">Companies Act Sec 118</span>
+            <span class="stat-num">${updated}</span>
+            <span class="stat-label">Recently Updated</span>
           </div>
           <div class="stat-item">
-            <span class="stat-num">${trackedAmendmentsCount}</span>
-            <span class="stat-label">Detailed Changelogs</span>
+            <span class="stat-num">${thisMonthCount}</span>
+            <span class="stat-label">Updated this month</span>
           </div>
         </div>
       `;
@@ -2162,7 +2360,7 @@
       }
 
       // Toggle dynamic summary panel inside cards with smooth transition
-      window.toggleGistPanel = function (btn, panelId) {
+      window.toggleGistPanel = function (btn, panelId, itemKey) {
         const panel = document.getElementById(`gist-panel-${panelId}`);
         const isExpanded = btn.getAttribute("aria-expanded") === "true";
 
@@ -2193,6 +2391,16 @@
           requestAnimationFrame(() => {
             panel.classList.add("open");
           });
+
+          // Auto mark as read after 1.2 seconds of expanding details
+          if (itemKey) {
+            setTimeout(() => {
+              const currentExpanded = btn.getAttribute("aria-expanded") === "true";
+              if (currentExpanded) {
+                markAsRead(itemKey);
+              }
+            }, 1200);
+          }
         }
       };
 
@@ -2234,7 +2442,7 @@
             const gistPoints = COMPLIANCE_GISTS[cls.topic] || ["Core compliance guidelines issued by the Reserve Bank of India."];
 
             return `
-          <article class="direction-card" id="direction-${idx}">
+          <article class="direction-card ${isItemRead(cls.topic) ? 'is-read' : ''}" data-key="${cls.topic}" id="direction-${idx}">
             <div class="card-head">
               <div class="card-meta">
                 ${upd ? `<span class="updated-badge">Updated ${updDate ? escapeHtml(updDate) : ""}</span>` : ""}
@@ -2254,7 +2462,7 @@
             
             <div class="card-actions">
               ${dir.link ? `<a class="primary-link" href="${escapeHtml(dir.link)}" target="_blank" rel="noopener">View on rbi.org.in ↗</a>` : ""}
-              <button type="button" class="preview-btn" aria-expanded="false" onclick="toggleGistPanel(this, 'rbi-${idx}')">🔍 View Details & Updates</button>
+              <button type="button" class="preview-btn" aria-expanded="false" onclick="toggleGistPanel(this, 'rbi-${idx}', '${cls.topic}')">🔍 View Details & Updates</button>
               ${hasPdf ? `<a class="pdf-link" href="${escapeHtml(dir.pdfUrl)}" target="_blank" rel="noopener">📄 Open PDF</a>` : ""}
             </div>
 
@@ -2283,7 +2491,7 @@
             const gistPoints = COMPLIANCE_GISTS[reg.key] || ["Corporate and capital disclosure rules issued under the SEBI Act."];
 
             return `
-          <article class="direction-card sebi-card" id="sebi-${idx}">
+          <article class="direction-card sebi-card ${isItemRead(reg.key) ? 'is-read' : ''}" data-key="${reg.key}" id="sebi-${idx}">
             <div class="card-head">
               <div class="card-meta">
                 <span class="updated-badge">Latest: ${escapeHtml(reg.amendedDate)}</span>
@@ -2302,7 +2510,7 @@
             
             <div class="card-actions">
               ${reg.link ? `<a class="sebi-link" href="${escapeHtml(reg.link)}" target="_blank" rel="noopener">View on sebi.gov.in ↗</a>` : ""}
-              <button type="button" class="preview-btn" aria-expanded="false" onclick="toggleGistPanel(this, 'sebi-${idx}')" style="color: var(--green); border-color: var(--green);">🔍 View Details & Updates</button>
+              <button type="button" class="preview-btn" aria-expanded="false" onclick="toggleGistPanel(this, 'sebi-${idx}', '${reg.key}')" style="color: var(--green); border-color: var(--green);">🔍 View Details & Updates</button>
               ${hasPdf ? `<a class="pdf-link" href="${escapeHtml(reg.pdfUrl)}" target="_blank" rel="noopener">📄 Open PDF</a>` : ""}
             </div>
 
@@ -2327,7 +2535,7 @@
             const gistPoints = COMPLIANCE_GISTS[act.id] || ["Corporate and statutory rules regulating financial services in India."];
 
             return `
-          <article class="direction-card act-card" id="act-${idx}">
+          <article class="direction-card act-card ${isItemRead(act.id) ? 'is-read' : ''}" data-key="${act.id}" id="act-${idx}">
             <div class="card-head">
               <div class="card-meta">
                 <span class="updated-badge" style="background: var(--tag-misc-bg); color: var(--tag-misc);">${escapeHtml(act.type)}</span>
@@ -2346,7 +2554,7 @@
             
             <div class="card-actions">
               ${act.link ? `<a class="primary-link" href="${escapeHtml(act.link)}" target="_blank" rel="noopener" style="color: var(--tag-misc); border-color: var(--tag-misc);">View Official Portal ↗</a>` : ""}
-              <button type="button" class="preview-btn" aria-expanded="false" onclick="toggleGistPanel(this, 'acts-${idx}')" style="color: var(--tag-misc); border-color: var(--tag-misc);">🔍 View Details & Updates</button>
+              <button type="button" class="preview-btn" aria-expanded="false" onclick="toggleGistPanel(this, 'acts-${idx}', '${act.id}')" style="color: var(--tag-misc); border-color: var(--tag-misc);">🔍 View Details & Updates</button>
               ${act.pdfUrl ? `<a class="pdf-link" href="${escapeHtml(act.pdfUrl)}" target="_blank" rel="noopener">📄 Open PDF</a>` : ""}
             </div>
 
@@ -2371,7 +2579,7 @@
             const gistPoints = COMPLIANCE_GISTS[std.id] || ["Secretarial standards issued by the Institute of Company Secretaries of India."];
 
             return `
-          <article class="direction-card ss-card" id="ss-${idx}">
+          <article class="direction-card ss-card ${isItemRead(std.id) ? 'is-read' : ''}" data-key="${std.id}" id="ss-${idx}">
             <div class="card-head">
               <div class="card-meta">
                 <span class="updated-badge" style="background: var(--amber-bg); color: var(--amber);">ICSI Standard</span>
@@ -2390,7 +2598,7 @@
             
             <div class="card-actions">
               ${std.link ? `<a class="primary-link" href="${escapeHtml(std.link)}" target="_blank" rel="noopener" style="color: var(--amber); border-color: var(--amber);">View Official Portal ↗</a>` : ""}
-              <button type="button" class="preview-btn" aria-expanded="false" onclick="toggleGistPanel(this, 'ss-${idx}')" style="color: var(--amber); border-color: var(--amber);">🔍 View Details & Updates</button>
+              <button type="button" class="preview-btn" aria-expanded="false" onclick="toggleGistPanel(this, 'ss-${idx}', '${std.id}')" style="color: var(--amber); border-color: var(--amber);">🔍 View Details & Updates</button>
               ${std.pdfUrl ? `<a class="pdf-link" href="${escapeHtml(std.pdfUrl)}" target="_blank" rel="noopener">📄 Open PDF</a>` : ""}
             </div>
 
@@ -2424,10 +2632,10 @@
         tabSs.setAttribute("aria-selected", tab === "ss");
 
         // Show/hide category descriptors
-        rbiCategoryInfo.style.display = tab === "rbi" ? "flex" : "none";
-        sebiCategoryInfo.style.display = tab === "sebi" ? "flex" : "none";
-        actsCategoryInfo.style.display = tab === "acts" ? "flex" : "none";
-        ssCategoryInfo.style.display = tab === "ss" ? "flex" : "none";
+        rbiCategoryInfo.classList.toggle("hidden", tab !== "rbi");
+        sebiCategoryInfo.classList.toggle("hidden", tab !== "sebi");
+        actsCategoryInfo.classList.toggle("hidden", tab !== "acts");
+        ssCategoryInfo.classList.toggle("hidden", tab !== "ss");
 
         if (tab === "rbi") {
           infoBannerText.textContent = "Always verify applicability to your specific NBFC registration layer (Base/Middle/Upper) before acting on any direction.";
@@ -2507,7 +2715,26 @@
         filterMonth = ""; filterMonthEl.value = "";
         filterFrom = ""; filterFromEl.value = "";
         filterTo = ""; filterToEl.value = "";
+        if (typeof last90DaysCheckboxEl !== "undefined" && last90DaysCheckboxEl) {
+          last90DaysCheckboxEl.checked = false;
+        }
+        if (typeof showReadCheckboxEl !== "undefined" && showReadCheckboxEl) {
+          showReadCheckboxEl.checked = false;
+          document.body.classList.remove("show-read-active");
+        }
         syncFilterUI();
+        render();
+      });
+
+      const last90DaysCheckboxEl = document.getElementById("last90DaysCheckbox");
+      const showReadCheckboxEl = document.getElementById("showReadCheckbox");
+
+      last90DaysCheckboxEl.addEventListener("change", () => {
+        render();
+      });
+
+      showReadCheckboxEl.addEventListener("change", () => {
+        document.body.classList.toggle("show-read-active", showReadCheckboxEl.checked);
         render();
       });
 

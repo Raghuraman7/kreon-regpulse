@@ -137,19 +137,7 @@ export async function checkRbiNotifications() {
   console.log(`Updated data/rbi-notifications.json (${updatedList.length} total items).`);
 
   if (newNotifications.length > 0 && previousData.notifications.length > 0) {
-    console.log(`🚨 Triggering INSTANT EMAIL ALERT for ${newNotifications.length} new RBI notification(s)...`);
-    await sendRegulatoryAlert({
-      source: "RBI",
-      category: "Circular / Notification",
-      updates: newNotifications.map(n => ({
-        id: n.id,
-        title: n.circularNo ? `[${n.circularNo}] ${n.title}` : n.title,
-        link: n.link,
-        pdfUrl: n.pdfUrl,
-        date: n.date,
-        summary: n.summary
-      }))
-    });
+    console.log(`✨ Detected ${newNotifications.length} new RBI notification(s). (Real-time email notification disabled)`);
   } else if (previousData.notifications.length === 0) {
     console.log("Initialized RBI notifications baseline data.");
   } else {
