@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-23T22:37:43.795Z",
+  "generatedAt": "2026-07-23T23:33:18.324Z",
   "regulations": {
     "icdr": {
       "key": "icdr",
@@ -8,7 +8,7 @@
       "link": "https://www.sebi.gov.in/legal/regulations/mar-2026/securities-and-exchange-board-of-india-issue-of-capital-and-disclosure-requirements-regulations-2018-last-amended-on-march-21-2026-_100581.html",
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/mar-2026/1774592300989.pdf",
       "amendedDate": "Mar 21, 2026",
-      "lastUpdated": "2026-07-23T22:37:42.327Z"
+      "lastUpdated": "2026-07-23T23:33:17.023Z"
     },
     "lodr": {
       "key": "lodr",
@@ -17,7 +17,7 @@
       "link": "https://www.sebi.gov.in/legal/regulations/jul-2026/securities-and-exchange-board-of-india-listing-obligations-and-disclosure-requirements-regulations-2015-last-amended-on-july-14-2026-_102974.html",
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jul-2026/1784630770711.pdf",
       "amendedDate": "Jul 14, 2026",
-      "lastUpdated": "2026-07-23T22:37:43.235Z"
+      "lastUpdated": "2026-07-23T23:33:17.837Z"
     },
     "pit": {
       "key": "pit",
@@ -26,7 +26,7 @@
       "link": "https://www.sebi.gov.in/legal/regulations/mar-2025/securities-and-exchange-board-of-india-prohibition-of-insider-trading-regulations-2015-last-amended-on-march-12-2025-_92672.html",
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jul-2025/1752572636085.pdf",
       "amendedDate": "Mar 12, 2025",
-      "lastUpdated": "2026-07-23T22:37:43.462Z"
+      "lastUpdated": "2026-07-23T23:33:18.043Z"
     },
     "sast": {
       "key": "sast",
@@ -35,7 +35,7 @@
       "link": "https://www.sebi.gov.in/legal/regulations/dec-2025/securities-and-exchange-board-of-india-substantial-acquisition-of-shares-and-takeovers-regulations-2011-last-amended-on-december-5-2025-_98643.html",
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/dec-2025/1766569598336.pdf",
       "amendedDate": "Dec 24, 2025",
-      "lastUpdated": "2026-07-23T22:37:43.795Z"
+      "lastUpdated": "2026-07-23T23:33:18.324Z"
     },
     "depositories": {
       "key": "depositories",
