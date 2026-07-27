@@ -1,6 +1,6 @@
 // Continuous Real-Time Watcher Daemon for RBI & SEBI Regulatory Updates
 // Periodically polls RBI Notifications, RBI Master Directions, SEBI Regulations, and SEBI Circulars.
-// Triggers INSTANT email notifications to umamaheswari.s@stucred.com & raghuraman@stucred.com as soon as an update is released.
+// Triggers INSTANT email notifications to umamaheswari.s@stucred.com, raghuraman@stucred.com & shubhrajyoti.c@stucred.com as soon as an update is released.
 // Run with: node scripts/watch-realtime.mjs
 
 import { checkRbiNotifications } from "./fetch-rbi-notifications.mjs";
@@ -24,22 +24,21 @@ async function checkAndSendPeriodicDigests() {
   const hours = now.getHours();
 
   const key15 = `${currentYear}-${currentMonth}-15`;
-  const key30 = `${currentYear}-${currentMonth}-30`;
+  const lastDayOfCurrentMonth = new Date(currentYear, currentMonth, 0).getDate();
+  const keyMonthEnd = `${currentYear}-${currentMonth}-${lastDayOfCurrentMonth}`;
 
-  // 15-Day Fortnightly Digest (Auto-triggers on 16th of month between 08:00 - 10:00 AM)
+  // 15-Day Fortnightly Digest (Auto-triggers on 16th of month between 08:00 AM onwards)
   if (dateNum === 16 && hours >= 8 && last15DaysDigestSentKey !== key15) {
     console.log(`📅 15-Day Fortnightly trigger: Generating digest for 1st - 15th of current month...`);
     await generateAndSendPeriodicDigest({ period: "15days", month: currentMonth, year: currentYear });
     last15DaysDigestSentKey = key15;
   }
 
-  // Full Month 30/31-Day Digest (Auto-triggers on 1st of next month between 08:00 - 10:00 AM)
-  if (dateNum === 1 && hours >= 8 && lastMonthlyDigestSentKey !== key30) {
-    console.log(`📅 Full Month trigger: Generating digest for 1st - 30/31 of previous month...`);
-    const prevMonth = currentMonth === 1 ? 12 : currentMonth - 1;
-    const prevYear = currentMonth === 1 ? currentYear - 1 : currentYear;
-    await generateAndSendPeriodicDigest({ period: "monthly", month: prevMonth, year: prevYear });
-    lastMonthlyDigestSentKey = key30;
+  // Full Month Digest (Auto-triggers on the last day of the current month: 28th, 29th, 30th, or 31st)
+  if (dateNum === lastDayOfCurrentMonth && hours >= 8 && lastMonthlyDigestSentKey !== keyMonthEnd) {
+    console.log(`📅 Full Month trigger: Generating digest for 1st - ${lastDayOfCurrentMonth}th of current month (${currentMonth}/${currentYear})...`);
+    await generateAndSendPeriodicDigest({ period: "monthly", month: currentMonth, year: currentYear });
+    lastMonthlyDigestSentKey = keyMonthEnd;
   }
 }
 

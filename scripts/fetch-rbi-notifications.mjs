@@ -137,7 +137,12 @@ export async function checkRbiNotifications() {
   console.log(`Updated data/rbi-notifications.json (${updatedList.length} total items).`);
 
   if (newNotifications.length > 0 && previousData.notifications.length > 0) {
-    console.log(`✨ Detected ${newNotifications.length} new RBI notification(s). (Real-time email notification disabled)`);
+    console.log(`✨ Detected ${newNotifications.length} new RBI notification(s). Dispatching instant email alert...`);
+    await sendRegulatoryAlert({
+      source: "RBI",
+      category: "Notification",
+      updates: newNotifications
+    });
   } else if (previousData.notifications.length === 0) {
     console.log("Initialized RBI notifications baseline data.");
   } else {

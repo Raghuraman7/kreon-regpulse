@@ -233,7 +233,12 @@ export async function checkSebiCirculars() {
   console.log(`Updated data/sebi-circulars.json (${updatedList.length} total items).`);
 
   if (newCirculars.length > 0 && previousData.circulars.length > 0) {
-    console.log(`✨ Detected ${newCirculars.length} new SEBI circular(s). (Real-time email notification disabled)`);
+    console.log(`✨ Detected ${newCirculars.length} new SEBI circular(s). Dispatching instant email alert...`);
+    await sendRegulatoryAlert({
+      source: "SEBI",
+      category: "Circular",
+      updates: newCirculars
+    });
   } else if (previousData.circulars.length === 0) {
     console.log("Initialized SEBI circulars baseline data.");
   } else {

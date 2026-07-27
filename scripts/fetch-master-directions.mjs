@@ -199,7 +199,12 @@ export async function checkRbiMasterDirections() {
   );
 
   if (updatedDirs.length > 0 && previousData.directions.length > 0) {
-    console.log(`✨ Detected ${updatedDirs.length} updated RBI Master Direction(s). (Real-time email notification disabled)`);
+    console.log(`✨ Detected ${updatedDirs.length} updated RBI Master Direction(s). Dispatching instant email alert...`);
+    await sendRegulatoryAlert({
+      source: "RBI",
+      category: "Master Direction",
+      updates: updatedDirs
+    });
   } else {
     console.log("No new RBI Master Direction updates detected.");
   }

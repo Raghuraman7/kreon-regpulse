@@ -134,7 +134,12 @@ export async function checkSebiRegulations() {
   console.log("Wrote updated SEBI regulations to data/sebi-regulations.json");
 
   if (updatedRegs.length > 0 && Object.keys(previousData.regulations).length > 0) {
-    console.log(`✨ Detected ${updatedRegs.length} updated SEBI regulation(s). (Real-time email notification disabled)`);
+    console.log(`✨ Detected ${updatedRegs.length} updated SEBI regulation(s). Dispatching instant email alert...`);
+    await sendRegulatoryAlert({
+      source: "SEBI",
+      category: "Regulation Amendment",
+      updates: updatedRegs
+    });
   } else {
     console.log("No new SEBI regulation updates detected.");
   }

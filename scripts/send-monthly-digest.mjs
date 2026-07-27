@@ -41,7 +41,7 @@ loadEnv();
 
 const RECIPIENTS = process.env.EMAIL_RECIPIENTS
   ? process.env.EMAIL_RECIPIENTS.split(",").map(e => e.trim()).filter(Boolean)
-  : ["umamaheswari.s@stucred.com", "raghuraman@stucred.com"];
+  : ["umamaheswari.s@stucred.com", "raghuraman@stucred.com", "shubhrajyoti.c@stucred.com"];
 
 function createTransporter() {
   const host = process.env.SMTP_HOST;
@@ -134,8 +134,8 @@ export async function generateAndSendPeriodicDigest({ period = "monthly", month,
   const now = new Date();
   const is15Days = (period === "15days" || period === "fortnightly" || period === "15");
 
-  const targetMonth = month || (now.getDate() === 1 ? (now.getMonth() === 0 ? 12 : now.getMonth()) : now.getMonth() + 1);
-  const targetYear = year || (now.getDate() === 1 && now.getMonth() === 0 ? now.getFullYear() - 1 : now.getFullYear());
+  const targetMonth = month || (now.getMonth() + 1);
+  const targetYear = year || now.getFullYear();
 
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const monthName = monthNames[targetMonth - 1];

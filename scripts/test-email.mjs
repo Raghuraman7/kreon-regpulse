@@ -17,7 +17,7 @@ async function testEmail() {
       link: "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13581&Mode=0",
       pdfUrl: "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NOTI2033D4B28F9A3A54B548FF6B13A8E8F5355.PDF",
       date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
-      summary: "This is a test notification verifying that instant regulatory update emails are properly formatted and delivered to umamaheswari.s@stucred.com & raghuraman@stucred.com."
+      summary: "This is a test notification verifying that instant regulatory update emails are properly formatted and delivered to umamaheswari.s@stucred.com, raghuraman@stucred.com & shubhrajyoti.c@stucred.com."
     }
   ];
 

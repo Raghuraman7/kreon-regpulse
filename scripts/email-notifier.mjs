@@ -39,7 +39,8 @@ loadEnv();
 
 export const DEFAULT_RECIPIENTS = [
   "umamaheswari.s@stucred.com",
-  "raghuraman@stucred.com"
+  "raghuraman@stucred.com",
+  "shubhrajyoti.c@stucred.com"
 ];
 
 export function getRecipients() {
