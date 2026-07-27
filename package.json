@@ -1,7 +1,7 @@
 {
   "name": "kreon-regpulse",
   "version": "1.0.0",
-  "description": "Open-source, single-page register of RBI compliance updates (notifications, circulars) for CS/compliance teams.",
+  "description": "Unified register of RBI compliance updates (notifications, circulars) for CS/compliance teams.",
   "type": "module",
   "scripts": {
     "fetch:rbi-md": "node scripts/fetch-master-directions.mjs",

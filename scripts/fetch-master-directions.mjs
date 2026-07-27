@@ -139,7 +139,7 @@ export async function checkRbiMasterDirections() {
 
   const res = await fetch(NBFC_PAGE_URL, {
     headers: {
-      "User-Agent": "rbi-compliance-tracker/1.0 (open source; CS/compliance teams)",
+      "User-Agent": "rbi-compliance-tracker/1.0 (CS/compliance teams)",
       "Accept": "text/html,application/xhtml+xml",
     },
   });
