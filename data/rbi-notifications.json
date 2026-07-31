@@ -1,7 +1,27 @@
 {
-  "lastChecked": "2026-07-31T07:37:29.427Z",
-  "count": 45,
+  "lastChecked": "2026-07-31T10:12:37.131Z",
+  "count": 47,
   "notifications": [
+    {
+      "id": "rbi-notif-13662",
+      "title": "Fake Indian Currency Notes (FICNs)-Detection, Reporting and Monitoring",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13662&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT22031600C31BC5F403AA3CD3FF99E8410E4.PDF",
+      "date": "Jul 31, 2026",
+      "circularNo": "RBI/2026-27/220",
+      "summary": "The Chairman/ Managing Director/ Chief Executive Officer All Banks<br/><br/>Fake Indian Currency Notes (FICNs)-Detection, Reporting and Monitoring<br/><br/>2. However, an analysis by the Reserve Bank suggests that efforts of some of the banks in the matter were not adequate. Accordingly, the banks are advised to review their processes so as to further strengthen their capacity and preparedness to identify, impound and report FICNs effectively. In this regard, the banks are also advised to undertake the following specific measures -",
+      "detectedAt": "2026-07-31T10:12:36.226Z"
+    },
+    {
+      "id": "rbi-notif-13652",
+      "title": "Reserve Bank of India (Small Finance Banks – Prudential Norms on Capital Adequacy) Fifth Amendment Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13652&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT2108270FCCB27CD41269C97AB89050D0582.PDF",
+      "date": "Jul 31, 2026",
+      "circularNo": "RBI/2026-27/210",
+      "summary": "Reserve Bank of India (Small Finance Banks – Prudential Norms on Capital Adequacy) Fifth Amendment Directions, 2026<br/><br/>Please refer to ‘Annex III: Pillar 3 Disclosure Requirements’ of the Reserve Bank of India (Small Finance Banks – Prudential Norms on Capital Adequacy) Directions, 2025 (hereinafter referred to as ‘the Directions’). Upon a review and to ensure greater consistency with the Basel Pillar 3 disclosure requirements, there is a felt need to amend these Directions.<br/><br/>2. Accordingly, in exercise of the powers conferred by Section 35A of the Banking Regulation Act, 1949 and all other provisions / laws enabling the Reserve Bank of India (RBI) to issue instructions in this regard, the Reserve Bank being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues the Amendment Directions hereinafter specified.",
+      "detectedAt": "2026-07-31T10:12:37.131Z"
+    },
     {
       "id": "rbi-notif-13661",
       "title": "Reserve Bank of India (Urban Co-operative Banks – Interest Rate on Deposits) Second Amendment Directions, 2026",
