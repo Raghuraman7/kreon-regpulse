@@ -1,7 +1,27 @@
 {
-  "lastChecked": "2026-08-01T10:53:13.784Z",
-  "count": 55,
+  "lastChecked": "2026-08-01T11:53:22.832Z",
+  "count": 57,
   "notifications": [
+    {
+      "id": "rbi-notif-13639",
+      "title": "Reserve Bank of India (Commercial Banks – Statutory Audit) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13639&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/414MDEB929BD427B7443C98B182F2A13E1396.PDF",
+      "date": "Aug 01, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Commercial Banks – Statutory Audit) Directions, 2026<br/><br/>In exercise of powers conferred by Section 30(1A) of the Banking Regulation Act, 1949, Section 10(1) of the Banking Companies (Acquisition and Transfer of Undertakings) Act, 1970 / 1980, and Section 41(1) of the State Bank of India Act, 1955 (SBI Act), and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby issues the Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
+      "detectedAt": "2026-08-01T11:53:20.374Z"
+    },
+    {
+      "id": "rbi-notif-13638",
+      "title": "Reserve Bank of India (Commercial Banks – Supervisory Returns) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13638&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/415MD17AD8787C68848D58600F61E35468861.PDF",
+      "date": "Aug 01, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Commercial Banks – Supervisory Returns) Directions, 2026<br/><br/>In exercise of powers conferred under Section 27 and Section 35-A of the Banking Regulation Act, 1949, Chapter III-A of the Reserve Bank of India Act, 1934, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
+      "detectedAt": "2026-08-01T11:53:22.832Z"
+    },
     {
       "id": "rbi-notif-13640",
       "title": "Reserve Bank of India (Commercial Banks - Internal Audit Function) Directions, 2026",
