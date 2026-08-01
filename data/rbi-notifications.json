@@ -1,7 +1,27 @@
 {
-  "lastChecked": "2026-08-01T12:50:07.258Z",
-  "count": 59,
+  "lastChecked": "2026-08-01T14:17:06.170Z",
+  "count": 61,
   "notifications": [
+    {
+      "id": "rbi-notif-13636",
+      "title": "Reserve Bank of India (Small Finance Banks - Compliance Function) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13636&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/417MDBF2FB62647A34F518725C7419A522A1A.PDF",
+      "date": "Aug 01, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Small Finance Banks - Compliance Function) Directions, 2026<br/><br/>Compliance function is a key element of a bank’s corporate governance framework and an integral part of assurance, alongside internal audit and risk management processes. The principles governing the Compliance function are aligned with the Basel Committee on Banking Supervision framework, adapted to the Indian operating environment, and extend to bank-led Financial Conglomerates for managing group-wide compliance risk. While minimum standards are prescribed, the bank shall organise its Compliance function and prioritise compliance risk management in a manner commensurate with its size, complexity, risk profile, and organisational structure.<br/><br/>In exercise of the powers conferred by Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.",
+      "detectedAt": "2026-08-01T14:17:03.889Z"
+    },
+    {
+      "id": "rbi-notif-13632",
+      "title": "Reserve Bank of India (Small Finance Banks – Fraud Risk Management) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13632&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/421MD045AAA3F34354D88B80AB52E2EFBBBA1.PDF",
+      "date": "May 12, 2023",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Small Finance Banks – Fraud Risk Management) Directions, 2026<br/><br/>These Directions are issued with a view to providing a framework for prevention, early detection, and timely reporting of incidents of fraud by Small Finance Banks to Law Enforcement Agencies (LEAs) and Reserve Bank of India (‘RBI’) and dissemination of information by RBI and matters connected therewith or incidental thereto.<br/><br/>In exercise of the powers conferred under Section 21 and Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling RBI in this regard, RBI being satisfied that it is necessary and expedient in public interest so to do, hereby, issues these Directions hereinafter specified.",
+      "detectedAt": "2026-08-01T14:17:06.170Z"
+    },
     {
       "id": "rbi-notif-13637",
       "title": "Reserve Bank of India (Commercial Banks – Miscellaneous) Supervisory Directions, 2026",
