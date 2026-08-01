@@ -1,7 +1,27 @@
 {
-  "lastChecked": "2026-08-01T11:53:22.832Z",
-  "count": 57,
+  "lastChecked": "2026-08-01T12:50:07.258Z",
+  "count": 59,
   "notifications": [
+    {
+      "id": "rbi-notif-13637",
+      "title": "Reserve Bank of India (Commercial Banks – Miscellaneous) Supervisory Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13637&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/416MD53D6A6765E6649B6AAABB58C0E4C7EFB.PDF",
+      "date": "Aug 01, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Commercial Banks – Miscellaneous) Supervisory Directions, 2026<br/><br/>In exercise of the powers conferred by Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
+      "detectedAt": "2026-08-01T12:50:05.211Z"
+    },
+    {
+      "id": "rbi-notif-13633",
+      "title": "Reserve Bank of India (Small Finance Banks – Digital Payment Security Controls) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13633&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/420MD29384D707EBB4C938067734D3B24D278.PDF",
+      "date": "Aug 01, 2026",
+      "circularNo": "RBI/2020-21/21 DPSS.CO.PD No.116/02.12.004/2020-21 dated August 6, 2020",
+      "summary": "Reserve Bank of India (Small Finance Banks – Digital Payment Security Controls) Directions, 2026<br/><br/>In exercise of the powers conferred by extant provisions of the Banking Regulation Act, 1949, Chapter IV of Payment and Settlement Systems Act, 2007, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
+      "detectedAt": "2026-08-01T12:50:07.258Z"
+    },
     {
       "id": "rbi-notif-13639",
       "title": "Reserve Bank of India (Commercial Banks – Statutory Audit) Directions, 2026",
