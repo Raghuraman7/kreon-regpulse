@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-08-01T09:20:34.896Z",
-  "count": 54,
+  "lastChecked": "2026-08-01T10:53:13.784Z",
+  "count": 55,
   "notifications": [
+    {
+      "id": "rbi-notif-13640",
+      "title": "Reserve Bank of India (Commercial Banks - Internal Audit Function) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13640&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/413MD4F9FF319B5954ED1998D65025BDCBFDA.PDF",
+      "date": "Aug 01, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Commercial Banks - Internal Audit Function) Directions, 2026<br/><br/>A sound Internal Audit function is an integral component of a bank’s internal control and risk management framework. In view of the limitations of a transaction-centric audit approach, the banks are required to adopt Risk Based Internal Audit (RBIA), which places emphasis on the assessment of risk management systems and internal controls, in addition to selective transaction testing, in alignment with evolving governance standards and international best practices.<br/><br/>In exercise of the powers conferred by Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues the Directions hereinafter specified.",
+      "detectedAt": "2026-08-01T10:53:13.784Z"
+    },
     {
       "id": "rbi-notif-13642",
       "title": "Reserve Bank of India (Commercial Banks – Digital Payment Security Controls) Directions, 2026",
