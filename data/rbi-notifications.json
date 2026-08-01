@@ -1,7 +1,27 @@
 {
-  "lastChecked": "2026-08-01T07:12:04.182Z",
-  "count": 52,
+  "lastChecked": "2026-08-01T09:20:34.896Z",
+  "count": 54,
   "notifications": [
+    {
+      "id": "rbi-notif-13642",
+      "title": "Reserve Bank of India (Commercial Banks – Digital Payment Security Controls) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13642&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/411MD1918998D1AD74F159D57664FB10E053F.PDF",
+      "date": "Aug 01, 2026",
+      "circularNo": "RBI/2020-21/21 DPSS.CO.PD No.116/02.12.004/2020-21 dated August 6, 2020",
+      "summary": "Reserve Bank of India (Commercial Banks – Digital Payment Security Controls) Directions, 2026<br/><br/>In exercise of the powers conferred by extant provisions of the Banking Regulation Act, 1949, Chapter IV of Payment and Settlement Systems Act, 2007, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
+      "detectedAt": "2026-08-01T09:20:33.791Z"
+    },
+    {
+      "id": "rbi-notif-13641",
+      "title": "Reserve Bank of India (Commercial Banks – Fraud Risk Management) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13641&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/412MD5B6CA712E156413BACDEA9DD5CF5D1EF.PDF",
+      "date": "May 12, 2023",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Commercial Banks – Fraud Risk Management) Directions, 2026<br/><br/>These Directions are issued with a view to providing a framework for prevention, early detection, and timely reporting of incidents of fraud by banks to Law Enforcement Agencies (LEAs) and Reserve Bank of India (RBI) and dissemination of information by RBI and matters connected therewith or incidental thereto.<br/><br/>In exercise of the powers conferred under Section 21 and Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling RBI in this regard, RBI being satisfied that it is necessary and expedient in public interest so to do, hereby issues the Directions hereinafter specified.",
+      "detectedAt": "2026-08-01T09:20:34.895Z"
+    },
     {
       "id": "rbi-notif-13645",
       "title": "Reserve Bank of India (Commercial Banks - Compliance Function) Directions, 2026",
