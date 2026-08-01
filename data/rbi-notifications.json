@@ -1,7 +1,37 @@
 {
-  "lastChecked": "2026-08-01T04:38:36.126Z",
-  "count": 49,
+  "lastChecked": "2026-08-01T07:12:04.182Z",
+  "count": 52,
   "notifications": [
+    {
+      "id": "rbi-notif-13645",
+      "title": "Reserve Bank of India (Commercial Banks - Compliance Function) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13645&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/408MD83CAFF1305FB4180A6C3B4E68C88ED09.PDF",
+      "date": "Aug 01, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Commercial Banks - Compliance Function) Directions, 2026<br/><br/>Compliance function is a key element of a bank’s corporate governance framework and an integral part of assurance, alongside internal audit and risk management processes. The principles governing the Compliance function are aligned with the Basel Committee on Banking Supervision framework, adapted to the Indian operating environment, and extend to bank-led Financial Conglomerates for managing group-wide compliance risk. While minimum standards are prescribed, the bank shall organise its Compliance function and prioritise compliance risk management in a manner commensurate with its size, complexity, risk profile, and organisational structure.<br/><br/>In exercise of the powers conferred by Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.",
+      "detectedAt": "2026-08-01T07:12:01.758Z"
+    },
+    {
+      "id": "rbi-notif-13644",
+      "title": "Reserve Bank of India (Commercial Banks – Concurrent Audit) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13644&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/409MD13EB09368FC543A2BEDF3B9E8F2C9A6A.PDF",
+      "date": "Aug 01, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Commercial Banks – Concurrent Audit) Directions, 2026<br/><br/>Concurrent audit aims at shortening the interval between a transaction and its independent examination. It is, therefore, integral to the establishment of sound internal accounting functions and effective controls and is regarded as part of a bank's early warning system to ensure timely detection of serious errors and irregularities, which also helps in averting fraudulent transactions and preventive vigilance in the bank.<br/><br/>In exercise of the powers conferred by Section 35A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues the Directions hereinafter specified.",
+      "detectedAt": "2026-08-01T07:12:02.255Z"
+    },
+    {
+      "id": "rbi-notif-13643",
+      "title": "Reserve Bank of India (Commercial Banks – Cybersecurity, Technology: Risk, Resilience and Assurance Framework) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13643&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/410MD1C1DD4C43C9C49ED9033D64902636D9C.PDF",
+      "date": "Aug 01, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Commercial Banks – Cybersecurity, Technology: Risk, Resilience and Assurance Framework) Directions, 2026<br/><br/>In exercise of the powers conferred by Section 27 and Section 35-A of the Banking Regulation Act, 1949, the Reserve Bank of India Act, 1934, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
+      "detectedAt": "2026-08-01T07:12:04.181Z"
+    },
     {
       "id": "rbi-notif-13664",
       "title": "Implementation of Section 51A of UAPA, 1967: Updates to UNSC’s 1988 (2011) Taliban Sanctions List: Amendment of 05 Entries:",
