@@ -1,7 +1,67 @@
 {
-  "lastChecked": "2026-08-03T08:04:53.530Z",
-  "count": 65,
+  "lastChecked": "2026-08-03T11:39:37.741Z",
+  "count": 71,
   "notifications": [
+    {
+      "id": "rbi-notif-13634",
+      "title": "Reserve Bank of India (Small Finance Banks - Cybersecurity, Technology: Risk, Resilience and Assurance Framework) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13634&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/419MD2FBDBDE1A8C948B79579A76A9BC83E21.PDF",
+      "date": "Aug 03, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Small Finance Banks - Cybersecurity, Technology: Risk, Resilience and Assurance Framework) Directions, 2026<br/><br/>In exercise of the powers conferred by Section 27 and Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
+      "detectedAt": "2026-08-03T11:39:33.575Z"
+    },
+    {
+      "id": "rbi-notif-13629",
+      "title": "Reserve Bank of India (Small Finance Banks - Supervisory Returns) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13629&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/424MD2CF5C97A54FA4C2883108496BBEF2D80.PDF",
+      "date": "Aug 03, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Small Finance Banks - Supervisory Returns) Directions, 2026<br/><br/>In exercise of powers conferred under Section 27 and Section 35-A of the Banking Regulation Act, 1949, Chapter III-A the Reserve Bank of India Act, 1934, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
+      "detectedAt": "2026-08-03T11:39:34.729Z"
+    },
+    {
+      "id": "rbi-notif-13628",
+      "title": "Reserve Bank of India (Small Finance Banks – Miscellaneous) Supervisory Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13628&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/425MD0436481B095C48CD89101DA2ACCD152E.PDF",
+      "date": "Aug 03, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Small Finance Banks – Miscellaneous) Supervisory Directions, 2026<br/><br/>In exercise of the powers conferred by Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest to do so, hereby, issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
+      "detectedAt": "2026-08-03T11:39:36.024Z"
+    },
+    {
+      "id": "rbi-notif-13626",
+      "title": "Reserve Bank of India (Payments Banks – Concurrent Audit) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13626&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/427MD7FCE1B261A9043DC9F6B526DAC24BCF3.PDF",
+      "date": "Aug 03, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Payments Banks – Concurrent Audit) Directions, 2026<br/><br/>Concurrent audit aims at shortening the interval between a transaction and its independent examination. It is, therefore, integral to the establishment of sound internal accounting functions and effective controls and is regarded as part of a bank's early warning system to ensure timely detection of serious errors and irregularities, which also helps in averting fraudulent transactions and preventive vigilance in the bank.<br/><br/>In exercise of the powers conferred by Section 35A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues the Directions hereinafter specified.",
+      "detectedAt": "2026-08-03T11:39:36.625Z"
+    },
+    {
+      "id": "rbi-notif-13625",
+      "title": "Reserve Bank of India (Payments Banks - Cybersecurity, Technology: Risk, Resilience and Assurance Framework) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13625&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/428MD47757204F5E54CE99FB1E19E8C458655.PDF",
+      "date": "Aug 03, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Payments Banks - Cybersecurity, Technology: Risk, Resilience and Assurance Framework) Directions, 2026<br/><br/>In exercise of the powers conferred Section 27 and Section 35-A of the Banking Regulation Act, 1949, the Reserve Bank of India Act, 1934, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
+      "detectedAt": "2026-08-03T11:39:37.224Z"
+    },
+    {
+      "id": "rbi-notif-13621",
+      "title": "Reserve Bank of India (Payments Banks – Statutory Audit) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13621&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/432MD02061AE612F1453BAD8A821EBECC8F58.PDF",
+      "date": "Aug 03, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Payments Banks – Statutory Audit) Directions, 2026<br/><br/>In exercise of powers conferred by Section 30(1A) of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby issues the Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
+      "detectedAt": "2026-08-03T11:39:37.741Z"
+    },
     {
       "id": "rbi-notif-13631",
       "title": "Reserve Bank of India (Small Finance Banks - Internal Audit Function) Directions, 2026",
