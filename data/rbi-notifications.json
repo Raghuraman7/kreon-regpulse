@@ -1,7 +1,27 @@
 {
-  "lastChecked": "2026-08-03T14:01:32.273Z",
-  "count": 72,
+  "lastChecked": "2026-08-03T16:32:23.834Z",
+  "count": 74,
   "notifications": [
+    {
+      "id": "rbi-notif-13624",
+      "title": "Reserve Bank of India (Payments Banks – Digital Payment Security Controls) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13624&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/429MD335484C7D27C4AC58720D636CA735A25.PDF",
+      "date": "Aug 03, 2026",
+      "circularNo": "RBI/2020-21/21 DPSS.CO.PD No.116/02.12.004/2020-21 dated August 6, 2020",
+      "summary": "Reserve Bank of India (Payments Banks – Digital Payment Security Controls) Directions, 2026<br/><br/>In exercise of the powers conferred by extant provisions of the Banking Regulation Act, 1949, Chapter IV of Payment and Settlement Systems Act, 2007, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
+      "detectedAt": "2026-08-03T16:32:23.182Z"
+    },
+    {
+      "id": "rbi-notif-13617",
+      "title": "Reserve Bank of India (Urban Co-operative Banks – Concurrent Audit) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13617&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/436MD1749C7AECBD84DA589A814082520A61A.PDF",
+      "date": "Aug 03, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Urban Co-operative Banks – Concurrent Audit) Directions, 2026<br/><br/>A High level Committee set up by the Reserve Bank of India at the instance of Government of India under the chairmanship of Shri A. Ghosh, the then Deputy Governor, to enquire into various aspects of frauds and malpractices in banks, had recommended in its report, submitted in June 1992 that a system of Concurrent Audit should be introduced at large and exceptionally large branches to serve as administrative support to branches, help in adherence to prescribed systems and procedures and timely detection of lapses / irregularities. An informal group set up by the Reserve Bank of India comprising senior officers of some large commercial banks and the representatives from the Institute of Chartered Accountants of India examined the various aspects connected with the system.<br/><br/>Accordingly, Concurrent Audit was introduced in all scheduled and other Primary (Urban) Co-operative Banks with deposits over ₹50 crore and was subsequently extended to all UCBs based on the recommendations of the Joint Parliamentary Committee (JPC), which enquired into stock market scam and matters relating thereto.",
+      "detectedAt": "2026-08-03T16:32:23.834Z"
+    },
     {
       "id": "rbi-notif-13618",
       "title": "Reserve Bank of India (Urban Co-operative Banks - Compliance Function) Directions, 2026",
