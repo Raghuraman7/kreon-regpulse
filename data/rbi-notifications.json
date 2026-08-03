@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-08-03T01:09:34.994Z",
-  "count": 61,
+  "lastChecked": "2026-08-03T04:45:22.635Z",
+  "count": 62,
   "notifications": [
+    {
+      "id": "rbi-notif-13635",
+      "title": "Reserve Bank of India (Small Finance Banks – Concurrent Audit) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13635&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/418MD59AF663B94CE4CA4AED6B0F320D63F27.PDF",
+      "date": "Aug 03, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Small Finance Banks – Concurrent Audit) Directions, 2026<br/><br/>Concurrent audit aims at shortening the interval between a transaction and its independent examination. It is, therefore, integral to the establishment of sound internal accounting functions and effective controls and is regarded as part of a bank's early warning system to ensure timely detection of serious errors and irregularities, which also helps in averting fraudulent transactions and preventive vigilance in the bank.<br/><br/>In exercise of the powers conferred by Section 35A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues the Directions hereinafter specified.",
+      "detectedAt": "2026-08-03T04:45:22.635Z"
+    },
     {
       "id": "rbi-notif-13636",
       "title": "Reserve Bank of India (Small Finance Banks - Compliance Function) Directions, 2026",
