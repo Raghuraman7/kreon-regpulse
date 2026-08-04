@@ -1,7 +1,27 @@
 {
-  "lastChecked": "2026-08-04T04:20:43.103Z",
-  "count": 75,
+  "lastChecked": "2026-08-04T06:46:01.816Z",
+  "count": 77,
   "notifications": [
+    {
+      "id": "rbi-notif-13622",
+      "title": "Reserve Bank of India (Payments Banks - Internal Audit Function) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13622&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/431MDACE5BE38F43D4579B03E9DF6F96DA7B7.PDF",
+      "date": "Aug 04, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Payments Banks - Internal Audit Function) Directions, 2026<br/><br/>A sound Internal Audit function is an integral component of a bank’s internal control and risk management framework. In view of the limitations of a transaction-centric audit approach, the bank is required to adopt Risk Based Internal Audit (RBIA), which places emphasis on the assessment of risk management systems and internal controls, in addition to selective transaction testing, in alignment with evolving governance standards and international best practices.<br/><br/>In exercise of the powers conferred by Section 35A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues the Directions hereinafter specified.",
+      "detectedAt": "2026-08-04T06:46:01.217Z"
+    },
+    {
+      "id": "rbi-notif-13620",
+      "title": "Reserve Bank of India (Payments Banks - Supervisory Returns) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13620&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/433MD144CFE8D6C744FDABF82F09A06E54704.PDF",
+      "date": "Aug 04, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Payments Banks - Supervisory Returns) Directions, 2026<br/><br/>In exercise of powers conferred under Section 27 and Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
+      "detectedAt": "2026-08-04T06:46:01.816Z"
+    },
     {
       "id": "rbi-notif-13623",
       "title": "Reserve Bank of India (Payments Banks – Fraud Risk Management) Directions, 2026",
