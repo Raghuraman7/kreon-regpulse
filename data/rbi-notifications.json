@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-08-04T01:02:41.299Z",
-  "count": 74,
+  "lastChecked": "2026-08-04T04:20:43.103Z",
+  "count": 75,
   "notifications": [
+    {
+      "id": "rbi-notif-13623",
+      "title": "Reserve Bank of India (Payments Banks – Fraud Risk Management) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13623&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/430MD8AFE9055BACE46968BC6E8CB3112471B.PDF",
+      "date": "May 12, 2023",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Payments Banks – Fraud Risk Management) Directions, 2026<br/><br/>These Directions are issued with a view to providing a framework for prevention, early detection, and timely reporting of incidents of fraud by Payments Banks to Law Enforcement Agencies (LEAs) and Reserve Bank of India (‘RBI’) and dissemination of information by RBI and matters connected therewith or incidental thereto.<br/><br/>In exercise of the powers conferred under Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling RBI in this regard, RBI being satisfied that it is necessary and expedient in public interest so to do, hereby, issues these Directions hereinafter specified.",
+      "detectedAt": "2026-08-04T04:20:43.103Z"
+    },
     {
       "id": "rbi-notif-13624",
       "title": "Reserve Bank of India (Payments Banks – Digital Payment Security Controls) Directions, 2026",
