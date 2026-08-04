@@ -1,7 +1,37 @@
 {
-  "lastChecked": "2026-08-04T06:46:01.816Z",
-  "count": 77,
+  "lastChecked": "2026-08-04T09:30:48.780Z",
+  "count": 80,
   "notifications": [
+    {
+      "id": "rbi-notif-13619",
+      "title": "Reserve Bank of India (Payments Banks – Miscellaneous) Supervisory Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13619&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/434MDB0864F4A89F445818734DA5107794020.PDF",
+      "date": "Aug 04, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Payments Banks – Miscellaneous) Supervisory Directions, 2026<br/><br/>In exercise of the powers conferred by Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
+      "detectedAt": "2026-08-04T09:30:47.826Z"
+    },
+    {
+      "id": "rbi-notif-13615",
+      "title": "Reserve Bank of India (Urban Co-operative Banks – Digital Payment Security Controls) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13615&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/438MDD999C3E155F8479AA7075B10FAF82870.PDF",
+      "date": "Aug 04, 2026",
+      "circularNo": "RBI/2020-21/21 DPSS.CO.PD No.116/02.12.004/2020-21 dated August 6, 2020",
+      "summary": "Reserve Bank of India (Urban Co-operative Banks – Digital Payment Security Controls) Directions, 2026<br/><br/>In exercise of the powers conferred by Section 35-A read with Section 56 of the Banking Regulation Act, 1949, extant provisions of the Payment and Settlement Systems Act, 2007, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
+      "detectedAt": "2026-08-04T09:30:48.324Z"
+    },
+    {
+      "id": "rbi-notif-13612",
+      "title": "Reserve Bank of India (Urban Co-operative Banks - Statutory Audit) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13612&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/441MD53753CC8209F499E84242D70BF5AAB9F.PDF",
+      "date": "Aug 04, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Urban Co-operative Banks - Statutory Audit) Directions, 2026<br/><br/>In exercise of powers conferred by Section 30(1A) of the Banking Regulation Act, 1949 (‘BR Act’) read with Section 56 of the BR Act (AACS), and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby issues the Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
+      "detectedAt": "2026-08-04T09:30:48.780Z"
+    },
     {
       "id": "rbi-notif-13622",
       "title": "Reserve Bank of India (Payments Banks - Internal Audit Function) Directions, 2026",
