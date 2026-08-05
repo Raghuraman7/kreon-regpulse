@@ -1,7 +1,37 @@
 {
-  "lastChecked": "2026-08-05T04:26:37.723Z",
-  "count": 84,
+  "lastChecked": "2026-08-05T07:12:21.771Z",
+  "count": 87,
   "notifications": [
+    {
+      "id": "rbi-notif-13613",
+      "title": "Reserve Bank of India (Urban Co-operative Banks - Internal Audit Function) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13613&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/440MDAD4DA76A732549728DFC3DC643051CA0.PDF",
+      "date": "Aug 05, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Urban Co-operative Banks - Internal Audit Function) Directions, 2026<br/><br/>An independent and effective Internal Audit function is integral to sound corporate governance in Urban Co-operative Banks and provides assurance to the Board and senior management on the adequacy and effectiveness of internal controls, risk management, and governance. Given the commonality of risks faced by Urban Co-operative Banks, there is a need for harmonised Internal Audit systems and processes based on uniform guiding principles. Risk-Based Internal Audit (RBIA) framework, as the third line of defence, is intended to strengthen the effectiveness of Internal Audit systems and processes in Urban Co-operative Banks.<br/><br/>In exercise of the powers conferred by Section 35-A read with Section 56 of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.",
+      "detectedAt": "2026-08-05T07:12:19.987Z"
+    },
+    {
+      "id": "rbi-notif-13611",
+      "title": "Reserve Bank of India (Urban Co-operative Banks - Supervisory Returns) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13611&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/442MD0BA25C6023EF4C10A10B90D638D6B00D.PDF",
+      "date": "Aug 05, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Urban Co-operative Banks - Supervisory Returns) Directions, 2026<br/><br/>In exercise of powers conferred under Section 27 and 35-A read with Section 56 of the Banking Regulation Act, 1949, extant provisions of the Reserve Bank of India Act, 1934, extant provisions of the Banking Regulations (Co-operative Societies) Rules, 1966, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, these Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
+      "detectedAt": "2026-08-05T07:12:21.268Z"
+    },
+    {
+      "id": "rbi-notif-13604",
+      "title": "Reserve Bank of India (Local Area Banks - Supervisory Returns) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13604&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/449MD116AEA06D1C141EDA717FDD5B72BB988.PDF",
+      "date": "Aug 05, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Local Area Banks - Supervisory Returns) Directions, 2026<br/><br/>In exercise of powers conferred under Section 27 and Section 35-A of the Banking Regulation Act, 1949, extant provisions of Chapter III-A of the Reserve Bank of India Act, 1934, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, these Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
+      "detectedAt": "2026-08-05T07:12:21.771Z"
+    },
     {
       "id": "rbi-notif-13609",
       "title": "Reserve Bank of India (Local Area Banks - Compliance Function) Directions, 2026",
