@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-08-05T13:25:33.085Z",
+  "lastChecked": "2026-08-05T15:36:25.037Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13605",
+      "title": "Reserve Bank of India (Local Area Banks – Statutory Audit) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13605&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/448MDEB239D081FB94715A7DA64D5F34CC51D.PDF",
+      "date": "Aug 05, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Local Area Banks – Statutory Audit) Directions, 2026<br/><br/>In exercise of powers conferred by Section 30(1A) of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby issues the Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
+      "detectedAt": "2026-08-05T15:36:25.037Z"
+    },
     {
       "id": "rbi-notif-13606",
       "title": "Reserve Bank of India (Local Area Banks - Internal Audit Function) Directions, 2026",
@@ -991,16 +1001,6 @@
       "circularNo": null,
       "summary": "RESERVE BANK OF INDIA FOREIGN EXCHANGE DEPARTMENT CENTRAL OFFICE Mumbai 400 001<br/><br/>Notification No. FEMA 5(R)(6)/2026-RB<br/><br/>Foreign Exchange Management (Deposit) (Sixth Amendment) Regulations, 2026",
       "detectedAt": "2026-07-21T04:20:33.320Z"
-    },
-    {
-      "id": "rbi-notif-13552",
-      "title": "Master Direction – Reserve Bank of India (Credit Derivatives) Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13552&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/407MD23637C77AC6742318BC8906ED8B98BEC.PDF",
-      "date": "Jul 21, 2026",
-      "circularNo": null,
-      "summary": "To All participants in credit derivatives markets<br/><br/>Master Direction – Reserve Bank of India (Credit Derivatives) Directions, 2026<br/><br/>Please refer to Paragraph 13 of the Statement on Developmental and Regulatory Policies announced as a part of the Bi-monthly Monetary Policy Statement for 2025-26 dated February 06, 2026, regarding the introduction of derivatives on credit indices and total return swaps on corporate bonds. Accordingly, draft directions were released for public comments on February 06, 2026.",
-      "detectedAt": "2026-07-21T04:20:33.823Z"
     }
   ]
 }
