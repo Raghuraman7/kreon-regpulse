@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-08-05T11:47:40.296Z",
-  "count": 99,
+  "lastChecked": "2026-08-05T13:25:33.085Z",
+  "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13606",
+      "title": "Reserve Bank of India (Local Area Banks - Internal Audit Function) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13606&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/447MDBF165A2602F944F79E739038F8807402.PDF",
+      "date": "Aug 05, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Local Area Banks - Internal Audit Function) Directions, 2026<br/><br/>A sound Internal Audit function is an integral component of a bank’s internal control and risk management framework. In view of the limitations of a transaction-centric audit approach, the bank is required to adopt Risk Based Internal Audit (RBIA), which places emphasis on the assessment of risk management systems and internal controls, in addition to selective transaction testing, in alignment with evolving governance standards and international best practices.<br/><br/>In exercise of the powers conferred by Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues the Directions hereinafter specified.",
+      "detectedAt": "2026-08-05T13:25:33.085Z"
+    },
     {
       "id": "rbi-notif-13601",
       "title": "Reserve Bank of India (Rural Co-operative Banks - Statutory Audit) Directions, 2026",
