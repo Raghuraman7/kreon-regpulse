@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-08-05T01:08:39.260Z",
-  "count": 83,
+  "lastChecked": "2026-08-05T04:26:37.723Z",
+  "count": 84,
   "notifications": [
+    {
+      "id": "rbi-notif-13609",
+      "title": "Reserve Bank of India (Local Area Banks - Compliance Function) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13609&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/444MDF1F447E6FD10463DAEDCAA55AEBC11ED.PDF",
+      "date": "Aug 05, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Local Area Banks - Compliance Function) Directions, 2026<br/><br/>Compliance function is a key element of a bank’s corporate governance framework and an integral part of assurance, alongside internal audit and risk management processes. The principles governing the Compliance function are aligned with the Basel Committee on Banking Supervision framework, adapted to the Indian operating environment, and extend to bank-led Financial Conglomerates for managing group-wide compliance risk. While minimum standards are prescribed, the bank shall organise its Compliance function and prioritise compliance risk management in a manner commensurate with its size, complexity, risk profile, and organisational structure.<br/><br/>In exercise of the powers conferred by Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.",
+      "detectedAt": "2026-08-05T04:26:37.723Z"
+    },
     {
       "id": "rbi-notif-13616",
       "title": "Reserve Bank of India (Urban Co-operative Banks – Cybersecurity, Technology: Risk, Resilience and Assurance Framework) Directions, 2026",
