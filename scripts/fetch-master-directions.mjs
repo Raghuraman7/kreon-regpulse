@@ -32,27 +32,45 @@ async function loadPreviousData() {
   }
 }
 
+async function fetchWithRetry(url, retries = 3, backoffMs = 1500) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const res = await fetch(url, {
+        signal: AbortSignal.timeout(12000),
+        headers: {
+          "User-Agent": "rbi-compliance-tracker/1.0 (CS/compliance teams)",
+          "Accept": "text/html,application/xhtml+xml",
+        },
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status} fetching ${url}`);
+      return await res.text();
+    } catch (err) {
+      if (i === retries - 1) throw err;
+      await new Promise(r => setTimeout(r, backoffMs * (i + 1)));
+    }
+  }
+}
+
 /**
- * Extract Master Directions entries from RBI's NBFC page HTML.
+ * Extract Master Directions entries from RBI's NBFC page HTML (with fallback parser).
  */
 function parseDirectionsFromViewstate(html) {
+  let tableContent = "";
   const vsMatch = html.match(/id="__VIEWSTATE"\s+value="([^"]+)"/);
-  if (!vsMatch) return [];
-
-  const vsBase64 = vsMatch[1];
-  let vsDecoded;
-  try {
-    vsDecoded = Buffer.from(vsBase64, "base64").toString("utf-8");
-  } catch {
-    return [];
+  if (vsMatch) {
+    try {
+      tableContent = Buffer.from(vsMatch[1], "base64").toString("utf-8");
+    } catch {
+      tableContent = html;
+    }
+  } else {
+    tableContent = html;
   }
 
   const rows = [];
-  const tableContent = vsDecoded;
-
-  const linkRegex = /<a\s+class="link2"\s+href=([^>]+)>\s*([\s\S]*?)<\/a>/g;
+  const linkRegex = /<a\s+class=["\x27]?link2["\x27]?\s+href=([^>]+)>\s*([\s\S]*?)<\/a>/g;
   const dateHeaderRegex = /<b>((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},\s+\d{4})<\/b>/g;
-  const pdfLinkRegex = /href='(https:\/\/rbidocs\.rbi\.org\.in\/[^']+\.PDF)'/g;
+  const pdfLinkRegex = /href=['"]?(https:\/\/rbidocs\.rbi\.org\.in\/[^'"]+\.PDF)/gi;
 
   const dates = [];
   let dm;
@@ -69,7 +87,7 @@ function parseDirectionsFromViewstate(html) {
   let lm;
   let dirIndex = 0;
   while ((lm = linkRegex.exec(tableContent)) !== null) {
-    const rawHref = lm[1].trim();
+    const rawHref = lm[1].replace(/^["']|["']$/g, "").trim();
     const title = lm[2].replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
 
     let link;
@@ -137,19 +155,7 @@ function isNBFCICCApplicable(title) {
 export async function checkRbiMasterDirections() {
   console.log("🔍 Checking RBI Master Directions...");
 
-  const res = await fetch(NBFC_PAGE_URL, {
-    signal: AbortSignal.timeout(12000),
-    headers: {
-      "User-Agent": "rbi-compliance-tracker/1.0 (CS/compliance teams)",
-      "Accept": "text/html,application/xhtml+xml",
-    },
-  });
-
-  if (!res.ok) {
-    throw new Error(`HTTP ${res.status} fetching ${NBFC_PAGE_URL}`);
-  }
-
-  const html = await res.text();
+  const html = await fetchWithRetry(NBFC_PAGE_URL);
   const allDirections = parseDirectionsFromViewstate(html);
 
   // Filter to NBFC-ICC applicable directions

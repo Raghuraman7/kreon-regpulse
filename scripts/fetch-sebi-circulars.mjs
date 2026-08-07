@@ -19,17 +19,28 @@ async function loadPreviousData() {
   }
 }
 
-async function fetchPage(url) {
-  const res = await fetch(url, {
-    signal: AbortSignal.timeout(10000),
-    headers: {
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-      "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-      "Accept-Language": "en-US,en;q=0.9",
+async function fetchWithRetry(url, retries = 3, backoffMs = 1500) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const res = await fetch(url, {
+        signal: AbortSignal.timeout(10000),
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          "Accept-Language": "en-US,en;q=0.9",
+        }
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status} fetching ${url}`);
+      return await res.text();
+    } catch (err) {
+      if (i === retries - 1) throw err;
+      await new Promise(r => setTimeout(r, backoffMs * (i + 1)));
     }
-  });
-  if (!res.ok) throw new Error(`HTTP ${res.status} fetching ${url}`);
-  return await res.text();
+  }
+}
+
+async function fetchPage(url) {
+  return await fetchWithRetry(url);
 }
 
 /**
@@ -181,40 +192,45 @@ export async function checkSebiCirculars() {
 
   const previousData = await loadPreviousData();
   const prevUrls = new Set(previousData.circulars.map(c => c.link));
+  const unparsedMatches = linkMatches.filter(m => !prevUrls.has(m[1]));
   const newCirculars = [];
-  const allParsed = [];
 
-  for (const m of linkMatches) {
-    const url = m[1];
-    // ID from filename or link
-    const idMatch = url.match(/_(\d+)\.html$/i);
-    const id = idMatch ? `sebi-circ-${idMatch[1]}` : url;
+  if (unparsedMatches.length > 0) {
+    console.log(`⚡ Concurrently checking ${unparsedMatches.length} new SEBI circular details...`);
+    
+    // Batch processing helper: processes up to 4 items concurrently
+    const BATCH_SIZE = 4;
+    for (let i = 0; i < unparsedMatches.length; i += BATCH_SIZE) {
+      const chunk = unparsedMatches.slice(i, i + BATCH_SIZE);
+      const results = await Promise.all(
+        chunk.map(async (m) => {
+          const url = m[1];
+          const idMatch = url.match(/_(\d+)\.html$/i);
+          const id = idMatch ? `sebi-circ-${idMatch[1]}` : url;
 
-    allParsed.push({ id, link: url });
+          const details = await fetchCircularDetails(url);
+          if (!details.isForListedCompanies) {
+            console.log(`ℹ️ Skipping SEBI Circular (not addressed to listed companies): ${details.title || url}`);
+            return null;
+          }
 
-    if (!prevUrls.has(url)) {
-      const details = await fetchCircularDetails(url);
+          console.log(`✨ New SEBI Circular detected (applicable to listed companies): ${details.title || url}`);
+          return {
+            id,
+            link: url,
+            title: details.title || "SEBI Circular",
+            date: details.date || new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+            pdfUrl: details.pdfUrl,
+            department: details.department,
+            summary: details.title ? `Circular issued by SEBI: ${details.title}` : "New SEBI Circular released.",
+            detectedAt: new Date().toISOString()
+          };
+        })
+      );
 
-      // Check if applicable to listed companies
-      if (!details.isForListedCompanies) {
-        console.log(`ℹ️ Skipping SEBI Circular (not addressed to listed companies): ${details.title || url}`);
-        continue;
-      }
-
-      console.log(`✨ New SEBI Circular detected (applicable to listed companies): ${details.title || url}`);
-      
-      const fullItem = {
-        id,
-        link: url,
-        title: details.title || "SEBI Circular",
-        date: details.date || new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
-        pdfUrl: details.pdfUrl,
-        department: details.department,
-        summary: details.title ? `Circular issued by SEBI: ${details.title}` : "New SEBI Circular released.",
-        detectedAt: new Date().toISOString()
-      };
-
-      newCirculars.push(fullItem);
+      results.forEach(res => {
+        if (res) newCirculars.push(res);
+      });
     }
   }
 

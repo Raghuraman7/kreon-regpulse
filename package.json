@@ -12,7 +12,6 @@
     "watch": "node scripts/watch-realtime.mjs",
     "digest:15days": "node scripts/send-monthly-digest.mjs --days 15",
     "digest:monthly": "node scripts/send-monthly-digest.mjs --days 30",
-    "test:email": "node scripts/test-email.mjs",
     "serve": "npx serve .",
     "start": "npm run fetch && npx serve ."
   },
