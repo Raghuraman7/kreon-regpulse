@@ -2,13 +2,17 @@ name: Update RBI & SEBI Regulatory Feed Data
 
 on:
   schedule:
-    # Run every 5 minutes for fast cloud backup checks.
-    - cron: "*/5 * * * *"
+    # Run every 15 minutes for cloud updates.
+    - cron: "*/15 * * * *"
   workflow_dispatch: {} # Manual refresh from Actions tab
   push:
     branches: [main]
     paths:
       - "scripts/**"
+
+concurrency:
+  group: update-feed-${{ github.ref }}
+  cancel-in-progress: false
 
 permissions:
   contents: write

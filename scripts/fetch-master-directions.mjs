@@ -138,6 +138,7 @@ export async function checkRbiMasterDirections() {
   console.log("🔍 Checking RBI Master Directions...");
 
   const res = await fetch(NBFC_PAGE_URL, {
+    signal: AbortSignal.timeout(12000),
     headers: {
       "User-Agent": "rbi-compliance-tracker/1.0 (CS/compliance teams)",
       "Accept": "text/html,application/xhtml+xml",

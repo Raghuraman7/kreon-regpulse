@@ -594,6 +594,53 @@
       border-left-color: var(--amber);
     }
 
+    .direction-card.notif-card {
+      border-left-color: #D84315;
+    }
+
+    .direction-card.circ-card {
+      border-left-color: #00897B;
+    }
+
+    .direction-card .nbfc-relevant-badge {
+      background: #FFF3E0;
+      color: #E65100;
+      border: 1px solid rgba(230, 81, 0, 0.2);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    body.dark-mode .direction-card .nbfc-relevant-badge {
+      background: rgba(230, 81, 0, 0.15);
+    }
+
+    .card-summary-text {
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      margin: 8px 0 12px;
+      max-width: 78ch;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-circular-no {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      color: var(--ink-soft);
+      opacity: 0.8;
+    }
+
     .direction-card:hover {
       transform: translateY(-3px);
       box-shadow: 0 10px 20px rgba(31, 58, 95, 0.08);
@@ -1220,6 +1267,89 @@
       color: var(--navy);
     }
 
+    /* ---------- Stale Data Warning ---------- */
+    .stale-warning {
+      background: #FFF3E0;
+      border-bottom: 2px solid #E65100;
+      padding: 10px clamp(16px, 4vw, 56px);
+      display: none;
+    }
+
+    .stale-warning.visible {
+      display: block;
+    }
+
+    body.dark-mode .stale-warning {
+      background: rgba(230, 81, 0, 0.12);
+    }
+
+    .stale-warning-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      font-size: 13px;
+      color: #E65100;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    body.dark-mode .stale-warning-inner {
+      color: #FF9800;
+    }
+
+    .stale-warning-inner code {
+      background: rgba(0,0,0,0.06);
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+
+    /* ---------- CSV Export Button ---------- */
+    .export-btn {
+      background: var(--paper-raised);
+      border: 1px solid var(--rule);
+      color: var(--ink-soft);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+
+    .export-btn:hover {
+      background: rgba(31, 58, 95, 0.05);
+      border-color: var(--navy);
+      color: var(--navy);
+    }
+
+    .export-btn svg {
+      width: 12px;
+      height: 12px;
+      fill: currentColor;
+    }
+
+    /* ---------- NBFC Filter Toggle ---------- */
+    .nbfc-filter-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      color: var(--ink-soft);
+      user-select: none;
+      margin-left: 12px;
+    }
+
+    .nbfc-filter-toggle input {
+      cursor: pointer;
+      transform: translateY(1px);
+    }
+
     /* ---------- Mobile Responsive Optimization ---------- */
     @media (max-width: 768px) {
       .masthead {
@@ -1434,16 +1564,39 @@
             formulated by the ICSI.
           </p>
         </div>
+
+        <div class="category-info hidden" id="rbiNotifCategoryInfo">
+          <span class="category-badge" style="background: #D84315;">RBI Notifications</span>
+          <p class="category-desc">
+            Latest circulars and notifications issued by the Reserve Bank of India. Automatically scraped and monitored in real-time.
+          </p>
+        </div>
+
+        <div class="category-info hidden" id="sebiCircCategoryInfo">
+          <span class="category-badge" style="background: #00897B;">SEBI Circulars</span>
+          <p class="category-desc">
+            Recent circulars issued by the Securities and Exchange Board of India covering market operations, compliance relaxations, and regulatory changes.
+          </p>
+        </div>
       </div>
 
       <nav class="tab-nav" aria-label="Registers">
         <button class="tab-button" id="tabRbi" aria-selected="true">RBI Directions</button>
+        <button class="tab-button" id="tabRbiNotif" aria-selected="false">RBI Notifications</button>
         <button class="tab-button" id="tabSebi" aria-selected="false">SEBI Regulations</button>
-        <button class="tab-button" id="tabActs" aria-selected="false">Acts & Rules</button>
+        <button class="tab-button" id="tabSebiCirc" aria-selected="false">SEBI Circulars</button>
+        <button class="tab-button" id="tabActs" aria-selected="false">Acts &amp; Rules</button>
         <button class="tab-button" id="tabSs" aria-selected="false">Secretarial Standards</button>
       </nav>
     </div>
   </header>
+
+  <div class="stale-warning" id="staleWarning">
+    <div class="stale-warning-inner">
+      <strong>⏰ Data may be stale:</strong>&nbsp;
+      <span id="staleWarningText">Last refresh was more than 48 hours ago. Run <code>npm run fetch</code> or trigger the GitHub Action to update.</span>
+    </div>
+  </div>
 
   <div class="info-banner" id="infoBanner">
     <div class="info-banner-inner">
@@ -1506,6 +1659,11 @@
           <span>Show read updates</span>
         </label>
 
+        <label class="nbfc-filter-toggle" id="nbfcFilterLabel" style="display: none;">
+          <input type="checkbox" id="nbfcOnlyCheckbox" />
+          <span>NBFC-relevant only</span>
+        </label>
+
         <button type="button" id="markAllReadBtn" class="mark-all-read-btn" onclick="markAllCurrentTabRead()" style="margin-left: 16px; display: inline-flex; align-items: center; gap: 4px; color: var(--navy); border: 1px solid var(--navy-light); border-radius: 4px; padding: 4px 10px; font-size: 12px; font-weight: 600; cursor: pointer; background: var(--paper-raised); transition: background 0.12s, border-color 0.12s;">
           <svg style="width: 13px; height: 13px; fill: currentColor;" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
           Mark all as read
@@ -1519,6 +1677,10 @@
   <div class="status-bar" id="statusBar">
     <span id="statusText">Loading register…</span>
     <div class="sync-indicator" style="display: flex; align-items: center; gap: 12px;">
+      <button type="button" id="exportCsvBtn" class="export-btn" title="Export current view as CSV">
+        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        Export CSV
+      </button>
       <button type="button" id="refreshBtn" class="refresh-btn" title="Refresh local data">
         <svg viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
         Refresh
@@ -1553,23 +1715,62 @@
       const topicChipsEl = document.getElementById("topicChips");
 
       const tabRbi = document.getElementById("tabRbi");
+      const tabRbiNotif = document.getElementById("tabRbiNotif");
       const tabSebi = document.getElementById("tabSebi");
+      const tabSebiCirc = document.getElementById("tabSebiCirc");
       const tabActs = document.getElementById("tabActs");
       const tabSs = document.getElementById("tabSs");
+      const allTabs = [tabRbi, tabRbiNotif, tabSebi, tabSebiCirc, tabActs, tabSs];
 
       const rbiCategoryInfo = document.getElementById("rbiCategoryInfo");
+      const rbiNotifCategoryInfo = document.getElementById("rbiNotifCategoryInfo");
       const sebiCategoryInfo = document.getElementById("sebiCategoryInfo");
+      const sebiCircCategoryInfo = document.getElementById("sebiCircCategoryInfo");
       const actsCategoryInfo = document.getElementById("actsCategoryInfo");
       const ssCategoryInfo = document.getElementById("ssCategoryInfo");
+      const allCategoryInfos = [rbiCategoryInfo, rbiNotifCategoryInfo, sebiCategoryInfo, sebiCircCategoryInfo, actsCategoryInfo, ssCategoryInfo];
 
        const infoBannerText = document.getElementById("infoBannerText");
        const footerSourceText = document.getElementById("footerSourceText");
  
-       let currentTab = "rbi"; // "rbi", "sebi", "acts", "ss"
+       let currentTab = "rbi"; // "rbi", "rbiNotif", "sebi", "sebiCirc", "acts", "ss"
        let rbiData = { directions: [], count: 0 };
+       let rbiNotifData = { notifications: [], count: 0 };
        let sebiData = { regulations: {} };
+       let sebiCircData = { circulars: [], count: 0 };
        let actsData = { acts: [] };
        let ssData = { standards: [] };
+
+       // NBFC relevance filter state
+       const nbfcFilterLabel = document.getElementById("nbfcFilterLabel");
+       const nbfcOnlyCheckbox = document.getElementById("nbfcOnlyCheckbox");
+       const staleWarningEl = document.getElementById("staleWarning");
+       const staleWarningTextEl = document.getElementById("staleWarningText");
+
+       function isNbfcRelevant(text) {
+         if (!text) return false;
+         const t = text.toLowerCase();
+         return t.includes("nbfc") || t.includes("non-banking financial") || t.includes("non banking financial") || t.includes("nbf company") || t.includes("housing finance");
+       }
+
+       function checkStaleData() {
+         const timestamps = [
+           rbiData.generatedAt, rbiNotifData.lastChecked,
+           sebiData.generatedAt, sebiCircData.lastChecked
+         ].filter(Boolean);
+         if (timestamps.length === 0) return;
+         const mostRecent = timestamps.map(t => new Date(t).getTime()).filter(t => !isNaN(t));
+         if (mostRecent.length === 0) return;
+         const latest = Math.max(...mostRecent);
+         const hoursSince = (Date.now() - latest) / (1000 * 60 * 60);
+         if (hoursSince > 48) {
+           const days = Math.floor(hoursSince / 24);
+           staleWarningTextEl.textContent = `Last data refresh was ${days} day${days > 1 ? 's' : ''} ago. Run npm run fetch or trigger the GitHub Action to update.`;
+           staleWarningEl.classList.add("visible");
+         } else {
+           staleWarningEl.classList.remove("visible");
+         }
+       }
  
        let activeTopic = "all";
        let query = "";
@@ -2146,6 +2347,9 @@
               visibleKeys.push(cls.topic);
             }
           });
+        } else if (currentTab === "rbiNotif") {
+          const items = filteredRbiNotifItems();
+          items.forEach(n => visibleKeys.push(n.id));
         } else if (currentTab === "sebi") {
           const items = filteredSebiItems();
           items.forEach(reg => {
@@ -2153,6 +2357,9 @@
               visibleKeys.push(reg.key);
             }
           });
+        } else if (currentTab === "sebiCirc") {
+          const items = filteredSebiCircItems();
+          items.forEach(c => visibleKeys.push(c.id));
         } else if (currentTab === "acts") {
           const items = filteredActsItems();
           items.forEach(act => {
@@ -2302,6 +2509,24 @@
         });
       }
 
+      function filteredRbiNotifItems() {
+        const nbfcOnly = nbfcOnlyCheckbox && nbfcOnlyCheckbox.checked;
+        return (rbiNotifData.notifications || []).filter((n) => {
+          if (!matchesDateFilters(n.date)) return false;
+          if (nbfcOnly && !isNbfcRelevant(n.title + " " + (n.summary || ""))) return false;
+          if (!query) return true;
+          return (n.title + " " + (n.circularNo || "") + " " + (n.summary || "")).toLowerCase().includes(query.toLowerCase());
+        });
+      }
+
+      function filteredSebiCircItems() {
+        return (sebiCircData.circulars || []).filter((c) => {
+          if (!matchesDateFilters(c.date)) return false;
+          if (!query) return true;
+          return (c.title + " " + (c.summary || "")).toLowerCase().includes(query.toLowerCase());
+        });
+      }
+
       function getAmendmentHtml(idOrKey, fallbackText) {
         const data = COMPLIANCE_AMENDMENTS[idOrKey];
         if (!data || !data.changes || data.changes.length === 0) {
@@ -2444,6 +2669,26 @@
           </div>
         </div>
       `;
+        } else if (currentTab === "rbiNotif") {
+          const total = items.length;
+          const nbfcCount = items.filter(n => isNbfcRelevant(n.title + " " + (n.summary || ""))).length;
+          const thisMonthCount = items.filter(n => isUpdatedThisMonth(n.date)).length;
+          return `
+        <div class="summary-panel" style="background: #D84315;" aria-label="RBI Notifications summary">
+          <div class="stat-item">
+            <span class="stat-num">${total}</span>
+            <span class="stat-label">Notifications</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">${nbfcCount}</span>
+            <span class="stat-label">NBFC Relevant</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">${thisMonthCount}</span>
+            <span class="stat-label">This Month</span>
+          </div>
+        </div>
+      `;
         } else if (currentTab === "sebi") {
           const total = items.length;
           const updated = items.filter(r => isUpdated(r.title)).length;
@@ -2465,6 +2710,21 @@
           <div class="stat-item">
             <span class="stat-num">${thisMonthCount}</span>
             <span class="stat-label">Updated this month</span>
+          </div>
+        </div>
+      `;
+        } else if (currentTab === "sebiCirc") {
+          const total = items.length;
+          const thisMonthCount = items.filter(c => isUpdatedThisMonth(c.date)).length;
+          return `
+        <div class="summary-panel" style="background: #00897B;" aria-label="SEBI Circulars summary">
+          <div class="stat-item">
+            <span class="stat-num">${total}</span>
+            <span class="stat-label">Circulars</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">${thisMonthCount}</span>
+            <span class="stat-label">This Month</span>
           </div>
         </div>
       `;
@@ -2633,6 +2893,48 @@
           }).join("");
           listEl.innerHTML = renderSummary(items) + cardsHtml;
 
+        } else if (currentTab === "rbiNotif") {
+          const items = filteredRbiNotifItems();
+          const totalCount = (rbiNotifData.notifications || []).length;
+          if (items.length === 0) {
+            listEl.innerHTML = renderSummary(items) + '<div class="empty-state"><h3>No RBI notifications match</h3><p>Try a different keyword, adjust date filters, or toggle NBFC relevance.</p></div>';
+            statusEl.textContent = "0 of " + totalCount + " notifications shown";
+            return;
+          }
+          statusEl.innerHTML = '<span class="dot" style="color: #D84315">●</span> ' + items.length + " of " + totalCount + " notifications shown";
+
+          const cardsHtml = items.map((n, idx) => {
+            const highlightedTitle = highlightText(n.title, query);
+            const isNbfc = isNbfcRelevant(n.title + " " + (n.summary || ""));
+            const hasPdf = n.pdfUrl && n.pdfUrl.toLowerCase().endsWith(".pdf");
+
+            return `
+          <article class="direction-card notif-card ${isItemRead(n.id) ? 'is-read' : ''}" data-key="${escapeHtml(n.id)}" id="notif-${idx}">
+            <div class="card-head">
+              <div class="card-meta">
+                <span>Date: ${escapeHtml(n.date || "—")}</span>
+                ${n.circularNo ? `<span class="card-circular-no">${escapeHtml(n.circularNo)}</span>` : ""}
+                ${isNbfc ? `<span class="nbfc-relevant-badge">★ NBFC Relevant</span>` : ""}
+              </div>
+            </div>
+            <h2>${highlightedTitle}</h2>
+            ${n.summary ? `<div class="card-summary-text">${escapeHtml(n.summary)}</div>` : ""}
+
+            <div class="topic-chips">
+              <span class="topic-chip tc-prudential" style="background: #FBE9E7; color: #D84315;">RBI Circular</span>
+              ${isNbfc ? `<span class="topic-chip tc-layer-all">NBFC-ICC Impact</span>` : `<span class="topic-chip tc-other">General Financial Sector</span>`}
+            </div>
+            
+            <div class="card-actions">
+              ${n.link ? `<a class="primary-link" href="${escapeHtml(n.link)}" target="_blank" rel="noopener" style="color: #D84315; border-color: #D84315;">View on rbi.org.in ↗</a>` : ""}
+              ${hasPdf ? `<a class="pdf-link" href="${escapeHtml(n.pdfUrl)}" target="_blank" rel="noopener">📄 Open PDF</a>` : ""}
+              <button type="button" class="mark-read-btn" onclick="toggleReadState('${escapeHtml(n.id)}')">${isItemRead(n.id) ? 'Mark Unread' : 'Mark Read'}</button>
+            </div>
+          </article>
+        `;
+          }).join("");
+          listEl.innerHTML = renderSummary(items) + cardsHtml;
+
         } else if (currentTab === "sebi") {
           const items = filteredSebiItems();
           if (items.length === 0) {
@@ -2676,6 +2978,45 @@
 
             <!-- Expandable Gist Panel -->
             ${renderGistPanelHtml(reg.key, gistPoints, `gist-panel-sebi-${idx}`)}
+          </article>
+        `;
+          }).join("");
+          listEl.innerHTML = renderSummary(items) + cardsHtml;
+
+        } else if (currentTab === "sebiCirc") {
+          const items = filteredSebiCircItems();
+          const totalCount = (sebiCircData.circulars || []).length;
+          if (items.length === 0) {
+            listEl.innerHTML = renderSummary(items) + '<div class="empty-state"><h3>No SEBI circulars match</h3><p>Try a different keyword or adjust date filters.</p></div>';
+            statusEl.textContent = "0 of " + totalCount + " circulars shown";
+            return;
+          }
+          statusEl.innerHTML = '<span class="dot" style="color: #00897B">●</span> ' + items.length + " of " + totalCount + " circulars shown";
+
+          const cardsHtml = items.map((c, idx) => {
+            const highlightedTitle = highlightText(c.title, query);
+            const hasPdf = c.pdfUrl && c.pdfUrl.toLowerCase().endsWith(".pdf");
+
+            return `
+          <article class="direction-card circ-card ${isItemRead(c.id) ? 'is-read' : ''}" data-key="${escapeHtml(c.id)}" id="circ-${idx}">
+            <div class="card-head">
+              <div class="card-meta">
+                <span>Date: ${escapeHtml(c.date || "—")}</span>
+              </div>
+            </div>
+            <h2>${highlightedTitle}</h2>
+            ${c.summary ? `<div class="card-summary-text">${escapeHtml(c.summary)}</div>` : ""}
+
+            <div class="topic-chips">
+              <span class="topic-chip tc-sebi-lodr" style="background: #E0F2F1; color: #00897B;">SEBI Circular</span>
+              <span class="topic-chip tc-other">Capital Markets</span>
+            </div>
+            
+            <div class="card-actions">
+              ${c.link ? `<a class="sebi-link" href="${escapeHtml(c.link)}" target="_blank" rel="noopener" style="color: #00897B; border-color: #00897B;">View on sebi.gov.in ↗</a>` : ""}
+              ${hasPdf ? `<a class="pdf-link" href="${escapeHtml(c.pdfUrl)}" target="_blank" rel="noopener">📄 Open PDF</a>` : ""}
+              <button type="button" class="mark-read-btn" onclick="toggleReadState('${escapeHtml(c.id)}')">${isItemRead(c.id) ? 'Mark Unread' : 'Mark Read'}</button>
+            </div>
           </article>
         `;
           }).join("");
@@ -2787,15 +3128,24 @@
 
         // Set tab elements selected state
         tabRbi.setAttribute("aria-selected", tab === "rbi");
+        tabRbiNotif.setAttribute("aria-selected", tab === "rbiNotif");
         tabSebi.setAttribute("aria-selected", tab === "sebi");
+        tabSebiCirc.setAttribute("aria-selected", tab === "sebiCirc");
         tabActs.setAttribute("aria-selected", tab === "acts");
         tabSs.setAttribute("aria-selected", tab === "ss");
 
         // Show/hide category descriptors
         rbiCategoryInfo.classList.toggle("hidden", tab !== "rbi");
+        rbiNotifCategoryInfo.classList.toggle("hidden", tab !== "rbiNotif");
         sebiCategoryInfo.classList.toggle("hidden", tab !== "sebi");
+        sebiCircCategoryInfo.classList.toggle("hidden", tab !== "sebiCirc");
         actsCategoryInfo.classList.toggle("hidden", tab !== "acts");
         ssCategoryInfo.classList.toggle("hidden", tab !== "ss");
+
+        // Show NBFC filter toggle only on RBI Notifications tab
+        if (nbfcFilterLabel) {
+          nbfcFilterLabel.style.display = tab === "rbiNotif" ? "inline-flex" : "none";
+        }
 
         if (tab === "rbi") {
           infoBannerText.textContent = "Always verify applicability to your specific NBFC registration layer (Base/Middle/Upper) before acting on any direction.";
@@ -2804,6 +3154,13 @@
 
           const genDate = new Date(rbiData.generatedAt);
           syncEl.textContent = "Active & Synced: " + (isNaN(genDate) ? rbiData.generatedAt : genDate.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }));
+        } else if (tab === "rbiNotif") {
+          infoBannerText.innerHTML = `<strong>Live Stream:</strong> Real-time RBI notifications and circulars automatically scraped from rbi.org.in.`;
+          searchEl.placeholder = "Search notifications by title or circular number…";
+          footerSourceText.innerHTML = `Sourced directly from <a href="https://www.rbi.org.in/Scripts/NotificationUser.aspx" target="_blank" rel="noopener">RBI Notifications & Circulars</a>.`;
+
+          const genDate = new Date(rbiNotifData.lastChecked);
+          syncEl.textContent = "Live Stream: " + (isNaN(genDate) ? (rbiNotifData.lastChecked || "Active") : genDate.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }));
         } else if (tab === "sebi") {
           infoBannerText.innerHTML = `<strong>Active Monitoring:</strong> These regulations are updated directly from the official Securities and Exchange Board of India portals.`;
           searchEl.placeholder = "Search regulations by title or code…";
@@ -2811,6 +3168,13 @@
 
           const genDate = new Date(sebiData.generatedAt);
           syncEl.textContent = "Active & Synced: " + (isNaN(genDate) ? sebiData.generatedAt : genDate.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }));
+        } else if (tab === "sebiCirc") {
+          infoBannerText.innerHTML = `<strong>Live Stream:</strong> SEBI circulars automatically scraped and monitored in real-time from sebi.gov.in.`;
+          searchEl.placeholder = "Search SEBI circulars by title or keyword…";
+          footerSourceText.innerHTML = `Sourced directly from <a href="https://www.sebi.gov.in/sebiweb/home/HomeAction.do?doListing=yes&sid=1&ssid=7&smid=0" target="_blank" rel="noopener">SEBI Official Circulars</a>.`;
+
+          const genDate = new Date(sebiCircData.lastChecked);
+          syncEl.textContent = "Live Stream: " + (isNaN(genDate) ? (sebiCircData.lastChecked || "Active") : genDate.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }));
         } else if (tab === "acts") {
           infoBannerText.innerHTML = `<strong>Baseline Corporate Laws:</strong> Key statutory acts and corporate governance rules applicable to Kreon Financial Services.`;
           searchEl.placeholder = "Search acts or rules by keyword…";
@@ -2830,7 +3194,9 @@
       }
 
       tabRbi.addEventListener("click", () => switchTab("rbi"));
+      tabRbiNotif.addEventListener("click", () => switchTab("rbiNotif"));
       tabSebi.addEventListener("click", () => switchTab("sebi"));
+      tabSebiCirc.addEventListener("click", () => switchTab("sebiCirc"));
       tabActs.addEventListener("click", () => switchTab("acts"));
       tabSs.addEventListener("click", () => switchTab("ss"));
 
@@ -2913,9 +3279,17 @@
           const rbiRes = await fetch("./data/master-directions.json", { cache: "no-store" });
           if (rbiRes.ok) rbiData = await rbiRes.json();
 
+          // Load RBI Notifications Data
+          const rbiNotifRes = await fetch("./data/rbi-notifications.json", { cache: "no-store" });
+          if (rbiNotifRes.ok) rbiNotifData = await rbiNotifRes.json();
+
           // Load SEBI Data
           const sebiRes = await fetch("./data/sebi-regulations.json", { cache: "no-store" });
           if (sebiRes.ok) sebiData = await sebiRes.json();
+
+          // Load SEBI Circulars Data
+          const sebiCircRes = await fetch("./data/sebi-circulars.json", { cache: "no-store" });
+          if (sebiCircRes.ok) sebiCircData = await sebiCircRes.json();
 
           // Load Acts Data
           const actsRes = await fetch("./data/acts-rules.json", { cache: "no-store" });
@@ -2924,6 +3298,8 @@
           // Load Secretarial Standards Data
           const ssRes = await fetch("./data/secretarial-standards.json", { cache: "no-store" });
           if (ssRes.ok) ssData = await ssRes.json();
+
+          checkStaleData();
 
           if (isRefresh) {
             // Re-render current view with the new data
@@ -2984,6 +3360,78 @@
           }
         }, { passive: true });
       }
+
+      if (nbfcOnlyCheckbox) {
+        nbfcOnlyCheckbox.addEventListener("change", () => render());
+      }
+
+      // CSV Export Functionality
+      function exportToCsv() {
+        let items = [];
+        let filename = `kreon-regpulse-${currentTab}-${new Date().toISOString().slice(0, 10)}.csv`;
+        let headers = ["Title", "Date", "Source", "Link", "PDF URL"];
+
+        if (currentTab === "rbi") {
+          items = filteredRbiItems().map(d => [d.title, d.issuedDate, "RBI Master Directions", d.link || "", d.pdfUrl || ""]);
+        } else if (currentTab === "rbiNotif") {
+          items = filteredRbiNotifItems().map(n => [n.title, n.date, "RBI Notifications", n.link || "", n.pdfUrl || ""]);
+        } else if (currentTab === "sebi") {
+          items = filteredSebiItems().map(r => [r.title, r.amendedDate || r.lastUpdated, "SEBI Regulations", r.link || "", r.pdfUrl || ""]);
+        } else if (currentTab === "sebiCirc") {
+          items = filteredSebiCircItems().map(c => [c.title, c.date, "SEBI Circulars", c.link || "", c.pdfUrl || ""]);
+        } else if (currentTab === "acts") {
+          items = filteredActsItems().map(a => [a.title, a.enactedDate, "Acts & Rules", a.link || "", a.pdfUrl || ""]);
+        } else if (currentTab === "ss") {
+          items = filteredSsItems().map(s => [s.title, s.effectiveDate, "Secretarial Standards", s.link || "", s.pdfUrl || ""]);
+        }
+
+        if (items.length === 0) {
+          alert("No items visible to export.");
+          return;
+        }
+
+        const csvRows = [
+          headers.join(","),
+          ...items.map(row => row.map(val => `"${String(val || '').replace(/"/g, '""')}"`).join(","))
+        ];
+
+        const blob = new Blob([csvRows.join("\n")], { type: "text/csv;charset=utf-8;" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.style.display = "none";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+
+      const exportCsvBtn = document.getElementById("exportCsvBtn");
+      if (exportCsvBtn) {
+        exportCsvBtn.addEventListener("click", exportToCsv);
+      }
+
+      // Keyboard Shortcuts (Cmd/Ctrl+K for search, Esc to clear, 1-6 for tab switching)
+      window.addEventListener("keydown", (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+          e.preventDefault();
+          searchEl.focus();
+          searchEl.select();
+        } else if (e.key === "Escape") {
+          if (document.activeElement === searchEl && searchEl.value) {
+            searchEl.value = "";
+            query = "";
+            render();
+          } else {
+            clearAllFiltersBtnEl.click();
+          }
+        } else if (document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "TEXTAREA") {
+          const tabMap = { "1": "rbi", "2": "rbiNotif", "3": "sebi", "4": "sebiCirc", "5": "acts", "6": "ss" };
+          if (tabMap[e.key]) {
+            e.preventDefault();
+            switchTab(tabMap[e.key]);
+          }
+        }
+      });
 
       // Initial Load
       loadData(false);

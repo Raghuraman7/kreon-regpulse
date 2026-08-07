@@ -19,16 +19,24 @@ async function loadPreviousData() {
   }
 }
 
-async function fetchPage(url) {
-  const res = await fetch(url, {
-    headers: {
-      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-      "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-      "Accept-Language": "en-US,en;q=0.9",
+async function fetchPage(url, retries = 3) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const res = await fetch(url, {
+        signal: AbortSignal.timeout(12000),
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          "Accept-Language": "en-US,en;q=0.9",
+        }
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status} fetching ${url}`);
+      return await res.text();
+    } catch (err) {
+      if (i === retries - 1) throw err;
+      await new Promise(r => setTimeout(r, 1500 * (i + 1)));
     }
-  });
-  if (!res.ok) throw new Error(`HTTP ${res.status} fetching ${url}`);
-  return await res.text();
+  }
 }
 
 /**
@@ -95,9 +103,14 @@ export async function checkRbiNotifications() {
     }
   }
 
+  const previousData = await loadPreviousData();
+
+  if (parsedItems.length === 0 && previousData.notifications.length > 0) {
+    throw new Error("RBI Notifications Scraper parsed 0 items. RBI page layout may have changed.");
+  }
+
   console.log(`Found ${parsedItems.length} RBI notifications on listing page.`);
 
-  const previousData = await loadPreviousData();
   const prevIds = new Set(previousData.notifications.map(n => n.id || n.link));
   const newNotifications = [];
 
