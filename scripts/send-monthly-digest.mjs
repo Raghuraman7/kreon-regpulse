@@ -1,14 +1,16 @@
-// Executive Periodic Compliance Digest Generator & Notifier for Kreon RegPulse
-// Generates and emails styled HTML summary tables of all RBI & SEBI regulatory releases.
-// Handles exact dynamic month lengths (28, 29, 30, 31 days) and professional executive formatting.
-// Run 15-day digest: node scripts/send-monthly-digest.mjs --days 15
-// Run full month digest: node scripts/send-monthly-digest.mjs --days 30
+// Executive Monthly Compliance Digest Generator & Notifier for Kreon RegPulse
+// Generates and emails a styled HTML summary table of all RBI & SEBI regulatory
+// releases for the current (or given) calendar month. Handles exact dynamic month
+// lengths (28, 29, 30, 31 days) and professional executive formatting.
+// Run: node scripts/send-monthly-digest.mjs
+// Run for a specific month (e.g. re-sending): node scripts/send-monthly-digest.mjs --month 7 --year 2026
 
 import { readFile } from "node:fs/promises";
 import nodemailer from "nodemailer";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { existsSync, readFileSync } from "node:fs";
+import { getRecipients } from "./email-notifier.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -39,9 +41,9 @@ function loadEnv() {
 }
 loadEnv();
 
-const RECIPIENTS = process.env.EMAIL_RECIPIENTS
-  ? process.env.EMAIL_RECIPIENTS.split(",").map(e => e.trim()).filter(Boolean)
-  : ["umamaheswari.s@stucred.com", "raghuraman@stucred.com", "shubhrajyoti.c@stucred.com"];
+// Monthly digest is a rollup of every category, so it goes to the union of CS team + CEO.
+const RECIPIENTS = getRecipients("digest");
+const DASHBOARD_URL = "https://kreonregpulse.vercel.app/";
 
 function createTransporter() {
   const host = process.env.SMTP_HOST;
@@ -92,61 +94,47 @@ function parseToDate(dateStr) {
 }
 
 /**
- * Filter items by date range:
- * - period '15days' / 'fortnightly': 1st to 15th of specified month
- * - period 'monthly' / 'full': 1st to end of specified month (28, 29, 30, or 31)
+ * True if dateStr falls within the given calendar month/year.
  */
-function isDateInPeriod(dateStr, targetMonth, targetYear, periodType) {
+function isInMonth(dateStr, targetMonth, targetYear) {
   if (!dateStr) return false;
   const parsed = parseToDate(dateStr);
 
   if (parsed) {
-    const isSameMonthYear = (parsed.getMonth() + 1 === targetMonth) && (parsed.getFullYear() === targetYear);
-    if (!isSameMonthYear) return false;
-
-    if (periodType === "15days" || periodType === "fortnightly") {
-      return parsed.getDate() <= 15;
-    }
-    return true; // full month (1 to last day)
+    return (parsed.getMonth() + 1 === targetMonth) && (parsed.getFullYear() === targetYear);
   }
 
   // String fallback
   const monthNames = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
   const lower = dateStr.toLowerCase();
   const targetMonthName = monthNames[targetMonth - 1];
-  const hasMonth = lower.includes(targetMonthName);
-  const hasYear = lower.includes(String(targetYear));
-
-  if (!hasMonth || !hasYear) return false;
-
-  if (periodType === "15days" || periodType === "fortnightly") {
-    const dayMatch = lower.match(/\b([1-9]|[12]\d|3[01])\b/);
-    if (dayMatch) {
-      const day = parseInt(dayMatch[1], 10);
-      return day <= 15;
-    }
-  }
-
-  return true;
+  return lower.includes(targetMonthName) && lower.includes(String(targetYear));
 }
 
-export async function generateAndSendPeriodicDigest({ period = "monthly", month, year }) {
+export async function generateAndSendPeriodicDigest({ month, year } = {}) {
   const now = new Date();
-  const is15Days = (period === "15days" || period === "fortnightly" || period === "15");
-
   const targetMonth = month || (now.getMonth() + 1);
   const targetYear = year || now.getFullYear();
 
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const monthName = monthNames[targetMonth - 1];
-  
+
   // Calculate exact last day of the target month dynamically (28, 29, 30, or 31)
   const lastDayOfMonth = new Date(targetYear, targetMonth, 0).getDate();
 
-  const periodTitle = is15Days ? "Fortnightly Compliance Digest" : "Monthly Executive Compliance Digest";
-  const dateRangeString = is15Days 
-    ? `${monthName} 1 – ${monthName} 15, ${targetYear}` 
-    : `${monthName} 1 – ${monthName} ${lastDayOfMonth}, ${targetYear}`;
+  // Guard against duplicate sends: an automatic (cron-triggered) call with no explicit
+  // month/year should only actually send on the real last day of the month. This makes
+  // the digest robust even if the scheduler (e.g. a "28,29,30,31" cron) fires on more
+  // than one calendar day in a given month — an explicit --month/--year re-send always
+  // goes through regardless of today's date.
+  const isAutomaticRun = !month && !year;
+  if (isAutomaticRun && now.getDate() !== lastDayOfMonth) {
+    console.log(`⏭ Skipping monthly digest: today (${now.getDate()}) is not yet the last day of the month (${lastDayOfMonth}).`);
+    return { success: false, reason: "Not the last day of the month yet" };
+  }
+
+  const periodTitle = "Monthly Executive Compliance Digest";
+  const dateRangeString = `${monthName} 1 – ${monthName} ${lastDayOfMonth}, ${targetYear}`;
 
   console.log(`\n==================================================================`);
   console.log(`📊 Generating ${periodTitle} (${dateRangeString})...`);
@@ -159,18 +147,16 @@ export async function generateAndSendPeriodicDigest({ period = "monthly", month,
   const sebiRegsData = await readJsonFile("../data/sebi-regulations.json");
 
   const allItems = [];
-  const periodKey = is15Days ? "15days" : "monthly";
 
   // RBI Notifications
   if (rbiNotifsData && rbiNotifsData.notifications) {
     rbiNotifsData.notifications.forEach(n => {
-      if (isDateInPeriod(n.date, targetMonth, targetYear, periodKey) || isDateInPeriod(n.detectedAt, targetMonth, targetYear, periodKey)) {
+      if (isInMonth(n.date, targetMonth, targetYear) || isInMonth(n.detectedAt, targetMonth, targetYear)) {
         allItems.push({
           source: "RBI",
           category: "Notification",
           title: n.circularNo ? `[${n.circularNo}] ${n.title}` : n.title,
           date: n.date || "N/A",
-          summary: n.summary || n.title,
           link: n.link,
           pdfUrl: n.pdfUrl,
         });
@@ -181,13 +167,12 @@ export async function generateAndSendPeriodicDigest({ period = "monthly", month,
   // SEBI Circulars
   if (sebiCircsData && sebiCircsData.circulars) {
     sebiCircsData.circulars.forEach(c => {
-      if (isDateInPeriod(c.date, targetMonth, targetYear, periodKey) || isDateInPeriod(c.detectedAt, targetMonth, targetYear, periodKey)) {
+      if (isInMonth(c.date, targetMonth, targetYear) || isInMonth(c.detectedAt, targetMonth, targetYear)) {
         allItems.push({
           source: "SEBI",
           category: "Circular",
           title: c.department ? `[${c.department}] ${c.title}` : c.title,
           date: c.date || "N/A",
-          summary: c.summary || c.title,
           link: c.link,
           pdfUrl: c.pdfUrl,
         });
@@ -198,13 +183,12 @@ export async function generateAndSendPeriodicDigest({ period = "monthly", month,
   // RBI Master Directions
   if (rbiMasterData && rbiMasterData.directions) {
     rbiMasterData.directions.forEach(d => {
-      if (isDateInPeriod(d.issuedDateRaw, targetMonth, targetYear, periodKey) || isDateInPeriod(d.issuedDate, targetMonth, targetYear, periodKey)) {
+      if (isInMonth(d.issuedDateRaw, targetMonth, targetYear) || isInMonth(d.issuedDate, targetMonth, targetYear)) {
         allItems.push({
           source: "RBI",
           category: "Master Direction",
           title: d.title,
           date: d.issuedDateRaw || "N/A",
-          summary: `Master Direction applicable to NBFC-ICC: ${d.title}`,
           link: d.link,
           pdfUrl: d.pdfUrl,
         });
@@ -215,13 +199,12 @@ export async function generateAndSendPeriodicDigest({ period = "monthly", month,
   // SEBI Regulations
   if (sebiRegsData && sebiRegsData.regulations) {
     Object.values(sebiRegsData.regulations).forEach(r => {
-      if (isDateInPeriod(r.amendedDate, targetMonth, targetYear, periodKey) || isDateInPeriod(r.lastUpdated, targetMonth, targetYear, periodKey)) {
+      if (isInMonth(r.amendedDate, targetMonth, targetYear) || isInMonth(r.lastUpdated, targetMonth, targetYear)) {
         allItems.push({
           source: "SEBI",
           category: "Regulation Amendment",
           title: `${r.shortName}: ${r.title}`,
           date: r.amendedDate || "N/A",
-          summary: `Amended regulation state for ${r.shortName}`,
           link: r.link,
           pdfUrl: r.pdfUrl,
         });
@@ -234,6 +217,10 @@ export async function generateAndSendPeriodicDigest({ period = "monthly", month,
   const rbiCount = allItems.filter(i => i.source === "RBI").length;
   const sebiCount = allItems.filter(i => i.source === "SEBI").length;
 
+  // Digest table intentionally omits per-item summaries — title + date + links only.
+  // Full summaries stay in the instant/live alert emails (email-notifier.mjs), which
+  // fire per-item as things happen; repeating them here would make a whole-month
+  // rollup unreadably long.
   const tableRowsHtml = allItems.length > 0 ? allItems.map((item, idx) => `
     <tr style="background-color: ${idx % 2 === 0 ? "#FFFFFF" : "#F8FAFC"}; border-bottom: 1px solid #E2E8F0;">
       <td style="padding: 12px 10px; font-size: 13px; color: #475569; text-align: center; font-weight: bold;">${idx + 1}</td>
@@ -242,10 +229,7 @@ export async function generateAndSendPeriodicDigest({ period = "monthly", month,
         <span style="background-color: ${item.source === "RBI" ? "#1F3A5F" : "#0D2538"}; color: #FFFFFF; font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 4px;">${item.source}</span>
       </td>
       <td style="padding: 12px 10px; font-size: 12px; color: #334155; font-weight: 600;">${item.category}</td>
-      <td style="padding: 12px 14px; font-size: 13px; color: #0F172A;">
-        <strong style="color: #0F172A; display: block; margin-bottom: 4px; line-height: 1.4;">${item.title}</strong>
-        ${item.summary ? `<div style="font-size: 12px; color: #475569; line-height: 1.4; background-color: #F1F5F9; padding: 6px 8px; border-radius: 4px; margin-top: 4px;">${item.summary}</div>` : ""}
-      </td>
+      <td style="padding: 12px 14px; font-size: 13px; color: #0F172A;">${item.title}</td>
       <td style="padding: 12px 10px; white-space: nowrap; text-align: center;">
         <a href="${item.link}" target="_blank" style="background-color: #1F3A5F; color: #FFFFFF; padding: 5px 10px; text-decoration: none; border-radius: 4px; font-size: 11px; font-weight: 600; display: inline-block; margin-bottom: 4px;">View ↗</a>
         ${item.pdfUrl ? `<br/><a href="${item.pdfUrl}" target="_blank" style="background-color: #475569; color: #FFFFFF; padding: 5px 10px; text-decoration: none; border-radius: 4px; font-size: 11px; font-weight: 600; display: inline-block;">PDF 📄</a>` : ""}
@@ -259,9 +243,7 @@ export async function generateAndSendPeriodicDigest({ period = "monthly", month,
     </tr>
   `;
 
-  const emailSubject = is15Days
-    ? `📅 Kreon RegPulse: Fortnightly Compliance Digest (${monthName} 1 – 15, ${targetYear}) — ${allItems.length} Releases`
-    : `📅 Kreon RegPulse: Monthly Executive Compliance Digest (${monthName} 1 – ${lastDayOfMonth}, ${targetYear}) — ${allItems.length} Releases`;
+  const emailSubject = `📅 Kreon RegPulse: Monthly Executive Compliance Digest (${monthName} 1 – ${lastDayOfMonth}, ${targetYear}) — ${allItems.length} Releases`;
 
   const emailBody = `
     <!DOCTYPE html>
@@ -299,8 +281,12 @@ export async function generateAndSendPeriodicDigest({ period = "monthly", month,
         <!-- Content Table -->
         <div style="padding: 24px 32px;">
           <p style="font-size: 14px; color: #334155; margin-top: 0;">Hello,</p>
-          <p style="font-size: 14px; color: #334155; margin-bottom: 20px;">
+          <p style="font-size: 14px; color: #334155; margin-bottom: 16px;">
             Here is the executive compliance register table summarizing all regulatory amendments, circulars, notifications, and master direction updates released by <strong>RBI</strong> and <strong>SEBI</strong> for <strong>${dateRangeString}</strong>:
+          </p>
+
+          <p style="margin: 0 0 20px 0;">
+            <a href="${DASHBOARD_URL}" target="_blank" style="background-color: #1F3A5F; color: #FFFFFF; padding: 9px 16px; text-decoration: none; border-radius: 5px; font-size: 13px; font-weight: 600; display: inline-block;">View Full Dashboard ↗</a>
           </p>
 
           <div style="overflow-x: auto; border: 1px solid #E2E8F0; border-radius: 8px;">
@@ -311,7 +297,7 @@ export async function generateAndSendPeriodicDigest({ period = "monthly", month,
                   <th style="padding: 12px 10px; width: 100px;">Date</th>
                   <th style="padding: 12px 10px; width: 80px; text-align: center;">Authority</th>
                   <th style="padding: 12px 10px; width: 130px;">Category</th>
-                  <th style="padding: 12px 14px;">Title & Summary of Changes</th>
+                  <th style="padding: 12px 14px;">Title</th>
                   <th style="padding: 12px 10px; width: 90px; text-align: center;">Links</th>
                 </tr>
               </thead>
@@ -327,8 +313,8 @@ export async function generateAndSendPeriodicDigest({ period = "monthly", month,
         </div>
 
         <!-- Footer -->
-        <div style="background-color: #F8FAFC; padding: 18px 32px; border-top: 1px solid #E2E8F0; text-align: center; font-size: 12px; color: #94A3B8;">
-          Kreon RegPulse Periodic Digest Service • Recipients: ${RECIPIENTS.join(", ")}
+        <div style="background-color: #F8FAFC; padding: 16px 32px; border-top: 1px solid #E2E8F0; text-align: center; font-size: 12px; color: #94A3B8;">
+          <a href="${DASHBOARD_URL}" style="color: #1F3A5F; font-weight: 600; text-decoration: none;">${DASHBOARD_URL}</a>
         </div>
 
       </div>
@@ -365,28 +351,14 @@ export async function generateAndSendPeriodicDigest({ period = "monthly", month,
 
 // Backward compatibility helper
 export async function generateAndSendMonthlyDigest(monthNum, yearNum) {
-  return generateAndSendPeriodicDigest({ period: "monthly", month: monthNum, year: yearNum });
+  return generateAndSendPeriodicDigest({ month: monthNum, year: yearNum });
 }
 
 // Command-line execution support
 if (process.argv[1] && process.argv[1].endsWith("send-monthly-digest.mjs")) {
   let month = null;
   let year = null;
-  let period = "monthly";
 
-  const periodIdx = process.argv.indexOf("--period");
-  if (periodIdx !== -1 && process.argv[periodIdx + 1]) {
-    period = process.argv[periodIdx + 1].toLowerCase();
-  }
-
-  const daysIdx = process.argv.indexOf("--days");
-  if (daysIdx !== -1 && process.argv[daysIdx + 1]) {
-    const val = process.argv[daysIdx + 1];
-    if (val === "15") period = "15days";
-    else if (val === "30" || val === "31") period = "monthly";
-  }
-
-  /* Custom date testing is currently disabled
   const monthIdx = process.argv.indexOf("--month");
   if (monthIdx !== -1 && process.argv[monthIdx + 1]) {
     month = parseInt(process.argv[monthIdx + 1], 10);
@@ -396,9 +368,8 @@ if (process.argv[1] && process.argv[1].endsWith("send-monthly-digest.mjs")) {
   if (yearIdx !== -1 && process.argv[yearIdx + 1]) {
     year = parseInt(process.argv[yearIdx + 1], 10);
   }
-  */
 
-  generateAndSendPeriodicDigest({ period, month, year }).catch(err => {
+  generateAndSendPeriodicDigest({ month, year }).catch(err => {
     console.error("Fatal error in generateAndSendPeriodicDigest:", err);
     process.exit(1);
   });

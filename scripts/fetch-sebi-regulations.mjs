@@ -1,32 +1,54 @@
 import { writeFile, readFile, mkdir } from "node:fs/promises";
 import { sendRegulatoryAlert } from "./email-notifier.mjs";
+import { assertNonZeroItems } from "./lib/guards.mjs";
+import { withFileLock } from "./lib/file-lock.mjs";
 
 const DATA_PATH = new URL("../data/sebi-regulations.json", import.meta.url);
 const SEBI_LISTING_URL = "https://www.sebi.gov.in/sebiweb/home/HomeAction.do?doListing=yes&sid=1&ssid=3&smid=0";
 
-// Regs we want to track specifically
+// Regs we want to track specifically — relevant to an NBFC / digital lender rather than listed companies
 const TRACKED_REGS = [
   {
-    key: "icdr",
-    shortName: "SEBI (ICDR) Regulations, 2018",
-    searchPattern: /issue-of-capital-and-disclosure-requirements/i,
+    key: "cra",
+    shortName: "SEBI (Credit Rating Agencies) Regulations, 1999",
+    searchPattern: /credit-rating-agencies/i,
   },
   {
-    key: "lodr",
-    shortName: "SEBI (LODR) Regulations, 2015",
-    searchPattern: /listing-obligations-and-disclosure-requirements/i,
+    key: "kra",
+    shortName: "SEBI (KYC (Know Your Client) Registration Agency) Regulations, 2011",
+    searchPattern: /kyc-registration-agency|know-your-client-registration-agency/i,
   },
   {
-    key: "pit",
-    shortName: "SEBI (Prohibition of Insider Trading) Regulations, 2015",
-    searchPattern: /prohibition-of-insider-trading/i,
-  },
-  {
-    key: "sast",
-    shortName: "SEBI (SAST) Regulations, 2011",
-    searchPattern: /substantial-acquisition-of-shares-and-takeovers/i,
+    key: "ncs",
+    shortName: "SEBI (Issue and Listing of Non-Convertible Securities) Regulations, 2021",
+    searchPattern: /non-convertible-securities/i,
   }
 ];
+
+// Catches any other lending/credit-relevant regulation on the listing page that isn't in
+// TRACKED_REGS above, so a newly published SEBI regulation in this space isn't missed.
+const NBFC_RELEVANT_KEYWORDS = [
+  /credit.rating/i,
+  /kyc.registration/i,
+  /know.your.client.registration/i,
+  /non.convertible.securities/i,
+  /non.convertible.debenture/i,
+  /debenture.trustee/i,
+  /credit.information/i,
+  /\bnbfc\b/i,
+];
+
+function isDynamicallyTrackedLink(url) {
+  const slugText = url.toLowerCase().replace(/[-_]/g, " ");
+  return NBFC_RELEVANT_KEYWORDS.some((pattern) => pattern.test(slugText));
+}
+
+function deriveKeyFromUrl(url) {
+  const idMatch = url.match(/_(\d+)\.html$/i);
+  if (idMatch) return `dyn-${idMatch[1]}`;
+  const slugMatch = url.match(/\/([^/]+?)(?:_\d+)?\.html$/i);
+  return slugMatch ? `dyn-${slugMatch[1]}` : `dyn-${url}`;
+}
 
 async function loadPreviousData() {
   try {
@@ -82,6 +104,10 @@ function extractTitle(html) {
 }
 
 export async function checkSebiRegulations() {
+  return withFileLock(DATA_PATH, runCheckSebiRegulations);
+}
+
+async function runCheckSebiRegulations() {
   console.log("🔍 Checking SEBI Regulations listing page...");
   const html = await fetchPage(SEBI_LISTING_URL);
 
@@ -90,51 +116,72 @@ export async function checkSebiRegulations() {
   console.log(`Found ${linkMatches.length} raw regulation links on the page`);
 
   const previousData = await loadPreviousData();
-  const nextRegulations = { ...previousData.regulations };
+  // Start empty (not a spread of previousData.regulations) so regulations no longer
+  // matched this run — e.g. stale listed-company keys from before this NBFC-focused
+  // filter — drop out instead of lingering in the data file forever.
+  const nextRegulations = {};
   const updatedRegs = [];
+
+  async function processRegulation(key, shortName, url) {
+    try {
+      const detailHtml = await fetchPage(url);
+
+      const title = extractTitle(detailHtml) || shortName;
+      const amendedDate = extractDate(detailHtml) || "Unknown Date";
+      const pdfUrl = extractPdfLink(detailHtml);
+
+      const currentData = {
+        key,
+        shortName,
+        title,
+        link: url,
+        pdfUrl,
+        amendedDate,
+        lastUpdated: new Date().toISOString(),
+      };
+
+      const prevData = previousData.regulations[key];
+
+      if (!prevData || prevData.link !== currentData.link || prevData.amendedDate !== currentData.amendedDate) {
+        console.log(`✨ Update detected in ${shortName}!`);
+        updatedRegs.push(currentData);
+      }
+
+      nextRegulations[key] = currentData;
+    } catch (err) {
+      console.error(`Error processing detail page for ${shortName}:`, err.message);
+    }
+  }
+
+  const matchedUrls = new Set();
 
   for (const trackRule of TRACKED_REGS) {
     const matchedLink = linkMatches.find(m => trackRule.searchPattern.test(m[1]));
 
     if (matchedLink) {
-      const url = matchedLink[1];
-
-      try {
-        const detailHtml = await fetchPage(url);
-
-        const title = extractTitle(detailHtml) || trackRule.shortName;
-        const amendedDate = extractDate(detailHtml) || "Unknown Date";
-        const pdfUrl = extractPdfLink(detailHtml);
-
-        const currentData = {
-          key: trackRule.key,
-          shortName: trackRule.shortName,
-          title,
-          link: url,
-          pdfUrl,
-          amendedDate,
-          lastUpdated: new Date().toISOString(),
-        };
-
-        const prevData = previousData.regulations[trackRule.key];
-
-        if (!prevData || prevData.link !== currentData.link || prevData.amendedDate !== currentData.amendedDate) {
-          console.log(`✨ Update detected in ${trackRule.shortName}!`);
-          updatedRegs.push(currentData);
-        }
-
-        nextRegulations[trackRule.key] = currentData;
-      } catch (err) {
-        console.error(`Error processing detail page for ${trackRule.shortName}:`, err.message);
-      }
+      matchedUrls.add(matchedLink[1]);
+      await processRegulation(trackRule.key, trackRule.shortName, matchedLink[1]);
     } else {
       console.warn(`Could not find URL matching pattern for ${trackRule.shortName}`);
     }
   }
 
-  if (Object.keys(nextRegulations).length === 0) {
-    throw new Error("SEBI Scraper parsed 0 items. SEBI page layout may have changed.");
+  // Dynamically pick up any other NBFC/lending-relevant regulation on the listing page
+  // that isn't already covered by TRACKED_REGS, so new regulations aren't missed.
+  for (const m of linkMatches) {
+    const url = m[1];
+    if (matchedUrls.has(url) || !isDynamicallyTrackedLink(url)) continue;
+    matchedUrls.add(url);
+    const key = deriveKeyFromUrl(url);
+    console.log(`🔎 Dynamically tracking new NBFC-relevant SEBI regulation link: ${url}`);
+    await processRegulation(key, previousData.regulations[key]?.shortName || "SEBI Regulation (dynamically discovered)", url);
   }
+
+  assertNonZeroItems(
+    Object.keys(nextRegulations).length,
+    Object.keys(previousData.regulations).length,
+    "SEBI Regulations"
+  );
 
   const payload = {
     generatedAt: new Date().toISOString(),
@@ -150,7 +197,8 @@ export async function checkSebiRegulations() {
     await sendRegulatoryAlert({
       source: "SEBI",
       category: "Regulation Amendment",
-      updates: updatedRegs
+      updates: updatedRegs,
+      categoryKey: "sebiRegulations"
     });
   } else {
     console.log("No new SEBI regulation updates detected.");

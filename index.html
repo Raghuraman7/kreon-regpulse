@@ -148,6 +148,79 @@
       display: none;
     }
 
+    /* ---------- Compliance note info icon + popover (replaces the old permanent banner) ---------- */
+    .info-icon-wrap {
+      position: relative;
+      display: inline-flex;
+    }
+
+    .info-icon-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.85);
+      background: none;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: color 0.15s, border-color 0.15s, background-color 0.15s;
+    }
+
+    .info-icon-btn:hover,
+    .info-icon-btn:focus-visible,
+    .info-icon-wrap.open .info-icon-btn {
+      color: var(--amber);
+      border-color: var(--amber);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .info-icon-btn:focus-visible {
+      outline: 2px solid var(--amber);
+      outline-offset: 2px;
+    }
+
+    .info-popover {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      z-index: 40;
+      width: max-content;
+      min-width: 240px;
+      max-width: min(360px, 80vw);
+      background: var(--paper-raised);
+      border: 1px solid var(--amber);
+      border-radius: 6px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      padding: 12px 14px;
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: var(--ink);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-4px);
+      transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+    }
+
+    .info-icon-wrap:hover .info-popover,
+    .info-icon-wrap.open .info-popover {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .info-popover strong {
+      color: var(--amber);
+      display: block;
+      margin-bottom: 4px;
+    }
+
     body.dark-mode .theme-toggle-btn .icon-sun {
       display: block;
     }
@@ -239,25 +312,62 @@
       margin: 0;
     }
 
-    /* ---------- Info banner ---------- */
-    .info-banner {
-      background: var(--amber-bg);
-      border-bottom: 2px solid var(--amber);
-      padding: 12px clamp(16px, 4vw, 56px);
-    }
-
-    .info-banner-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      font-size: 13px;
-      color: var(--amber);
-      display: flex;
+    /* ---------- Live vs monthly-checked freshness badge ---------- */
+    .freshness-badge {
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      padding: 5px 10px;
+      border-radius: 3px;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
-    .info-banner-inner strong {
-      font-weight: 600;
+    .freshness-badge.is-live {
+      background: rgba(16, 185, 129, 0.14);
+      color: #34D399;
+      border: 1px solid rgba(52, 211, 153, 0.35);
+    }
+
+    .freshness-badge.is-monthly {
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .freshness-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .freshness-badge.is-live .dot {
+      animation: freshness-pulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes freshness-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+
+    .tab-freshness-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-left: 6px;
+      vertical-align: middle;
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .tab-freshness-dot.is-live {
+      background: #34D399;
+      animation: freshness-pulse 1.8s ease-in-out infinite;
     }
 
     /* ---------- Toolbar ---------- */
@@ -467,6 +577,46 @@
     .chip:hover:not([aria-pressed="true"]) {
       background: #E4E5DE;
     }
+
+    /* ---------- Topic chips overflow ("More ▾") ---------- */
+    .chip-more-wrap {
+      position: relative;
+      display: inline-flex;
+    }
+
+    .chip-more-wrap.open-indicator .chip-more {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: #fff;
+    }
+
+    .chip-more-popover {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      z-index: 30;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      width: max-content;
+      max-width: min(320px, 85vw);
+      background: var(--paper-raised);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      padding: 10px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-4px);
+      transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+    }
+
+    .chip-more-wrap.open .chip-more-popover {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
     .refresh-btn {
       background: var(--paper-raised);
       border: 1px solid var(--rule);
@@ -553,13 +703,32 @@
       border-radius: 999px;
       font-size: 12px;
       font-weight: 500;
+      transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    /* In-flight fetch: amber, pulsing. Only state that animates — it should stop the
+       moment the fetch resolves (success) or throws (error), never spin indefinitely. */
+    .sync-indicator.is-loading {
+      background: var(--amber-bg);
+      border-color: rgba(184, 116, 42, 0.35);
+      color: var(--amber);
+    }
+
+    .sync-indicator.is-error {
+      background: rgba(147, 55, 47, 0.12);
+      border-color: rgba(147, 55, 47, 0.4);
+      color: var(--red);
     }
 
     .sync-dot {
       width: 7px;
       height: 7px;
-      background: var(--green);
+      background: currentColor;
       border-radius: 50%;
+    }
+
+    .sync-indicator.is-loading .sync-dot,
+    .sync-indicator.is-error .sync-dot {
       animation: pulse 2.2s infinite;
     }
 
@@ -1374,6 +1543,11 @@
         padding: 4px 10px;
       }
 
+      .freshness-badge {
+        font-size: 10px;
+        padding: 4px 8px;
+      }
+
       .category-desc {
         font-size: 13px;
         line-height: 1.45;
@@ -1391,13 +1565,9 @@
         padding: 8px 10px;
       }
 
-      .info-banner {
-        padding: 10px 16px;
-      }
-
-      .info-banner-inner {
+      .info-popover {
+        min-width: 200px;
         font-size: 12px;
-        line-height: 1.4;
       }
 
       .toolbar {
@@ -1458,10 +1628,7 @@
 
       .chips {
         gap: 6px;
-        overflow-x: auto;
-        white-space: nowrap;
-        padding-bottom: 4px;
-        -webkit-overflow-scrolling: touch;
+        flex-wrap: wrap;
       }
 
       .chip {
@@ -1513,6 +1680,64 @@
         font-size: 11.5px;
       }
     }
+
+    /* ---------- Small phones: glanceable for a non-technical exec, not just dense ---------- */
+    @media (max-width: 600px) {
+      .direction-card {
+        padding: 16px 16px 15px;
+        margin-bottom: 12px;
+      }
+
+      .direction-card h2 {
+        font-size: 17px;
+        line-height: 1.45;
+      }
+
+      .card-preview {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .card-summary-text {
+        font-size: 13.5px;
+        line-height: 1.6;
+      }
+
+      .amendment-summary-block {
+        padding: 10px 12px;
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .card-meta {
+        font-size: 12.5px;
+      }
+
+      .updated-badge {
+        font-size: 12px;
+        padding: 3px 8px;
+      }
+
+      /* Big glance-and-go numbers ("27 DIRECTIONS") get bigger, not smaller, on a phone. */
+      .summary-panel {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px 12px;
+        padding: 18px 16px;
+      }
+
+      .stat-num {
+        font-size: 34px;
+      }
+
+      .stat-label {
+        font-size: 12px;
+      }
+
+      .filter-select,
+      .filter-date {
+        font-size: 13px;
+      }
+    }
   </style>
 </head>
 
@@ -1521,9 +1746,19 @@
   <header class="masthead">
     <div class="masthead-inner">
       <div class="masthead-top" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-        <div class="brand" onclick="window.location.reload()" title="Reload dashboard" style="display: flex; align-items: center; gap: 12px;">
-          <img src="./kreon-logo.png" alt="Kreon Logo" style="height: 36px; width: auto; border-radius: 3px;" />
-          <h1>Kreon RegPulse</h1>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div class="brand" onclick="window.location.reload()" title="Reload dashboard" style="display: flex; align-items: center; gap: 12px;">
+            <img src="./kreon-logo.png" alt="Kreon Logo" style="height: 36px; width: auto; border-radius: 3px;" />
+            <h1>Kreon RegPulse</h1>
+          </div>
+          <span class="info-icon-wrap" id="infoIconWrap">
+            <button type="button" class="info-icon-btn" id="infoIconBtn" aria-haspopup="true" aria-expanded="false" aria-label="Compliance note">i</button>
+            <div class="info-popover" id="infoPopover" role="note">
+              <strong>⚠ Compliance note</strong>
+              <span id="infoBannerText">Always verify applicability to your specific NBFC registration layer (Base/Middle/Upper)
+        before acting on any direction.</span>
+            </div>
+          </span>
         </div>
         <button type="button" id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Dark/Light Mode" aria-label="Toggle Dark/Light Mode">
           <!-- Moon Icon (shows in light mode) -->
@@ -1536,6 +1771,7 @@
       <div class="category-info-container">
         <div class="category-info" id="rbiCategoryInfo">
           <span class="category-badge">RBI Master Directions</span>
+          <span class="freshness-badge is-live" title="Checked every 10-15 minutes, 8AM-8PM IST"><span class="dot"></span></span>
           <p class="category-desc">
             Master Directions issued by the Reserve Bank of India applicable to Non-Banking Financial Companies (NBFC-ICC).
           </p>
@@ -1543,6 +1779,7 @@
 
         <div class="category-info hidden" id="sebiCategoryInfo">
           <span class="category-badge" style="background: var(--green);">SEBI Regulations</span>
+          <span class="freshness-badge is-live" title="Checked every 10-15 minutes, 8AM-8PM IST"><span class="dot"></span></span>
           <p class="category-desc">
             Regulations governing listed entities, insider trading, substantial takeovers, capital disclosure rules, and
             depositories under SEBI Act.
@@ -1551,6 +1788,7 @@
 
         <div class="category-info hidden" id="actsCategoryInfo">
           <span class="category-badge" style="background: var(--tag-misc);">Acts & Rules</span>
+          <span class="freshness-badge is-monthly" title="Checked once a month — Parliament amends Acts far less often than RBI/SEBI issue circulars"><span class="dot"></span></span>
           <p class="category-desc">
             Primary statutes and company rules applicable to corporate governance, prevention of money laundering, data
             privacy, and electronic services.
@@ -1559,14 +1797,16 @@
 
         <div class="category-info hidden" id="ssCategoryInfo">
           <span class="category-badge" style="background: var(--amber);">Secretarial Standards</span>
+          <span class="freshness-badge is-monthly" title="Checked once a month — ICSI revises these infrequently"><span class="dot"></span></span>
           <p class="category-desc">
-            Mandatory Secretarial Standards (SS-1 on Board Meetings, SS-2 on General Meetings, SS-4 on Board Reports)
-            formulated by the ICSI.
+            Secretarial Standards formulated by the ICSI, dynamically discovered from ICSI's Secretarial Standards listing
+            page (currently SS-1 through SS-6).
           </p>
         </div>
 
         <div class="category-info hidden" id="rbiNotifCategoryInfo">
           <span class="category-badge" style="background: #D84315;">RBI Notifications</span>
+          <span class="freshness-badge is-live" title="Checked every 10-15 minutes, 8AM-8PM IST"><span class="dot"></span></span>
           <p class="category-desc">
             Latest circulars and notifications issued by the Reserve Bank of India. Automatically scraped and monitored in real-time.
           </p>
@@ -1574,6 +1814,7 @@
 
         <div class="category-info hidden" id="sebiCircCategoryInfo">
           <span class="category-badge" style="background: #00897B;">SEBI Circulars</span>
+          <span class="freshness-badge is-live" title="Checked every 10-15 minutes, 8AM-8PM IST"><span class="dot"></span></span>
           <p class="category-desc">
             Recent circulars issued by the Securities and Exchange Board of India covering market operations, compliance relaxations, and regulatory changes.
           </p>
@@ -1581,12 +1822,12 @@
       </div>
 
       <nav class="tab-nav" aria-label="Registers">
-        <button class="tab-button" id="tabRbi" aria-selected="true">RBI Directions</button>
-        <button class="tab-button" id="tabRbiNotif" aria-selected="false">RBI Notifications</button>
-        <button class="tab-button" id="tabSebi" aria-selected="false">SEBI Regulations</button>
-        <button class="tab-button" id="tabSebiCirc" aria-selected="false">SEBI Circulars</button>
-        <button class="tab-button" id="tabActs" aria-selected="false">Acts &amp; Rules</button>
-        <button class="tab-button" id="tabSs" aria-selected="false">Secretarial Standards</button>
+        <button class="tab-button" id="tabRbi" aria-selected="true">RBI Directions<span class="tab-freshness-dot is-live" title="Live-monitored"></span></button>
+        <button class="tab-button" id="tabRbiNotif" aria-selected="false">RBI Notifications<span class="tab-freshness-dot is-live" title="Live-monitored"></span></button>
+        <button class="tab-button" id="tabSebi" aria-selected="false">SEBI Regulations<span class="tab-freshness-dot is-live" title="Live-monitored"></span></button>
+        <button class="tab-button" id="tabSebiCirc" aria-selected="false">SEBI Circulars<span class="tab-freshness-dot is-live" title="Live-monitored"></span></button>
+        <button class="tab-button" id="tabActs" aria-selected="false">Acts &amp; Rules<span class="tab-freshness-dot" title="Monthly-checked"></span></button>
+        <button class="tab-button" id="tabSs" aria-selected="false">Secretarial Standards<span class="tab-freshness-dot" title="Monthly-checked"></span></button>
       </nav>
     </div>
   </header>
@@ -1595,14 +1836,6 @@
     <div class="stale-warning-inner">
       <strong>⏰ Data may be stale:</strong>&nbsp;
       <span id="staleWarningText">Last refresh was more than 48 hours ago. Run <code>npm run fetch</code> or trigger the GitHub Action to update.</span>
-    </div>
-  </div>
-
-  <div class="info-banner" id="infoBanner">
-    <div class="info-banner-inner">
-      <strong>⚠ Compliance note:</strong>&nbsp;
-      <span id="infoBannerText">Always verify applicability to your specific NBFC registration layer (Base/Middle/Upper)
-        before acting on any direction.</span>
     </div>
   </div>
 
@@ -1676,7 +1909,7 @@
 
   <div class="status-bar" id="statusBar">
     <span id="statusText">Loading register…</span>
-    <div class="sync-indicator" style="display: flex; align-items: center; gap: 12px;">
+    <div class="sync-indicator-group" style="display: flex; align-items: center; gap: 12px;">
       <button type="button" id="exportCsvBtn" class="export-btn" title="Export current view as CSV">
         <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
         Export CSV
@@ -1685,8 +1918,10 @@
         <svg viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
         Refresh
       </button>
-      <span class="sync-dot"></span>
-      <span id="lastSync">Synced</span>
+      <span class="sync-indicator is-loading" id="syncIndicator">
+        <span class="sync-dot"></span>
+        <span id="lastSync">Syncing…</span>
+      </span>
     </div>
   </div>
 
@@ -2268,11 +2503,6 @@
         return { topic: "other", label: "Other", cls: "tc-other" };
       }
 
-      function isUpdated(title) {
-        if (!title) return false;
-        return /updated.as.on|updated.as.of/i.test(title);
-      }
-
       function isUpdatedThisMonth(dateStr) {
         if (!dateStr) return false;
         const d = new Date(dateStr);
@@ -2294,6 +2524,19 @@
         const diffTime = now.getTime() - d.getTime();
         const diffDays = diffTime / (1000 * 60 * 60 * 24);
         return diffDays >= 0 && diffDays <= 90;
+      }
+
+      // Drives the "Recently Updated" badge/stat off the item's actual date, within a
+      // real rolling window — not a title-text match (RBI permanently embeds "(Updated
+      // as on ...)" in the official name of most consolidated Master Directions, so a
+      // text match flags ~80% of all directions regardless of how old that update is).
+      const RECENTLY_UPDATED_WINDOW_DAYS = 14;
+      function isRecentlyUpdated(dateStr) {
+        if (!dateStr) return false;
+        const d = new Date(dateStr);
+        if (isNaN(d.getTime())) return false;
+        const diffDays = (Date.now() - d.getTime()) / (1000 * 60 * 60 * 24);
+        return diffDays >= 0 && diffDays <= RECENTLY_UPDATED_WINDOW_DAYS;
       }
 
       function getReadItems() {
@@ -2423,14 +2666,32 @@
         return escapeHtml(cleanText).replace(regex, `<mark style="background: #FFF59D; color: #1C2321; padding: 2px 0; border-radius: 2px;">$1</mark>`);
       }
 
-      // Compute all unique topics from RBI data
+      // Compute all unique topics from RBI data, with how many directions use each
+      // (frequency drives which chips are shown up-front vs tucked under "More ▾").
       function getRbiTopics(directions) {
-        const seen = new Map();
+        const seen = new Map(); // topicKey -> { label, count }
         for (const d of directions) {
           const cls = classifyDirection(d.title);
-          if (!seen.has(cls.topic)) seen.set(cls.topic, cls.label);
+          if (!seen.has(cls.topic)) seen.set(cls.topic, { label: cls.label, count: 0 });
+          seen.get(cls.topic).count++;
         }
         return seen;
+      }
+
+      // Show at most this many topic chips up-front; the rest fold into "More ▾" so the
+      // row stays scannable instead of wrapping into 2+ rows of 13-14 pills.
+      const MAX_VISIBLE_TOPIC_CHIPS = 6;
+
+      function makeTopicChip(label, topicKey) {
+        const chip = document.createElement("button");
+        chip.className = "chip";
+        chip.textContent = label;
+        chip.setAttribute("aria-pressed", activeTopic === topicKey);
+        chip.addEventListener("click", () => {
+          activeTopic = topicKey;
+          render();
+        });
+        return chip;
       }
 
       function renderChips() {
@@ -2450,25 +2711,55 @@
         all.addEventListener("click", () => { activeTopic = "all"; render(); });
         topicChipsEl.appendChild(all);
 
+        // Build a { key, label, count } list for whichever tab is active, ranked by how
+        // often that topic actually appears in the current dataset.
+        let ranked;
         if (currentTab === "rbi") {
           const topics = getRbiTopics(rbiData.directions);
-          topics.forEach((label, topicKey) => {
-            const chip = document.createElement("button");
-            chip.className = "chip";
-            chip.textContent = label;
-            chip.setAttribute("aria-pressed", activeTopic === topicKey);
-            chip.addEventListener("click", () => { activeTopic = topicKey; render(); });
-            topicChipsEl.appendChild(chip);
-          });
+          ranked = Array.from(topics, ([key, { label, count }]) => ({ key, label, count }));
         } else {
-          Object.keys(SEBI_TOPICS).forEach((key) => {
-            const chip = document.createElement("button");
-            chip.className = "chip";
-            chip.textContent = SEBI_TOPICS[key].label;
-            chip.setAttribute("aria-pressed", activeTopic === key);
-            chip.addEventListener("click", () => { activeTopic = key; render(); });
-            topicChipsEl.appendChild(chip);
+          const counts = {};
+          Object.values(sebiData.regulations).forEach((reg) => {
+            counts[reg.key] = (counts[reg.key] || 0) + 1;
           });
+          ranked = Object.keys(SEBI_TOPICS).map((key) => ({
+            key,
+            label: SEBI_TOPICS[key].label,
+            count: counts[key] || 0,
+          }));
+        }
+        ranked.sort((a, b) => b.count - a.count);
+
+        const visible = ranked.slice(0, MAX_VISIBLE_TOPIC_CHIPS);
+        const overflow = ranked.slice(MAX_VISIBLE_TOPIC_CHIPS);
+
+        visible.forEach(({ key, label }) => topicChipsEl.appendChild(makeTopicChip(label, key)));
+
+        if (overflow.length > 0) {
+          const isOverflowActive = overflow.some((t) => t.key === activeTopic);
+
+          const moreWrap = document.createElement("span");
+          moreWrap.className = "chip-more-wrap";
+          if (isOverflowActive) moreWrap.classList.add("open-indicator");
+
+          const moreBtn = document.createElement("button");
+          moreBtn.type = "button";
+          moreBtn.className = "chip chip-more";
+          if (isOverflowActive) moreBtn.setAttribute("aria-pressed", "true");
+          moreBtn.setAttribute("aria-haspopup", "true");
+          moreBtn.setAttribute("aria-expanded", "false");
+          moreBtn.textContent = isOverflowActive
+            ? `${overflow.find((t) => t.key === activeTopic).label} ▾`
+            : `More (${overflow.length}) ▾`;
+          moreWrap.appendChild(moreBtn);
+
+          const popover = document.createElement("div");
+          popover.className = "chip-more-popover";
+          overflow.forEach(({ key, label }) => popover.appendChild(makeTopicChip(label, key)));
+          moreWrap.appendChild(popover);
+
+          topicChipsEl.appendChild(moreWrap);
+          wireTogglePopover(moreWrap, moreBtn);
         }
       }
 
@@ -2646,7 +2937,7 @@
         if (!items) items = [];
         if (currentTab === "rbi") {
           const total = items.length;
-          const updated = items.filter(d => isUpdated(d.title)).length;
+          const updated = items.filter(d => isRecentlyUpdated(d.issuedDate)).length;
           const thisMonthCount = items.filter(d => {
             if (isUpdatedThisMonth(d.issuedDate)) return true;
             const cls = classifyDirection(d.title);
@@ -2691,7 +2982,10 @@
       `;
         } else if (currentTab === "sebi") {
           const total = items.length;
-          const updated = items.filter(r => isUpdated(r.title)).length;
+          // Note: r.lastUpdated is a "last checked" timestamp written on every scraper run
+          // regardless of whether the regulation actually changed — using it here would
+          // silently reintroduce an always-true badge, so only the genuine amendedDate counts.
+          const updated = items.filter(r => isRecentlyUpdated(r.amendedDate)).length;
           const thisMonthCount = items.filter(reg => {
             if (isUpdatedThisMonth(reg.amendedDate) || isUpdatedThisMonth(reg.lastUpdated)) return true;
             const amd = COMPLIANCE_AMENDMENTS[reg.key];
@@ -2730,7 +3024,7 @@
       `;
         } else if (currentTab === "acts") {
           const total = items.length;
-          const updated = items.filter(a => isUpdated(a.title || a.summary)).length;
+          const updated = items.filter(a => isRecentlyUpdated(a.enactedDate)).length;
           const thisMonthCount = items.filter(act => {
             if (isUpdatedThisMonth(act.enactedDate)) return true;
             const amd = COMPLIANCE_AMENDMENTS[act.id];
@@ -2754,7 +3048,7 @@
       `;
         } else {
           const total = items.length;
-          const updated = items.filter(std => isUpdated(std.title || std.summary)).length;
+          const updated = items.filter(std => isRecentlyUpdated(std.effectiveDate)).length;
           const thisMonthCount = items.filter(std => {
             if (isUpdatedThisMonth(std.effectiveDate)) return true;
             const amd = COMPLIANCE_AMENDMENTS[std.id];
@@ -2852,7 +3146,7 @@
 
           const cardsHtml = items.map((dir, idx) => {
             const cls = classifyDirection(dir.title);
-            const upd = isUpdated(dir.title);
+            const upd = isRecentlyUpdated(dir.issuedDate);
             const updDate = extractUpdatedDate(dir.title);
             const layer = determineSbrLayers(dir.title);
             const highlightedTitle = highlightText(dir.title, query);
@@ -3268,10 +3562,15 @@
       // Load Data function (supports silent initial load and visual refresh action)
       async function loadData(isRefresh = false) {
         const refreshBtn = document.getElementById("refreshBtn");
+        const syncIndicatorEl = document.getElementById("syncIndicator");
         if (isRefresh && refreshBtn) {
           refreshBtn.classList.add("spinning");
           refreshBtn.disabled = true;
           statusEl.textContent = "Checking for latest updates...";
+        }
+        if (syncIndicatorEl) {
+          syncIndicatorEl.classList.remove("is-synced", "is-error");
+          syncIndicatorEl.classList.add("is-loading");
         }
 
         try {
@@ -3301,6 +3600,11 @@
 
           checkStaleData();
 
+          if (syncIndicatorEl) {
+            syncIndicatorEl.classList.remove("is-loading", "is-error");
+            syncIndicatorEl.classList.add("is-synced");
+          }
+
           if (isRefresh) {
             // Re-render current view with the new data
             switchTab(currentTab);
@@ -3315,6 +3619,12 @@
         } catch (err) {
           listEl.innerHTML = '<div class="empty-state"><h3>Register load error</h3><p>Could not initialize compliance data files. Please run <code>npm run fetch</code>.</p></div>';
           statusEl.textContent = "Failed to load";
+          if (syncIndicatorEl) {
+            syncIndicatorEl.classList.remove("is-loading", "is-synced");
+            syncIndicatorEl.classList.add("is-error");
+          }
+          const lastSyncEl = document.getElementById("lastSync");
+          if (lastSyncEl) lastSyncEl.textContent = "Sync failed";
           console.error(err);
         } finally {
           if (isRefresh && refreshBtn) {
@@ -3329,6 +3639,41 @@
       if (refreshBtn) {
         refreshBtn.addEventListener("click", () => loadData(true));
       }
+
+      // Generic click-to-toggle popover wiring, shared by the compliance-note info
+      // icon and the topic chips "More ▾" popover. The outside-click/Escape closer is
+      // registered once at module scope (not per-render) and queries `.open` live, so
+      // it stays correct even though the "More" button is recreated on every renderChips().
+      function wireTogglePopover(wrapEl, btnEl) {
+        if (!wrapEl || !btnEl) return;
+        btnEl.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const isOpen = wrapEl.classList.toggle("open");
+          btnEl.setAttribute("aria-expanded", String(isOpen));
+        });
+      }
+
+      document.addEventListener("click", (e) => {
+        document.querySelectorAll(".info-icon-wrap.open, .chip-more-wrap.open").forEach((wrap) => {
+          if (wrap.contains(e.target)) return;
+          wrap.classList.remove("open");
+          const btn = wrap.querySelector("[aria-expanded]");
+          if (btn) btn.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key !== "Escape") return;
+        document.querySelectorAll(".info-icon-wrap.open, .chip-more-wrap.open").forEach((wrap) => {
+          wrap.classList.remove("open");
+          const btn = wrap.querySelector("[aria-expanded]");
+          if (btn) btn.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      // Compliance note info icon: click-to-toggle popover (hover also works via CSS),
+      // replacing the old permanent full-width banner.
+      wireTogglePopover(document.getElementById("infoIconWrap"), document.getElementById("infoIconBtn"));
 
       // Dark Mode Toggle
       const themeToggleBtn = document.getElementById("themeToggleBtn");

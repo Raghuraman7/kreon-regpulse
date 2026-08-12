@@ -6,6 +6,8 @@
 
 import { writeFile, readFile, mkdir } from "node:fs/promises";
 import { sendRegulatoryAlert } from "./email-notifier.mjs";
+import { assertNonZeroItems } from "./lib/guards.mjs";
+import { withFileLock } from "./lib/file-lock.mjs";
 
 const OUTPUT_PATH = new URL("../data/master-directions.json", import.meta.url);
 const NBFC_PAGE_URL = "https://www.rbi.org.in/Scripts/BS_ViewMasterDirections.aspx?did=411";
@@ -18,6 +20,14 @@ function parseRBIDate(str) {
   if (!str) return null;
   const d = new Date(str.trim());
   return isNaN(d) ? str.trim() : d.toISOString();
+}
+
+const UPDATED_AS_ON_REGEX = /\(\s*updated\s+as\s+on\s*:?\s*([^)]+)\)/i;
+
+// Per-direction amendment date embedded in the title; takes priority over the shared group header date.
+function extractUpdatedAsOnDate(title) {
+  const m = title.match(UPDATED_AS_ON_REGEX);
+  return m ? m[1].trim() : null;
 }
 
 /**
@@ -97,13 +107,15 @@ function parseDirectionsFromViewstate(html) {
       link = BASE_URL + rawHref.replace(/^\./, "");
     }
 
-    let dateStr = null;
+    let groupHeaderDate = null;
     for (let i = dates.length - 1; i >= 0; i--) {
       if (dates[i].index < lm.index) {
-        dateStr = dates[i].date;
+        groupHeaderDate = dates[i].date;
         break;
       }
     }
+
+    const dateStr = extractUpdatedAsOnDate(title) || groupHeaderDate;
 
     let pdfUrl = null;
     for (const pl of pdfLinks) {
@@ -153,6 +165,10 @@ function isNBFCICCApplicable(title) {
 }
 
 export async function checkRbiMasterDirections() {
+  return withFileLock(OUTPUT_PATH, runCheckRbiMasterDirections);
+}
+
+async function runCheckRbiMasterDirections() {
   console.log("🔍 Checking RBI Master Directions...");
 
   const html = await fetchWithRetry(NBFC_PAGE_URL);
@@ -184,9 +200,7 @@ export async function checkRbiMasterDirections() {
     }
   });
 
-  if (nbfcIccDirections.length === 0) {
-    throw new Error("RBI Scraper parsed 0 items. RBI page layout may have changed.");
-  }
+  assertNonZeroItems(nbfcIccDirections.length, previousData.directions.length, "RBI Master Directions");
 
   const payload = {
     generatedAt: new Date().toISOString(),
@@ -210,7 +224,8 @@ export async function checkRbiMasterDirections() {
     await sendRegulatoryAlert({
       source: "RBI",
       category: "Master Direction",
-      updates: updatedDirs
+      updates: updatedDirs,
+      categoryKey: "rbiMasterDirections"
     });
   } else {
     console.log("No new RBI Master Direction updates detected.");

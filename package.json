@@ -8,10 +8,13 @@
     "fetch:rbi-notif": "node scripts/fetch-rbi-notifications.mjs",
     "fetch:sebi-reg": "node scripts/fetch-sebi-regulations.mjs",
     "fetch:sebi-circ": "node scripts/fetch-sebi-circulars.mjs",
+    "fetch:acts": "node scripts/fetch-acts-rules.mjs",
+    "fetch:secstandards": "node scripts/fetch-secretarial-standards.mjs",
     "fetch": "node scripts/fetch-all.mjs",
+    "fetch:live": "node scripts/fetch-all.mjs --live-only",
+    "fetch:monthly": "node scripts/fetch-monthly.mjs",
     "watch": "node scripts/watch-realtime.mjs",
-    "digest:15days": "node scripts/send-monthly-digest.mjs --days 15",
-    "digest:monthly": "node scripts/send-monthly-digest.mjs --days 30",
+    "digest:monthly": "node scripts/send-monthly-digest.mjs",
     "serve": "npx serve .",
     "start": "npm run fetch && npx serve ."
   },
@@ -19,6 +22,6 @@
   "dependencies": {
     "fast-xml-parser": "^5.10.0",
     "nodemailer": "^9.0.3",
-    "pdf-parse": "^2.4.5"
+    "proper-lockfile": "^4.1.2"
   }
 }

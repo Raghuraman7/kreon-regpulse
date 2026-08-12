@@ -5,6 +5,8 @@
 
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { sendRegulatoryAlert } from "./email-notifier.mjs";
+import { assertNonZeroItems } from "./lib/guards.mjs";
+import { withFileLock } from "./lib/file-lock.mjs";
 
 const DATA_PATH = new URL("../data/rbi-notifications.json", import.meta.url);
 const RBI_NOTIF_LIST_URL = "https://www.rbi.org.in/Scripts/NotificationUser.aspx";
@@ -75,6 +77,10 @@ async function fetchNotificationDetails(link) {
 }
 
 export async function checkRbiNotifications() {
+  return withFileLock(DATA_PATH, runCheckRbiNotifications);
+}
+
+async function runCheckRbiNotifications() {
   console.log("🔍 Checking RBI Circulars & Notifications...");
   const html = await fetchPage(RBI_NOTIF_LIST_URL);
 
@@ -104,10 +110,7 @@ export async function checkRbiNotifications() {
   }
 
   const previousData = await loadPreviousData();
-
-  if (parsedItems.length === 0 && previousData.notifications.length > 0) {
-    throw new Error("RBI Notifications Scraper parsed 0 items. RBI page layout may have changed.");
-  }
+  assertNonZeroItems(parsedItems.length, previousData.notifications.length, "RBI Notifications");
 
   console.log(`Found ${parsedItems.length} RBI notifications on listing page.`);
 
@@ -154,7 +157,8 @@ export async function checkRbiNotifications() {
     await sendRegulatoryAlert({
       source: "RBI",
       category: "Notification",
-      updates: newNotifications
+      updates: newNotifications,
+      categoryKey: "rbiNotifications"
     });
   } else if (previousData.notifications.length === 0) {
     console.log("Initialized RBI notifications baseline data.");

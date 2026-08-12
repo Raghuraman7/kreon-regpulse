@@ -1,24 +1,22 @@
-name: Update RBI & SEBI Regulatory Feed Data
+name: Monthly Acts & Rules / Secretarial Standards Check
 
 on:
   schedule:
-    # Run every 15 minutes for cloud updates.
-    - cron: "*/15 * * * *"
+    # Runs once a month at 09:00 IST (03:30 UTC) on the 1st. Acts (Parliament) and
+    # Secretarial Standards (ICSI) change far less often than RBI/SEBI, so this is
+    # deliberately separate from update-feed.yml's 15-minute cron.
+    - cron: "30 3 1 * *"
   workflow_dispatch: {} # Manual refresh from Actions tab
-  push:
-    branches: [main]
-    paths:
-      - "scripts/**"
 
 concurrency:
-  group: update-feed-${{ github.ref }}
+  group: monthly-regulatory-check-${{ github.ref }}
   cancel-in-progress: false
 
 permissions:
   contents: write
 
 jobs:
-  update:
+  monthly-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,14 +28,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Fetch latest RBI & SEBI regulatory data
-        run: npm run fetch:live
+      - name: Check Acts & Rules and Secretarial Standards for amendments
+        run: npm run fetch:monthly
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
           EMAIL_RECIPIENTS: ${{ secrets.EMAIL_RECIPIENTS }}
+          DEV_OPS_RECIPIENTS: ${{ secrets.DEV_OPS_RECIPIENTS }}
           CS_TEAM_RECIPIENTS: ${{ secrets.CS_TEAM_RECIPIENTS }}
           CEO_RECIPIENTS: ${{ secrets.CEO_RECIPIENTS }}
 
@@ -45,7 +44,6 @@ jobs:
         run: |
           git config user.name "regnote-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/*.json
-          git diff --cached --quiet && echo "No changes" || git commit -m "chore: refresh regulatory compliance data [skip ci]"
+          git add data/acts-rules.json data/secretarial-standards.json
+          git diff --cached --quiet && echo "No changes" || git commit -m "chore: monthly Acts & Rules / Secretarial Standards refresh [skip ci]"
           git push
-

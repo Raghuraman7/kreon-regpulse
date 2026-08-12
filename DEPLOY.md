@@ -39,6 +39,31 @@ Adjust the path if the project lives elsewhere. Your Mac must be on (or awake) a
 
 ---
 
+## 1b. Process supervision for the real-time watcher (`watch-realtime.mjs`)
+
+`npm run watch` runs the continuous daemon in the foreground — if it crashes or the machine reboots, nothing brings it back. Use [pm2](https://pm2.keymetrics.io/) to auto-restart it.
+
+```bash
+npm install -g pm2
+npm install                 # make sure proper-lockfile etc. are installed
+pm2 start ecosystem.config.cjs
+pm2 save                    # persist the process list
+pm2 startup                 # prints a command to run once, so pm2 restarts on reboot
+```
+
+Useful commands:
+
+```bash
+pm2 logs kreon-regpulse-watch     # tail logs (also written to logs/watch-*.log)
+pm2 restart kreon-regpulse-watch
+pm2 stop kreon-regpulse-watch
+pm2 status
+```
+
+`ecosystem.config.cjs` restarts the process on crash (up to 20 times, with backoff) and requires it to stay up 30s before counting as a successful start. Env vars (SMTP, `EMAIL_RECIPIENTS`, `DEV_OPS_RECIPIENTS`, `POLL_INTERVAL_MS`, `ACTIVE_HOURS_START/END`) still come from `.env` — pm2 doesn't need to know about them separately.
+
+---
+
 ## 2. Put it online (pick one — all free)
 
 After `npm run fetch`, upload the **project root** (not `node_modules`):

@@ -45,3 +45,5 @@ jobs:
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
           EMAIL_RECIPIENTS: ${{ secrets.EMAIL_RECIPIENTS }}
+          CS_TEAM_RECIPIENTS: ${{ secrets.CS_TEAM_RECIPIENTS }}
+          CEO_RECIPIENTS: ${{ secrets.CEO_RECIPIENTS }}
