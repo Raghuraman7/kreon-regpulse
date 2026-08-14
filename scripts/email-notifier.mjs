@@ -72,7 +72,7 @@ function dedupe(list) {
 // Categories the CS/compliance team is subscribed to — the policies they actually
 // track day to day. CEO gets these too, plus RBI Notifications & SEBI Circulars,
 // which CS does not get instant alerts for.
-const CS_TEAM_CATEGORIES = new Set([
+export const CS_TEAM_CATEGORIES = new Set([
   "rbiMasterDirections",
   "sebiRegulations",
   "actsRules",
@@ -110,6 +110,30 @@ export function getRecipients(categoryKey) {
   }
 
   return DEFAULT_RECIPIENTS;
+}
+
+/**
+ * Resolves the two audiences for the monthly digest, which — unlike single-category
+ * instant alerts — needs both groups at once so each can get its own scoped email
+ * instead of one mail addressed to the merged list.
+ *
+ * mode "flat" means both groups are the same list (global override or the
+ * no-secrets-configured fallback) and callers should send just one email, not two.
+ */
+export function getDigestRecipientGroups() {
+  if (process.env.EMAIL_RECIPIENTS) {
+    const flat = envList("EMAIL_RECIPIENTS");
+    return { mode: "flat", csTeam: flat, ceo: flat };
+  }
+
+  const csTeam = envList("CS_TEAM_RECIPIENTS");
+  const ceo = envList("CEO_RECIPIENTS");
+
+  if (csTeam.length === 0 && ceo.length === 0) {
+    return { mode: "flat", csTeam: DEFAULT_RECIPIENTS, ceo: DEFAULT_RECIPIENTS };
+  }
+
+  return { mode: "split", csTeam, ceo };
 }
 
 export function getDevOpsRecipients() {
@@ -152,45 +176,48 @@ function createTransporter() {
  * @param {string} [options.customSubject]
  * @param {string} [options.categoryKey] - routing key for CS/CEO recipient groups, see getRecipients()
  */
-export async function sendRegulatoryAlert({ source, category, updates, customSubject, categoryKey }) {
-  const recipients = getRecipients(categoryKey);
-  const transporter = createTransporter();
+const SOURCE_COLORS = {
+  RBI: { bg: "#1F3A5F", text: "#FFFFFF", badge: "#3B82F6" },
+  SEBI: { bg: "#0D2538", text: "#FFFFFF", badge: "#10B981" },
+  MCA: { bg: "#2E1065", text: "#FFFFFF", badge: "#8B5CF6" },
+  ICSI: { bg: "#7C2D12", text: "#FFFFFF", badge: "#F59E0B" },
+  DEFAULT: { bg: "#1F2937", text: "#FFFFFF", badge: "#6B7280" },
+};
 
-  if (!updates || updates.length === 0) {
-    return { success: false, reason: "No updates provided" };
-  }
+// Trimmed for the subject line only — full title still appears in the email body.
+function truncateForSubject(title, maxLen = 90) {
+  if (!title || title.length <= maxLen) return title;
+  return `${title.slice(0, maxLen - 1)}…`;
+}
 
-  if (!transporter) {
-    console.log("\n------------------------------------------------------------------");
-    console.warn("⚠ SMTP credentials not configured (SMTP_HOST, SMTP_USER, SMTP_PASS missing).");
-    console.warn(`[MOCK ALERT] Would send instant email to: ${recipients.join(", ")}`);
-    console.warn(`[MOCK ALERT] Updates detected (${source} ${category}): ${updates.length}`);
-    updates.forEach((u, i) => {
-      console.warn(`  ${i + 1}. ${u.title} (${u.link})`);
-    });
-    console.log("------------------------------------------------------------------\n");
-    return { success: false, reason: "SMTP credentials missing" };
-  }
+// Categories whose item.summary is just boilerplate restating the title (e.g. SEBI
+// circulars: `Circular issued by SEBI: ${title}`) rather than real extracted content —
+// suppressed from the email so it doesn't pad it with a redundant card. This only hides
+// it at render time; the underlying summary field is untouched in data/*.json, so
+// re-enabling it later (if it becomes real content) is just removing the key here.
+const SUMMARY_SUPPRESSED_CATEGORIES = new Set(["sebiCirculars"]);
 
-  const sourceColors = {
-    RBI: { bg: "#1F3A5F", text: "#FFFFFF", badge: "#3B82F6" },
-    SEBI: { bg: "#0D2538", text: "#FFFFFF", badge: "#10B981" },
-    MCA: { bg: "#2E1065", text: "#FFFFFF", badge: "#8B5CF6" },
-    ICSI: { bg: "#7C2D12", text: "#FFFFFF", badge: "#F59E0B" },
-    DEFAULT: { bg: "#1F2937", text: "#FFFFFF", badge: "#6B7280" },
-  };
+async function sendSingleRegulatoryAlert({ source, category, item, customSubject, recipients, transporter, categoryKey }) {
+  const theme = SOURCE_COLORS[source.toUpperCase()] || SOURCE_COLORS.DEFAULT;
+  // One release = one subject line = one email. Gmail/Outlook group emails into a
+  // thread when the subject matches exactly, so each subject carries the item title
+  // AND a send-time tag — the tag guarantees uniqueness even if two releases (or a
+  // re-published notice) happen to share the exact same title.
+  const timeTag = new Date().toLocaleString("en-IN", {
+    day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit", hour12: true,
+  });
+  const subject = customSubject
+    ? `${customSubject} — ${truncateForSubject(item.title)} [${timeTag}]`
+    : `🚨 Instant Alert: ${source} ${category} Update — ${truncateForSubject(item.title)} [${timeTag}]`;
 
-  const theme = sourceColors[source.toUpperCase()] || sourceColors.DEFAULT;
-  const subject = customSubject || `🚨 Instant Alert: ${source} ${category} Update (${updates.length} item${updates.length > 1 ? "s" : ""})`;
-
-  const itemsHtml = updates.map(item => `
+  const itemHtml = `
     <div style="margin-bottom: 24px; padding: 18px; border-radius: 8px; border-left: 5px solid ${theme.badge}; background-color: #F8FAFC; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
       <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
         <span style="background-color: ${theme.badge}; color: #FFFFFF; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 4px; text-transform: uppercase;">${source} • ${category}</span>
         ${item.date ? `<span style="font-size: 12px; color: #64748B;">📅 ${item.date}</span>` : ""}
       </div>
       <h3 style="color: #0F172A; margin: 8px 0 10px 0; font-size: 16px; line-height: 1.4;">${item.title}</h3>
-      ${item.summary ? `
+      ${item.summary && !SUMMARY_SUPPRESSED_CATEGORIES.has(categoryKey) ? `
         <div style="background-color: #FFFFFF; padding: 12px; border-radius: 6px; border: 1px solid #E2E8F0; margin-bottom: 12px; font-size: 13px; color: #334155; line-height: 1.5;">
           <strong>Summary of Changes & Impact:</strong>
           <p style="margin: 4px 0 0 0;">${item.summary}</p>
@@ -201,7 +228,7 @@ export async function sendRegulatoryAlert({ source, category, updates, customSub
         ${item.pdfUrl ? `<a href="${item.pdfUrl}" target="_blank" style="background-color: #475569; color: #FFFFFF; padding: 8px 14px; text-decoration: none; border-radius: 5px; font-size: 13px; font-weight: 600; display: inline-block;">Download PDF 📄</a>` : ""}
       </div>
     </div>
-  `).join("");
+  `;
 
   const emailBody = `
     <!DOCTYPE html>
@@ -212,7 +239,7 @@ export async function sendRegulatoryAlert({ source, category, updates, customSub
     </head>
     <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #F1F5F9; margin: 0; padding: 20px;">
       <div style="max-width: 640px; margin: 0 auto; background-color: #FFFFFF; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.07);">
-        
+
         <!-- Header -->
         <div style="background-color: ${theme.bg}; padding: 24px; text-align: left; color: #FFFFFF;">
           <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #94A3B8; margin-bottom: 4px;">Kreon RegPulse Real-Time Alert</div>
@@ -223,8 +250,8 @@ export async function sendRegulatoryAlert({ source, category, updates, customSub
         <div style="padding: 24px;">
           <p style="font-size: 14px; color: #334155; margin-top: 0;">Hello,</p>
           <p style="font-size: 14px; color: #334155; margin-bottom: 20px;">A new regulatory update has just been detected from <strong>${source}</strong>:</p>
-          
-          ${itemsHtml}
+
+          ${itemHtml}
 
           <div style="background-color: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 6px; padding: 12px; margin-top: 20px; font-size: 12px; color: #1E40AF;">
             💡 <strong>Instant Alert System:</strong> This notification was dispatched by your Kreon RegPulse continuous watcher daemon.
@@ -255,6 +282,37 @@ export async function sendRegulatoryAlert({ source, category, updates, customSub
     console.error(`❌ Error sending ${source} email notification:`, err);
     return { success: false, error: err };
   }
+}
+
+export async function sendRegulatoryAlert({ source, category, updates, customSubject, categoryKey }) {
+  const recipients = getRecipients(categoryKey);
+  const transporter = createTransporter();
+
+  if (!updates || updates.length === 0) {
+    return { success: false, reason: "No updates provided" };
+  }
+
+  if (!transporter) {
+    console.log("\n------------------------------------------------------------------");
+    console.warn("⚠ SMTP credentials not configured (SMTP_HOST, SMTP_USER, SMTP_PASS missing).");
+    console.warn(`[MOCK ALERT] Would send ${updates.length} separate instant email(s) to: ${recipients.join(", ")}`);
+    console.warn(`[MOCK ALERT] Updates detected (${source} ${category}): ${updates.length}`);
+    updates.forEach((u, i) => {
+      console.warn(`  ${i + 1}. ${u.title} (${u.link})`);
+    });
+    console.log("------------------------------------------------------------------\n");
+    return { success: false, reason: "SMTP credentials missing" };
+  }
+
+  // Each release is sent as its own email (own subject, own thread) rather than
+  // bundled into one multi-item email — see sendSingleRegulatoryAlert.
+  const results = [];
+  for (const item of updates) {
+    const result = await sendSingleRegulatoryAlert({ source, category, item, customSubject, recipients, transporter, categoryKey });
+    results.push(result);
+  }
+
+  return { success: results.every(r => r.success), results };
 }
 
 /**
