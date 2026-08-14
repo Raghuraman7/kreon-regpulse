@@ -1,77 +1,41 @@
 {
-  "generatedAt": "2026-08-12T08:51:08.495Z",
+  "generatedAt": "2026-08-14T02:23:20.462Z",
   "regulations": {
-    "icdr": {
-      "key": "icdr",
-      "shortName": "SEBI (ICDR) Regulations, 2018",
-      "title": "Securities and Exchange Board of India (Issue of Capital and Disclosure Requirements) Regulations, 2018 [Last amended on March 21, 2026]",
-      "link": "https://www.sebi.gov.in/legal/regulations/mar-2026/securities-and-exchange-board-of-india-issue-of-capital-and-disclosure-requirements-regulations-2018-last-amended-on-march-21-2026-_100581.html",
-      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/mar-2026/1774592300989.pdf",
-      "amendedDate": "Mar 21, 2026",
-      "lastUpdated": "2026-08-12T08:51:07.756Z"
+    "cra": {
+      "key": "cra",
+      "shortName": "SEBI (Credit Rating Agencies) Regulations, 1999",
+      "title": "Securities and Exchange Board of India (Credit Rating Agencies) Regulations, 1999 [Last amended on January 15, 2026]",
+      "link": "https://www.sebi.gov.in/legal/regulations/jan-2026/securities-and-exchange-board-of-india-credit-rating-agencies-regulations-1999-last-amended-on-january-15-2026-_99126.html",
+      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jan-2026/1768814495033.pdf",
+      "amendedDate": "Jan 15, 2026",
+      "lastUpdated": "2026-08-14T02:23:19.682Z"
     },
-    "lodr": {
-      "key": "lodr",
-      "shortName": "SEBI (LODR) Regulations, 2015",
-      "title": "Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015 [Last amended on July 14, 2026]",
-      "link": "https://www.sebi.gov.in/legal/regulations/jul-2026/securities-and-exchange-board-of-india-listing-obligations-and-disclosure-requirements-regulations-2015-last-amended-on-july-14-2026-_102974.html",
-      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jul-2026/1784630770711.pdf",
-      "amendedDate": "Jul 14, 2026",
-      "lastUpdated": "2026-08-12T08:51:07.999Z"
+    "kra": {
+      "key": "kra",
+      "shortName": "SEBI (KYC (Know Your Client) Registration Agency) Regulations, 2011",
+      "title": "Securities and Exchange Board of India {KYC (Know Your Client) Registration Agency} Regulations, 2011 [Last amended on February 10, 2025]",
+      "link": "https://www.sebi.gov.in/legal/regulations/feb-2025/securities-and-exchange-board-of-india-kyc-know-your-client-registration-agency-regulations-2011-last-amended-on-february-10-2025-_92423.html",
+      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/aug-2026/1786079439303.pdf",
+      "amendedDate": "Feb 10, 2025",
+      "lastUpdated": "2026-08-14T02:23:19.975Z"
     },
-    "pit": {
-      "key": "pit",
-      "shortName": "SEBI (Prohibition of Insider Trading) Regulations, 2015",
-      "title": "Securities and Exchange Board of India (Prohibition of Insider Trading) Regulations 2015 [Last amended on March 12, 2025]",
-      "link": "https://www.sebi.gov.in/legal/regulations/mar-2025/securities-and-exchange-board-of-india-prohibition-of-insider-trading-regulations-2015-last-amended-on-march-12-2025-_92672.html",
-      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jul-2025/1752572636085.pdf",
-      "amendedDate": "Mar 12, 2025",
-      "lastUpdated": "2026-08-12T08:51:08.248Z"
+    "ncs": {
+      "key": "ncs",
+      "shortName": "SEBI (Issue and Listing of Non-Convertible Securities) Regulations, 2021",
+      "title": "Securities and Exchange Board of India (Issue and Listing of Non-Convertible Securities) Regulations 2021 [Amended as on January 21, 2026]",
+      "link": "https://www.sebi.gov.in/legal/regulations/jan-2026/securities-and-exchange-board-of-india-issue-and-listing-of-non-convertible-securities-regulations-2021-amended-as-on-january-21-2026-_99288.html",
+      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jan-2026/1769162648420.pdf",
+      "amendedDate": "Jan 21, 2026",
+      "lastUpdated": "2026-08-14T02:23:20.221Z"
     },
-    "sast": {
-      "key": "sast",
-      "shortName": "SEBI (SAST) Regulations, 2011",
-      "title": "Securities and Exchange Board of India (Substantial Acquisition of Shares and Takeovers) Regulations, 2011 [Last amended on December 5, 2025]",
-      "link": "https://www.sebi.gov.in/legal/regulations/dec-2025/securities-and-exchange-board-of-india-substantial-acquisition-of-shares-and-takeovers-regulations-2011-last-amended-on-december-5-2025-_98643.html",
-      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/aug-2026/1785911192198.pdf",
-      "amendedDate": "Dec 24, 2025",
-      "lastUpdated": "2026-08-12T08:51:08.495Z"
-    },
-    "depositories": {
-      "key": "depositories",
-      "shortName": "SEBI (Depositories and Participants) Regulations, 2018",
-      "title": "Securities and Exchange Board of India (Depositories and Participants) Regulations 2018 [Last amended on November 22, 2025]",
-      "link": "https://www.sebi.gov.in/legal/regulations/nov-2025/securities-and-exchange-board-of-india-depositories-and-participants-regulations-2018-last-amended-on-november-22-2025-_98196.html",
-      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/dec-2025/1764930261886.pdf",
-      "amendedDate": "Nov 22, 2025",
-      "lastUpdated": "2026-07-22T05:00:22.229Z"
-    },
-    "registrars": {
-      "key": "registrars",
-      "shortName": "SEBI (Registrars to an Issue and Share Transfer Agents) Regulations, 1993",
-      "title": "Securities and Exchange Board of India (Registrars to an Issue and Share Transfer Agents) Regulations, 2025",
-      "link": "https://www.sebi.gov.in/legal/regulations/dec-2025/securities-and-exchange-board-of-india-registrars-to-an-issue-and-share-transfer-agents-regulations-2025_98477.html",
-      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/dec-2025/1766125665223.pdf",
-      "amendedDate": "Dec 16, 2025",
-      "lastUpdated": "2026-07-22T05:00:22.329Z"
-    },
-    "ipef": {
-      "key": "ipef",
-      "shortName": "SEBI (Investor Protection and Education Fund) Regulations, 2009",
-      "title": "Securities and Exchange Board of India (Investor Protection and Education Fund) Regulations, 2009 [Last amended on September 2, 2025]",
-      "link": "https://www.sebi.gov.in/legal/regulations/sep-2025/securities-and-exchange-board-of-india-investor-protection-and-education-fund-regulations-2009-last-amended-on-september-2-2025-_96546.html",
-      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/sep-2025/1757506918321.pdf",
-      "amendedDate": "Sep 02, 2025",
-      "lastUpdated": "2026-07-22T05:00:22.353Z"
-    },
-    "pfutp": {
-      "key": "pfutp",
-      "shortName": "SEBI (Prohibition of Fraudulent and Unfair Trade Practices) Regulations, 2003",
-      "title": "Securities and Exchange Board of India (Prohibition of Fraudulent and Unfair Trade Practices relating to Securities Market) Regulations, 2003 [Last amended on December 05, 2025]",
-      "link": "https://www.sebi.gov.in/legal/regulations/dec-2025/securities-and-exchange-board-of-india-prohibition-of-fraudulent-and-unfair-trade-practices-relating-to-securities-market-regulations-2003-last-amended-on-december-05-2025-_98694.html",
-      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/dec-2025/1766747237712.pdf",
-      "amendedDate": "Dec 05, 2025",
-      "lastUpdated": "2026-07-22T05:00:22.419Z"
+    "dyn-97887": {
+      "key": "dyn-97887",
+      "shortName": "SEBI Regulation (dynamically discovered)",
+      "title": "Securities and Exchange Board of India (Debenture Trustees) Regulations, 1993 [Last amended on October 27, 2025]",
+      "link": "https://www.sebi.gov.in/legal/regulations/oct-2025/securities-and-exchange-board-of-india-debenture-trustees-regulations-1993-last-amended-on-october-27-2025-_97887.html",
+      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/nov-2025/1763961352516.pdf",
+      "amendedDate": "Oct 27, 2025",
+      "lastUpdated": "2026-08-14T02:23:20.462Z"
     }
   }
 }
