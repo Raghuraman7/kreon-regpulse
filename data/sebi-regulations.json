@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T15:45:21.789Z",
+  "generatedAt": "2026-08-15T16:00:24.205Z",
   "regulations": {
     "cra": {
       "key": "cra",
@@ -8,7 +8,7 @@
       "link": "https://www.sebi.gov.in/legal/regulations/jan-2026/securities-and-exchange-board-of-india-credit-rating-agencies-regulations-1999-last-amended-on-january-15-2026-_99126.html",
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jan-2026/1768814495033.pdf",
       "amendedDate": "Jan 15, 2026",
-      "lastUpdated": "2026-08-15T15:45:21.031Z"
+      "lastUpdated": "2026-08-15T16:00:23.408Z"
     },
     "kra": {
       "key": "kra",
@@ -17,7 +17,7 @@
       "link": "https://www.sebi.gov.in/legal/regulations/feb-2025/securities-and-exchange-board-of-india-kyc-know-your-client-registration-agency-regulations-2011-last-amended-on-february-10-2025-_92423.html",
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/aug-2026/1786079439303.pdf",
       "amendedDate": "Feb 10, 2025",
-      "lastUpdated": "2026-08-15T15:45:21.285Z"
+      "lastUpdated": "2026-08-15T16:00:23.731Z"
     },
     "ncs": {
       "key": "ncs",
@@ -26,7 +26,7 @@
       "link": "https://www.sebi.gov.in/legal/regulations/jan-2026/securities-and-exchange-board-of-india-issue-and-listing-of-non-convertible-securities-regulations-2021-amended-as-on-january-21-2026-_99288.html",
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jan-2026/1769162648420.pdf",
       "amendedDate": "Jan 21, 2026",
-      "lastUpdated": "2026-08-15T15:45:21.537Z"
+      "lastUpdated": "2026-08-15T16:00:23.967Z"
     },
     "dyn-97887": {
       "key": "dyn-97887",
@@ -35,7 +35,7 @@
       "link": "https://www.sebi.gov.in/legal/regulations/oct-2025/securities-and-exchange-board-of-india-debenture-trustees-regulations-1993-last-amended-on-october-27-2025-_97887.html",
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/nov-2025/1763961352516.pdf",
       "amendedDate": "Oct 27, 2025",
-      "lastUpdated": "2026-08-15T15:45:21.789Z"
+      "lastUpdated": "2026-08-15T16:00:24.205Z"
     }
   }
 }
