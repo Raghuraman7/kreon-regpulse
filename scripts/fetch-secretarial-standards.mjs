@@ -170,8 +170,15 @@ async function runCheckSecretarialStandards() {
       const checked = await checkOneStandard(url, prev);
       successCount++;
 
+      // Carry forward an earlier-this-month detection so an incidental re-run (e.g.
+      // workflow_dispatch) doesn't erase it before the monthly digest gets to read it.
+      if (prev?.checkMeta?.lastAmendmentDetectedAt) {
+        checked.checkMeta.lastAmendmentDetectedAt = prev.checkMeta.lastAmendmentDetectedAt;
+      }
+
       if (!prev && !isFirstEverRun) {
         console.log(`✨ New ICSI Secretarial Standard discovered: ${checked.title}`);
+        checked.checkMeta.lastAmendmentDetectedAt = new Date().toISOString();
         updates.push({
           id: `ss-${key}`,
           title: checked.title,
@@ -182,6 +189,7 @@ async function runCheckSecretarialStandards() {
         });
       } else if (prev && hasChanged(prev, checked)) {
         console.log(`✨ Revision detected in ${checked.title}`);
+        checked.checkMeta.lastAmendmentDetectedAt = new Date().toISOString();
         updates.push({
           id: `ss-${key}`,
           title: checked.title,

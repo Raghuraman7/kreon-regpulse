@@ -89,10 +89,20 @@ async function runCheckActsAndRules() {
       successCount++;
 
       const prev = prevByLink.get(act.link);
+      // Carry forward an earlier-this-month detection so an incidental re-run (e.g.
+      // workflow_dispatch) doesn't erase it before the monthly digest gets to read it.
+      if (prev?.checkMeta?.lastAmendmentDetectedAt) {
+        checked.checkMeta.lastAmendmentDetectedAt = prev.checkMeta.lastAmendmentDetectedAt;
+      }
       if (hasChanged(prev, checked)) {
         console.log(`✨ Amendment detected in ${act.title}`);
         const newLastAmended = checked.checkMeta.amendedSignal || checked.lastAmended;
         checked.lastAmended = newLastAmended;
+        // Recorded so the monthly digest (which runs on its own end-of-month cron,
+        // separate from this check) can find "amended this calendar month" — lastAmended
+        // itself is often free text like "Amended regularly via MCA notifications" with
+        // no parseable date, so it can't be used for that.
+        checked.checkMeta.lastAmendmentDetectedAt = new Date().toISOString();
         updatedActs.push({
           id: act.id,
           title: act.title,

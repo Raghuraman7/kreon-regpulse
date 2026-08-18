@@ -10,7 +10,7 @@ import nodemailer from "nodemailer";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { existsSync, readFileSync } from "node:fs";
-import { getRecipients } from "./email-notifier.mjs";
+import { getDigestRecipientGroups, CS_TEAM_CATEGORIES } from "./email-notifier.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -41,8 +41,6 @@ function loadEnv() {
 }
 loadEnv();
 
-// Monthly digest is a rollup of every category, so it goes to the union of CS team + CEO.
-const RECIPIENTS = getRecipients("digest");
 const DASHBOARD_URL = "https://kreonregpulse.vercel.app/";
 
 function createTransporter() {
@@ -145,6 +143,8 @@ export async function generateAndSendPeriodicDigest({ month, year } = {}) {
   const sebiCircsData = await readJsonFile("../data/sebi-circulars.json");
   const rbiMasterData = await readJsonFile("../data/master-directions.json");
   const sebiRegsData = await readJsonFile("../data/sebi-regulations.json");
+  const actsRulesData = await readJsonFile("../data/acts-rules.json");
+  const secStandardsData = await readJsonFile("../data/secretarial-standards.json");
 
   const allItems = [];
 
@@ -153,6 +153,7 @@ export async function generateAndSendPeriodicDigest({ month, year } = {}) {
     rbiNotifsData.notifications.forEach(n => {
       if (isInMonth(n.date, targetMonth, targetYear) || isInMonth(n.detectedAt, targetMonth, targetYear)) {
         allItems.push({
+          categoryKey: "rbiNotifications",
           source: "RBI",
           category: "Notification",
           title: n.circularNo ? `[${n.circularNo}] ${n.title}` : n.title,
@@ -169,6 +170,7 @@ export async function generateAndSendPeriodicDigest({ month, year } = {}) {
     sebiCircsData.circulars.forEach(c => {
       if (isInMonth(c.date, targetMonth, targetYear) || isInMonth(c.detectedAt, targetMonth, targetYear)) {
         allItems.push({
+          categoryKey: "sebiCirculars",
           source: "SEBI",
           category: "Circular",
           title: c.department ? `[${c.department}] ${c.title}` : c.title,
@@ -185,6 +187,7 @@ export async function generateAndSendPeriodicDigest({ month, year } = {}) {
     rbiMasterData.directions.forEach(d => {
       if (isInMonth(d.issuedDateRaw, targetMonth, targetYear) || isInMonth(d.issuedDate, targetMonth, targetYear)) {
         allItems.push({
+          categoryKey: "rbiMasterDirections",
           source: "RBI",
           category: "Master Direction",
           title: d.title,
@@ -201,6 +204,7 @@ export async function generateAndSendPeriodicDigest({ month, year } = {}) {
     Object.values(sebiRegsData.regulations).forEach(r => {
       if (isInMonth(r.amendedDate, targetMonth, targetYear) || isInMonth(r.lastUpdated, targetMonth, targetYear)) {
         allItems.push({
+          categoryKey: "sebiRegulations",
           source: "SEBI",
           category: "Regulation Amendment",
           title: `${r.shortName}: ${r.title}`,
@@ -212,21 +216,62 @@ export async function generateAndSendPeriodicDigest({ month, year } = {}) {
     });
   }
 
-  console.log(`Found ${allItems.length} regulatory releases for ${dateRangeString}.`);
+  // Acts & Rules / Secretarial Standards don't have a clean per-item amendment date
+  // (lastAmended is often free text like "Amended regularly via MCA notifications") —
+  // fetch-acts-rules.mjs / fetch-secretarial-standards.mjs instead stamp checkMeta.
+  // lastAmendmentDetectedAt the moment a change is actually detected, which is what
+  // we filter on here.
+  if (actsRulesData && actsRulesData.acts) {
+    actsRulesData.acts.forEach(a => {
+      if (isInMonth(a.checkMeta?.lastAmendmentDetectedAt, targetMonth, targetYear)) {
+        allItems.push({
+          categoryKey: "actsRules",
+          source: "MCA",
+          category: "Act/Rule Amendment",
+          title: a.title,
+          date: new Date(a.checkMeta.lastAmendmentDetectedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+          link: a.link,
+          pdfUrl: a.pdfUrl,
+        });
+      }
+    });
+  }
 
-  const rbiCount = allItems.filter(i => i.source === "RBI").length;
-  const sebiCount = allItems.filter(i => i.source === "SEBI").length;
+  if (secStandardsData && secStandardsData.standards) {
+    secStandardsData.standards.forEach(s => {
+      if (isInMonth(s.checkMeta?.lastAmendmentDetectedAt, targetMonth, targetYear)) {
+        allItems.push({
+          categoryKey: "secretarialStandards",
+          source: "ICSI",
+          category: "Secretarial Standard",
+          title: s.title,
+          date: new Date(s.checkMeta.lastAmendmentDetectedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+          link: s.link,
+          pdfUrl: s.pdfUrl,
+        });
+      }
+    });
+  }
+
+  console.log(`Found ${allItems.length} regulatory releases for ${dateRangeString}.`);
 
   // Digest table intentionally omits per-item summaries — title + date + links only.
   // Full summaries stay in the instant/live alert emails (email-notifier.mjs), which
   // fire per-item as things happen; repeating them here would make a whole-month
   // rollup unreadably long.
-  const tableRowsHtml = allItems.length > 0 ? allItems.map((item, idx) => `
+  const SOURCE_COLORS = { RBI: "#1F3A5F", SEBI: "#0D2538", MCA: "#7C2D12", ICSI: "#78350F" };
+
+  function renderDigestEmail(items, { scopeNote }) {
+    const rbiCount = items.filter(i => i.source === "RBI").length;
+    const sebiCount = items.filter(i => i.source === "SEBI").length;
+    const otherCount = items.length - rbiCount - sebiCount;
+
+    const tableRowsHtml = items.length > 0 ? items.map((item, idx) => `
     <tr style="background-color: ${idx % 2 === 0 ? "#FFFFFF" : "#F8FAFC"}; border-bottom: 1px solid #E2E8F0;">
       <td style="padding: 12px 10px; font-size: 13px; color: #475569; text-align: center; font-weight: bold;">${idx + 1}</td>
       <td style="padding: 12px 10px; font-size: 12px; color: #64748B; white-space: nowrap;">${item.date}</td>
       <td style="padding: 12px 10px; text-align: center;">
-        <span style="background-color: ${item.source === "RBI" ? "#1F3A5F" : "#0D2538"}; color: #FFFFFF; font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 4px;">${item.source}</span>
+        <span style="background-color: ${SOURCE_COLORS[item.source] || "#334155"}; color: #FFFFFF; font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 4px;">${item.source}</span>
       </td>
       <td style="padding: 12px 10px; font-size: 12px; color: #334155; font-weight: 600;">${item.category}</td>
       <td style="padding: 12px 14px; font-size: 13px; color: #0F172A;">${item.title}</td>
@@ -243,9 +288,9 @@ export async function generateAndSendPeriodicDigest({ month, year } = {}) {
     </tr>
   `;
 
-  const emailSubject = `📅 Kreon RegPulse: Monthly Executive Compliance Digest (${monthName} 1 – ${lastDayOfMonth}, ${targetYear}) — ${allItems.length} Releases`;
+    const emailSubject = `📅 Kreon RegPulse: Monthly Executive Compliance Digest (${monthName} 1 – ${lastDayOfMonth}, ${targetYear}) — ${items.length} Releases`;
 
-  const emailBody = `
+    const emailBody = `
     <!DOCTYPE html>
     <html>
     <head>
@@ -259,14 +304,14 @@ export async function generateAndSendPeriodicDigest({ month, year } = {}) {
         <div style="background-color: #1F3A5F; padding: 28px 32px; color: #FFFFFF;">
           <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: #93C5FD; margin-bottom: 6px;">Kreon RegPulse • Compliance Register</div>
           <h1 style="margin: 0; font-size: 24px; font-weight: 700; color: #FFFFFF;">${periodTitle}</h1>
-          <p style="margin: 6px 0 0 0; font-size: 14px; color: #CBD5E1;">Official Summary of RBI & SEBI updates for <strong>${dateRangeString}</strong></p>
+          <p style="margin: 6px 0 0 0; font-size: 14px; color: #CBD5E1;">Official Summary of RBI, SEBI, MCA &amp; ICSI updates for <strong>${dateRangeString}</strong></p>
         </div>
 
         <!-- Summary Stats Cards -->
         <div style="padding: 24px 32px; background-color: #F8FAFC; border-bottom: 1px solid #E2E8F0; display: flex; gap: 16px;">
           <div style="flex: 1; background-color: #FFFFFF; padding: 14px 18px; border-radius: 8px; border: 1px solid #E2E8F0;">
             <div style="font-size: 11px; color: #64748B; text-transform: uppercase; font-weight: bold;">Total Releases</div>
-            <div style="font-size: 24px; font-weight: bold; color: #1F3A5F; margin-top: 4px;">${allItems.length}</div>
+            <div style="font-size: 24px; font-weight: bold; color: #1F3A5F; margin-top: 4px;">${items.length}</div>
           </div>
           <div style="flex: 1; background-color: #FFFFFF; padding: 14px 18px; border-radius: 8px; border: 1px solid #E2E8F0;">
             <div style="font-size: 11px; color: #3B82F6; text-transform: uppercase; font-weight: bold;">RBI Updates</div>
@@ -276,13 +321,17 @@ export async function generateAndSendPeriodicDigest({ month, year } = {}) {
             <div style="font-size: 11px; color: #10B981; text-transform: uppercase; font-weight: bold;">SEBI Updates</div>
             <div style="font-size: 24px; font-weight: bold; color: #065F46; margin-top: 4px;">${sebiCount}</div>
           </div>
+          <div style="flex: 1; background-color: #FFFFFF; padding: 14px 18px; border-radius: 8px; border: 1px solid #E2E8F0;">
+            <div style="font-size: 11px; color: #B45309; text-transform: uppercase; font-weight: bold;">Acts &amp; SS Updates</div>
+            <div style="font-size: 24px; font-weight: bold; color: #78350F; margin-top: 4px;">${otherCount}</div>
+          </div>
         </div>
 
         <!-- Content Table -->
         <div style="padding: 24px 32px;">
           <p style="font-size: 14px; color: #334155; margin-top: 0;">Hello,</p>
           <p style="font-size: 14px; color: #334155; margin-bottom: 16px;">
-            Here is the executive compliance register table summarizing all regulatory amendments, circulars, notifications, and master direction updates released by <strong>RBI</strong> and <strong>SEBI</strong> for <strong>${dateRangeString}</strong>:
+            Here is the executive compliance register table summarizing ${scopeNote} released by <strong>RBI</strong> and <strong>SEBI</strong> for <strong>${dateRangeString}</strong>:
           </p>
 
           <p style="margin: 0 0 20px 0;">
@@ -320,33 +369,63 @@ export async function generateAndSendPeriodicDigest({ month, year } = {}) {
       </div>
     </body>
     </html>
-  `;
+    `;
+
+    return { subject: emailSubject, html: emailBody };
+  }
+
+  // CS team's digest is scoped to the categories they're actually subscribed to
+  // (mirrors CS_TEAM_CATEGORIES used for instant alerts) — CEO always gets everything.
+  const csItems = allItems.filter(i => CS_TEAM_CATEGORIES.has(i.categoryKey));
+  const groups = getDigestRecipientGroups();
 
   const transporter = createTransporter();
-  if (!transporter) {
-    console.log("\n------------------------------------------------------------------");
-    console.warn("⚠ SMTP credentials not configured. Mocking Periodic Digest output:");
-    console.warn(`Subject: ${emailSubject}`);
-    console.warn(`Recipients: ${RECIPIENTS.join(", ")}`);
-    console.warn(`Total items in table: ${allItems.length}`);
-    console.log("------------------------------------------------------------------\n");
-    return { success: false, reason: "SMTP credentials missing" };
+
+  async function sendTo(recipients, items, scopeNote, audienceLabel) {
+    if (recipients.length === 0) {
+      console.log(`⏭ Skipping ${audienceLabel} digest: no recipients configured.`);
+      return { success: false, reason: "No recipients configured" };
+    }
+
+    const { subject, html } = renderDigestEmail(items, { scopeNote });
+
+    if (!transporter) {
+      console.log("\n------------------------------------------------------------------");
+      console.warn(`⚠ SMTP credentials not configured. Mocking ${audienceLabel} digest output:`);
+      console.warn(`Subject: ${subject}`);
+      console.warn(`Recipients: ${recipients.join(", ")}`);
+      console.warn(`Total items in table: ${items.length}`);
+      console.log("------------------------------------------------------------------\n");
+      return { success: false, reason: "SMTP credentials missing" };
+    }
+
+    try {
+      const fromAddress = process.env.SMTP_FROM || `"Kreon RegPulse" <${process.env.SMTP_USER}>`;
+      const info = await transporter.sendMail({
+        from: fromAddress,
+        to: recipients.join(", "),
+        subject,
+        html,
+      });
+      console.log(`✅ ${audienceLabel} digest sent to ${recipients.join(", ")}! Message ID: ${info.messageId}`);
+      return { success: true, messageId: info.messageId };
+    } catch (err) {
+      console.error(`❌ Failed to send ${audienceLabel} digest:`, err);
+      return { success: false, error: err };
+    }
   }
 
-  try {
-    const fromAddress = process.env.SMTP_FROM || `"Kreon RegPulse" <${process.env.SMTP_USER}>`;
-    const info = await transporter.sendMail({
-      from: fromAddress,
-      to: RECIPIENTS.join(", "),
-      subject: emailSubject,
-      html: emailBody,
-    });
-    console.log(`✅ ${periodTitle} Email sent successfully to ${RECIPIENTS.join(", ")}! Message ID: ${info.messageId}`);
-    return { success: true, messageId: info.messageId };
-  } catch (err) {
-    console.error("❌ Failed to send digest email:", err);
-    return { success: false, error: err };
+  if (groups.mode === "flat") {
+    // Global override or no CS/CEO secrets configured — one shared mail, everything in it.
+    return sendTo(groups.csTeam, allItems, "all regulatory amendments, circulars, notifications, and master direction updates", "Combined");
   }
+
+  const [csResult, ceoResult] = await Promise.all([
+    sendTo(groups.csTeam, csItems, "the RBI Master Directions and SEBI Regulation amendments assigned to your team", "CS team"),
+    sendTo(groups.ceo, allItems, "all regulatory amendments, circulars, notifications, and master direction updates", "CEO"),
+  ]);
+
+  return { success: csResult.success || ceoResult.success, cs: csResult, ceo: ceoResult };
 }
 
 // Backward compatibility helper

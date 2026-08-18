@@ -47,5 +47,9 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add data/*.json
           git diff --cached --quiet && echo "No changes" || git commit -m "chore: refresh regulatory compliance data [skip ci]"
-          git push
+          # Rebase onto main before pushing — this workflow runs every 15 minutes and can
+          # overlap with the monthly workflows' own commits to data/*.json, so main may have
+          # moved since checkout. Retry once after a short backoff in case two runs race here.
+          git pull --rebase --autostash origin main
+          git push || (sleep 5 && git pull --rebase --autostash origin main && git push)
 
