@@ -8,6 +8,7 @@ import { writeFile, readFile, mkdir } from "node:fs/promises";
 import { sendRegulatoryAlert } from "./email-notifier.mjs";
 import { assertNonZeroItems } from "./lib/guards.mjs";
 import { withFileLock } from "./lib/file-lock.mjs";
+import { extractDateString, isFreshRelease } from "./lib/date-utils.mjs";
 
 const OUTPUT_PATH = new URL("../data/master-directions.json", import.meta.url);
 const NBFC_PAGE_URL = "https://www.rbi.org.in/Scripts/BS_ViewMasterDirections.aspx?did=411";
@@ -18,7 +19,8 @@ const BASE_URL = "https://www.rbi.org.in/Scripts/";
  */
 function parseRBIDate(str) {
   if (!str) return null;
-  const d = new Date(str.trim());
+  const cleaned = extractDateString(str) || str;
+  const d = new Date(cleaned.trim());
   return isNaN(d) ? str.trim() : d.toISOString();
 }
 
@@ -79,7 +81,7 @@ function parseDirectionsFromViewstate(html) {
 
   const rows = [];
   const linkRegex = /<a\s+class=["\x27]?link2["\x27]?\s+href=([^>]+)>\s*([\s\S]*?)<\/a>/g;
-  const dateHeaderRegex = /<b>((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},\s+\d{4})<\/b>/g;
+  const dateHeaderRegex = /<b>((?:January|February|March|April|May|June|July|August|September|Sept|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},?\s+\d{4})<\/b>/gi;
   const pdfLinkRegex = /href=['"]?(https:\/\/rbidocs\.rbi\.org\.in\/[^'"]+\.PDF)/gi;
 
   const dates = [];
@@ -193,7 +195,9 @@ async function runCheckRbiMasterDirections() {
     const prev = previousData.directions.find(p => p.link === dir.link);
     if (!prev) {
       console.log(`✨ New RBI Master Direction detected: ${dir.title}`);
-      updatedDirs.push(dir);
+      if (isFreshRelease(dir.issuedDate || dir.issuedDateRaw, 30)) {
+        updatedDirs.push(dir);
+      }
     } else if (prev.title !== dir.title) {
       console.log(`✨ Updated RBI Master Direction title detected: ${dir.title}`);
       updatedDirs.push(dir);

@@ -2,6 +2,7 @@ import { writeFile, readFile, mkdir } from "node:fs/promises";
 import { sendRegulatoryAlert } from "./email-notifier.mjs";
 import { assertNonZeroItems } from "./lib/guards.mjs";
 import { withFileLock } from "./lib/file-lock.mjs";
+import { extractDateString, isFreshRelease } from "./lib/date-utils.mjs";
 
 const DATA_PATH = new URL("../data/sebi-regulations.json", import.meta.url);
 const SEBI_LISTING_URL = "https://www.sebi.gov.in/sebiweb/home/HomeAction.do?doListing=yes&sid=1&ssid=3&smid=0";
@@ -90,12 +91,12 @@ function extractPdfLink(html) {
 
 function extractDate(html) {
   const divMatch = html.match(/class='date_value'[^>]*>\s*<h5>([^<]+)<\/h5>/i);
-  if (divMatch) return divMatch[1].trim();
+  if (divMatch) return extractDateString(divMatch[1]) || divMatch[1].trim();
 
   const bracketMatch = html.match(/\[Last amended on\s+([^\]]+)\]/i);
-  if (bracketMatch) return bracketMatch[1].trim();
+  if (bracketMatch) return extractDateString(bracketMatch[1]) || bracketMatch[1].trim();
 
-  return null;
+  return extractDateString(html) || null;
 }
 
 function extractTitle(html) {
@@ -142,9 +143,16 @@ async function runCheckSebiRegulations() {
 
       const prevData = previousData.regulations[key];
 
-      if (!prevData || prevData.link !== currentData.link || prevData.amendedDate !== currentData.amendedDate) {
-        console.log(`✨ Update detected in ${shortName}!`);
-        updatedRegs.push(currentData);
+      if (prevData) {
+        if (prevData.link !== currentData.link || prevData.amendedDate !== currentData.amendedDate) {
+          console.log(`✨ Update detected in ${shortName}!`);
+          updatedRegs.push(currentData);
+        }
+      } else {
+        console.log(`✨ New SEBI regulation tracked: ${shortName}`);
+        if (isFreshRelease(amendedDate, 30) && Object.keys(previousData.regulations).length > 0) {
+          updatedRegs.push(currentData);
+        }
       }
 
       nextRegulations[key] = currentData;

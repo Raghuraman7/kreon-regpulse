@@ -16,6 +16,7 @@ import { sendRegulatoryAlert } from "./email-notifier.mjs";
 import { assertNonZeroItems } from "./lib/guards.mjs";
 import { withFileLock } from "./lib/file-lock.mjs";
 import { extractAmendmentSignal, contentHash } from "./lib/change-detect.mjs";
+import { extractDateString, isFreshRelease } from "./lib/date-utils.mjs";
 
 const DATA_PATH = new URL("../data/secretarial-standards.json", import.meta.url);
 const SS_LISTING_URL = "https://www.icsi.edu/knowledgebase/secretarial-standards/";
@@ -126,7 +127,10 @@ function hasChanged(prev, next) {
   if (next.checkMeta.amendedSignal && prev.checkMeta.amendedSignal) {
     return next.checkMeta.amendedSignal !== prev.checkMeta.amendedSignal;
   }
-  return next.checkMeta.contentHash !== prev.checkMeta.contentHash;
+  if (next.checkMeta.amendedSignal && !prev.checkMeta.amendedSignal) {
+    return true;
+  }
+  return false;
 }
 
 export async function checkSecretarialStandards() {
@@ -176,6 +180,8 @@ async function runCheckSecretarialStandards() {
         checked.checkMeta.lastAmendmentDetectedAt = prev.checkMeta.lastAmendmentDetectedAt;
       }
 
+      const extractedDate = extractDateString(checked.checkMeta.amendedSignal) || new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+
       if (!prev && !isFirstEverRun) {
         console.log(`✨ New ICSI Secretarial Standard discovered: ${checked.title}`);
         checked.checkMeta.lastAmendmentDetectedAt = new Date().toISOString();
@@ -184,7 +190,7 @@ async function runCheckSecretarialStandards() {
           title: checked.title,
           link: checked.link,
           pdfUrl: checked.pdfUrl,
-          date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+          date: extractedDate,
           summary: `Newly discovered Secretarial Standard on the ICSI listing page — please review and confirm applicability.`,
         });
       } else if (prev && hasChanged(prev, checked)) {
@@ -195,7 +201,7 @@ async function runCheckSecretarialStandards() {
           title: checked.title,
           link: checked.link,
           pdfUrl: checked.pdfUrl,
-          date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+          date: extractedDate,
           summary: checked.checkMeta.amendedSignal
             ? `Amendment indicator changed: "${prev.checkMeta?.amendedSignal || prev.lastAmended}" → "${checked.checkMeta.amendedSignal}"`
             : `Source page content changed since the last check on ${prev.checkMeta?.lastCheckedAt?.slice(0, 10) || "an earlier date"}. Please verify what changed.`,
@@ -231,12 +237,14 @@ async function runCheckSecretarialStandards() {
   await writeFile(DATA_PATH, JSON.stringify(payload, null, 2));
   console.log(`Wrote ${nextStandards.length} Secretarial Standards entries to data/secretarial-standards.json (${successCount} checked successfully).`);
 
-  if (updates.length > 0) {
-    console.log(`✨ Detected ${updates.length} Secretarial Standard update(s). Dispatching alert email...`);
+  const freshAlerts = updates.filter(u => isFreshRelease(u.date, 30));
+
+  if (freshAlerts.length > 0) {
+    console.log(`✨ Detected ${freshAlerts.length} fresh Secretarial Standard update(s). Dispatching alert email...`);
     await sendRegulatoryAlert({
       source: "ICSI",
       category: "Secretarial Standard",
-      updates,
+      updates: freshAlerts,
       categoryKey: "secretarialStandards"
     });
   } else {

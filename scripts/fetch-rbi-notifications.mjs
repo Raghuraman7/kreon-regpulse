@@ -7,6 +7,7 @@ import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { sendRegulatoryAlert } from "./email-notifier.mjs";
 import { assertNonZeroItems } from "./lib/guards.mjs";
 import { withFileLock } from "./lib/file-lock.mjs";
+import { extractDateString, isFreshRelease } from "./lib/date-utils.mjs";
 
 const DATA_PATH = new URL("../data/rbi-notifications.json", import.meta.url);
 const RBI_NOTIF_LIST_URL = "https://www.rbi.org.in/Scripts/NotificationUser.aspx";
@@ -27,7 +28,7 @@ async function fetchPage(url, retries = 3) {
       const res = await fetch(url, {
         signal: AbortSignal.timeout(12000),
         headers: {
-          "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
           "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
           "Accept-Language": "en-US,en;q=0.9",
         }
@@ -48,12 +49,10 @@ async function fetchNotificationDetails(link) {
   try {
     const html = await fetchPage(link);
 
-    // Extract Date
-    const dateMatch = html.match(/<b>((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},\s+\d{4})<\/b>/i) ||
-                      html.match(/((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},\s+\d{4})/i);
-    const date = dateMatch ? dateMatch[1] : null;
+    // Extract Date using robust date-utils parser
+    const date = extractDateString(html);
 
-    // Extract Circular No (e.g., RBI/2026-27/203)
+    // Extract Circular No (e.g., RBI/2026-27/203 or RBI/2026-2027/231)
     const refMatch = html.match(/(RBI\/\d{4}-\d{2,4}\/\d+[^\n<]*)/i);
     const circularNo = refMatch ? refMatch[1].trim() : null;
 
@@ -102,8 +101,7 @@ async function runCheckRbiNotifications() {
       const pdfMatch = rowHtml.match(/href=["\x27]?(https?:\/\/[^"\x27\s>]+\.pdf)/i);
       const pdfUrl = pdfMatch ? pdfMatch[1] : null;
 
-      const dateMatch = rowHtml.match(/(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},\s+\d{4}/i);
-      const date = dateMatch ? dateMatch[0] : null;
+      const date = extractDateString(rowHtml);
 
       parsedItems.push({ id, title, link, pdfUrl, date });
     }
@@ -123,9 +121,10 @@ async function runCheckRbiNotifications() {
       
       // Fetch details for new notification
       const details = await fetchNotificationDetails(item.link);
+      const actualDate = details.date || item.date || new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
       const fullItem = {
         ...item,
-        date: item.date || details.date || new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+        date: actualDate,
         circularNo: details.circularNo,
         pdfUrl: item.pdfUrl || details.pdfUrl,
         summary: details.summary || item.title,
@@ -152,14 +151,20 @@ async function runCheckRbiNotifications() {
   await writeFile(DATA_PATH, JSON.stringify(payload, null, 2));
   console.log(`Updated data/rbi-notifications.json (${updatedList.length} total items).`);
 
-  if (newNotifications.length > 0 && previousData.notifications.length > 0) {
-    console.log(`✨ Detected ${newNotifications.length} new RBI notification(s). Dispatching instant email alert...`);
+  // Only dispatch instant alerts for items released today / within last 2 days,
+  // ensuring older historical or cached notifications never send emails.
+  const freshAlerts = newNotifications.filter(n => isFreshRelease(n.date, 2));
+
+  if (freshAlerts.length > 0 && previousData.notifications.length > 0) {
+    console.log(`✨ Detected ${freshAlerts.length} fresh RBI notification(s) issued today. Dispatching instant email alert...`);
     await sendRegulatoryAlert({
       source: "RBI",
       category: "Notification",
-      updates: newNotifications,
+      updates: freshAlerts,
       categoryKey: "rbiNotifications"
     });
+  } else if (newNotifications.length > 0 && freshAlerts.length === 0) {
+    console.log(`ℹ️ ${newNotifications.length} cached/historical RBI notification(s) updated in database (no email sent).`);
   } else if (previousData.notifications.length === 0) {
     console.log("Initialized RBI notifications baseline data.");
   } else {

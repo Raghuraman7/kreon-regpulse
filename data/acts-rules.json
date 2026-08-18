@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T06:14:11.038Z",
+  "generatedAt": "2026-08-18T11:52:02.240Z",
   "acts": [
     {
       "id": "act-1",
@@ -24,7 +24,7 @@
         "amendedSignal": null,
         "contentHash": "8102f80a91955cede4f334e180447da82236c2979a784aa72bf525cd9b556ef2",
         "sourceLastModified": "Wed, 24 Apr 2024 07:15:01 GMT",
-        "lastCheckedAt": "2026-08-12T06:13:49.766Z"
+        "lastCheckedAt": "2026-08-18T11:51:41.849Z"
       }
     },
     {
@@ -38,9 +38,10 @@
       "summary": "Establishes the Reserve Bank of India and provides the statutory framework for the regulation of NBFCs under Chapter III-B, governing registration, reserve funds, and directions.",
       "checkMeta": {
         "amendedSignal": null,
-        "contentHash": "0ae9c97b973f62faadad37a53f0d93cb9cc8c94e5e6fa894a9648c84363458a5",
+        "contentHash": "28264029ead52f9787fdb03e633499f9f87930f181d4e7f9f542be0ea27fade5",
         "sourceLastModified": null,
-        "lastCheckedAt": "2026-08-12T06:13:50.557Z"
+        "lastCheckedAt": "2026-08-18T11:51:42.199Z",
+        "lastAmendmentDetectedAt": "2026-08-18T11:50:04.079Z"
       }
     },
     {
@@ -54,9 +55,10 @@
       "summary": "Detailed rules under PMLA defining standard customer due diligence (CDD) procedures, transaction reporting forms (CTR, STR, CCR), and record preservation periods (5 years).",
       "checkMeta": {
         "amendedSignal": null,
-        "contentHash": "5ca01f4c56f05be19b26bf7d16c9dd50f4611f2d08817cafd88f85cdc2ba51b2",
+        "contentHash": "e67ef3483e10c9b147c87aa7aa651546d129274c5b55426b872e3ab20bd30410",
         "sourceLastModified": null,
-        "lastCheckedAt": "2026-08-12T06:13:50.809Z"
+        "lastCheckedAt": "2026-08-18T11:51:42.372Z",
+        "lastAmendmentDetectedAt": "2026-08-18T11:50:04.312Z"
       }
     },
     {
@@ -82,7 +84,7 @@
         "amendedSignal": null,
         "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "sourceLastModified": null,
-        "lastCheckedAt": "2026-08-12T06:13:55.599Z"
+        "lastCheckedAt": "2026-08-18T11:51:47.128Z"
       }
     },
     {
@@ -96,9 +98,10 @@
       "summary": "Governs credit bureaus (CIBIL, Equifax, Experian, CRIF High Mark) in India. Mandates that all lending NBFCs become members of all four CICs and update credit data monthly.",
       "checkMeta": {
         "amendedSignal": null,
-        "contentHash": "6d6dd8a420a1300aedd4152f4e966fe9fe29e6d719927ecc7d018b2ab9f6bb26",
+        "contentHash": "548be6e3ff13e78dea0cd7fe1d4dedee4a9022a894bd3174c0496bc3815bf687",
         "sourceLastModified": null,
-        "lastCheckedAt": "2026-08-12T06:13:55.779Z"
+        "lastCheckedAt": "2026-08-18T11:51:47.350Z",
+        "lastAmendmentDetectedAt": "2026-08-18T11:50:09.342Z"
       }
     },
     {
@@ -114,7 +117,7 @@
         "amendedSignal": null,
         "contentHash": "b97364cdaedf8fe579be72dc7b5715a7c09aa02da5913d4a20167882a98b4e0e",
         "sourceLastModified": "Fri, 19 Jun 2026 05:09:43 GMT",
-        "lastCheckedAt": "2026-08-12T06:13:57.102Z"
+        "lastCheckedAt": "2026-08-18T11:51:48.568Z"
       }
     },
     {
@@ -130,7 +133,7 @@
         "amendedSignal": null,
         "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "sourceLastModified": null,
-        "lastCheckedAt": "2026-08-12T06:13:57.125Z"
+        "lastCheckedAt": "2026-08-18T11:51:48.616Z"
       }
     },
     {
@@ -146,7 +149,7 @@
         "amendedSignal": null,
         "contentHash": "41dfb3c1a15e094b2d71d520ff5831e204f4115f5d90d2cfc455f6e0960259cc",
         "sourceLastModified": "Wed, 09 Jul 2025 05:08:00 GMT",
-        "lastCheckedAt": "2026-08-12T06:13:58.483Z"
+        "lastCheckedAt": "2026-08-18T11:51:49.943Z"
       }
     },
     {
@@ -162,7 +165,7 @@
         "amendedSignal": null,
         "contentHash": "dc3412179d09103592977b2340f21a10e7fd7e0586caf66986d26394b812ce90",
         "sourceLastModified": "Thu, 24 Aug 2023 10:45:18 GMT",
-        "lastCheckedAt": "2026-08-12T06:14:01.647Z"
+        "lastCheckedAt": "2026-08-18T11:51:52.804Z"
       }
     },
     {

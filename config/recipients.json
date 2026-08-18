@@ -1,10 +1,18 @@
 {
-  "default": [
+  "csTeam": [
     "umamaheswari.s@stucred.com",
-    "raghuraman@stucred.com",
-    "shubhrajyoti.c@stucred.com"
+    "shubhrajyoti.c@stucred.com",
+    "raghuraman@stucred.com"
+  ],
+  "ceo": [
+    "raghuraman@stucred.com"
   ],
   "devOps": [
+    "raghuraman@stucred.com"
+  ],
+  "default": [
+    "umamaheswari.s@stucred.com",
+    "shubhrajyoti.c@stucred.com",
     "raghuraman@stucred.com"
   ]
 }

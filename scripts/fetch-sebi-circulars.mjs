@@ -7,6 +7,7 @@ import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { sendRegulatoryAlert } from "./email-notifier.mjs";
 import { assertNonZeroItems } from "./lib/guards.mjs";
 import { withFileLock } from "./lib/file-lock.mjs";
+import { extractDateString, isFreshRelease } from "./lib/date-utils.mjs";
 
 const DATA_PATH = new URL("../data/sebi-circulars.json", import.meta.url);
 const SEBI_CIRCULAR_LIST_URL = "https://www.sebi.gov.in/sebiweb/home/HomeAction.do?doListing=yes&sid=1&ssid=7&smid=0";
@@ -56,9 +57,7 @@ async function fetchCircularDetails(url) {
     const title = h1Match ? h1Match[1].replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim() : "";
 
     // Date
-    const dateMatch = html.match(/class=\x27date_value\x27[^>]*>\s*<h5>([^<]+)<\/h5>/i) ||
-                      html.match(/((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},\s+\d{4})/i);
-    const date = dateMatch ? dateMatch[1].trim() : null;
+    const date = extractDateString(html);
 
     // PDF URL
     const pdfMatch = html.match(/iframe\s+src=\x27[^\x27]*?file=([^\x27&]+)/i) ||
@@ -229,14 +228,20 @@ async function runCheckSebiCirculars() {
   await writeFile(DATA_PATH, JSON.stringify(payload, null, 2));
   console.log(`Updated data/sebi-circulars.json (${updatedList.length} total items).`);
 
-  if (newCirculars.length > 0 && previousData.circulars.length > 0) {
-    console.log(`✨ Detected ${newCirculars.length} new SEBI circular(s). Dispatching instant email alert...`);
+  // Only dispatch instant alerts for circulars released today / within last 2 days,
+  // ensuring older historical or cached circulars never send emails.
+  const freshAlerts = newCirculars.filter(c => isFreshRelease(c.date, 2));
+
+  if (freshAlerts.length > 0 && previousData.circulars.length > 0) {
+    console.log(`✨ Detected ${freshAlerts.length} fresh SEBI circular(s) issued today. Dispatching instant email alert...`);
     await sendRegulatoryAlert({
       source: "SEBI",
       category: "Circular",
-      updates: newCirculars,
+      updates: freshAlerts,
       categoryKey: "sebiCirculars"
     });
+  } else if (newCirculars.length > 0 && freshAlerts.length === 0) {
+    console.log(`ℹ️ ${newCirculars.length} cached/historical SEBI circular(s) updated in database (no email sent).`);
   } else if (previousData.circulars.length === 0) {
     console.log("Initialized SEBI circulars baseline data.");
   } else {

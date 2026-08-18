@@ -94,31 +94,29 @@ export function getRecipients(categoryKey) {
     return process.env.EMAIL_RECIPIENTS.split(",").map(e => e.trim()).filter(Boolean);
   }
 
-  const csTeam = envList("CS_TEAM_RECIPIENTS");
-  const ceo = envList("CEO_RECIPIENTS");
+  const csTeam = envList("CS_TEAM_RECIPIENTS").length > 0
+    ? envList("CS_TEAM_RECIPIENTS")
+    : (RECIPIENTS_CONFIG.csTeam || RECIPIENTS_CONFIG.default || []);
 
-  if (csTeam.length > 0 || ceo.length > 0) {
-    if (categoryKey === "digest") {
-      return dedupe([...csTeam, ...ceo]);
-    }
-    if (categoryKey && CS_TEAM_CATEGORIES.has(categoryKey)) {
-      return dedupe([...csTeam, ...ceo]); // CEO gets everything CS gets too
-    }
-    if (categoryKey) {
-      return dedupe(ceo); // rbiNotifications / sebiCirculars: CEO only
-    }
+  const ceo = envList("CEO_RECIPIENTS").length > 0
+    ? envList("CEO_RECIPIENTS")
+    : (RECIPIENTS_CONFIG.ceo || RECIPIENTS_CONFIG.default || []);
+
+  if (categoryKey === "digest" || (categoryKey && CS_TEAM_CATEGORIES.has(categoryKey))) {
+    // CS Team + CEO both get CS Predefined Policies (Master Directions, SEBI Regs, Acts, ICSI Standards)
+    return dedupe([...csTeam, ...ceo]);
   }
 
-  return DEFAULT_RECIPIENTS;
+  if (categoryKey) {
+    // CEO gets overall daily RBI Notifications & SEBI Circulars
+    return dedupe(ceo);
+  }
+
+  return dedupe([...csTeam, ...ceo]);
 }
 
 /**
- * Resolves the two audiences for the monthly digest, which — unlike single-category
- * instant alerts — needs both groups at once so each can get its own scoped email
- * instead of one mail addressed to the merged list.
- *
- * mode "flat" means both groups are the same list (global override or the
- * no-secrets-configured fallback) and callers should send just one email, not two.
+ * Resolves the two audiences for the monthly digest.
  */
 export function getDigestRecipientGroups() {
   if (process.env.EMAIL_RECIPIENTS) {
@@ -126,12 +124,13 @@ export function getDigestRecipientGroups() {
     return { mode: "flat", csTeam: flat, ceo: flat };
   }
 
-  const csTeam = envList("CS_TEAM_RECIPIENTS");
-  const ceo = envList("CEO_RECIPIENTS");
+  const csTeam = envList("CS_TEAM_RECIPIENTS").length > 0
+    ? envList("CS_TEAM_RECIPIENTS")
+    : (RECIPIENTS_CONFIG.csTeam || RECIPIENTS_CONFIG.default || []);
 
-  if (csTeam.length === 0 && ceo.length === 0) {
-    return { mode: "flat", csTeam: DEFAULT_RECIPIENTS, ceo: DEFAULT_RECIPIENTS };
-  }
+  const ceo = envList("CEO_RECIPIENTS").length > 0
+    ? envList("CEO_RECIPIENTS")
+    : (RECIPIENTS_CONFIG.ceo || RECIPIENTS_CONFIG.default || []);
 
   return { mode: "split", csTeam, ceo };
 }

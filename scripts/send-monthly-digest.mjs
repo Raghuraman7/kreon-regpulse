@@ -68,26 +68,16 @@ async function readJsonFile(path) {
   }
 }
 
+import { extractDateString } from "./lib/date-utils.mjs";
+
 /**
  * Parses date string to JavaScript Date object
  */
 function parseToDate(dateStr) {
   if (!dateStr) return null;
-  const d = new Date(dateStr);
+  const cleaned = extractDateString(dateStr) || dateStr;
+  const d = new Date(cleaned);
   if (!isNaN(d.getTime())) return d;
-
-  const monthNames = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
-  const lower = dateStr.toLowerCase();
-  
-  for (let i = 0; i < monthNames.length; i++) {
-    if (lower.includes(monthNames[i])) {
-      const yearMatch = lower.match(/\b(20\d{2})\b/);
-      const dayMatch = lower.match(/\b([1-9]|[12]\d|3[01])\b/);
-      if (yearMatch && dayMatch) {
-        return new Date(parseInt(yearMatch[1], 10), i, parseInt(dayMatch[1], 10));
-      }
-    }
-  }
   return null;
 }
 
@@ -101,12 +91,7 @@ function isInMonth(dateStr, targetMonth, targetYear) {
   if (parsed) {
     return (parsed.getMonth() + 1 === targetMonth) && (parsed.getFullYear() === targetYear);
   }
-
-  // String fallback
-  const monthNames = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
-  const lower = dateStr.toLowerCase();
-  const targetMonthName = monthNames[targetMonth - 1];
-  return lower.includes(targetMonthName) && lower.includes(String(targetYear));
+  return false;
 }
 
 export async function generateAndSendPeriodicDigest({ month, year } = {}) {

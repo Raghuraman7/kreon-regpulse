@@ -15,6 +15,7 @@
     "fetch:monthly": "node scripts/fetch-monthly.mjs",
     "watch": "node scripts/watch-realtime.mjs",
     "digest:monthly": "node scripts/send-monthly-digest.mjs",
+    "dev": "npx serve .",
     "serve": "npx serve .",
     "start": "npm run fetch && npx serve ."
   },
@@ -23,5 +24,8 @@
     "fast-xml-parser": "^5.10.0",
     "nodemailer": "^9.0.3",
     "proper-lockfile": "^4.1.2"
+  },
+  "devDependencies": {
+    "serve": "^14.2.6"
   }
 }

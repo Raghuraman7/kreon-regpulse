@@ -9,6 +9,7 @@ import { sendRegulatoryAlert } from "./email-notifier.mjs";
 import { assertNonZeroItems } from "./lib/guards.mjs";
 import { withFileLock } from "./lib/file-lock.mjs";
 import { extractAmendmentSignal, contentHash } from "./lib/change-detect.mjs";
+import { extractDateString, isFreshRelease } from "./lib/date-utils.mjs";
 
 const DATA_PATH = new URL("../data/acts-rules.json", import.meta.url);
 
@@ -63,10 +64,21 @@ async function checkOneAct(act) {
 function hasChanged(prevAct, nextAct) {
   const prevMeta = prevAct?.checkMeta;
   if (!prevMeta) return false; // no baseline yet — first check for this act, don't alert
+
+  // If nextAct has an explicit amendment signal and it differs from previous
   if (nextAct.checkMeta.amendedSignal && prevMeta.amendedSignal) {
     return nextAct.checkMeta.amendedSignal !== prevMeta.amendedSignal;
   }
-  return nextAct.checkMeta.contentHash !== prevMeta.contentHash;
+  if (nextAct.checkMeta.amendedSignal && !prevMeta.amendedSignal) {
+    return true;
+  }
+
+  // If source last-modified header changed
+  if (nextAct.checkMeta.sourceLastModified && prevMeta.sourceLastModified) {
+    return nextAct.checkMeta.sourceLastModified !== prevMeta.sourceLastModified;
+  }
+
+  return false;
 }
 
 export async function checkActsAndRules() {
@@ -98,17 +110,14 @@ async function runCheckActsAndRules() {
         console.log(`✨ Amendment detected in ${act.title}`);
         const newLastAmended = checked.checkMeta.amendedSignal || checked.lastAmended;
         checked.lastAmended = newLastAmended;
-        // Recorded so the monthly digest (which runs on its own end-of-month cron,
-        // separate from this check) can find "amended this calendar month" — lastAmended
-        // itself is often free text like "Amended regularly via MCA notifications" with
-        // no parseable date, so it can't be used for that.
         checked.checkMeta.lastAmendmentDetectedAt = new Date().toISOString();
+        const extractedDate = extractDateString(checked.checkMeta.amendedSignal) || new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
         updatedActs.push({
           id: act.id,
           title: act.title,
           link: act.link,
           pdfUrl: act.pdfUrl,
-          date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+          date: extractedDate,
           summary: checked.checkMeta.amendedSignal
             ? `Amendment indicator changed: "${prev.checkMeta?.amendedSignal || act.lastAmended}" → "${checked.checkMeta.amendedSignal}"`
             : `Source page content changed since the last check on ${prev.checkMeta?.lastCheckedAt?.slice(0, 10) || "an earlier date"}. No explicit "last amended" text was found — please verify what changed on the source page.`,
@@ -133,12 +142,14 @@ async function runCheckActsAndRules() {
   await writeFile(DATA_PATH, JSON.stringify(payload, null, 2));
   console.log(`Wrote ${nextActs.length} Acts & Rules entries to data/acts-rules.json (${successCount} checked successfully).`);
 
-  if (updatedActs.length > 0) {
-    console.log(`✨ Detected ${updatedActs.length} Act/Rule amendment(s). Dispatching alert email...`);
+  const freshAlerts = updatedActs.filter(a => isFreshRelease(a.date, 30));
+
+  if (freshAlerts.length > 0) {
+    console.log(`✨ Detected ${freshAlerts.length} Act/Rule amendment(s). Dispatching alert email...`);
     await sendRegulatoryAlert({
       source: "MCA",
       category: "Act/Rule Amendment",
-      updates: updatedActs,
+      updates: freshAlerts,
       categoryKey: "actsRules"
     });
   } else {
