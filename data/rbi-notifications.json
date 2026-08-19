@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-08-19T10:25:23.957Z",
+  "lastChecked": "2026-08-19T10:54:47.880Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13678",
+      "title": "Implementation of Section 51A of UAPA, 1967: Updates to UNSC’s 1267/ 1989 ISIL (Da'esh) & Al-Qaida Sanctions List: Amendment of 21 Entries",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13678&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/236NT48287D55E7B846B283FE9DD0875AD70A.PDF",
+      "date": "Aug 19, 2026",
+      "circularNo": "RBI/2026-27/236",
+      "summary": "The Chairpersons/ CEOs of the Commercial Banks, Small Finance Banks, Payment Banks, Urban Co-operative Banks, Rural Co-operative Banks, Regional Rural Banks, Local Area Banks, Non-Banking Financial Companies, Asset Reconstruction Companies, All India Financial Institutions<br/><br/>Implementation of Section 51A of UAPA, 1967: Updates to UNSC’s 1267/ 1989 ISIL (Da'esh) & Al-Qaida Sanctions List: Amendment of 21 Entries<br/><br/>Please refer to Chapter IX on “Requirements/obligations under International Agreements - Communications from International Agencies” of the Reserve Bank of India - Know Your Customer, Directions, 2025 dated November 28, 2025 (amended as on December 29, 2025) (“Directions”), as applicable, as per which, regulated entity shall ensure that in terms of section 51A of the Unlawful Activities (Prevention) (UAPA) Act, 1967 and amendments thereto, it does not have any account in the name of individuals / entities appearing in the lists of individuals and entities, suspected of having terrorist links, which are approved by and periodically circulated by the United Nations Security Council (UNSC).",
+      "detectedAt": "2026-08-19T10:54:47.880Z"
+    },
     {
       "id": "rbi-notif-13671",
       "title": "Reserve Bank of India (All India Financial Institutions - Responsible Business Conduct) Third Amendment Directions, 2026",
@@ -991,16 +1001,6 @@
       "circularNo": null,
       "summary": "Reserve Bank of India (Commercial Banks - Compliance Function) Directions, 2026<br/><br/>Compliance function is a key element of a bank’s corporate governance framework and an integral part of assurance, alongside internal audit and risk management processes. The principles governing the Compliance function are aligned with the Basel Committee on Banking Supervision framework, adapted to the Indian operating environment, and extend to bank-led Financial Conglomerates for managing group-wide compliance risk. While minimum standards are prescribed, the bank shall organise its Compliance function and prioritise compliance risk management in a manner commensurate with its size, complexity, risk profile, and organisational structure.<br/><br/>In exercise of the powers conferred by Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.",
       "detectedAt": "2026-08-18T11:22:57.499Z"
-    },
-    {
-      "id": "rbi-notif-13626",
-      "title": "Reserve Bank of India (Payments Banks – Concurrent Audit) Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13626&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/427MD7FCE1B261A9043DC9F6B526DAC24BCF3.PDF",
-      "date": "Aug 18, 2026",
-      "circularNo": null,
-      "summary": "Reserve Bank of India (Payments Banks – Concurrent Audit) Directions, 2026<br/><br/>Concurrent audit aims at shortening the interval between a transaction and its independent examination. It is, therefore, integral to the establishment of sound internal accounting functions and effective controls and is regarded as part of a bank's early warning system to ensure timely detection of serious errors and irregularities, which also helps in averting fraudulent transactions and preventive vigilance in the bank.<br/><br/>In exercise of the powers conferred by Section 35A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues the Directions hereinafter specified.",
-      "detectedAt": "2026-08-18T11:22:57.974Z"
     }
   ]
 }
