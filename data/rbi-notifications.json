@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-08-19T10:54:47.880Z",
+  "lastChecked": "2026-08-19T11:22:16.156Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13626",
+      "title": "Reserve Bank of India (Payments Banks – Concurrent Audit) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13626&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/427MD7FCE1B261A9043DC9F6B526DAC24BCF3.PDF",
+      "date": "Jul 31, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Payments Banks – Concurrent Audit) Directions, 2026<br/><br/>Concurrent audit aims at shortening the interval between a transaction and its independent examination. It is, therefore, integral to the establishment of sound internal accounting functions and effective controls and is regarded as part of a bank's early warning system to ensure timely detection of serious errors and irregularities, which also helps in averting fraudulent transactions and preventive vigilance in the bank.<br/><br/>In exercise of the powers conferred by Section 35A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues the Directions hereinafter specified.",
+      "detectedAt": "2026-08-19T11:22:16.156Z"
+    },
     {
       "id": "rbi-notif-13678",
       "title": "Implementation of Section 51A of UAPA, 1967: Updates to UNSC’s 1267/ 1989 ISIL (Da'esh) & Al-Qaida Sanctions List: Amendment of 21 Entries",
@@ -991,16 +1001,6 @@
       "circularNo": null,
       "summary": "Consolidation of Supervisory Instructions – Repeal of Circulars<br/><br/>Please refer to the press release issued on July 31, 2026 announcing the release of 64 Consolidated Directions administered by the Department of Supervision (DoS) of the Reserve Bank of India.<br/><br/>2. These Directions encompass all instructions issued by DoS as well as the erstwhile Departments whose supervisory functions have been merged into DoS, either partly or fully. Further, the extant instructions considered obsolete have been excluded from the consolidated Directions as they are no longer relevant.",
       "detectedAt": "2026-08-18T11:22:56.738Z"
-    },
-    {
-      "id": "rbi-notif-13645",
-      "title": "Reserve Bank of India (Commercial Banks - Compliance Function) Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13645&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/408MD83CAFF1305FB4180A6C3B4E68C88ED09.PDF",
-      "date": "Aug 18, 2026",
-      "circularNo": null,
-      "summary": "Reserve Bank of India (Commercial Banks - Compliance Function) Directions, 2026<br/><br/>Compliance function is a key element of a bank’s corporate governance framework and an integral part of assurance, alongside internal audit and risk management processes. The principles governing the Compliance function are aligned with the Basel Committee on Banking Supervision framework, adapted to the Indian operating environment, and extend to bank-led Financial Conglomerates for managing group-wide compliance risk. While minimum standards are prescribed, the bank shall organise its Compliance function and prioritise compliance risk management in a manner commensurate with its size, complexity, risk profile, and organisational structure.<br/><br/>In exercise of the powers conferred by Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.",
-      "detectedAt": "2026-08-18T11:22:57.499Z"
     }
   ]
 }
