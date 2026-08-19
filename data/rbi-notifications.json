@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-08-19T13:30:55.377Z",
+  "lastChecked": "2026-08-19T14:17:28.610Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13675",
+      "title": "Formation of new districts in the Union Territory of Ladakh – Assignment of Lead Bank Responsibility",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13675&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NOT2334EAC2F82B084424A83115F1941151F29.PDF",
+      "date": "Aug 10, 2026",
+      "circularNo": "RBI/2026-27/233",
+      "summary": "The Chairman / Managing Director & Chief Executive Officer Lead Banks Concerned<br/><br/>Formation of new districts in the Union Territory of Ladakh – Assignment of Lead Bank Responsibility<br/><br/>The Administration of Union Territory (UT) of Ladakh has notified formation of five new districts, viz., Sham, Nubra, Changthang, Zanskar and Drass in the UT of Ladakh vide Gazette Notification SG-LD-E-27042026-1712 dated April 27, 2026. Accordingly, it has been decided to designate the Lead Bank of the new districts as below:",
+      "detectedAt": "2026-08-19T14:17:28.610Z"
+    },
     {
       "id": "rbi-notif-13664",
       "title": "Implementation of Section 51A of UAPA, 1967: Updates to UNSC’s 1988 (2011) Taliban Sanctions List: Amendment of 05 Entries:",
@@ -991,16 +1001,6 @@
       "circularNo": "RBI/2026-27/201",
       "summary": "Reserve Bank of India (Regional Rural Banks – Income Recognition, Asset Classification and Provisioning) Second Amendment Directions, 2026<br/><br/>Please refer to Reserve Bank of India (Regional Rural Banks – Resolution of Stressed Assets) Second Amendment Directions, 2026 dated July 16, 2026.<br/><br/>2. Consequent to the aforesaid Amendment Directions, in, in exercise of the powers conferred by the sections 21 and 35A of the Banking Regulation Act, 1949 and all other laws enabling the Reserve Bank in this regard, the Reserve Bank being satisfied that it is necessary and expedient in the public interest so to do, hereby issues the Amendment Directions hereinafter specified.",
       "detectedAt": "2026-08-18T11:34:05.348Z"
-    },
-    {
-      "id": "rbi-notif-13578",
-      "title": "Reserve Bank of India (Rural Co-operative Banks – Income Recognition, Asset Classification and Provisioning) Third Amendment Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13578&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT200854D69DFD8154AC2B98D26E4A461808D.PDF",
-      "date": "Aug 18, 2026",
-      "circularNo": "RBI/2026-27/200",
-      "summary": "Reserve Bank of India (Rural Co-operative Banks – Income Recognition, Asset Classification and Provisioning) Third Amendment Directions, 2026<br/><br/>Please refer to Reserve Bank of India (Rural Co-operative Banks – Resolution of Stressed Assets) Second Amendment Directions, 2026 dated July 16, 2026.<br/><br/>2. Consequent to the aforesaid Amendment Directions, in, in exercise of the powers conferred by the sections 21, 35A and 56 of the Banking Regulation Act, 1949 and all other laws enabling the Reserve Bank in this regard, the Reserve Bank being satisfied that it is necessary and expedient in the public interest so to do, hereby issues the Amendment Directions hereinafter specified.",
-      "detectedAt": "2026-08-18T11:34:05.930Z"
     }
   ]
 }
