@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-08-20T10:46:41.908Z",
-  "count": 27,
+  "lastChecked": "2026-08-20T11:24:07.371Z",
+  "count": 28,
   "circulars": [
+    {
+      "id": "sebi-circ-103823",
+      "link": "https://www.sebi.gov.in/legal/circulars/aug-2026/enabling-sharing-of-information-by-kyc-registration-agencies-kras-with-entities-regulated-by-international-financial-services-centres-authority_103823.html",
+      "title": "Enabling sharing of information by KYC Registration Agencies (KRAs) with entities regulated by International Financial Services Centres Authority",
+      "date": "Aug 20, 2026",
+      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/aug-2026/1787223790297.pdf",
+      "department": null,
+      "summary": "Circular issued by SEBI: Enabling sharing of information by KYC Registration Agencies (KRAs) with entities regulated by International Financial Services Centres Authority",
+      "detectedAt": "2026-08-20T11:24:05.626Z"
+    },
     {
       "id": "sebi-circ-103030",
       "link": "https://www.sebi.gov.in/legal/circulars/jul-2026/ease-of-doing-investment-and-ease-of-doing-business-simplification-and-standardisation-of-the-framework-for-transmission-of-securities_103030.html",
