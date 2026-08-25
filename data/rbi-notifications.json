@@ -1,7 +1,47 @@
 {
-  "lastChecked": "2026-08-25T15:14:15.026Z",
+  "lastChecked": "2026-08-25T16:03:01.656Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13674",
+      "title": "Reserve Bank of India (Priority Sector Lending – Targets and Classification) Second Amendment Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13674&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT232EB06EBC84FC84481A5D70B6FD75574E6.PDF",
+      "date": "Aug 7, 2026",
+      "circularNo": "RBI/2026-27/232",
+      "summary": "Reserve Bank of India (Priority Sector Lending – Targets and Classification) Second Amendment Directions, 2026<br/><br/>Please refer to the Governor’s Statement dated June 5, 2026, and RBI circular FMOD.MAOG.No.S-56/01.06.016/2026-27 dated June 08, 2026 on ‘Swap Facility for FCNR (B) Deposits’, wherein it has been decided to introduce a US Dollar-Rupee swap facility for fresh Foreign Currency Non-Resident (Bank) [FCNR (B)] dollar funds, mobilised for a minimum tenor of three years and maximum tenor of five years.<br/><br/>2. Further, reference is also invited to the Reserve Bank of India (Cash Reserve Ratio and Statutory Liquidity Ratio) Second and Third Amendment Directions dated June 08, 2026 and June 19, 2026, as applicable to various banks, wherein exemption has been provided from maintenance of Cash Reserve Ratio and Statutory Liquidity Ratio on fresh FCNR (B) deposits of minimum tenor of three years and maximum tenor of five years mobilised (including deposits that are renewed upon maturity) between June 08, 2026 and September 30, 2026, and on fresh Non-Resident (External) Rupee (NRE) term deposits of tenor of three years or more mobilised (including deposits that are renewed upon maturity) between June 19, 2026 and September 30, 2026.",
+      "detectedAt": "2026-08-25T16:02:59.006Z"
+    },
+    {
+      "id": "rbi-notif-13629",
+      "title": "Reserve Bank of India (Small Finance Banks - Supervisory Returns) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13629&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/424MD2CF5C97A54FA4C2883108496BBEF2D80.PDF",
+      "date": "Jul 31, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Small Finance Banks - Supervisory Returns) Directions, 2026<br/><br/>In exercise of powers conferred under Section 27 and Section 35-A of the Banking Regulation Act, 1949, Chapter III-A the Reserve Bank of India Act, 1934, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
+      "detectedAt": "2026-08-25T16:03:00.529Z"
+    },
+    {
+      "id": "rbi-notif-13628",
+      "title": "Reserve Bank of India (Small Finance Banks – Miscellaneous) Supervisory Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13628&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/425MD0436481B095C48CD89101DA2ACCD152E.PDF",
+      "date": "Jul 31, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Small Finance Banks – Miscellaneous) Supervisory Directions, 2026<br/><br/>In exercise of the powers conferred by Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest to do so, hereby, issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
+      "detectedAt": "2026-08-25T16:03:01.157Z"
+    },
+    {
+      "id": "rbi-notif-13627",
+      "title": "Reserve Bank of India (Payments Banks - Compliance Function) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13627&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/426MDAC33102EE3FA40DA842AAF54921D76DD.PDF",
+      "date": "Jul 31, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Payments Banks - Compliance Function) Directions, 2026<br/><br/>Compliance function is a key element of a bank’s corporate governance framework and an integral part of assurance, alongside internal audit and risk management processes. The principles governing the Compliance function are aligned with the Basel Committee on Banking Supervision framework, adapted to the Indian operating environment, and extend to bank-led Financial Conglomerates for managing group-wide compliance risk. While minimum standards are prescribed, the bank shall organise its Compliance function and prioritise compliance risk management in a manner commensurate with its size, complexity, risk profile, and organisational structure.<br/><br/>In exercise of the powers conferred by Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.",
+      "detectedAt": "2026-08-25T16:03:01.655Z"
+    },
     {
       "id": "rbi-notif-13690",
       "title": "Reserve Bank of India (Rural Co-operative Banks – Interest Rate on Deposits) Second Amendment Directions, 2026",
@@ -961,46 +1001,6 @@
       "circularNo": null,
       "summary": "Reserve Bank of India (Small Finance Banks – Financial Statements: Presentation and Disclosures) Fourth Amendment Directions, 2026<br/><br/>Please refer to the Reserve Bank of India (Small Finance Banks – Financial Statements - Presentation and Disclosures) Directions, 2025 (hereinafter referred to as ‘the Directions’).<br/><br/>2. On a review, consequent to the issuance of the Reserve Bank of India (Small Finance Banks - Prudential Norms on Capital Adequacy) Fifth Amendment Directions, 2026, pertaining to Basel Pillar 3 disclosures, and in exercise of the powers conferred by the section 35A of the Banking Regulation Act, 1949 and all other laws enabling the Reserve Bank of India (hereinafter called the Reserve Bank) in this regard, the Reserve Bank being satisfied that it is necessary and expedient in the public interest so to do, hereby issues the Amendment Directions hereinafter specified.",
       "detectedAt": "2026-08-18T11:38:27.040Z"
-    },
-    {
-      "id": "rbi-notif-13654",
-      "title": "Reserve Bank of India (Small Finance Banks – Governance) Third Amendment Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13654&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT212F2A934710D6A4CDC9E71067C94DC170F.PDF",
-      "date": "Aug 18, 2026",
-      "circularNo": null,
-      "summary": "Reserve Bank of India (Small Finance Banks – Governance) Third Amendment Directions, 2026<br/><br/>Please refer to the Reserve Bank of India (Small Finance Banks – Governance) Directions, 2025 (hereinafter referred to as ‘the Directions’).<br/><br/>2. On a review, consequent to the issuance of the Reserve Bank of India (Small Finance Banks - Prudential Norms on Capital Adequacy) Fifth Amendment Directions, 2026, pertaining to Basel Pillar 3 disclosures, and in exercise of the powers conferred by the section 35A of the Banking Regulation Act, 1949 and all other laws enabling the Reserve Bank of India (hereinafter called the Reserve Bank) in this regard, the Reserve Bank being satisfied that it is necessary and expedient in the public interest so to do, hereby issues the Amendment Directions hereinafter specified.",
-      "detectedAt": "2026-08-18T11:38:27.410Z"
-    },
-    {
-      "id": "rbi-notif-13653",
-      "title": "Reserve Bank of India (Small Finance Banks – Asset Liability Management) Amendment Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13653&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT2119F4396DD846F40AD93EC8730D34E1DB7.PDF",
-      "date": "Aug 18, 2026",
-      "circularNo": null,
-      "summary": "Reserve Bank of India (Small Finance Banks – Asset Liability Management) Amendment Directions, 2026<br/><br/>Please refer to the Reserve Bank of India (Small Finance Banks – Asset Liability Management) Directions, 2025 (hereinafter referred to as ‘the Directions’).<br/><br/>2. On a review, consequent to the issuance of the Reserve Bank of India (Small Finance Banks - Prudential Norms on Capital Adequacy) Fifth Amendment Directions, 2026, pertaining to Basel Pillar 3 disclosures, and in exercise of the powers conferred by the section 35A of the Banking Regulation Act, 1949 and all other laws enabling the Reserve Bank of India (hereinafter called the Reserve Bank) in this regard, the Reserve Bank being satisfied that it is necessary and expedient in the public interest so to do, hereby issues the Amendment Directions hereinafter specified.",
-      "detectedAt": "2026-08-18T11:38:27.869Z"
-    },
-    {
-      "id": "rbi-notif-13652",
-      "title": "Reserve Bank of India (Small Finance Banks – Prudential Norms on Capital Adequacy) Fifth Amendment Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13652&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT2108270FCCB27CD41269C97AB89050D0582.PDF",
-      "date": "Aug 18, 2026",
-      "circularNo": "RBI/2026-27/210",
-      "summary": "Reserve Bank of India (Small Finance Banks – Prudential Norms on Capital Adequacy) Fifth Amendment Directions, 2026<br/><br/>Please refer to ‘Annex III: Pillar 3 Disclosure Requirements’ of the Reserve Bank of India (Small Finance Banks – Prudential Norms on Capital Adequacy) Directions, 2025 (hereinafter referred to as ‘the Directions’). Upon a review and to ensure greater consistency with the Basel Pillar 3 disclosure requirements, there is a felt need to amend these Directions.<br/><br/>2. Accordingly, in exercise of the powers conferred by Section 35A of the Banking Regulation Act, 1949 and all other provisions / laws enabling the Reserve Bank of India (RBI) to issue instructions in this regard, the Reserve Bank being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues the Amendment Directions hereinafter specified.",
-      "detectedAt": "2026-08-18T11:38:28.340Z"
-    },
-    {
-      "id": "rbi-notif-13651",
-      "title": "Reserve Bank of India (Payments Banks – Financial Statements: Presentation and Disclosures) Second Amendment Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13651&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT209501B8A8B556F4EE89F16F2F264541B63.PDF",
-      "date": "Aug 18, 2026",
-      "circularNo": null,
-      "summary": "Reserve Bank of India (Payments Banks – Financial Statements: Presentation and Disclosures) Second Amendment Directions, 2026<br/><br/>Please refer to the Reserve Bank of India (Payments Banks – Financial Statements: Presentation and Disclosures) Directions, 2025 (hereinafter referred to as 'the Directions').<br/><br/>2. On a review, consequent to the issuance of the Reserve Bank of India (Small Finance Banks - Prudential Norms on Capital Adequacy) Fifth Amendment Directions, 2026, pertaining to Basel Pillar 3 disclosures, and in exercise of the powers conferred by the section 35A of the Banking Regulation Act, 1949 and all other laws enabling the Reserve Bank of India (hereinafter called the Reserve Bank) in this regard, the Reserve Bank being satisfied that it is necessary and expedient in the public interest so to do, hereby issues the Amendment Directions hereinafter specified.",
-      "detectedAt": "2026-08-18T11:38:28.825Z"
     }
   ]
 }
