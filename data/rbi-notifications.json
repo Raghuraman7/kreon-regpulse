@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-08-25T11:43:11.907Z",
+  "lastChecked": "2026-08-25T12:15:18.181Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13679",
+      "title": "Reserve Bank of India (Non-Banking Financial Companies – Concentration Risk Management) Fourth Amendment Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13679&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT23780AF472D8C5F49009133ED2265BD663A.PDF",
+      "date": "Aug 25, 2026",
+      "circularNo": "RBI/2026-27/237",
+      "summary": "Reserve Bank of India (Non-Banking Financial Companies – Concentration Risk Management) Fourth Amendment Directions, 2026<br/><br/>The Reserve Bank has issued the Reserve Bank of India (Non-Banking Financial Companies – Concentration Risk Management) Directions, 2025 dated November 28, 2025 (hereinafter referred to as ‘Directions’). On a review, it has been decided to revise the large exposure framework for Infrastructure Debt Fund-Non-Banking Financial Company (IDF-NBFC) in the Upper Layer.<br/><br/>2. Accordingly, in exercise of the powers conferred by Chapter III B of the Reserve Bank of India Act, 1934, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues the Amendment Directions hereinafter specified.",
+      "detectedAt": "2026-08-25T12:15:18.181Z"
+    },
     {
       "id": "rbi-notif-13675",
       "title": "Formation of new districts in the Union Territory of Ladakh – Assignment of Lead Bank Responsibility",
@@ -991,16 +1001,6 @@
       "circularNo": "RBI/2026-27/202",
       "summary": "Reserve Bank of India (Local Area Banks – Income Recognition, Asset Classification and Provisioning) Second Amendment Directions, 2026<br/><br/>Please refer to Reserve Bank of India (Local Area Banks – Resolution of Stressed Assets) Second Amendment Directions, 2026 dated July 16, 2026.<br/><br/>2. Consequent to the aforesaid Amendment Directions, in exercise of the powers conferred by the sections 21 and 35A of the Banking Regulation Act, 1949 and all other laws enabling the Reserve Bank in this regard, the Reserve Bank being satisfied that it is necessary and expedient in the public interest so to do, hereby issues the Amendment Directions hereinafter specified.",
       "detectedAt": "2026-08-18T11:34:04.530Z"
-    },
-    {
-      "id": "rbi-notif-13579",
-      "title": "Reserve Bank of India (Regional Rural Banks – Income Recognition, Asset Classification and Provisioning) Second Amendment Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13579&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT2017A51C1C911F74F959899F6F29D5BE66C.PDF",
-      "date": "Aug 18, 2026",
-      "circularNo": "RBI/2026-27/201",
-      "summary": "Reserve Bank of India (Regional Rural Banks – Income Recognition, Asset Classification and Provisioning) Second Amendment Directions, 2026<br/><br/>Please refer to Reserve Bank of India (Regional Rural Banks – Resolution of Stressed Assets) Second Amendment Directions, 2026 dated July 16, 2026.<br/><br/>2. Consequent to the aforesaid Amendment Directions, in, in exercise of the powers conferred by the sections 21 and 35A of the Banking Regulation Act, 1949 and all other laws enabling the Reserve Bank in this regard, the Reserve Bank being satisfied that it is necessary and expedient in the public interest so to do, hereby issues the Amendment Directions hereinafter specified.",
-      "detectedAt": "2026-08-18T11:34:05.348Z"
     }
   ]
 }
