@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-02T09:03:58.257Z",
+  "generatedAt": "2026-09-02T13:39:47.314Z",
   "regulations": {
     "cra": {
       "key": "cra",
       "shortName": "SEBI (Credit Rating Agencies) Regulations, 1999",
       "title": "Securities and Exchange Board of India (Credit Rating Agencies) Regulations, 1999 [Last amended on January 15, 2026]",
       "link": "https://www.sebi.gov.in/legal/regulations/jan-2026/securities-and-exchange-board-of-india-credit-rating-agencies-regulations-1999-last-amended-on-january-15-2026-_99126.html",
-      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jan-2026/1768814495033.pdf",
+      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/sep-2026/1788347189060.pdf",
       "amendedDate": "Jan 15, 2026",
-      "lastUpdated": "2026-09-02T09:03:57.512Z"
+      "lastUpdated": "2026-09-02T13:39:46.678Z"
     },
     "kra": {
       "key": "kra",
@@ -17,25 +17,25 @@
       "link": "https://www.sebi.gov.in/legal/regulations/feb-2025/securities-and-exchange-board-of-india-kyc-know-your-client-registration-agency-regulations-2011-last-amended-on-february-10-2025-_92423.html",
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/aug-2026/1786079439303.pdf",
       "amendedDate": "Feb 10, 2025",
-      "lastUpdated": "2026-09-02T09:03:57.769Z"
+      "lastUpdated": "2026-09-02T13:39:46.890Z"
     },
     "ncs": {
       "key": "ncs",
       "shortName": "SEBI (Issue and Listing of Non-Convertible Securities) Regulations, 2021",
-      "title": "Securities and Exchange Board of India (Issue and Listing of Non-Convertible Securities) Regulations 2021 [Amended as on January 21, 2026]",
-      "link": "https://www.sebi.gov.in/legal/regulations/jan-2026/securities-and-exchange-board-of-india-issue-and-listing-of-non-convertible-securities-regulations-2021-amended-as-on-january-21-2026-_99288.html",
-      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jan-2026/1769162648420.pdf",
+      "title": "Securities and Exchange Board of India (Issue and Listing of Non-Convertible Securities) Regulations 2021 [Last Amended as on January 21, 2026]",
+      "link": "https://www.sebi.gov.in/legal/regulations/jan-2026/securities-and-exchange-board-of-india-issue-and-listing-of-non-convertible-securities-regulations-2021-last-amended-as-on-january-21-2026-_99288.html",
+      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/sep-2026/1788346796221.pdf",
       "amendedDate": "Jan 21, 2026",
-      "lastUpdated": "2026-09-02T09:03:58.011Z"
+      "lastUpdated": "2026-09-02T13:39:47.093Z"
     },
     "dyn-97887": {
       "key": "dyn-97887",
       "shortName": "SEBI Regulation (dynamically discovered)",
       "title": "Securities and Exchange Board of India (Debenture Trustees) Regulations, 1993 [Last amended on October 27, 2025]",
       "link": "https://www.sebi.gov.in/legal/regulations/oct-2025/securities-and-exchange-board-of-india-debenture-trustees-regulations-1993-last-amended-on-october-27-2025-_97887.html",
-      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/nov-2025/1763961352516.pdf",
+      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/sep-2026/1788347356542.pdf",
       "amendedDate": "Oct 27, 2025",
-      "lastUpdated": "2026-09-02T09:03:58.257Z"
+      "lastUpdated": "2026-09-02T13:39:47.314Z"
     }
   }
 }
