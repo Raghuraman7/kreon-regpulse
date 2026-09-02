@@ -1,7 +1,27 @@
 {
-  "lastChecked": "2026-09-02T13:39:37.933Z",
+  "lastChecked": "2026-09-02T17:22:58.570Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13693",
+      "title": "Deposits and Accounts – Accounts of Non-resident banks",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13693&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/251NT85B7339E9B824E5EB17C055D795CE095.PDF",
+      "date": "Sep 2, 2026",
+      "circularNo": "RBI/2026-27/251",
+      "summary": "All Authorised Dealer Category-I banks<br/><br/>Deposits and Accounts – Accounts of Non-resident banks<br/><br/>Please refer to Para B.2(ii) and B.8(i) of Part B of the A.P. (DIR Series) Circular No.92, dated April 4, 2003, in terms of which AD banks were required to:",
+      "detectedAt": "2026-09-02T17:22:57.979Z"
+    },
+    {
+      "id": "rbi-notif-13672",
+      "title": "Reserve Bank of India (Non-Banking Financial Companies - Responsible Business Conduct) Third Amendment Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13672&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT230A919C5A725694DD78C1C3640B455C4E9.PDF",
+      "date": "Aug 6, 2026",
+      "circularNo": "RBI/2026-27/230",
+      "summary": "Reserve Bank of India (Non-Banking Financial Companies - Responsible Business Conduct) Third Amendment Directions, 2026<br/><br/>Certain instructions on matters related to engagement of recovery agents by Non-Banking Financial Companies (NBFCs) have been issued to NBFCs under Chapter III on ‘Responsible Lending Conduct’ of the Reserve Bank of India (Non-Banking Financial Companies – Responsible Business Conduct) Directions, 2025. The extant instructions have since been reviewed and it has been decided to issue comprehensive instructions on conduct related matters in recovery of loan dues and engagement of recovery agencies to all NBFCs, excluding Mortgage Guarantee Companies, Core Investment Companies, NBFC-Account Aggregators, Standalone Primary Dealers, Non-Operating Financial Holding Companies, and NBFCs not having any customer interface.<br/><br/>2. In exercise of the powers conferred by Sections 45JA, 45L and 45M of the Reserve Bank of India Act, 1934, the Reserve Bank, being satisfied that it is necessary and expedient in public interest so to do, hereby issues the Amendment Directions hereinafter specified.",
+      "detectedAt": "2026-09-02T17:22:58.569Z"
+    },
     {
       "id": "rbi-notif-13692",
       "title": "Relief Measures in Areas Affected by Natural Calamities - Reporting through Centralised Information Management System (CIMS) Portal - Introduction of Half-Yearly Return",
@@ -981,26 +1001,6 @@
       "circularNo": "RBI/2026-27/216",
       "summary": "Reserve Bank of India (Regional Rural Banks – Interest Rate on Deposits) Second Amendment Directions, 2026<br/><br/>Please refer to the Reserve Bank of India (Regional Rural Banks – Interest Rate on Deposits) Directions, 2025 (hereinafter referred to as 'Directions'), dated November 28, 2025. On a review, it has been decided to issue revised instructions pertaining to disclosure of interest rates on deposits.<br/><br/>2. Accordingly, in exercise of the powers conferred by Section 35A of the Banking Regulation Act,1949 and all other laws enabling the Reserve Bank India (RBI) in this regard, the RBI, being satisfied that it is necessary and expedient in public interest so to do, hereby issues the Amendment Directions hereinafter specified.",
       "detectedAt": "2026-08-18T11:47:36.747Z"
-    },
-    {
-      "id": "rbi-notif-13657",
-      "title": "Reserve Bank of India (Small Finance Banks – Interest Rate on Deposits) Second Amendment Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13657&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT2153539C98C29F4493D8F5993437D46E192.PDF",
-      "date": "Jul 30, 2026",
-      "circularNo": "RBI/2026-27/215",
-      "summary": "Reserve Bank of India (Small Finance Banks – Interest Rate on Deposits) Second Amendment Directions, 2026<br/><br/>Please refer to the Reserve Bank of India (Small Finance Banks – Interest Rate on Deposits) Directions, 2025 (hereinafter referred to as 'Directions'), dated November 28, 2025. On a review, it has been decided to issue revised instructions pertaining to interest rate on Rupee bulk deposits and disclosure of interest rates on deposits.<br/><br/>2. Accordingly, in exercise of the powers conferred by Section 35A of the Banking Regulation Act,1949 and all other laws enabling the Reserve Bank India (RBI) in this regard, the RBI, being satisfied that it is necessary and expedient in public interest so to do, hereby issues the Amendment Directions hereinafter specified.",
-      "detectedAt": "2026-08-18T11:47:37.216Z"
-    },
-    {
-      "id": "rbi-notif-13656",
-      "title": "Reserve Bank of India (Commercial Banks – Interest Rate on Deposits) Second Amendment Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13656&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT214007577711839463B9DF08E80F7DBCB6F.PDF",
-      "date": "Jul 30, 2026",
-      "circularNo": "RBI/2026-27/214",
-      "summary": "Reserve Bank of India (Commercial Banks – Interest Rate on Deposits) Second Amendment Directions, 2026<br/><br/>Please refer to the Reserve Bank of India (Commercial Banks – Interest Rate on Deposits) Directions, 2025 (hereinafter referred to as ‘Directions’), dated November 28, 2025. On a review, it has been decided to issue revised instructions pertaining to interest rate on Rupee bulk deposits and disclosure of interest rates on deposits.<br/><br/>2. Accordingly, in exercise of the powers conferred by Section 35A of the Banking Regulation Act,1949 and all other laws enabling the Reserve Bank India (RBI) in this regard, the RBI, being satisfied that it is necessary and expedient in public interest so to do, hereby, issues the Amendment Directions hereinafter specified.",
-      "detectedAt": "2026-08-18T11:47:37.564Z"
     }
   ]
 }
