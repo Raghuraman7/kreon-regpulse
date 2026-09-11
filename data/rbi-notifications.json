@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-09-11T05:58:39.644Z",
+  "lastChecked": "2026-09-11T11:03:56.603Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13697",
+      "title": "Reserve Bank of India (Local Area Banks – Cash Reserve Ratio and Statutory Liquidity Ratio) Second Amendment Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13697&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NOT2555AA6FB63E154403D95A54E43A0716C1A.PDF",
+      "date": "Sep 11, 2026",
+      "circularNo": "RBI/2026-27/255",
+      "summary": "Reserve Bank of India (Local Area Banks – Cash Reserve Ratio and Statutory Liquidity Ratio) Second Amendment Directions, 2026<br/><br/>Please refer to Reserve Bank of India (Local Area Banks – Cash Reserve Ratio and Statutory Liquidity Ratio) Directions, 2025 dated November 28, 2025. Consequent upon the inclusion of a Local Area Bank in the Second Schedule to the Reserve Bank of India Act, 1934, it has been decided to amend the Reserve Bank of India (Local Area Banks – Cash Reserve Ratio and Statutory Liquidity Ratio) Directions, 2025 dated November 28, 2025 to incorporate the applicable provisions for the scheduled banks.<br/><br/>2. Accordingly, in exercise of the powers conferred by Section 35A of the Banking Regulation Act, 1949 and pursuant to Section 42 of the Reserve Bank of India Act, 1934 and Sections 18 and 24 of Banking Regulation Act, 1949, as amended from time to time, and all other provisions / laws enabling the Reserve Bank of India in this regard, the Reserve Bank being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues the Amendment Directions hereinafter specified.",
+      "detectedAt": "2026-09-11T11:03:56.603Z"
+    },
     {
       "id": "rbi-notif-13696",
       "title": "Review of Circulars issued under Foreign Exchange Management Act, 1999 (FEMA)",
@@ -991,16 +1001,6 @@
       "circularNo": "RBI/2026-27/220",
       "summary": "The Chairman/ Managing Director/ Chief Executive Officer All Banks<br/><br/>Fake Indian Currency Notes (FICNs)-Detection, Reporting and Monitoring<br/><br/>2. However, an analysis by the Reserve Bank suggests that efforts of some of the banks in the matter were not adequate. Accordingly, the banks are advised to review their processes so as to further strengthen their capacity and preparedness to identify, impound and report FICNs effectively. In this regard, the banks are also advised to undertake the following specific measures -",
       "detectedAt": "2026-08-18T11:47:35.130Z"
-    },
-    {
-      "id": "rbi-notif-13661",
-      "title": "Reserve Bank of India (Urban Co-operative Banks – Interest Rate on Deposits) Second Amendment Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13661&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT21905948F408D284D128AA9853033D2298F.PDF",
-      "date": "Jul 30, 2026",
-      "circularNo": "RBI/2026-27/219",
-      "summary": "Reserve Bank of India (Urban Co-operative Banks – Interest Rate on Deposits) Second Amendment Directions, 2026<br/><br/>Please refer to the Reserve Bank of India (Urban Co-operative Banks – Interest Rate on Deposits) Directions, 2025 (hereinafter referred to as ‘Directions’), dated November 28, 2025. On a review, it has been decided to issue revised instructions pertaining to disclosure of interest rates on deposits.<br/><br/>2. Accordingly, in exercise of the powers conferred by Section 35A read with Section 56 of the Banking Regulation Act,1949 and all other laws enabling the Reserve Bank India (RBI) in this regard, the RBI, being satisfied that it is necessary and expedient in public interest so to do, hereby issues the Amendment Directions hereinafter specified.",
-      "detectedAt": "2026-08-18T11:47:35.632Z"
     }
   ]
 }
