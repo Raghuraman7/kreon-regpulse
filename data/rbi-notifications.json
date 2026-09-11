@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-09-11T11:03:56.603Z",
+  "lastChecked": "2026-09-11T15:00:21.117Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13698",
+      "title": "Reserve Bank of India (Priority Sector Lending – Targets and Classification) Third Amendment Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13698&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/256NT69E7AC0A815E49618C2CB8CED5F6E5C6.PDF",
+      "date": "Sep 11, 2026",
+      "circularNo": "RBI/2026-27/256",
+      "summary": "Reserve Bank of India (Priority Sector Lending – Targets and Classification) Third Amendment Directions, 2026<br/><br/>Please refer to Reserve Bank of India (Priority Sector Lending – Targets and Classification) Second Amendment Directions, 2026 issued on August 7, 2026, specifying that the following advances extended in India would be excluded from calculation of Adjusted Net Bank Credit (ANBC):<br/><br/>a) advances against the fresh FCNR (B) deposits of minimum tenor of three years and maximum tenor of five years mobilised (including deposits that are renewed upon maturity) by the banks between June 08, 2026 and September 30, 2026, and",
+      "detectedAt": "2026-09-11T15:00:21.116Z"
+    },
     {
       "id": "rbi-notif-13697",
       "title": "Reserve Bank of India (Local Area Banks – Cash Reserve Ratio and Statutory Liquidity Ratio) Second Amendment Directions, 2026",
@@ -991,16 +1001,6 @@
       "circularNo": null,
       "summary": "Reserve Bank of India (Credit Information Companies - Miscellaneous) Supervisory Directions, 2026<br/><br/>In exercise of the powers conferred by Section 11 and 37 of the Credit Information Companies (Regulation) Act, 2005, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
       "detectedAt": "2026-08-18T11:47:34.835Z"
-    },
-    {
-      "id": "rbi-notif-13662",
-      "title": "Fake Indian Currency Notes (FICNs)-Detection, Reporting and Monitoring",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13662&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT22031600C31BC5F403AA3CD3FF99E8410E4.PDF",
-      "date": "Jul 31, 2026",
-      "circularNo": "RBI/2026-27/220",
-      "summary": "The Chairman/ Managing Director/ Chief Executive Officer All Banks<br/><br/>Fake Indian Currency Notes (FICNs)-Detection, Reporting and Monitoring<br/><br/>2. However, an analysis by the Reserve Bank suggests that efforts of some of the banks in the matter were not adequate. Accordingly, the banks are advised to review their processes so as to further strengthen their capacity and preparedness to identify, impound and report FICNs effectively. In this regard, the banks are also advised to undertake the following specific measures -",
-      "detectedAt": "2026-08-18T11:47:35.130Z"
     }
   ]
 }
