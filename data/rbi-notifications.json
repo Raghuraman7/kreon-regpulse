@@ -1,7 +1,27 @@
 {
-  "lastChecked": "2026-09-22T06:01:00.971Z",
+  "lastChecked": "2026-09-22T11:37:08.067Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13706",
+      "title": "Novation of OTC Derivative Contracts",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13706&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT263695FF625A09A48248840B53359D48063.PDF",
+      "date": "Sep 22, 2026",
+      "circularNo": "RBI/2026-27/263",
+      "summary": "All Eligible Market Participants<br/><br/>Novation of OTC Derivative Contracts<br/><br/>Please refer to the draft Reserve Bank of India (Novation of OTC Derivative Contracts) Directions, 2025, issued vide press release dated July 09, 2025.",
+      "detectedAt": "2026-09-22T11:37:07.536Z"
+    },
+    {
+      "id": "rbi-notif-13705",
+      "title": "Reserve Bank of India (Commercial Banks - Minimum Capital Requirements for Market Risk) Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13705&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/472MDACBA450D67234F52BA2983DA6AED9DFC.PDF",
+      "date": "Sep 21, 2026",
+      "circularNo": null,
+      "summary": "Reserve Bank of India (Commercial Banks - Minimum Capital Requirements for Market Risk) Directions, 2026<br/><br/>In exercise of the powers conferred under Section 35 A of the Banking Regulation Act, 1949 (hereinafter called the Act), the Reserve Bank of India (hereinafter called the Reserve Bank), being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues the Directions hereinafter specified.<br/><br/>A. Short title and Effective Date",
+      "detectedAt": "2026-09-22T11:37:08.067Z"
+    },
     {
       "id": "rbi-notif-13704",
       "title": "Reserve Bank of India (Rural Co-operative Banks – Know Your Customer) Amendment Directions, 2026",
@@ -981,26 +1001,6 @@
       "circularNo": null,
       "summary": "Reserve Bank of India (Regional Rural Banks - Miscellaneous) Supervisory Directions, 2026<br/><br/>In exercise of the powers conferred by Section 35-A read with Section 51 of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues these Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
       "detectedAt": "2026-08-18T11:51:30.959Z"
-    },
-    {
-      "id": "rbi-notif-13590",
-      "title": "Reserve Bank of India (Non-Banking Financial Companies – Fraud Risk Management) Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13590&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/463MDC5167A28A3B24A2B856804E201261635.PDF",
-      "date": "Jul 31, 2026",
-      "circularNo": null,
-      "summary": "Reserve Bank of India (Non-Banking Financial Companies – Fraud Risk Management) Directions, 2026<br/><br/>These Directions are issued with a view to providing a framework for prevention, early detection, and timely reporting of incidents of fraud by Applicable NBFCs to Law Enforcement Agencies (LEAs), Reserve Bank of India (‘RBI’) and National Housing Bank (in case of Housing Finance Companies), and matters connected therewith or incidental thereto.<br/><br/>In exercise of the powers conferred under Sections 45K, 45L and 45M of the Reserve Bank of India Act, 1934 (Act 2 of 1934), and Sections 30A, 32 and 33 of the National Housing Bank Act, 1987, and all other provisions / laws enabling RBI in this regard, RBI being satisfied that it is necessary and expedient in public interest so to do, hereby, issues these Directions hereinafter specified.",
-      "detectedAt": "2026-08-18T11:51:31.497Z"
-    },
-    {
-      "id": "rbi-notif-13588",
-      "title": "Reserve Bank of India (Non-Banking Financial Companies - Statutory Audit) Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13588&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/465MD03A0FCE0832642DDAAE82DB2FBC920C8.PDF",
-      "date": "Jul 31, 2026",
-      "circularNo": null,
-      "summary": "Reserve Bank of India (Non-Banking Financial Companies - Statutory Audit) Directions, 2026<br/><br/>In exercise of powers conferred by Sections 45JA, 45K, 45L and 45M of the Reserve Bank of India Act, 1934, Sections 29A, 30A and 32 of National Housing Bank Act, 1987, Sections 3 (read with section 31A) and 6 of Factoring Regulation Act, 2011 and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby issues the Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
-      "detectedAt": "2026-08-18T11:51:33.079Z"
     }
   ]
 }
