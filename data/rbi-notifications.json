@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-09-23T10:00:21.522Z",
+  "lastChecked": "2026-09-23T15:00:45.733Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13712",
+      "title": "Exim Bank’s GOI-supported Line of Credit (LOC) for &#8377; 4,850 crores the Government of Maldives, for financing various developmental projects in Maldives",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13712&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT269D2CF6DE13687460D8CFB6E8AD0CDEF4E.PDF",
+      "date": "Sep 23, 2026",
+      "circularNo": "RBI/2026-2027/269",
+      "summary": "All Category – I Authorised Dealer Banks<br/><br/>Exim Bank’s GOI-supported Line of Credit (LOC) for ₹ 4,850 crores the Government of Maldives, for financing various developmental projects in Maldives<br/><br/>Export-Import Bank of India (Exim Bank) has entered into an agreement dated July 25, 2025, with the Government of the Republic of Maldives, for making available to the latter, Government of India supported Line of Credit (LoC) of ₹ 4,850 crores (Rupees Four Thousand Eight Hundred and Fifty crores only) for financing various developmental projects in Maldives. The export of eligible goods and services from India, as defined under the agreement, would be allowed, subject to their eligibility under the Foreign Trade Policy of the Government of India and whose purchase may be agreed to be financed by the Exim Bank under this agreement. Under this Agreement, goods, works and services of the value of at least 75% of the contract price (as may be applicable) shall be supplied by the Seller from India, and the remaining 25% of goods and services may be procured by the Seller for the purpose of the Eligible Contract from outside India.",
+      "detectedAt": "2026-09-23T15:00:45.733Z"
+    },
     {
       "id": "rbi-notif-13711",
       "title": "Reserve Bank of India (All India Financial Institutions - Classification, Valuation, and Operation of Investment Portfolio) Amendment Directions, 2026",
@@ -991,16 +1001,6 @@
       "circularNo": "RBI/2026-2027/224",
       "summary": "Reserve Bank of India (Small Finance Banks - Responsible Business Conduct) Fourth Amendment Directions, 2026<br/><br/>Certain instructions on matters related to engagement of recovery agents by Small Finance Banks (SFBs) have been issued to SFBs under the Reserve Bank of India (Small Finance Banks – Responsible Business Conduct) Directions, 2025. The extant instructions have since been reviewed and it has been decided to issue comprehensive instructions on conduct related matters in recovery of loan dues and engagement of recovery agencies to all SFBs (hereinafter referred to collectively as “SFBs” and individually as an “SFB”) under the aforesaid Directions.<br/><br/>2. In exercise of the powers conferred by Sections 21 and 35A of the Banking Regulation Act,1949, the Reserve Bank, being satisfied that it is necessary and expedient in public interest so to do, hereby issues the Amendment Directions hereinafter specified.",
       "detectedAt": "2026-08-18T11:51:27.162Z"
-    },
-    {
-      "id": "rbi-notif-13634",
-      "title": "Reserve Bank of India (Small Finance Banks - Cybersecurity, Technology: Risk, Resilience and Assurance Framework) Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13634&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/419MD2FBDBDE1A8C948B79579A76A9BC83E21.PDF",
-      "date": "Jul 31, 2026",
-      "circularNo": null,
-      "summary": "Reserve Bank of India (Small Finance Banks - Cybersecurity, Technology: Risk, Resilience and Assurance Framework) Directions, 2026<br/><br/>In exercise of the powers conferred by Section 27 and Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
-      "detectedAt": "2026-08-18T11:51:27.621Z"
     }
   ]
 }
