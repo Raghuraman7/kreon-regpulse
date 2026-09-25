@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-09-25T11:08:57.193Z",
+  "lastChecked": "2026-09-25T15:48:55.738Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13714",
+      "title": "Foreign Exchange Management (Export and Import of Goods and Services) (Amendment) Regulations, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13714&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/FEMA23R2509202677C08DEDE2694B528FF6025930BF49F9.PDF",
+      "date": "Sep 22, 2026",
+      "circularNo": null,
+      "summary": "RESERVE BANK OF INDIA FOREIGN EXCHANGE DEPARTMENT CENTRAL OFFICE Mumbai 400 001<br/><br/>Notification No. FEMA 23(R)/(1)/2026-RB<br/><br/>Foreign Exchange Management (Export and Import of Goods and Services) (Amendment) Regulations, 2026",
+      "detectedAt": "2026-09-25T15:48:55.737Z"
+    },
     {
       "id": "rbi-notif-13713",
       "title": "Designation of terrorist organisation under clause (a) of sub-section (1) of section 35 of the Unlawful Activities (Prevention) Act, 1967 and listed in the First Schedule of the Act",
@@ -991,16 +1001,6 @@
       "circularNo": null,
       "summary": "Reserve Bank of India (Local Area Banks - Supervisory Returns) Directions, 2026<br/><br/>In exercise of powers conferred under Section 27 and Section 35-A of the Banking Regulation Act, 1949, extant provisions of Chapter III-A of the Reserve Bank of India Act, 1934, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, these Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
       "detectedAt": "2026-08-18T11:59:24.458Z"
-    },
-    {
-      "id": "rbi-notif-13603",
-      "title": "Reserve Bank of India (Local Area Banks – Miscellaneous) Supervisory Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13603&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/450MD9EEAB01F633148768CC03DEEA746654E.PDF",
-      "date": "Jul 31, 2026",
-      "circularNo": null,
-      "summary": "Reserve Bank of India (Local Area Banks – Miscellaneous) Supervisory Directions, 2026<br/><br/>In exercise of the powers conferred by Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
-      "detectedAt": "2026-08-18T11:59:24.823Z"
     }
   ]
 }
