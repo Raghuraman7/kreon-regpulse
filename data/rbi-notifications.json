@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-09-29T06:13:53.677Z",
+  "lastChecked": "2026-09-29T12:58:56.005Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13715",
+      "title": "Implementation of Section 51A of UAPA, 1967: Updates to UNSC’s 1267/ 1989 ISIL (Da'esh) & Al-Qaida Sanctions List: Amendment of 1 Entry",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13715&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NOTI2713C3AD0FCF88D4E0682D80BD7FC932BF9.PDF",
+      "date": "Sep 29, 2026",
+      "circularNo": "RBI/2026-27/271",
+      "summary": "The Chairpersons/ CEOs of the Commercial Banks, Small Finance Banks, Payment Banks, Urban Co-operative Banks, Rural Co-operative Banks, Regional Rural Banks, Local Area Banks, Non-Banking Financial Companies, Asset Reconstruction Companies, All India Financial Institutions<br/><br/>Implementation of Section 51A of UAPA, 1967: Updates to UNSC’s 1267/ 1989 ISIL (Da'esh) & Al-Qaida Sanctions List: Amendment of 1 Entry<br/><br/>Please refer to Chapter IX on “Requirements/obligations under International Agreements - Communications from International Agencies” of the Reserve Bank of India - Know Your Customer, Directions, 2025 dated November 28, 2025 (amended as on September 18, 2026) (“Directions”), as applicable, as per which, regulated entity shall ensure that in terms of section 51A of the Unlawful Activities (Prevention) (UAPA) Act, 1967 and amendments thereto, it does not have any account in the name of individuals / entities appearing in the lists of individuals and entities, suspected of having terrorist links, which are approved by and periodically circulated by the United Nations Security Council (UNSC).",
+      "detectedAt": "2026-09-29T12:58:56.005Z"
+    },
     {
       "id": "rbi-notif-13714",
       "title": "Foreign Exchange Management (Export and Import of Goods and Services) (Amendment) Regulations, 2026",
@@ -991,16 +1001,6 @@
       "circularNo": null,
       "summary": "Reserve Bank of India (Local Area Banks – Fraud Risk Management) Directions, 2026<br/><br/>These Directions are issued with a view to providing a framework for prevention, early detection, and timely reporting of incidents of fraud by Local Area Banks to Law Enforcement Agencies (LEAs) and Reserve Bank of India (‘RBI’) and dissemination of information by RBI and matters connected therewith or incidental thereto.<br/><br/>In exercise of the powers conferred under Section 21 and Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling RBI in this regard, RBI being satisfied that it is necessary and expedient in public interest so to do, hereby, issues these Directions hereinafter specified.",
       "detectedAt": "2026-08-18T11:59:24.116Z"
-    },
-    {
-      "id": "rbi-notif-13604",
-      "title": "Reserve Bank of India (Local Area Banks - Supervisory Returns) Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13604&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/449MD116AEA06D1C141EDA717FDD5B72BB988.PDF",
-      "date": "Jul 31, 2026",
-      "circularNo": null,
-      "summary": "Reserve Bank of India (Local Area Banks - Supervisory Returns) Directions, 2026<br/><br/>In exercise of powers conferred under Section 27 and Section 35-A of the Banking Regulation Act, 1949, extant provisions of Chapter III-A of the Reserve Bank of India Act, 1934, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, these Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
-      "detectedAt": "2026-08-18T11:59:24.458Z"
     }
   ]
 }
