@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T02:09:06.232Z",
+  "generatedAt": "2026-10-01T08:55:49.779Z",
   "sourceUrl": "https://www.rbi.org.in/Scripts/BS_ViewMasterDirections.aspx?did=411",
   "category": "NBFC-ICC",
   "categoryDescription": "Investment and Credit Companies — the residual NBFC category.",
@@ -79,20 +79,20 @@
     },
     {
       "id": "md-16",
-      "title": "Reserve Bank of India (Non-Banking Financial Companies – Resolution of Stressed Assets) Directions, 2025 (updated as on July 1, 2026)",
+      "title": "Reserve Bank of India (Non-Banking Financial Companies – Resolution of Stressed Assets) Directions, 2025 (updated as on October 1, 2026)",
       "link": "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=12947",
       "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/357MD501BDDC9758E40B592D1AD2D919CC6AF.PDF",
-      "issuedDate": "2026-07-01T00:00:00.000Z",
-      "issuedDateRaw": "July 1, 2026",
+      "issuedDate": "2026-10-01T00:00:00.000Z",
+      "issuedDateRaw": "October 1, 2026",
       "applicableTo": "NBFC-ICC"
     },
     {
       "id": "md-17",
-      "title": "Reserve Bank of India (Non-Banking Financial Companies – Income Recognition, Asset Classification and Provisioning) Directions, 2025 (updated as on July 01, 2026)",
+      "title": "Reserve Bank of India (Non-Banking Financial Companies – Income Recognition, Asset Classification and Provisioning) Directions, 2025 (updated as on October 01, 2026)",
       "link": "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=12948",
       "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/356MD4F8109CA54BE44A9805C5300601F8A11.PDF",
-      "issuedDate": "2026-07-01T00:00:00.000Z",
-      "issuedDateRaw": "July 01, 2026",
+      "issuedDate": "2026-10-01T00:00:00.000Z",
+      "issuedDateRaw": "October 01, 2026",
       "applicableTo": "NBFC-ICC"
     },
     {
@@ -315,11 +315,11 @@
     },
     {
       "id": "md-8",
-      "title": "Reserve Bank of India (Housing Finance Companies) Directions, 2025 (Updated as on April 15, 2026)",
+      "title": "Reserve Bank of India (Housing Finance Companies) Directions, 2025 (Updated as on October 01, 2026)",
       "link": "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=12939",
       "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/365MD8214102C853241B98E06B2123AB42657.PDF",
-      "issuedDate": "2026-04-15T00:00:00.000Z",
-      "issuedDateRaw": "April 15, 2026",
+      "issuedDate": "2026-10-01T00:00:00.000Z",
+      "issuedDateRaw": "October 01, 2026",
       "applicableTo": "Other NBFC sub-type"
     }
   ]
