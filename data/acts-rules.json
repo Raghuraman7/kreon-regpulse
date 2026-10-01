@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T08:47:52.935Z",
+  "generatedAt": "2026-10-01T10:22:23.259Z",
   "acts": [
     {
       "id": "act-1",
@@ -38,9 +38,9 @@
       "summary": "Establishes the Reserve Bank of India and provides the statutory framework for the regulation of NBFCs under Chapter III-B, governing registration, reserve funds, and directions.",
       "checkMeta": {
         "amendedSignal": null,
-        "contentHash": "ab44884659709ef7b73a3c84c43ce0fcb1009cf3343454160d05b792fcf53858",
+        "contentHash": "692bd1c7e6198d6c54a43e8b9aded29857acf5f53255a4a64b9ecd3ac556fff3",
         "sourceLastModified": null,
-        "lastCheckedAt": "2026-09-01T08:47:07.321Z",
+        "lastCheckedAt": "2026-10-01T10:19:28.940Z",
         "lastAmendmentDetectedAt": "2026-08-18T11:50:04.079Z"
       }
     },
@@ -55,9 +55,9 @@
       "summary": "Detailed rules under PMLA defining standard customer due diligence (CDD) procedures, transaction reporting forms (CTR, STR, CCR), and record preservation periods (5 years).",
       "checkMeta": {
         "amendedSignal": null,
-        "contentHash": "8405c3c50b575ed60795a4312624c56b6c5cc9afc26a5c49e804810a7141b827",
+        "contentHash": "dfcfd65ade8ec182d12e6e75339961f8fc2987e2353127ad2567c0cfe333cec6",
         "sourceLastModified": null,
-        "lastCheckedAt": "2026-09-01T08:47:08.864Z",
+        "lastCheckedAt": "2026-10-01T10:19:30.418Z",
         "lastAmendmentDetectedAt": "2026-08-18T11:50:04.312Z"
       }
     },
@@ -84,7 +84,7 @@
         "amendedSignal": null,
         "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "sourceLastModified": null,
-        "lastCheckedAt": "2026-09-01T08:47:15.943Z"
+        "lastCheckedAt": "2026-10-01T10:19:37.544Z"
       }
     },
     {
@@ -98,9 +98,9 @@
       "summary": "Governs credit bureaus (CIBIL, Equifax, Experian, CRIF High Mark) in India. Mandates that all lending NBFCs become members of all four CICs and update credit data monthly.",
       "checkMeta": {
         "amendedSignal": null,
-        "contentHash": "5c7b8ced1cc460ee2b0696414c938239967f08321efb52be70b58ffe6f8e2a16",
+        "contentHash": "0a2d49a9d05350d4d8c21b0b018aaf0e13d3ae66bf1b596f4677ece02257fe6e",
         "sourceLastModified": null,
-        "lastCheckedAt": "2026-09-01T08:47:16.858Z",
+        "lastCheckedAt": "2026-10-01T10:19:38.421Z",
         "lastAmendmentDetectedAt": "2026-08-18T11:50:09.342Z"
       }
     },
@@ -133,7 +133,7 @@
         "amendedSignal": null,
         "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "sourceLastModified": null,
-        "lastCheckedAt": "2026-09-01T08:47:24.845Z"
+        "lastCheckedAt": "2026-10-01T10:20:28.706Z"
       }
     },
     {
