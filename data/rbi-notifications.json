@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-10-02T06:40:47.768Z",
+  "lastChecked": "2026-10-02T13:12:09.177Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13723",
+      "title": "Master Direction on Note Sorting Machines",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13723&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/473MDD1229693F0604B6D996B1DF75C81E466.PDF",
+      "date": "Oct 2, 2026",
+      "circularNo": null,
+      "summary": "The Chairman / Managing Director / Chief Executive Officer All Banks<br/><br/>Master Direction on Note Sorting Machines<br/><br/>In exercise of the powers conferred under Section 35A and Section 56 of the Banking Regulation Act, 1949, Reserve Bank of India (RBI), from time-to-time issues guidelines / circulars / directives to the banks on Note Sorting Machines.",
+      "detectedAt": "2026-10-02T13:12:09.177Z"
+    },
     {
       "id": "rbi-notif-13725",
       "title": "Non-Resident Deposits - Comprehensive Single Return (NRD-CSR)(R012): Submission under CIMS Sankalan Portal",
@@ -991,16 +1001,6 @@
       "circularNo": "RBI/2020-21/21 DPSS.CO.PD No.116/02.12.004/2020-21 dated August 6, 2020",
       "summary": "Reserve Bank of India (Non-Banking Financial Companies – Digital Payment Security Controls) Directions, 2026<br/><br/>In exercise of the powers conferred under extant provisions of Chapter III-B of the Reserve Bank of India Act, 1934, Chapter IV of the Payment and Settlement Systems Act, 2007, Section 6 of the Factoring Regulation Act, 2011, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
       "detectedAt": "2026-08-18T12:11:12.473Z"
-    },
-    {
-      "id": "rbi-notif-13589",
-      "title": "Reserve Bank of India (Non-Banking Financial Companies - Internal Audit Function) Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13589&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/464MD4F5E2EE83BB848DFB6B3475F8B91F45B.PDF",
-      "date": "Jul 31, 2026",
-      "circularNo": null,
-      "summary": "Reserve Bank of India (Non-Banking Financial Companies - Internal Audit Function) Directions, 2026<br/><br/>An independent and effective Internal Audit function is integral to sound corporate governance in Non-Banking Financial Companies and provides assurance to the Board and senior management on the adequacy and effectiveness of internal controls, risk management, and governance. Given the commonality of risks faced by Non-Banking Financial Companies, there is a need for harmonised Internal Audit systems and processes based on uniform guiding principles. Risk-Based Internal Audit (RBIA) framework, as the third line of defence, is intended to strengthen the effectiveness of Internal Audit systems and processes in Non-Banking Financial Companies.<br/><br/>In exercise of the powers conferred by Sections 45-JA, 45-L, 45-M and 45-MA of the Reserve Bank of India Act, 1934, Section 6 of the Factoring Regulation Act, 2011 and Sections 29-A, 30-A, and 32 of the National Housing Bank Act, 1987, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.",
-      "detectedAt": "2026-08-18T12:11:13.093Z"
     }
   ]
 }
