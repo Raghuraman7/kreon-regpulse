@@ -1,7 +1,27 @@
 {
-  "lastChecked": "2026-10-02T00:46:59.694Z",
+  "lastChecked": "2026-10-02T06:40:47.768Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13725",
+      "title": "Non-Resident Deposits - Comprehensive Single Return (NRD-CSR)(R012): Submission under CIMS Sankalan Portal",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13725&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT2800AE75657FD144B8ABC111ECF504BCC06.PDF",
+      "date": "Oct 1, 2026",
+      "circularNo": "RBI/2026-27/280",
+      "summary": "Non-Resident Deposits - Comprehensive Single Return (NRD-CSR)(R012): Submission under CIMS Sankalan Portal<br/><br/>Attention of banks maintaining Non-Resident Deposits (NRD) Accounts is invited to A.P. (DIR Series) Circular No. 19 dated August 07, 2013 on monthly NRD-CSR return submission through XBRL platform to the Reserve Bank.<br/><br/>2. The NRD-CSR reporting has since moved to Centralised Information Management System (CIMS) Sankalan portal with the submission of March 2024 data in the month of April 2024. The return code of NRD-CSR on the CIMS is R012. The existing formats of NRD-CSR have also been recently rationalised for reporting bank-wise consolidated data under CIMS. The access to submit a return and reporting channel will be managed by RBI. The creation of users to submit the return and access to various options available on the Sankalan portal will be managed by the admin-users of the banks. Accordingly, this circular is being issued in supersession of the A.P. (DIR Series) Circular No. 19 dated August 07, 2013.",
+      "detectedAt": "2026-10-02T06:40:47.311Z"
+    },
+    {
+      "id": "rbi-notif-13724",
+      "title": "Online submission of Form A2: Removal of limits on amount of remittance",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13724&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT2796737482352AE4E488C0ECB304A05CDE1.PDF",
+      "date": "Oct 1, 2026",
+      "circularNo": "RBI/2026-27/279",
+      "summary": "To All Authorised Dealers in Foreign Exchange<br/><br/>Online submission of Form A2: Removal of limits on amount of remittance<br/><br/>Attention of Authorised Dealers (ADs) Category I banks and AD – Category II entities is invited to paragraph 3 of A.P. (DIR Series) Circular No. 12 dated July 03, 2024, on the captioned subject, in terms of which they were advised to frame appropriate internal guidelines with the approval of their Board, for the purpose of facilitating outward forex remittances on the basis of online / physical submission of Form A2 and other related documents.",
+      "detectedAt": "2026-10-02T06:40:47.768Z"
+    },
     {
       "id": "rbi-notif-13722",
       "title": "Reserve Bank of India (Local Area Banks - Acquisition and Holding of Shares or Voting Rights) Amendment Directions, 2026",
@@ -981,26 +1001,6 @@
       "circularNo": null,
       "summary": "Reserve Bank of India (Non-Banking Financial Companies - Internal Audit Function) Directions, 2026<br/><br/>An independent and effective Internal Audit function is integral to sound corporate governance in Non-Banking Financial Companies and provides assurance to the Board and senior management on the adequacy and effectiveness of internal controls, risk management, and governance. Given the commonality of risks faced by Non-Banking Financial Companies, there is a need for harmonised Internal Audit systems and processes based on uniform guiding principles. Risk-Based Internal Audit (RBIA) framework, as the third line of defence, is intended to strengthen the effectiveness of Internal Audit systems and processes in Non-Banking Financial Companies.<br/><br/>In exercise of the powers conferred by Sections 45-JA, 45-L, 45-M and 45-MA of the Reserve Bank of India Act, 1934, Section 6 of the Factoring Regulation Act, 2011 and Sections 29-A, 30-A, and 32 of the National Housing Bank Act, 1987, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.",
       "detectedAt": "2026-08-18T12:11:13.093Z"
-    },
-    {
-      "id": "rbi-notif-13673",
-      "title": "Reserve Bank of India (Housing Finance Companies) Third Amendment Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13673&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NOT2315B337B00ED2C4FBD965C32C170DE52A6.PDF",
-      "date": "Aug 6, 2026",
-      "circularNo": "RBI/2026-2027/231",
-      "summary": "Reserve Bank of India (Housing Finance Companies) Third Amendment Directions, 2026<br/><br/>Certain instructions on matters related to engagement of recovery agents by Housing Finance Companies (HFCs) have been issued to HFCs under Chapter-X on ‘Fair Practices Code’ of the Reserve Bank of India (Housing Finance Companies) Directions, 2025. The extant instructions have since been reviewed and it has been decided to issue comprehensive instructions on conduct related matters in recovery of loan dues and engagement of recovery agencies to all NBFCs, excluding Mortgage Guarantee Companies, Core Investment Companies, NBFC-Account Aggregators, Standalone Primary Dealers, Non-Operating Financial Holding Companies, and NBFCs not having any customer interface, under the Reserve Bank of India (Non-Banking Financial Companies – Responsible Business Conduct) Directions, 2025.<br/><br/>2. In exercise of the powers conferred by Section 30A of the National Housing Bank Act,1987, the Reserve Bank, being satisfied that it is necessary and expedient in public interest so to do, hereby issues the Amendment Directions hereinafter specified.",
-      "detectedAt": "2026-08-18T11:59:20.227Z"
-    },
-    {
-      "id": "rbi-notif-13614",
-      "title": "Reserve Bank of India (Urban Co-operative Banks – Fraud Risk Management) Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13614&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/439MD31E8DC47A27C4FE6B43005D22E4F6CB7.PDF",
-      "date": "Jul 31, 2026",
-      "circularNo": null,
-      "summary": "Reserve Bank of India (Urban Co-operative Banks – Fraud Risk Management) Directions, 2026<br/><br/>These Directions are issued with a view to providing a framework for prevention, early detection, and timely reporting of incidents of fraud by Urban Co-operative Banks to Law Enforcement Agencies (LEAs) and Reserve Bank of India (RBI) and dissemination of information by RBI and matters connected therewith or incidental thereto.<br/><br/>In exercise of the powers conferred under Section 21 and Section 35-A read with Section 56 of the Banking Regulation Act, 1949, and all other provisions / laws enabling RBI in this regard, RBI being satisfied that it is necessary and expedient in public interest so to do, hereby issues these Directions hereinafter specified.",
-      "detectedAt": "2026-08-18T11:59:20.762Z"
     }
   ]
 }
