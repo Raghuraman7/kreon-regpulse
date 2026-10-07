@@ -1,7 +1,27 @@
 {
-  "lastChecked": "2026-10-07T02:34:58.494Z",
+  "lastChecked": "2026-10-07T09:17:03.776Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13727",
+      "title": "Liquidity Adjustment Facility - Change in rates",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13727&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NOTI282BE83CF8F7E464D97B1AA95699F9D721A.PDF",
+      "date": "Oct 7, 2026",
+      "circularNo": "RBI/2026-27/282",
+      "summary": "All Liquidity Adjustment Facility (LAF) participants<br/><br/>Liquidity Adjustment Facility - Change in rates<br/><br/>As announced in the Monetary Policy Statement dated October 07, 2026, it has been decided by the Monetary Policy Committee (MPC) to increase the policy repo rate under the Liquidity Adjustment Facility (LAF) by 25 basis points from 5.25 per cent to 5.50 per cent with immediate effect.",
+      "detectedAt": "2026-10-07T09:17:02.656Z"
+    },
+    {
+      "id": "rbi-notif-13726",
+      "title": "Standing Liquidity Facility for Primary Dealers",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13726&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT28158529C66B538494B850E025B99189148.PDF",
+      "date": "Oct 7, 2026",
+      "circularNo": "RBI/2026-27/281",
+      "summary": "Standing Liquidity Facility for Primary Dealers<br/><br/>As announced in the bi-monthly Monetary Policy Statement, 2026-27, today, it has been decided by the Monetary Policy Committee (MPC) to increase the policy repo rate under the Liquidity Adjustment Facility (LAF) by 25 basis points from 5.25 per cent to 5.50 per cent with immediate effect.<br/><br/>2. Accordingly, the Standing Liquidity Facility provided to Primary Dealers (PDs) (collateralised liquidity support) from the Reserve Bank would be available at the revised repo rate of 5.50 per cent with immediate effect.",
+      "detectedAt": "2026-10-07T09:17:03.776Z"
+    },
     {
       "id": "rbi-notif-13723",
       "title": "Master Direction on Note Sorting Machines",
@@ -981,26 +1001,6 @@
       "circularNo": null,
       "summary": "Reserve Bank of India (Non-Banking Financial Companies - Compliance Function) Directions, 2026<br/><br/>The Compliance function is a critical element of the corporate governance framework of a Non-Banking Financial Company. The provisions set out in these Directions represent minimum standards, based on the principle of proportionality, and the Non-Banking Financial Company shall structure its Compliance framework in line with its governance arrangements, scale of operations, risk profile and organisational structure.<br/><br/>In exercise of the powers conferred by Sections 45-JA, 45-L and 45-M of the Reserve Bank of India Act, 1934, and Section 6 of the Factoring Regulation Act, 2011, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.",
       "detectedAt": "2026-08-18T12:11:10.559Z"
-    },
-    {
-      "id": "rbi-notif-13592",
-      "title": "Reserve Bank of India (Non-Banking Financial Companies – Cybersecurity, Technology: Risk, Resilience and Assurance Framework) Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13592&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/461MD9FAF2CD7550844EE9A70C884DBE4A8A6.PDF",
-      "date": "Jul 31, 2026",
-      "circularNo": null,
-      "summary": "Reserve Bank of India (Non-Banking Financial Companies – Cybersecurity, Technology: Risk, Resilience and Assurance Framework) Directions, 2026<br/><br/>In exercise of the powers conferred by Section 45-L and 45-M of the Reserve Bank of India Act, 1934, Section 3 read with Section 6 and 31A of the Factoring Regulation Act, 2011, and Sections 30, 30-A, 32 and 33 of the National Housing Bank Act, 1987, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
-      "detectedAt": "2026-08-18T12:11:11.142Z"
-    },
-    {
-      "id": "rbi-notif-13591",
-      "title": "Reserve Bank of India (Non-Banking Financial Companies – Digital Payment Security Controls) Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13591&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/462MD7323FF342D124FAF9BC3B3F7E4F837A5.PDF",
-      "date": "Jul 31, 2026",
-      "circularNo": "RBI/2020-21/21 DPSS.CO.PD No.116/02.12.004/2020-21 dated August 6, 2020",
-      "summary": "Reserve Bank of India (Non-Banking Financial Companies – Digital Payment Security Controls) Directions, 2026<br/><br/>In exercise of the powers conferred under extant provisions of Chapter III-B of the Reserve Bank of India Act, 1934, Chapter IV of the Payment and Settlement Systems Act, 2007, Section 6 of the Factoring Regulation Act, 2011, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
-      "detectedAt": "2026-08-18T12:11:12.473Z"
     }
   ]
 }
