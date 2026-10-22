@@ -4,9 +4,9 @@
 // Compares with stored state to detect updates and send email notifications.
 // Run with: node scripts/fetch-master-directions.mjs
 
-import { writeFile, readFile, mkdir } from "node:fs/promises";
 import { sendRegulatoryAlert } from "./email-notifier.mjs";
-import { assertNonZeroItems } from "./lib/guards.mjs";
+import { assertNonZeroItems, assertNoMassDrop } from "./lib/guards.mjs";
+import { loadDataFile, writeDataFile } from "./lib/data-file.mjs";
 import { withFileLock } from "./lib/file-lock.mjs";
 import { extractDateString, isFreshRelease } from "./lib/date-utils.mjs";
 
@@ -35,13 +35,8 @@ function extractUpdatedAsOnDate(title) {
 /**
  * Load previous state
  */
-async function loadPreviousData() {
-  try {
-    const raw = await readFile(OUTPUT_PATH, "utf8");
-    return JSON.parse(raw);
-  } catch {
-    return { directions: [] };
-  }
+function loadPreviousData() {
+  return loadDataFile(OUTPUT_PATH, { directions: [] });
 }
 
 async function fetchWithRetry(url, retries = 3, backoffMs = 1500) {
@@ -204,7 +199,7 @@ async function runCheckRbiMasterDirections() {
     }
   });
 
-  assertNonZeroItems(nbfcIccDirections.length, previousData.directions.length, "RBI Master Directions");
+  assertNoMassDrop(nbfcIccDirections.length, previousData.directions.length, "RBI Master Directions");
 
   const payload = {
     generatedAt: new Date().toISOString(),
@@ -217,8 +212,7 @@ async function runCheckRbiMasterDirections() {
     excluded: excludedDirections,
   };
 
-  await mkdir(new URL("../data/", import.meta.url), { recursive: true });
-  await writeFile(OUTPUT_PATH, JSON.stringify(payload, null, 2));
+  await writeDataFile(OUTPUT_PATH, payload);
   console.log(
     `Wrote ${nbfcIccDirections.length} NBFC-ICC directions to data/master-directions.json`
   );

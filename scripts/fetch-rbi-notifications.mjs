@@ -3,23 +3,18 @@
 // Saves output to data/rbi-notifications.json
 // Triggers real-time email alerts via email-notifier.mjs when new notifications are released.
 
-import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { sendRegulatoryAlert } from "./email-notifier.mjs";
 import { assertNonZeroItems } from "./lib/guards.mjs";
+import { loadDataFile, writeDataFile } from "./lib/data-file.mjs";
 import { withFileLock } from "./lib/file-lock.mjs";
-import { extractDateString, isFreshRelease } from "./lib/date-utils.mjs";
+import { extractDateString, extractScopedDate, resolveMissingDate, isFreshRelease } from "./lib/date-utils.mjs";
 
 const DATA_PATH = new URL("../data/rbi-notifications.json", import.meta.url);
 const RBI_NOTIF_LIST_URL = "https://www.rbi.org.in/Scripts/NotificationUser.aspx";
 const BASE_URL = "https://www.rbi.org.in/Scripts/";
 
-async function loadPreviousData() {
-  try {
-    const raw = await readFile(DATA_PATH, "utf8");
-    return JSON.parse(raw);
-  } catch {
-    return { lastChecked: null, notifications: [] };
-  }
+function loadPreviousData() {
+  return loadDataFile(DATA_PATH, { lastChecked: null, notifications: [], pendingDates: {} });
 }
 
 async function fetchPage(url, retries = 3) {
@@ -49,8 +44,8 @@ async function fetchNotificationDetails(link) {
   try {
     const html = await fetchPage(link);
 
-    // Extract Date using robust date-utils parser
-    const date = extractDateString(html);
+    // RBI prints the issue date in a right-aligned paragraph under the reference number.
+    const date = extractScopedDate(html, [/<p align="?right"?>\s*([^<]{6,40}?)\s*<\/p>/i], link);
 
     // Extract Circular No (e.g., RBI/2026-27/203 or RBI/2026-2027/231)
     const refMatch = html.match(/(RBI\/\d{4}-\d{2,4}\/\d+[^\n<]*)/i);
@@ -114,6 +109,7 @@ async function runCheckRbiNotifications() {
 
   const prevIds = new Set(previousData.notifications.map(n => n.id || n.link));
   const newNotifications = [];
+  const pendingDates = { ...previousData.pendingDates };
 
   for (const item of parsedItems) {
     if (!prevIds.has(item.id)) {
@@ -121,10 +117,14 @@ async function runCheckRbiNotifications() {
       
       // Fetch details for new notification
       const details = await fetchNotificationDetails(item.link);
-      const actualDate = details.date || item.date || new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+      // No date on the detail page or the listing: retry on the next runs instead of
+      // guessing today's date.
+      const dated = (details.date || item.date) ? { date: details.date || item.date } : resolveMissingDate(item.id, pendingDates);
+      if (!dated) continue;
+      delete pendingDates[item.id];
       const fullItem = {
         ...item,
-        date: actualDate,
+        ...dated,
         circularNo: details.circularNo,
         pdfUrl: item.pdfUrl || details.pdfUrl,
         summary: details.summary || item.title,
@@ -132,6 +132,7 @@ async function runCheckRbiNotifications() {
       };
       
       newNotifications.push(fullItem);
+      prevIds.add(item.id); // the listing can repeat a row; don't add it twice
     }
   }
 
@@ -139,16 +140,18 @@ async function runCheckRbiNotifications() {
   const updatedList = [
     ...newNotifications,
     ...previousData.notifications.filter(p => !newNotifications.some(n => n.id === p.id))
-  ].slice(0, 100); // Keep latest 100
+  // Keep at least the latest 100, and never fewer than the listing shows: anything the
+  // listing still shows but the file dropped would be re-detected as "new" every run.
+  ].slice(0, Math.max(100, parsedItems.length));
 
   const payload = {
     lastChecked: new Date().toISOString(),
     count: updatedList.length,
-    notifications: updatedList
+    notifications: updatedList,
+    pendingDates,
   };
 
-  await mkdir(new URL("../data/", import.meta.url), { recursive: true });
-  await writeFile(DATA_PATH, JSON.stringify(payload, null, 2));
+  await writeDataFile(DATA_PATH, payload);
   console.log(`Updated data/rbi-notifications.json (${updatedList.length} total items).`);
 
   // Only dispatch instant alerts for items released today / within last 2 days,

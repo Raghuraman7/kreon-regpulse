@@ -44,7 +44,7 @@ jobs:
         run: |
           git config user.name "regnote-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/acts-rules.json data/secretarial-standards.json
+          git add data/acts-rules.json data/secretarial-standards.json data/sent-alerts.json
           git diff --cached --quiet && echo "No changes" || git commit -m "chore: monthly Acts & Rules / Secretarial Standards refresh [skip ci]"
           # Rebase onto main before pushing — main can move between checkout and here if
           # update-feed.yml's 15-minute cron commits in the meantime. Retry once on a race.

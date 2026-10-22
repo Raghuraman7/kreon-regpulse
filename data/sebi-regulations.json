@@ -28,6 +28,24 @@
       "amendedDate": "Jan 21, 2026",
       "lastUpdated": "2026-10-22T05:23:43.657Z"
     },
+    "lodr": {
+      "key": "lodr",
+      "shortName": "SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015",
+      "title": "Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015 [Last amended on July 14, 2026]",
+      "link": "https://www.sebi.gov.in/legal/regulations/jul-2026/securities-and-exchange-board-of-india-listing-obligations-and-disclosure-requirements-regulations-2015-last-amended-on-july-14-2026-_102974.html",
+      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/jul-2026/1784630770711.pdf",
+      "amendedDate": "Jul 14, 2026",
+      "lastUpdated": "2026-10-20T11:33:58.975Z"
+    },
+    "pit": {
+      "key": "pit",
+      "shortName": "SEBI (Prohibition of Insider Trading) Regulations, 2015",
+      "title": "Securities and Exchange Board of India (Prohibition of Insider Trading) Regulations 2015 [Last amended on March 12, 2025]",
+      "link": "https://www.sebi.gov.in/legal/regulations/mar-2025/securities-and-exchange-board-of-india-prohibition-of-insider-trading-regulations-2015-last-amended-on-march-12-2025-_92672.html",
+      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/aug-2026/1786963663321.pdf",
+      "amendedDate": "Mar 12, 2025",
+      "lastUpdated": "2026-10-20T11:33:59.020Z"
+    },
     "dyn-97887": {
       "key": "dyn-97887",
       "shortName": "SEBI Regulation (dynamically discovered)",

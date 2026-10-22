@@ -6,14 +6,14 @@ const MONTH_REGEX_PART = "January|February|March|April|May|June|July|August|Sept
  * Extracts and formats a date from arbitrary HTML / text string.
  * Supports:
  * - "August 6, 2026", "Aug 06, 2026", "Aug 6 2026"
- * - "6 August 2026", "06-Aug-2026", "06/08/2026"
+ * - "6 August 2026", "1st April, 2024", "06-Aug-2026", "06/08/2026"
  * Returns formatted string like "Aug 6, 2026" or null.
  */
 export function extractDateString(text) {
   if (!text) return null;
 
   // 1. "August 6, 2026" or "Aug 6, 2026"
-  const m1 = text.match(new RegExp(`\\b(${MONTH_REGEX_PART})\\s+(\\d{1,2}),?\\s+(\\d{4})\\b`, "i"));
+  const m1 = text.match(new RegExp(`\\b(${MONTH_REGEX_PART})\\s+(\\d{1,2})(?:st|nd|rd|th)?,?\\s+(\\d{4})\\b`, "i"));
   if (m1) {
     const month = m1[1].toLowerCase().slice(0, 3);
     const day = parseInt(m1[2], 10);
@@ -23,7 +23,7 @@ export function extractDateString(text) {
   }
 
   // 2. "6 August 2026" or "06-Aug-2026"
-  const m2 = text.match(new RegExp(`\\b(\\d{1,2})[\\s\\-\\./]+(${MONTH_REGEX_PART})[\\s\\-\\./]+(\\d{4})\\b`, "i"));
+  const m2 = text.match(new RegExp(`\\b(\\d{1,2})(?:st|nd|rd|th)?[\\s\\-\\./]+(${MONTH_REGEX_PART})[\\s\\-\\./,]+(\\d{4})\\b`, "i"));
   if (m2) {
     const day = parseInt(m2[1], 10);
     const month = m2[2].toLowerCase().slice(0, 3);
@@ -72,4 +72,44 @@ export function isFreshRelease(dateStr, maxDays = 4) {
 
   // Allow if issued today, up to maxDays ago, or dated slightly ahead
   return diffDays <= maxDays;
+}
+
+/**
+ * The date from the part of a page where the regulator prints it (each pattern's first
+ * capture group), so a menu or "last updated" date elsewhere can't be picked up. Falls
+ * back to the first date anywhere on the page only when none of the patterns match.
+ */
+export function extractScopedDate(html, patterns, label = "page") {
+  for (const pattern of patterns) {
+    const m = html.match(pattern);
+    const date = m && extractDateString(m[1]);
+    if (date) return date;
+  }
+  const date = extractDateString(html);
+  if (date) console.warn(`⚠ Date block not found on ${label}; used the first date on the page (${date}). The page layout may have changed.`);
+  return date;
+}
+
+// A new item whose page shows no date is retried on this many runs before it is stored
+// with the date it was first seen, flagged as such.
+const MAX_DATE_ATTEMPTS = 3;
+
+/**
+ * For a new item with no date: returns null to skip it this run (it is retried next run),
+ * or, once attempts run out, { date, dateSource: "first-seen" } to store it with today's
+ * date. `pending` maps item id -> attempts so far and is updated in place.
+ */
+export function resolveMissingDate(id, pending) {
+  const attempts = (pending[id] || 0) + 1;
+  if (attempts < MAX_DATE_ATTEMPTS) {
+    pending[id] = attempts;
+    console.warn(`⚠ No date found for ${id} (attempt ${attempts}/${MAX_DATE_ATTEMPTS}); will retry next run.`);
+    return null;
+  }
+  delete pending[id];
+  console.warn(`⚠ Still no date for ${id} after ${MAX_DATE_ATTEMPTS} attempts; storing it with the date first seen.`);
+  return {
+    date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "Asia/Kolkata" }),
+    dateSource: "first-seen",
+  };
 }

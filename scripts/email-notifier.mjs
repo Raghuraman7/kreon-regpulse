@@ -5,6 +5,9 @@ import nodemailer from "nodemailer";
 import { existsSync, readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { createHash } from "node:crypto";
+import { withFileLock } from "./lib/file-lock.mjs";
+import { loadDataFile, writeDataFile } from "./lib/data-file.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -183,6 +186,46 @@ const SOURCE_COLORS = {
   DEFAULT: { bg: "#1F2937", text: "#FFFFFF", badge: "#6B7280" },
 };
 
+// Scraped titles, summaries and links go into HTML email bodies; escape them so a stray
+// "<" or quote in source data can't break the markup or inject a link.
+export function escapeHtml(str) {
+  return String(str ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+/** The URL, escaped for an href, or "" unless it is a valid http(s) URL. */
+export function safeHref(url) {
+  try {
+    const u = new URL(url);
+    return /^https?:$/.test(u.protocol) ? escapeHtml(u.href) : "";
+  } catch {
+    return "";
+  }
+}
+
+/** Scraped summaries use literal <br/> as paragraph breaks; keep those, escape the rest. */
+export function summaryHtml(text) {
+  return String(text ?? "").split(/<br\s*\/?>/i).map(escapeHtml).join("<br/>");
+}
+
+// Alerts and digests are sent from one place only, the GitHub Action, so a local run (the
+// watcher, `npm run fetch`, a cron job) can't email the same release a second time. To
+// send from a machine instead, set ALERTS_FROM_THIS_MACHINE=1 there and remove the SMTP
+// secrets from the GitHub workflows.
+export function isAlertSender() {
+  return process.env.GITHUB_ACTIONS === "true" || process.env.ALERTS_FROM_THIS_MACHINE === "1";
+}
+
+// Every alert sent is recorded here (committed with the rest of data/), so a release is
+// never emailed twice, e.g. after a workflow re-run or a data file restored from git.
+const SENT_LEDGER_PATH = new URL("../data/sent-alerts.json", import.meta.url);
+const LEDGER_KEEP_DAYS = 180;
+
+// Same release and date = same alert. A new amendment date on the same regulation is a
+// new alert.
+function alertKey(categoryKey, item) {
+  return [categoryKey, item.id || item.key || item.link, item.date || item.amendedDate || ""].join("|");
+}
+
 // Trimmed for the subject line only — full title still appears in the email body.
 function truncateForSubject(title, maxLen = 90) {
   if (!title || title.length <= maxLen) return title;
@@ -196,7 +239,7 @@ function truncateForSubject(title, maxLen = 90) {
 // re-enabling it later (if it becomes real content) is just removing the key here.
 const SUMMARY_SUPPRESSED_CATEGORIES = new Set(["sebiCirculars"]);
 
-async function sendSingleRegulatoryAlert({ source, category, item, customSubject, recipients, transporter, categoryKey }) {
+async function sendSingleRegulatoryAlert({ source, category, item, customSubject, recipients, transporter, categoryKey, key }) {
   const theme = SOURCE_COLORS[source.toUpperCase()] || SOURCE_COLORS.DEFAULT;
   // One release = one subject line = one email. Gmail/Outlook group emails into a
   // thread when the subject matches exactly, so each subject carries the item title
@@ -213,18 +256,18 @@ async function sendSingleRegulatoryAlert({ source, category, item, customSubject
     <div style="margin-bottom: 24px; padding: 18px; border-radius: 8px; border-left: 5px solid ${theme.badge}; background-color: #F8FAFC; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
       <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
         <span style="background-color: ${theme.badge}; color: #FFFFFF; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 4px; text-transform: uppercase;">${source} • ${category}</span>
-        ${item.date ? `<span style="font-size: 12px; color: #64748B;">📅 ${item.date}</span>` : ""}
+        ${item.date ? `<span style="font-size: 12px; color: #64748B;">📅 ${escapeHtml(item.date)}</span>` : ""}
       </div>
-      <h3 style="color: #0F172A; margin: 8px 0 10px 0; font-size: 16px; line-height: 1.4;">${item.title}</h3>
+      <h3 style="color: #0F172A; margin: 8px 0 10px 0; font-size: 16px; line-height: 1.4;">${escapeHtml(item.title)}</h3>
       ${item.summary && !SUMMARY_SUPPRESSED_CATEGORIES.has(categoryKey) ? `
         <div style="background-color: #FFFFFF; padding: 12px; border-radius: 6px; border: 1px solid #E2E8F0; margin-bottom: 12px; font-size: 13px; color: #334155; line-height: 1.5;">
           <strong>Summary of Changes & Impact:</strong>
-          <p style="margin: 4px 0 0 0;">${item.summary}</p>
+          <p style="margin: 4px 0 0 0;">${summaryHtml(item.summary)}</p>
         </div>
       ` : ""}
       <div style="margin-top: 12px;">
-        <a href="${item.link}" target="_blank" style="background-color: ${theme.bg}; color: #FFFFFF; padding: 8px 14px; text-decoration: none; border-radius: 5px; font-size: 13px; font-weight: 600; display: inline-block; margin-right: 8px;">View Official Release ↗</a>
-        ${item.pdfUrl ? `<a href="${item.pdfUrl}" target="_blank" style="background-color: #475569; color: #FFFFFF; padding: 8px 14px; text-decoration: none; border-radius: 5px; font-size: 13px; font-weight: 600; display: inline-block;">Download PDF 📄</a>` : ""}
+        <a href="${safeHref(item.link)}" target="_blank" style="background-color: ${theme.bg}; color: #FFFFFF; padding: 8px 14px; text-decoration: none; border-radius: 5px; font-size: 13px; font-weight: 600; display: inline-block; margin-right: 8px;">View Official Release ↗</a>
+        ${safeHref(item.pdfUrl) ? `<a href="${safeHref(item.pdfUrl)}" target="_blank" style="background-color: #475569; color: #FFFFFF; padding: 8px 14px; text-decoration: none; border-radius: 5px; font-size: 13px; font-weight: 600; display: inline-block;">Download PDF 📄</a>` : ""}
       </div>
     </div>
   `;
@@ -274,11 +317,13 @@ async function sendSingleRegulatoryAlert({ source, category, item, customSubject
       to: recipients.join(", "),
       subject,
       html: emailBody,
+      // Fixed per release, so a mail server that sees it twice (Gmail does) can drop the copy.
+      messageId: `<${createHash("sha256").update(key).digest("hex").slice(0, 32)}@kreon-regpulse>`,
     });
     console.log(`✅ ${source} Real-Time Email Alert sent successfully to ${recipients.join(", ")}! Message ID: ${info.messageId}`);
     return { success: true, messageId: info.messageId };
   } catch (err) {
-    console.error(`❌ Error sending ${source} email notification:`, err);
+    console.error(`❌ Error sending ${source} email notification:`, err.message);
     return { success: false, error: err };
   }
 }
@@ -303,15 +348,35 @@ export async function sendRegulatoryAlert({ source, category, updates, customSub
     return { success: false, reason: "SMTP credentials missing" };
   }
 
-  // Each release is sent as its own email (own subject, own thread) rather than
-  // bundled into one multi-item email — see sendSingleRegulatoryAlert.
-  const results = [];
-  for (const item of updates) {
-    const result = await sendSingleRegulatoryAlert({ source, category, item, customSubject, recipients, transporter, categoryKey });
-    results.push(result);
+  if (!isAlertSender()) {
+    console.log(`⏭ Not emailing ${updates.length} ${source} ${category} update(s): alerts are sent by the GitHub Action. Set ALERTS_FROM_THIS_MACHINE=1 to send from here.`);
+    return { success: false, reason: "Not the alert sender" };
   }
 
-  return { success: results.every(r => r.success), results };
+  // Each release is sent as its own email (own subject, own thread) rather than
+  // bundled into one multi-item email — see sendSingleRegulatoryAlert.
+  return withFileLock(SENT_LEDGER_PATH, async () => {
+    const ledger = await loadDataFile(SENT_LEDGER_PATH, { sent: {} });
+    const cutoff = Date.now() - LEDGER_KEEP_DAYS * 86400000;
+    for (const [k, at] of Object.entries(ledger.sent)) if (Date.parse(at) < cutoff) delete ledger.sent[k];
+
+    const results = [];
+    for (const item of updates) {
+      const key = alertKey(categoryKey, item);
+      if (ledger.sent[key]) {
+        console.log(`⏭ Already emailed on ${ledger.sent[key].slice(0, 10)}, not sending again: ${item.title}`);
+        continue;
+      }
+      const result = await sendSingleRegulatoryAlert({ source, category, item, customSubject, recipients, transporter, categoryKey, key });
+      if (result.success) {
+        ledger.sent[key] = new Date().toISOString();
+        await writeDataFile(SENT_LEDGER_PATH, ledger); // after each send, so a crash mid-batch keeps the record
+      }
+      results.push(result);
+    }
+    await writeDataFile(SENT_LEDGER_PATH, ledger);
+    return { success: results.every(r => r.success), results };
+  });
 }
 
 /**
@@ -356,7 +421,7 @@ export async function sendScraperHealthWarning({ source, label, consecutiveFailu
           <p style="font-size: 14px; color: #334155;">The <strong>${displayName}</strong> scraper has either thrown an error or parsed 0 items for <strong>${consecutiveFailures}</strong> consecutive check cycles. This usually means the source website's layout changed or it is temporarily unreachable, and it may be silently missing regulatory updates until fixed.</p>
           ${lastError ? `
           <div style="background-color: #FEF2F2; border: 1px solid #FECACA; border-radius: 6px; padding: 12px; margin-top: 12px; font-size: 12px; color: #991B1B; font-family: monospace; word-break: break-word;">
-            ${lastError}
+            ${escapeHtml(lastError)}
           </div>` : ""}
           <p style="font-size: 13px; color: #64748B; margin-top: 20px;">This alert goes only to dev/ops, not the compliance recipient list, since it's an operational issue rather than a regulatory update.</p>
         </div>
@@ -376,7 +441,7 @@ export async function sendScraperHealthWarning({ source, label, consecutiveFailu
     console.log(`✅ Scraper health warning sent to ${recipients.join(", ")} for ${displayName}. Message ID: ${info.messageId}`);
     return { success: true, messageId: info.messageId };
   } catch (err) {
-    console.error(`❌ Error sending scraper health warning for ${displayName}:`, err);
+    console.error(`❌ Error sending scraper health warning for ${displayName}:`, err.message);
     return { success: false, error: err };
   }
 }

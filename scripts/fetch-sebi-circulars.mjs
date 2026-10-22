@@ -3,22 +3,17 @@
 // Saves output to data/sebi-circulars.json
 // Triggers real-time email alerts via email-notifier.mjs when new circulars are released.
 
-import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { sendRegulatoryAlert } from "./email-notifier.mjs";
 import { assertNonZeroItems } from "./lib/guards.mjs";
+import { loadDataFile, writeDataFile } from "./lib/data-file.mjs";
 import { withFileLock } from "./lib/file-lock.mjs";
-import { extractDateString, isFreshRelease } from "./lib/date-utils.mjs";
+import { extractScopedDate, resolveMissingDate, isFreshRelease } from "./lib/date-utils.mjs";
 
 const DATA_PATH = new URL("../data/sebi-circulars.json", import.meta.url);
 const SEBI_CIRCULAR_LIST_URL = "https://www.sebi.gov.in/sebiweb/home/HomeAction.do?doListing=yes&sid=1&ssid=7&smid=0";
 
-async function loadPreviousData() {
-  try {
-    const raw = await readFile(DATA_PATH, "utf8");
-    return JSON.parse(raw);
-  } catch {
-    return { lastChecked: null, circulars: [] };
-  }
+function loadPreviousData() {
+  return loadDataFile(DATA_PATH, { lastChecked: null, circulars: [], skipped: [], pendingDates: {} });
 }
 
 async function fetchWithRetry(url, retries = 3, backoffMs = 1500) {
@@ -56,8 +51,8 @@ async function fetchCircularDetails(url) {
     const h1Match = html.match(/<h1>\s*([\s\S]*?)\s*<\/h1>/i);
     const title = h1Match ? h1Match[1].replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim() : "";
 
-    // Date
-    const date = extractDateString(html);
+    // SEBI prints the issue date in a "date_value" block above the circular.
+    const date = extractScopedDate(html, [/class=['"]date_value['"][^>]*>\s*<h5>([^<]+)<\/h5>/i], url);
 
     // PDF URL
     const pdfMatch = html.match(/iframe\s+src=\x27[^\x27]*?file=([^\x27&]+)/i) ||
@@ -68,9 +63,14 @@ async function fetchCircularDetails(url) {
     const deptMatch = html.match(/class=\x27dept_value\x27[^>]*>\s*<h5>([^<]+)<\/h5>/i);
     const department = deptMatch ? deptMatch[1].trim() : null;
 
-    let finalPdfUrl = pdfUrl;
-    if (finalPdfUrl && !finalPdfUrl.startsWith("http")) {
-      finalPdfUrl = new URL(finalPdfUrl, "https://www.sebi.gov.in").href;
+    // Re-serialise through URL so stray quotes are percent-encoded, and keep only http(s)
+    // links (build.mjs refuses anything else, which would stop every deploy).
+    let finalPdfUrl = null;
+    if (pdfUrl) {
+      try {
+        const u = new URL(pdfUrl, "https://www.sebi.gov.in");
+        if (/^https?:$/.test(u.protocol)) finalPdfUrl = u.href;
+      } catch { /* unparseable link: leave it out */ }
     }
 
     const isNbfcRelevant = isApplicableToNbfc(title, department);
@@ -78,7 +78,7 @@ async function fetchCircularDetails(url) {
     return { title, date, pdfUrl: finalPdfUrl, department, isNbfcRelevant };
   } catch (err) {
     console.warn(`Failed to fetch details for SEBI circular ${url}:`, err.message);
-    return { title: "", date: null, pdfUrl: null, department: null, isNbfcRelevant: false };
+    return { failed: true, title: "", date: null, pdfUrl: null, department: null, isNbfcRelevant: false };
   }
 }
 
@@ -169,9 +169,14 @@ async function runCheckSebiCirculars() {
 
   const previousData = await loadPreviousData();
   assertNonZeroItems(linkMatches.length, previousData.circulars.length, "SEBI Circulars");
-  const prevUrls = new Set(previousData.circulars.map(c => c.link));
-  const unparsedMatches = linkMatches.filter(m => !prevUrls.has(m[1]));
+  // Circulars already judged not relevant are remembered too, so they aren't
+  // re-downloaded every run (which also risks SEBI blocking the scraper).
+  const prevSkipped = new Set(previousData.skipped);
+  const prevUrls = new Set([...previousData.circulars.map(c => c.link), ...prevSkipped]);
+  const unparsedMatches = [...new Set(linkMatches.map(m => m[1]))].filter(url => !prevUrls.has(url)).map(url => [null, url]);
   const newCirculars = [];
+  const newlySkipped = [];
+  const pendingDates = { ...previousData.pendingDates };
 
   if (unparsedMatches.length > 0) {
     console.log(`⚡ Concurrently checking ${unparsedMatches.length} new SEBI circular details...`);
@@ -187,17 +192,24 @@ async function runCheckSebiCirculars() {
           const id = idMatch ? `sebi-circ-${idMatch[1]}` : url;
 
           const details = await fetchCircularDetails(url);
+          if (details.failed) return null; // retried on the next run
           if (!details.isNbfcRelevant) {
+            newlySkipped.push(url);
             console.log(`ℹ️ Skipping SEBI Circular (not NBFC/digital-lending relevant): ${details.title || url}`);
             return null;
           }
+
+          // No date on the page: retry on the next runs instead of guessing today's date.
+          const dated = details.date ? { date: details.date } : resolveMissingDate(id, pendingDates);
+          if (!dated) return null;
+          delete pendingDates[id];
 
           console.log(`✨ New SEBI Circular detected (NBFC/digital-lending relevant): ${details.title || url}`);
           return {
             id,
             link: url,
             title: details.title || "SEBI Circular",
-            date: details.date || new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+            ...dated,
             pdfUrl: details.pdfUrl,
             department: details.department,
             summary: details.title ? `Circular issued by SEBI: ${details.title}` : "New SEBI Circular released.",
@@ -221,11 +233,12 @@ async function runCheckSebiCirculars() {
   const payload = {
     lastChecked: new Date().toISOString(),
     count: updatedList.length,
-    circulars: updatedList
+    circulars: updatedList,
+    pendingDates,
+    skipped: [...newlySkipped, ...previousData.skipped.filter(u => !newlySkipped.includes(u))].slice(0, 500),
   };
 
-  await mkdir(new URL("../data/", import.meta.url), { recursive: true });
-  await writeFile(DATA_PATH, JSON.stringify(payload, null, 2));
+  await writeDataFile(DATA_PATH, payload);
   console.log(`Updated data/sebi-circulars.json (${updatedList.length} total items).`);
 
   // Only dispatch instant alerts for circulars released today / within last 2 days,

@@ -1,6 +1,6 @@
-import { writeFile, readFile, mkdir } from "node:fs/promises";
 import { sendRegulatoryAlert } from "./email-notifier.mjs";
-import { assertNonZeroItems } from "./lib/guards.mjs";
+import { assertNonZeroItems, assertNoMassDrop } from "./lib/guards.mjs";
+import { loadDataFile, writeDataFile } from "./lib/data-file.mjs";
 import { withFileLock } from "./lib/file-lock.mjs";
 import { extractDateString, isFreshRelease } from "./lib/date-utils.mjs";
 
@@ -22,8 +22,20 @@ const TRACKED_REGS = [
   {
     key: "ncs",
     shortName: "SEBI (Issue and Listing of Non-Convertible Securities) Regulations, 2021",
-    searchPattern: /non-convertible-securities/i,
-  }
+    searchPattern: /issue-and-listing-of-non-convertible-securities/i,
+  },
+  // An issuer of listed non-convertible securities is a listed entity: LODR (Chapter V covers
+  // debt-listed entities) and the insider trading rules apply to it.
+  {
+    key: "lodr",
+    shortName: "SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015",
+    searchPattern: /listing-obligations-and-disclosure-requirements/i,
+  },
+  {
+    key: "pit",
+    shortName: "SEBI (Prohibition of Insider Trading) Regulations, 2015",
+    searchPattern: /prohibition-of-insider-trading/i,
+  },
 ];
 
 // Catches any other lending/credit-relevant regulation on the listing page that isn't in
@@ -51,13 +63,8 @@ function deriveKeyFromUrl(url) {
   return slugMatch ? `dyn-${slugMatch[1]}` : `dyn-${url}`;
 }
 
-async function loadPreviousData() {
-  try {
-    const raw = await readFile(DATA_PATH, "utf8");
-    return JSON.parse(raw);
-  } catch {
-    return { lastChecked: null, regulations: {} };
-  }
+function loadPreviousData() {
+  return loadDataFile(DATA_PATH, { lastChecked: null, regulations: {} });
 }
 
 async function fetchWithRetry(url, retries = 3, backoffMs = 1500) {
@@ -127,9 +134,13 @@ async function runCheckSebiRegulations() {
     try {
       const detailHtml = await fetchPage(url);
 
-      const title = extractTitle(detailHtml) || shortName;
-      const amendedDate = extractDate(detailHtml) || "Unknown Date";
-      const pdfUrl = extractPdfLink(detailHtml);
+      const prevData = previousData.regulations[key];
+      const title = extractTitle(detailHtml) || prevData?.title || shortName;
+      // An unreadable date keeps the last known one, so a blocked or changed page
+      // isn't reported as an amendment.
+      const extractedDate = extractDate(detailHtml);
+      const amendedDate = extractedDate || prevData?.amendedDate || "Unknown Date";
+      const pdfUrl = extractPdfLink(detailHtml) || prevData?.pdfUrl || null;
 
       const currentData = {
         key,
@@ -141,8 +152,6 @@ async function runCheckSebiRegulations() {
         lastUpdated: new Date().toISOString(),
       };
 
-      const prevData = previousData.regulations[key];
-
       if (prevData) {
         if (prevData.link !== currentData.link || prevData.amendedDate !== currentData.amendedDate) {
           console.log(`✨ Update detected in ${shortName}!`);
@@ -150,7 +159,7 @@ async function runCheckSebiRegulations() {
         }
       } else {
         console.log(`✨ New SEBI regulation tracked: ${shortName}`);
-        if (isFreshRelease(amendedDate, 30) && Object.keys(previousData.regulations).length > 0) {
+        if (extractedDate && isFreshRelease(amendedDate, 30) && Object.keys(previousData.regulations).length > 0) {
           updatedRegs.push(currentData);
         }
       }
@@ -158,6 +167,9 @@ async function runCheckSebiRegulations() {
       nextRegulations[key] = currentData;
     } catch (err) {
       console.error(`Error processing detail page for ${shortName}:`, err.message);
+      // Keep the last-known-good entry; otherwise it would drop out now and be
+      // re-announced as "new" on the next successful run.
+      if (previousData.regulations[key]) nextRegulations[key] = previousData.regulations[key];
     }
   }
 
@@ -171,6 +183,9 @@ async function runCheckSebiRegulations() {
       await processRegulation(trackRule.key, trackRule.shortName, matchedLink[1]);
     } else {
       console.warn(`Could not find URL matching pattern for ${trackRule.shortName}`);
+      // A tracked regulation missing from the listing means the page changed, not that
+      // the regulation was repealed; keep what we had.
+      if (previousData.regulations[trackRule.key]) nextRegulations[trackRule.key] = previousData.regulations[trackRule.key];
     }
   }
 
@@ -185,7 +200,7 @@ async function runCheckSebiRegulations() {
     await processRegulation(key, previousData.regulations[key]?.shortName || "SEBI Regulation (dynamically discovered)", url);
   }
 
-  assertNonZeroItems(
+  assertNoMassDrop(
     Object.keys(nextRegulations).length,
     Object.keys(previousData.regulations).length,
     "SEBI Regulations"
@@ -196,8 +211,7 @@ async function runCheckSebiRegulations() {
     regulations: nextRegulations,
   };
 
-  await mkdir(new URL("../data/", import.meta.url), { recursive: true });
-  await writeFile(DATA_PATH, JSON.stringify(payload, null, 2));
+  await writeDataFile(DATA_PATH, payload);
   console.log("Wrote updated SEBI regulations to data/sebi-regulations.json");
 
   if (updatedRegs.length > 0 && Object.keys(previousData.regulations).length > 0) {

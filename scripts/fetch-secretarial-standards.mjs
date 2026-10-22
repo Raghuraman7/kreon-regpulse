@@ -1,48 +1,69 @@
-// Periodically checks ICSI's Secretarial Standards page for new or revised standards
-// (SS-1 and beyond), comparing against data/secretarial-standards.json.
+// Periodically checks ICSI's Secretarial Standards for new or revised standards,
+// comparing against data/secretarial-standards.json.
 // ICSI revises these infrequently — run this MONTHLY, not in the 10-15 min
 // watch-realtime.mjs loop. See package.json "fetch:secstandards" / "fetch:monthly".
 //
-// Note: the URL referenced in older docs (icsi.edu/home/secretarial-standards/) now
-// soft-404s. The live listing lives at icsi.edu/knowledgebase/secretarial-standards/,
-// which links out to each individual standard's page — so instead of a hardcoded
-// SS-1..SS-4 list, this scrapes that listing page for every standard link and tracks
-// whatever it finds, the same way fetch-sebi-regulations.mjs dynamically discovers
-// regulations instead of relying on a fixed array.
+// ICSI rebuilt icsi.edu as a JavaScript app in 2026: the old listing page
+// (icsi.edu/knowledgebase/secretarial-standards/) and every .../publications/*.htm page
+// now return the app shell or 404. The standards are listed on icsi.edu/member/icsi-standards,
+// whose content the app loads as JSON from ICSI's own CMS endpoint (RESOLVE_URL below) —
+// the "Secretarial Standards" tab there lists each standard with a direct PDF link.
 // Run with: node scripts/fetch-secretarial-standards.mjs
 
-import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { sendRegulatoryAlert } from "./email-notifier.mjs";
 import { assertNonZeroItems } from "./lib/guards.mjs";
+import { loadDataFile, writeDataFile } from "./lib/data-file.mjs";
 import { withFileLock } from "./lib/file-lock.mjs";
-import { extractAmendmentSignal, contentHash } from "./lib/change-detect.mjs";
-import { extractDateString, isFreshRelease } from "./lib/date-utils.mjs";
+import { contentHash } from "./lib/change-detect.mjs";
+import { isFreshRelease } from "./lib/date-utils.mjs";
 
 const DATA_PATH = new URL("../data/secretarial-standards.json", import.meta.url);
-const SS_LISTING_URL = "https://www.icsi.edu/knowledgebase/secretarial-standards/";
+const STANDARDS_PAGE_URL = "https://www.icsi.edu/member/icsi-standards";
+const RESOLVE_URL = "https://webcms.icsi.edu/api/resolve/?path=%2Fmember%2Ficsi-standards";
+const ISSUED_BY = "Institute of Company Secretaries of India (ICSI)";
 
-async function loadPreviousData() {
-  try {
-    const raw = await readFile(DATA_PATH, "utf8");
-    return JSON.parse(raw);
-  } catch {
-    return { standards: [] };
-  }
+// ICSI lists SS-1 and SS-2 by version ("Effective from 1st April, 2024" / "Applicable up to
+// 31st March, 2024"), so their names come from here; other standards carry their name and
+// code in the document title, e.g. "Secretarial Standard on Dividend (SS-3)".
+const KNOWN_NAMES = {
+  1: "Secretarial Standard on Meetings of the Board of Directors",
+  2: "Secretarial Standard on General Meetings",
+  3: "Secretarial Standard on Dividend",
+  4: "Secretarial Standard on Report of the Board of Directors",
+};
+
+// Supporting documents in the same tab that are not standards themselves.
+const NOT_A_STANDARD = /guidance|comparative|faq|charter|model (governance )?code|governance and compliance/i;
+
+// Keys used before ICSI's redesign, so carefully written summaries carry over to the new
+// "ss<N>" keys. Other pre-redesign entries (e.g. mis-scraped duplicates) are dropped.
+const LEGACY_KEYS = {
+  ss1: "ssonmeetingsofboardofdirectors",
+  ss2: "ssgm",
+  ss3: "ssondividend",
+  ss4: "ssonregistersandrecords",
+};
+
+// Entries scraped from the old site link to .../webmodules/publications/*.htm, which no longer exists.
+const isPreRedesign = (s) => /\/webmodules\/publications\//i.test(s.link || "");
+
+function loadPreviousData() {
+  return loadDataFile(DATA_PATH, { standards: [] });
 }
 
-async function fetchWithRetry(url, retries = 3, backoffMs = 1500) {
+async function fetchJsonWithRetry(url, retries = 3, backoffMs = 1500) {
   for (let i = 0; i < retries; i++) {
     try {
       const res = await fetch(url, {
-        signal: AbortSignal.timeout(15000),
+        signal: AbortSignal.timeout(20000),
         headers: {
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-          "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
-          "Accept-Language": "en-US,en;q=0.9",
+          "Accept": "application/json",
+          "Referer": STANDARDS_PAGE_URL,
         },
       });
       if (!res.ok) throw new Error(`HTTP ${res.status} fetching ${url}`);
-      return res;
+      return await res.json();
     } catch (err) {
       if (i === retries - 1) throw err;
       await new Promise(r => setTimeout(r, backoffMs * (i + 1)));
@@ -50,87 +71,72 @@ async function fetchWithRetry(url, retries = 3, backoffMs = 1500) {
   }
 }
 
-// Individual standard pages live under .../publications/<Name>.htm; the compendium
-// (all standards bundled) and order-form pages link from the same folder but aren't
-// a single standard, so they're excluded.
-const STANDARD_LINK_PATTERN = /href=["']([^"']*\/media\/webmodules\/publications\/[^"']+\.htm)["']/gi;
-const EXCLUDE_LINK_PATTERNS = [/compedium/i, /orderform/i];
-
-// The pre-existing data/secretarial-standards.json was hand-curated with keys ss1/ss2/ss4,
-// which don't match the keys this scraper derives from ICSI's real current URLs. Verified
-// by fetching each page directly: ICSI's site now scopes "SS-4" to Registers & Records
-// (the old "Board's Report" SS-4 entry appears superseded). Aliasing lets the migration
-// merge into these instead of creating duplicate rows for the same standard.
-const LEGACY_KEY_ALIASES = {
-  ss1: "ssonmeetingsofboardofdirectors",
-  ss2: "ssgm",
-  ss4: "ssonregistersandrecords",
-};
-
-function deriveKeyFromUrl(url) {
-  const fileMatch = url.match(/\/([^/]+)\.htm$/i);
-  const raw = fileMatch ? fileMatch[1] : url;
-  return raw.toLowerCase().replace(/[^a-z0-9]/g, "");
+/** All document entries under the page's "Secretarial Standards" tab. */
+function findStandardDocs(page) {
+  const docs = [];
+  const visit = (node, inTab) => {
+    if (Array.isArray(node)) return node.forEach(n => visit(n, inTab));
+    if (!node || typeof node !== "object") return;
+    const tabHere = inTab || (typeof node.label === "string" && /^secretarial standards$/i.test(node.label.trim()));
+    if (tabHere && Array.isArray(node.docs)) docs.push(...node.docs);
+    for (const value of Object.values(node)) visit(value, tabHere);
+  };
+  visit(page, false);
+  return docs.filter(d => d && typeof d.url === "string" && typeof d.title === "string");
 }
 
-function deriveFallbackTitle(url) {
-  const key = deriveKeyFromUrl(url);
-  return `ICSI Secretarial Standard (${key})`;
+/** "SS-3" etc., from the title or the PDF file name (ss-1-1-2024.pdf, ss3-...pdf, finalss-4.pdf). */
+function standardNumber(doc) {
+  const fromTitle = doc.title.match(/\bSS-?(\d{1,2})\b/i);
+  if (fromTitle) return Number(fromTitle[1]);
+  const file = doc.url.split("/").pop() || "";
+  const fromFile = file.match(/ss-?(\d{1,2})(?=[^0-9]|$)/i);
+  return fromFile ? Number(fromFile[1]) : null;
 }
 
-function extractTitle(html, url) {
-  const m = html.match(/Secretarial\s+Standard\s+on\s+[^<\n]{3,80}/i);
-  if (m) return m[0].replace(/\s+/g, " ").trim();
-  const h1 = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
-  if (h1) return h1[1].replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
-  return deriveFallbackTitle(url);
+const MONTHS = { january: 1, february: 2, march: 3, april: 4, may: 5, june: 6, july: 7, august: 8, september: 9, october: 10, november: 11, december: 12 };
+
+/** "Effective from 1st April, 2024" → "2024-04-01". */
+function effectiveDateFrom(title) {
+  const m = title.match(/effective\s+from\s+(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+),?\s+(\d{4})/i);
+  const month = m && MONTHS[m[2].toLowerCase()];
+  return month ? `${m[3]}-${String(month).padStart(2, "0")}-${m[1].padStart(2, "0")}` : null;
 }
 
-function extractPdfUrl(html, pageUrl) {
-  const m = html.match(/href=["']?([^"'\s>]+\.pdf)["']?/i);
-  if (!m) return null;
-  try {
-    return new URL(m[1].replace(/^http:/i, "https:"), pageUrl).href;
-  } catch {
-    return m[1];
+/** One entry per standard: the version in force (not the "Applicable up to …" one). */
+function currentStandards(docs) {
+  const byNumber = new Map();
+  for (const doc of docs) {
+    if (NOT_A_STANDARD.test(doc.title)) continue;
+    const n = standardNumber(doc);
+    if (!n) continue;
+    const superseded = /applicable\s+up\s+to/i.test(doc.title);
+    const existing = byNumber.get(n);
+    if (!existing || (existing.superseded && !superseded)) byNumber.set(n, { n, doc, superseded });
   }
+  return [...byNumber.values()].filter(s => !s.superseded).sort((a, b) => a.n - b.n);
 }
 
-async function checkOneStandard(url, prev) {
-  const res = await fetchWithRetry(url);
-  const body = await res.text();
-
-  const title = extractTitle(body, url) || prev?.title || deriveFallbackTitle(url);
-  const amendedSignal = extractAmendmentSignal(body);
-  const hash = contentHash(body);
-  const pdfUrl = extractPdfUrl(body, url) || prev?.pdfUrl || null;
-
+function toStandard({ n, doc }, prev) {
+  const name = KNOWN_NAMES[n] || doc.title.replace(/\s*\(SS-?\d+\)\s*$/i, "").trim();
+  const versionNote = /effective\s+from/i.test(doc.title) ? doc.title.trim() : null;
   return {
-    key: deriveKeyFromUrl(url),
-    title,
-    issuedBy: "Institute of Company Secretaries of India (ICSI)",
-    link: url,
-    pdfUrl,
-    effectiveDate: prev?.effectiveDate || null,
-    lastAmended: amendedSignal || prev?.lastAmended || "See linked standard for effective date.",
-    summary: prev?.summary || `Auto-discovered from the ICSI Secretarial Standards listing page: ${title}.`,
+    key: `ss${n}`,
+    title: `${name} (SS-${n})`,
+    issuedBy: ISSUED_BY,
+    link: STANDARDS_PAGE_URL,
+    pdfUrl: doc.url,
+    effectiveDate: effectiveDateFrom(doc.title) || prev?.effectiveDate || null,
+    lastAmended: versionNote || prev?.lastAmended || "See the official PDF for the effective date.",
+    summary: prev?.summary && !/^Auto-discovered/i.test(prev.summary)
+      ? prev.summary
+      : `${name} (SS-${n}), as listed by ICSI.`,
     checkMeta: {
-      amendedSignal,
-      contentHash: hash,
+      amendedSignal: versionNote,
+      contentHash: contentHash(JSON.stringify({ url: doc.url, title: doc.title, size: doc.size, date: doc.date })),
       lastCheckedAt: new Date().toISOString(),
     },
   };
-}
-
-function hasChanged(prev, next) {
-  if (!prev?.checkMeta) return false; // first time we've checked this standard — establish baseline only
-  if (next.checkMeta.amendedSignal && prev.checkMeta.amendedSignal) {
-    return next.checkMeta.amendedSignal !== prev.checkMeta.amendedSignal;
-  }
-  if (next.checkMeta.amendedSignal && !prev.checkMeta.amendedSignal) {
-    return true;
-  }
-  return false;
 }
 
 export async function checkSecretarialStandards() {
@@ -138,114 +144,79 @@ export async function checkSecretarialStandards() {
 }
 
 async function runCheckSecretarialStandards() {
-  console.log("🔍 Checking ICSI Secretarial Standards listing page...");
+  console.log("🔍 Checking ICSI Secretarial Standards (icsi.edu/member/icsi-standards)...");
 
-  const listingRes = await fetchWithRetry(SS_LISTING_URL);
-  const listingHtml = await listingRes.text();
-
-  const rawLinks = [...listingHtml.matchAll(STANDARD_LINK_PATTERN)].map(m => m[1]);
-  const links = [...new Set(rawLinks)]
-    .map(href => new URL(href, SS_LISTING_URL).href)
-    .filter(url => !EXCLUDE_LINK_PATTERNS.some(p => p.test(url)));
-
-  console.log(`Found ${links.length} individual Secretarial Standard link(s) on the listing page.`);
+  const resolved = await fetchJsonWithRetry(RESOLVE_URL);
+  const found = currentStandards(findStandardDocs(resolved?.page));
+  console.log(`Found ${found.length} Secretarial Standard(s): ${found.map(s => `SS-${s.n}`).join(", ") || "none"}.`);
 
   const previousData = await loadPreviousData();
-  const prevByKey = new Map();
-  for (const s of previousData.standards) {
-    prevByKey.set(s.key, s);
-    const aliasedKey = LEGACY_KEY_ALIASES[s.key];
-    if (aliasedKey) prevByKey.set(aliasedKey, s);
-  }
+  const prevByKey = new Map(previousData.standards.map(s => [s.key, s]));
+  const previousFor = (key) => prevByKey.get(key) || prevByKey.get(LEGACY_KEYS[key]);
 
-  // First time this scraper runs against a hand-curated file, none of the existing
-  // entries will have checkMeta yet — treat that as baseline-establishing rather than
-  // alerting on every standard as if it were brand new.
-  const isFirstEverRun = previousData.standards.every(s => !s.checkMeta);
+  // No entry in the current "ss<N>" format yet means this is the first run on ICSI's new
+  // site: establish a baseline instead of alerting on every standard as if it were new.
+  const isBaselineRun = previousData.standards.every(isPreRedesign);
+
+  assertNonZeroItems(found.length, previousData.standards.length, "Secretarial Standards");
 
   const nextStandards = [];
   const updates = [];
-  let successCount = 0;
+  for (const entry of found) {
+    const prev = previousFor(`ss${entry.n}`);
+    const next = toStandard(entry, prev);
 
-  for (const url of links) {
-    const key = deriveKeyFromUrl(url);
-    const prev = prevByKey.get(key);
-    try {
-      const checked = await checkOneStandard(url, prev);
-      successCount++;
-
-      // Carry forward an earlier-this-month detection so an incidental re-run (e.g.
-      // workflow_dispatch) doesn't erase it before the monthly digest gets to read it.
-      if (prev?.checkMeta?.lastAmendmentDetectedAt) {
-        checked.checkMeta.lastAmendmentDetectedAt = prev.checkMeta.lastAmendmentDetectedAt;
-      }
-
-      const extractedDate = extractDateString(checked.checkMeta.amendedSignal) || new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-
-      if (!prev && !isFirstEverRun) {
-        console.log(`✨ New ICSI Secretarial Standard discovered: ${checked.title}`);
-        checked.checkMeta.lastAmendmentDetectedAt = new Date().toISOString();
-        updates.push({
-          id: `ss-${key}`,
-          title: checked.title,
-          link: checked.link,
-          pdfUrl: checked.pdfUrl,
-          date: extractedDate,
-          summary: `Newly discovered Secretarial Standard on the ICSI listing page — please review and confirm applicability.`,
-        });
-      } else if (prev && hasChanged(prev, checked)) {
-        console.log(`✨ Revision detected in ${checked.title}`);
-        checked.checkMeta.lastAmendmentDetectedAt = new Date().toISOString();
-        updates.push({
-          id: `ss-${key}`,
-          title: checked.title,
-          link: checked.link,
-          pdfUrl: checked.pdfUrl,
-          date: extractedDate,
-          summary: checked.checkMeta.amendedSignal
-            ? `Amendment indicator changed: "${prev.checkMeta?.amendedSignal || prev.lastAmended}" → "${checked.checkMeta.amendedSignal}"`
-            : `Source page content changed since the last check on ${prev.checkMeta?.lastCheckedAt?.slice(0, 10) || "an earlier date"}. Please verify what changed.`,
-        });
-      }
-
-      nextStandards.push(checked);
-    } catch (err) {
-      console.error(`Error checking standard at ${url}:`, err.message);
-      // Keep the last-known-good entry rather than dropping it, re-keyed to the new
-      // URL-derived key so it isn't duplicated by the orphan-preservation pass below.
-      if (prev) nextStandards.push({ ...prev, key });
+    if (prev?.checkMeta?.lastAmendmentDetectedAt) {
+      next.checkMeta.lastAmendmentDetectedAt = prev.checkMeta.lastAmendmentDetectedAt;
     }
+
+    const isNew = !prev && !isBaselineRun;
+    const isRevised = !isBaselineRun && prev?.key === next.key && prev.pdfUrl !== next.pdfUrl;
+    if (isNew || isRevised) {
+      console.log(`✨ ${isNew ? "New" : "Revised"} Secretarial Standard: ${next.title}`);
+      next.checkMeta.lastAmendmentDetectedAt = new Date().toISOString();
+      updates.push({
+        id: `ss-${next.key}`,
+        title: next.title,
+        link: next.link,
+        pdfUrl: next.pdfUrl,
+        date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+        summary: isNew
+          ? "Newly listed Secretarial Standard on ICSI's standards page — please review and confirm applicability."
+          : `ICSI published a new PDF for this standard${next.checkMeta.amendedSignal ? ` (${next.checkMeta.amendedSignal})` : ""}. Please verify what changed.`,
+      });
+    }
+    nextStandards.push(next);
   }
 
-  // Standards previously tracked whose link disappeared from the listing page entirely
-  // (superseded/withdrawn) are kept as-is rather than silently deleted, for audit history.
+  // A standard that disappears from ICSI's list is kept (last known version) for audit
+  // history. Pre-redesign entries are not: their pages no longer exist.
   for (const prev of previousData.standards) {
-    const mergedKey = LEGACY_KEY_ALIASES[prev.key] || prev.key;
-    if (!nextStandards.some(s => s.key === mergedKey)) {
+    if (nextStandards.some(s => s.key === prev.key)) continue;
+    if (!isPreRedesign(prev)) {
+      console.warn(`⚠ ${prev.title} is no longer listed by ICSI; keeping the last known entry.`);
       nextStandards.push(prev);
+    } else if (!Object.values(LEGACY_KEYS).includes(prev.key)) {
+      console.log(`Dropping pre-redesign entry "${prev.title}" (${prev.key}): its page no longer exists.`);
     }
   }
-
-  assertNonZeroItems(successCount, previousData.standards.length, "Secretarial Standards");
 
   const payload = {
     generatedAt: new Date().toISOString(),
     standards: nextStandards,
   };
 
-  await mkdir(new URL("../data/", import.meta.url), { recursive: true });
-  await writeFile(DATA_PATH, JSON.stringify(payload, null, 2));
-  console.log(`Wrote ${nextStandards.length} Secretarial Standards entries to data/secretarial-standards.json (${successCount} checked successfully).`);
+  await writeDataFile(DATA_PATH, payload);
+  console.log(`Wrote ${nextStandards.length} Secretarial Standards to data/secretarial-standards.json.`);
 
   const freshAlerts = updates.filter(u => isFreshRelease(u.date, 30));
-
   if (freshAlerts.length > 0) {
-    console.log(`✨ Detected ${freshAlerts.length} fresh Secretarial Standard update(s). Dispatching alert email...`);
+    console.log(`✨ Detected ${freshAlerts.length} Secretarial Standard update(s). Dispatching alert email...`);
     await sendRegulatoryAlert({
       source: "ICSI",
       category: "Secretarial Standard",
       updates: freshAlerts,
-      categoryKey: "secretarialStandards"
+      categoryKey: "secretarialStandards",
     });
   } else {
     console.log("No Secretarial Standards updates detected.");

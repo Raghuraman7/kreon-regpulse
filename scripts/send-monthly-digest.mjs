@@ -10,7 +10,7 @@ import nodemailer from "nodemailer";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { existsSync, readFileSync } from "node:fs";
-import { getDigestRecipientGroups, CS_TEAM_CATEGORIES } from "./email-notifier.mjs";
+import { getDigestRecipientGroups, CS_TEAM_CATEGORIES, escapeHtml, safeHref, isAlertSender } from "./email-notifier.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -254,15 +254,15 @@ export async function generateAndSendPeriodicDigest({ month, year } = {}) {
     const tableRowsHtml = items.length > 0 ? items.map((item, idx) => `
     <tr style="background-color: ${idx % 2 === 0 ? "#FFFFFF" : "#F8FAFC"}; border-bottom: 1px solid #E2E8F0;">
       <td style="padding: 12px 10px; font-size: 13px; color: #475569; text-align: center; font-weight: bold;">${idx + 1}</td>
-      <td style="padding: 12px 10px; font-size: 12px; color: #64748B; white-space: nowrap;">${item.date}</td>
+      <td style="padding: 12px 10px; font-size: 12px; color: #64748B; white-space: nowrap;">${escapeHtml(item.date)}</td>
       <td style="padding: 12px 10px; text-align: center;">
         <span style="background-color: ${SOURCE_COLORS[item.source] || "#334155"}; color: #FFFFFF; font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 4px;">${item.source}</span>
       </td>
-      <td style="padding: 12px 10px; font-size: 12px; color: #334155; font-weight: 600;">${item.category}</td>
-      <td style="padding: 12px 14px; font-size: 13px; color: #0F172A;">${item.title}</td>
+      <td style="padding: 12px 10px; font-size: 12px; color: #334155; font-weight: 600;">${escapeHtml(item.category)}</td>
+      <td style="padding: 12px 14px; font-size: 13px; color: #0F172A;">${escapeHtml(item.title)}</td>
       <td style="padding: 12px 10px; white-space: nowrap; text-align: center;">
-        <a href="${item.link}" target="_blank" style="background-color: #1F3A5F; color: #FFFFFF; padding: 5px 10px; text-decoration: none; border-radius: 4px; font-size: 11px; font-weight: 600; display: inline-block; margin-bottom: 4px;">View ↗</a>
-        ${item.pdfUrl ? `<br/><a href="${item.pdfUrl}" target="_blank" style="background-color: #475569; color: #FFFFFF; padding: 5px 10px; text-decoration: none; border-radius: 4px; font-size: 11px; font-weight: 600; display: inline-block;">PDF 📄</a>` : ""}
+        <a href="${safeHref(item.link)}" target="_blank" style="background-color: #1F3A5F; color: #FFFFFF; padding: 5px 10px; text-decoration: none; border-radius: 4px; font-size: 11px; font-weight: 600; display: inline-block; margin-bottom: 4px;">View ↗</a>
+        ${safeHref(item.pdfUrl) ? `<br/><a href="${safeHref(item.pdfUrl)}" target="_blank" style="background-color: #475569; color: #FFFFFF; padding: 5px 10px; text-decoration: none; border-radius: 4px; font-size: 11px; font-weight: 600; display: inline-block;">PDF 📄</a>` : ""}
       </td>
     </tr>
   `).join("") : `
@@ -374,6 +374,11 @@ export async function generateAndSendPeriodicDigest({ month, year } = {}) {
 
     const { subject, html } = renderDigestEmail(items, { scopeNote });
 
+    if (transporter && !isAlertSender()) {
+      console.log(`⏭ Not emailing the ${audienceLabel} digest: digests are sent by the GitHub Action. Set ALERTS_FROM_THIS_MACHINE=1 to send from here.`);
+      return { success: false, reason: "Not the alert sender" };
+    }
+
     if (!transporter) {
       console.log("\n------------------------------------------------------------------");
       console.warn(`⚠ SMTP credentials not configured. Mocking ${audienceLabel} digest output:`);
@@ -395,7 +400,7 @@ export async function generateAndSendPeriodicDigest({ month, year } = {}) {
       console.log(`✅ ${audienceLabel} digest sent to ${recipients.join(", ")}! Message ID: ${info.messageId}`);
       return { success: true, messageId: info.messageId };
     } catch (err) {
-      console.error(`❌ Failed to send ${audienceLabel} digest:`, err);
+      console.error(`❌ Failed to send ${audienceLabel} digest:`, err.message);
       return { success: false, error: err };
     }
   }

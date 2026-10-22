@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T10:22:23.259Z",
+  "generatedAt": "2026-10-20T11:44:20.895Z",
   "acts": [
     {
       "id": "act-1",
@@ -38,9 +38,9 @@
       "summary": "Establishes the Reserve Bank of India and provides the statutory framework for the regulation of NBFCs under Chapter III-B, governing registration, reserve funds, and directions.",
       "checkMeta": {
         "amendedSignal": null,
-        "contentHash": "692bd1c7e6198d6c54a43e8b9aded29857acf5f53255a4a64b9ecd3ac556fff3",
+        "contentHash": "363740ab673670b6ef2ccf1cce7aeb14ca89f0e439ba3c5550a58263765fd24b",
         "sourceLastModified": null,
-        "lastCheckedAt": "2026-10-01T10:19:28.940Z",
+        "lastCheckedAt": "2026-10-20T11:41:36.821Z",
         "lastAmendmentDetectedAt": "2026-08-18T11:50:04.079Z"
       }
     },
@@ -55,9 +55,9 @@
       "summary": "Detailed rules under PMLA defining standard customer due diligence (CDD) procedures, transaction reporting forms (CTR, STR, CCR), and record preservation periods (5 years).",
       "checkMeta": {
         "amendedSignal": null,
-        "contentHash": "dfcfd65ade8ec182d12e6e75339961f8fc2987e2353127ad2567c0cfe333cec6",
+        "contentHash": "7e7b1c290f8d178879ee2442348664e5b3d5879b02caf45b70ebef2f7ec8d728",
         "sourceLastModified": null,
-        "lastCheckedAt": "2026-10-01T10:19:30.418Z",
+        "lastCheckedAt": "2026-10-20T11:41:37.294Z",
         "lastAmendmentDetectedAt": "2026-08-18T11:50:04.312Z"
       }
     },
@@ -65,8 +65,8 @@
       "id": "act-5",
       "title": "Securities and Exchange Board of India Act, 1992",
       "type": "Act",
-      "link": "https://www.sebi.gov.in/legal/acts/apr-1992/securities-and-exchange-board-of-india-act-1992_3.html",
-      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/1456302830832.pdf",
+      "link": "https://www.sebi.gov.in/legal/acts/jan-1992/securities-and-exchange-board-of-india-act-1992-as-amended-by-the-finance-act-2021-13-of-2021-w-e-f-april-1-2021-_3.html",
+      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/apr-2021/1618910643277.pdf",
       "enactedDate": "1992-04-12",
       "lastAmended": "Last amended in 2021",
       "summary": "Establishes SEBI as the regulatory body for India's securities markets. Grants powers to protect investors, promote market development, and regulate intermediaries and listed companies."
@@ -76,7 +76,7 @@
       "title": "Digital Personal Data Protection Act, 2023",
       "type": "Act",
       "link": "https://www.meity.gov.in/content/digital-personal-data-protection-act-2023",
-      "pdfUrl": "https://www.meity.gov.in/writereaddata/files/Digital%20Personal%20Data%20Protection%20Act%202023.pdf",
+      "pdfUrl": null,
       "enactedDate": "2023-08-11",
       "lastAmended": "Enacted in 2023",
       "summary": "Regulates the processing of digital personal data in India. Requires data fiduciaries (like fintechs/NBFCs) to obtain explicit consent, ensure data accuracy, implement security safeguards, and respect user rights.",
@@ -84,7 +84,7 @@
         "amendedSignal": null,
         "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "sourceLastModified": null,
-        "lastCheckedAt": "2026-10-01T10:19:37.544Z"
+        "lastCheckedAt": "2026-10-20T11:41:42.510Z"
       }
     },
     {
@@ -98,9 +98,9 @@
       "summary": "Governs credit bureaus (CIBIL, Equifax, Experian, CRIF High Mark) in India. Mandates that all lending NBFCs become members of all four CICs and update credit data monthly.",
       "checkMeta": {
         "amendedSignal": null,
-        "contentHash": "0a2d49a9d05350d4d8c21b0b018aaf0e13d3ae66bf1b596f4677ece02257fe6e",
+        "contentHash": "73f5c21bdd4606f92ae10d753765a051073c9f7614fc568e9b8d92c396b93b22",
         "sourceLastModified": null,
-        "lastCheckedAt": "2026-10-01T10:19:38.421Z",
+        "lastCheckedAt": "2026-10-20T11:41:42.897Z",
         "lastAmendmentDetectedAt": "2026-08-18T11:50:09.342Z"
       }
     },
@@ -125,7 +125,7 @@
       "title": "Information Technology Act, 2000",
       "type": "Act",
       "link": "https://www.meity.gov.in/content/information-technology-act-2000",
-      "pdfUrl": "https://www.meity.gov.in/writereaddata/files/it_act_2000_updated.pdf",
+      "pdfUrl": null,
       "enactedDate": "2000-06-09",
       "lastAmended": "Last amended in 2008",
       "summary": "Provides legal recognition for electronic transactions, digital signatures, and electronic records. Outlines liability for data leaks, cybercrimes, and security procedures for corporations.",
@@ -133,7 +133,7 @@
         "amendedSignal": null,
         "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "sourceLastModified": null,
-        "lastCheckedAt": "2026-10-01T10:20:28.706Z"
+        "lastCheckedAt": "2026-10-20T11:42:32.469Z"
       }
     },
     {
@@ -172,8 +172,8 @@
       "id": "act-12",
       "title": "Securities Contracts (Regulation) Act, 1956",
       "type": "Act",
-      "link": "https://www.sebi.gov.in/legal/acts/apr-1956/securities-contracts-regulation-act-1956_5.html",
-      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/1456303273393.pdf",
+      "link": "https://www.sebi.gov.in/legal/acts/apr-2021/securities-contracts-regulation-act-1956-as-amended-by-the-finance-act-2021-13-of-2021-w-e-f-april-1-2021-_49750.html",
+      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/apr-2024/1712903397070.pdf",
       "enactedDate": "1956-09-04",
       "lastAmended": "Last amended in 2021",
       "summary": "Prevents undesirable transactions in securities by regulating the business of dealing therein, governing stock exchanges, contracts in securities, and listing of securities."
@@ -182,8 +182,8 @@
       "id": "act-13",
       "title": "Depositories Act, 1996",
       "type": "Act",
-      "link": "https://www.sebi.gov.in/legal/acts/aug-1996/depositories-act-1996_8.html",
-      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/1456303024888.pdf",
+      "link": "https://www.sebi.gov.in/legal/acts/sep-1995/depositories-act-1996-as-amended-by-the-international-financial-services-centres-authority-act-2019-w-e-f-october-01-2020-_1.html",
+      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/feb-2024/1708418233857.pdf",
       "enactedDate": "1996-08-10",
       "lastAmended": "Last amended in 2021",
       "summary": "Provides for the regulation of depositories in securities and for matters connected therewith or incidental thereto. Establishes the legal framework for dematerialisation."

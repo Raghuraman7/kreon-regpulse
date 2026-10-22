@@ -1,6 +1,7 @@
 // Continuous Real-Time Watcher Daemon for RBI & SEBI Regulatory Updates
 // Periodically polls RBI Notifications, RBI Master Directions, SEBI Regulations, and SEBI Circulars.
-// Triggers INSTANT email notifications to umamaheswari.s@stucred.com, raghuraman@stucred.com & shubhrajyoti.c@stucred.com as soon as an update is released.
+// Keeps data/*.json current. Alert emails are sent only by the GitHub Action unless this
+// machine sets ALERTS_FROM_THIS_MACHINE=1 (see isAlertSender in email-notifier.mjs).
 // Run with: node scripts/watch-realtime.mjs
 
 import { readFile, writeFile, mkdir } from "node:fs/promises";
@@ -9,7 +10,7 @@ import { checkSebiCirculars } from "./fetch-sebi-circulars.mjs";
 import { checkRbiMasterDirections } from "./fetch-master-directions.mjs";
 import { checkSebiRegulations } from "./fetch-sebi-regulations.mjs";
 import { generateAndSendPeriodicDigest } from "./send-monthly-digest.mjs";
-import { getRecipients, sendScraperHealthWarning } from "./email-notifier.mjs";
+import { getRecipients, sendScraperHealthWarning, isAlertSender } from "./email-notifier.mjs";
 import { withFileLock } from "./lib/file-lock.mjs";
 
 const DIGEST_STATE_PATH = new URL("../data/digest-state.json", import.meta.url);
@@ -154,6 +155,7 @@ async function startDaemon() {
   console.log("🚀 Kreon RegPulse Real-Time Continuous Watcher Started");
   console.log(`📩 CS + CEO recipients (Master Directions, SEBI Regs, Acts, Secretarial Standards): ${getRecipients("rbiMasterDirections").join(", ")}`);
   console.log(`📩 CEO-only recipients (RBI Notifications, SEBI Circulars): ${getRecipients("rbiNotifications").join(", ")}`);
+  if (!isAlertSender()) console.log("📭 Alert emails: off on this machine (sent by the GitHub Action). Set ALERTS_FROM_THIS_MACHINE=1 to send from here.");
   console.log(`⏱ Polling Frequency: Every ${POLL_INTERVAL_MS / 1000} seconds`);
   console.log(`🕐 Active Hours: ${ACTIVE_HOURS_START}:00–${ACTIVE_HOURS_END}:00 IST (checks are skipped outside this window)`);
   console.log("==================================================================");

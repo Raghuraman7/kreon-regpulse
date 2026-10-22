@@ -1,6 +1,6 @@
 # Deploy Kreon RegPulse (free, no paid services)
 
-Kreon RegPulse is a static site: `index.html` + `data/master-directions.json` + `data/sebi-regulations.json`. You can host it for **$0** and point a custom domain at it.
+Kreon RegPulse is a static site built from `data/*.json` by `npm run build` into `dist/`. You can host it for **$0** and point a custom domain at it.
 
 ## 1. Refresh data (manual or daily automatic)
 
@@ -9,6 +9,7 @@ Kreon RegPulse is a static site: `index.html` + `data/master-directions.json` + 
 ```bash
 npm install
 npm run fetch          # updates JSON data from RBI & SEBI
+npm run build          # writes the site to dist/
 npm run serve          # open the printed local URL
 ```
 
@@ -41,6 +42,8 @@ Adjust the path if the project lives elsewhere. Your Mac must be on (or awake) a
 
 ## 1b. Process supervision for the real-time watcher (`watch-realtime.mjs`)
 
+> **Who sends emails:** alert and digest emails go out from the GitHub Action only. Local runs (the watcher, `npm run fetch`, a cron job) update the data but don't email, so the same release is never sent twice. To send from a machine instead, set `ALERTS_FROM_THIS_MACHINE=1` in its `.env` **and** remove the SMTP secrets from the GitHub workflows. Every alert sent is recorded in `data/sent-alerts.json`, and a release already listed there is never emailed again.
+
 `npm run watch` runs the continuous daemon in the foreground — if it crashes or the machine reboots, nothing brings it back. Use [pm2](https://pm2.keymetrics.io/) to auto-restart it.
 
 ```bash
@@ -66,18 +69,12 @@ pm2 status
 
 ## 2. Put it online (pick one — all free)
 
-After `npm run fetch`, upload the **project root** (not `node_modules`):
-
-| What to upload | Files |
-|---|---|
-| Site | `index.html` |
-| Data | `data/master-directions.json`, `data/sebi-regulations.json` |
-| Optional | `README.md`, `LICENSE` |
+After `npm run fetch && npm run build`, upload the **`dist/` folder**. It contains every page, the assets and the search index.
 
 ### Option A — Cloudflare Pages (recommended)
 
 1. Sign up at [pages.cloudflare.com](https://pages.cloudflare.com) (free).
-2. **Create a project** → **Direct Upload** → drag the folder (or zip of the files above).
+2. **Create a project** → **Direct Upload** → drag the `dist/` folder. (Or connect Git with build command `npm run build` and output directory `dist`.)
 3. You get a URL like `https://regpulse-abc.pages.dev`.
 4. **Custom domain:** Pages → your project → **Custom domains** → add e.g. `rbi.yourdomain.com`.
 5. In your domain registrar (or Cloudflare DNS), add the CNAME Cloudflare shows you.
@@ -89,13 +86,13 @@ Re-upload (or use Wrangler CLI later) whenever you run `npm run fetch` and want 
 Vercel is extremely easy to host static sites on:
 1. Go to [vercel.com](https://vercel.com) and link your GitHub account.
 2. Select your repository `rbi-compliance-tracker` and click **Deploy**.
-3. Vercel automatically deploys the repository directory as a static site (since it contains `index.html`).
+3. `vercel.json` tells Vercel to run `npm run build` and serve `dist/`. If the project was created before this, check **Settings → Build & Development** has no overrides that conflict.
 4. On every push to your repository (including commits from GitHub Actions), Vercel automatically redeploys.
 
 ### Option C — GitHub Pages
 
 1. Push repo to GitHub.
-2. **Settings → Pages** → deploy from `main`, root `/`.
+2. **Settings → Pages** → source **GitHub Actions**, with a workflow that runs `npm ci && npm run build` and uploads `dist/`.
 3. Enable **Actions → Read and write** so the daily workflow can commit data updates.
 4. Custom domain: add `CNAME` file or Pages domain settings.
 
@@ -114,9 +111,11 @@ The workflow in `.github/workflows/update-feed.yml` already refreshes data **onc
 
 ## 4. What it does
 
-- **One page** instead of browsing the main RBI or SEBI sites
-- **Filters** by categories like Capital Adequacy, NPA/Provisioning, Governance, KYC, etc.
-- **Search** by direction title or topic with real-time keyword highlighting
-- **SBR applicability badges** for easy layer-based checks
-- **Descriptive summaries** to read policies at a glance
-- **Quick View** buttons with instant fallbacks to open PDFs cleanly
+- **RBI opens first** (`/` shows RBI Master Directions; change `LANDING_REGISTER` in `site/build.mjs` to pick another section)
+- **Notifications**: the last 12 months of updates from RBI, SEBI, Acts & Rules and Standards in one feed, newest first, grouped by month, with a Show filter per provider and an "Older updates" page
+- **Sections like the old tabs**: RBI (Master Directions | Notifications), SEBI (Regulations | Circulars), Acts & Rules, Secretarial Standards, with subject filters on RBI Master Directions
+- **A page per document** with a **Brief** (what changed → who it applies to → dates → key points → sources), "Amended by / Amends" links between RBI directions and their amending notifications; it prints cleanly for files and board notes
+- **Search box in the header** of every page
+- **Search** (Pagefind, static index) with register, topic, date and NBFC filters and CSV export
+- **SBR applicability** shown on every RBI Master Direction
+- Zero JavaScript outside the search page; light and dark mode; works from 280px phones to 4K

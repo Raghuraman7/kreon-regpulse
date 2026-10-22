@@ -15,6 +15,9 @@ on:
         required: false
         default: ""
 
+permissions:
+  contents: read
+
 jobs:
   monthly-digest:
     runs-on: ubuntu-latest
@@ -33,13 +36,20 @@ jobs:
         run: npm run fetch
 
       - name: Generate and Send Monthly Compliance Digest Email
+        # Inputs arrive via env and are validated, never pasted into the script text.
         run: |
-          if [ -n "${{ github.event.inputs.month }}" ] && [ -n "${{ github.event.inputs.year }}" ]; then
-            node scripts/send-monthly-digest.mjs --month ${{ github.event.inputs.month }} --year ${{ github.event.inputs.year }}
+          if [ -n "$INPUT_MONTH" ] && [ -n "$INPUT_YEAR" ]; then
+            if ! [[ "$INPUT_MONTH" =~ ^([1-9]|1[0-2])$ && "$INPUT_YEAR" =~ ^20[0-9]{2}$ ]]; then
+              echo "month must be 1-12 and year YYYY" >&2
+              exit 1
+            fi
+            node scripts/send-monthly-digest.mjs --month "$INPUT_MONTH" --year "$INPUT_YEAR"
           else
             npm run digest:monthly
           fi
         env:
+          INPUT_MONTH: ${{ github.event.inputs.month }}
+          INPUT_YEAR: ${{ github.event.inputs.year }}
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
           SMTP_USER: ${{ secrets.SMTP_USER }}
