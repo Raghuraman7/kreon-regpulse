@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-10-23T05:49:59.366Z",
+  "lastChecked": "2026-10-23T11:00:26.813Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13743",
+      "title": "Reserve Bank of India (Commercial Banks – Prudential Norms on Capital Adequacy) Eleventh Amendment Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13743&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/297NTF24A93A6BC7943F2A35FACCE28E4ABC3.PDF",
+      "date": "Oct 23, 2026",
+      "circularNo": "RBI/2026-27/297",
+      "summary": "Reserve Bank of India (Commercial Banks – Prudential Norms on Capital Adequacy) Eleventh Amendment Directions, 2026<br/><br/>Please refer to 'Chapter VII: Leverage Ratio framework' of the Reserve Bank of India (Commercial Banks – Prudential Norms on Capital Adequacy) Directions, 2025 (hereinafter referred to as 'the Directions'). To ensure alignment with the latest leverage ratio framework ('leverage ratio 2017 standard') issued by the Basel Committee on Banking Supervision, there is a felt need to amend these Directions.<br/><br/>2. Accordingly, in exercise of the powers conferred by Section 35A of the Banking Regulation Act, 1949 and all other provisions / laws enabling the Reserve Bank of India to issue instructions in this regard, the Reserve Bank being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues the Amendment Directions hereinafter specified.",
+      "detectedAt": "2026-10-23T11:00:26.813Z"
+    },
     {
       "id": "rbi-notif-13742",
       "title": "Implementation of Section 51A of UAPA, 1967: Updates to UNSC’s 1267/ 1989 ISIL (Da'esh) & Al-Qaida Sanctions List: Amendment of 03 Entries",
@@ -991,16 +1001,6 @@
       "circularNo": null,
       "summary": "Reserve Bank of India (Commercial Banks – Supervisory Returns) Directions, 2026<br/><br/>In exercise of powers conferred under Section 27 and Section 35-A of the Banking Regulation Act, 1949, Chapter III-A of the Reserve Bank of India Act, 1934, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
       "detectedAt": "2026-08-18T12:40:22.263Z"
-    },
-    {
-      "id": "rbi-notif-13637",
-      "title": "Reserve Bank of India (Commercial Banks – Miscellaneous) Supervisory Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13637&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/416MD53D6A6765E6649B6AAABB58C0E4C7EFB.PDF",
-      "date": "Jul 31, 2026",
-      "circularNo": null,
-      "summary": "Reserve Bank of India (Commercial Banks – Miscellaneous) Supervisory Directions, 2026<br/><br/>In exercise of the powers conferred by Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
-      "detectedAt": "2026-08-18T12:40:22.766Z"
     }
   ],
   "pendingDates": {}
