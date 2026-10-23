@@ -1,7 +1,27 @@
 {
-  "lastChecked": "2026-10-23T11:00:26.813Z",
+  "lastChecked": "2026-10-23T15:44:29.873Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13744",
+      "title": "Reserve Bank of India (Commercial Banks – Forthcoming Instructions) Second Amendment Directions, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13744&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT298343573D91EA4465B8CFF54B27EC977D5.PDF",
+      "date": "Oct 23, 2026",
+      "circularNo": "RBI/2026-27/299",
+      "summary": "Reserve Bank of India (Commercial Banks – Forthcoming Instructions) Second Amendment Directions, 2026<br/><br/>Please refer to Chapter IV of the Reserve Bank of India (Commercial Banks – Forthcoming Instructions) Directions, 2025 dated November 28, 2025 (hereinafter referred to as ‘the Directions’), on Minimum Capital Requirements for Operational Risk.<br/><br/>2. On a review, and in exercise of the powers conferred by Section 35A of the Banking Regulation Act, 1949 and all other laws enabling the Reserve Bank of India (hereinafter called the Reserve Bank) in this regard, the Reserve Bank being satisfied that it is necessary and expedient in the public interest so to do, hereby issues the Amendment Directions hereinafter specified.",
+      "detectedAt": "2026-10-23T15:44:28.721Z"
+    },
+    {
+      "id": "rbi-notif-13745",
+      "title": "Delegation of Compounding of certain Contraventions under FEMA, 1999 to Regional Offices of the Reserve Bank",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13745&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT298AC9CBAC4415B41D5B6CE45FF58A5AB54.PDF",
+      "date": "Oct 23, 2026",
+      "circularNo": null,
+      "summary": "All Authorised Dealer Category-I banks and other Authorised Persons<br/><br/>Delegation of Compounding of certain Contraventions under FEMA, 1999 to Regional Offices of the Reserve Bank<br/><br/>Attention of Authorised Dealer (AD) Category - I banks and other Authorised Persons is invited to",
+      "detectedAt": "2026-10-23T15:44:29.873Z"
+    },
     {
       "id": "rbi-notif-13743",
       "title": "Reserve Bank of India (Commercial Banks – Prudential Norms on Capital Adequacy) Eleventh Amendment Directions, 2026",
@@ -981,26 +1001,6 @@
       "circularNo": "RBI/2026-2027/226",
       "summary": "Reserve Bank of India (Regional Rural Banks - Responsible Business Conduct) Fourth Amendment Directions, 2026<br/><br/>Certain instructions on matters related to engagement of recovery agents by Regional Rural Banks (RRBs) have been issued to RRBs under the Reserve Bank of India (Regional Rural Banks – Responsible Business Conduct) Directions, 2025. The extant instructions have since been reviewed and it has been decided to issue comprehensive instructions on conduct related matters in recovery of loan dues and engagement of recovery agencies to all RRBs (hereinafter referred to collectively as “RRBs” and individually as an “RRB”) under the aforesaid Directions.<br/><br/>2. In exercise of the powers conferred by Sections 21 and 35A of the Banking Regulation Act,1949, the Reserve Bank, being satisfied that it is necessary and expedient in public interest so to do, hereby issues the Amendment Directions hereinafter specified.",
       "detectedAt": "2026-08-18T12:40:19.803Z"
-    },
-    {
-      "id": "rbi-notif-13639",
-      "title": "Reserve Bank of India (Commercial Banks – Statutory Audit) Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13639&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/414MDEB929BD427B7443C98B182F2A13E1396.PDF",
-      "date": "Jul 31, 2026",
-      "circularNo": null,
-      "summary": "Reserve Bank of India (Commercial Banks – Statutory Audit) Directions, 2026<br/><br/>In exercise of powers conferred by Section 30(1A) of the Banking Regulation Act, 1949, Section 10(1) of the Banking Companies (Acquisition and Transfer of Undertakings) Act, 1970 / 1980, and Section 41(1) of the State Bank of India Act, 1955 (SBI Act), and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby issues the Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
-      "detectedAt": "2026-08-18T12:40:21.780Z"
-    },
-    {
-      "id": "rbi-notif-13638",
-      "title": "Reserve Bank of India (Commercial Banks – Supervisory Returns) Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13638&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/415MD17AD8787C68848D58600F61E35468861.PDF",
-      "date": "Jul 31, 2026",
-      "circularNo": null,
-      "summary": "Reserve Bank of India (Commercial Banks – Supervisory Returns) Directions, 2026<br/><br/>In exercise of powers conferred under Section 27 and Section 35-A of the Banking Regulation Act, 1949, Chapter III-A of the Reserve Bank of India Act, 1934, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
-      "detectedAt": "2026-08-18T12:40:22.263Z"
     }
   ],
   "pendingDates": {}
