@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-10-27T01:07:21.314Z",
+  "lastChecked": "2026-10-27T06:15:43.813Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13746",
+      "title": "Re-organisation of districts in the NCT of Delhi – Assignment and Review of Lead Bank Responsibility",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13746&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NOT300F305FBB8AB71472391BE6B9C2D74EB35.PDF",
+      "date": "Oct 26, 2026",
+      "circularNo": "RBI/2026-27/300",
+      "summary": "The Chairman / Managing Director & Chief Executive Officer Lead Banks concerned<br/><br/>Re-organisation of districts in the NCT of Delhi – Assignment and Review of Lead Bank Responsibility<br/><br/>The Government of National Capital Territory (NCT) of Delhi has notified re-organisation of districts in the NCT of Delhi vide Gazette Notification No. F.223/ SDM-II (HQ)/ Land/2025/285 dated December 25, 2025, whereby three new districts, viz., Old Delhi, Central North and Outer North have been formed and Shahdara district has ceased to exist.",
+      "detectedAt": "2026-10-27T06:15:43.813Z"
+    },
     {
       "id": "rbi-notif-13744",
       "title": "Reserve Bank of India (Commercial Banks – Forthcoming Instructions) Second Amendment Directions, 2026",
@@ -991,16 +1001,6 @@
       "circularNo": "RBI/2026-27/234",
       "summary": "The Chairpersons/ CEOs of the Commercial Banks,Small Finance Banks, Payment Banks, Urban Co-operative Banks,Rural Co-operative Banks, Regional Rural Banks, Local Area Banks,Non-Banking Financial Companies, Asset Reconstruction Companies,All India Financial Institutions<br/><br/>Implementation of Section 51A of UAPA, 1967: Updates to UNSC’s 1267/ 1989 ISIL (Da'esh) & Al-Qaida Sanctions List: Amendment of 04 Entries<br/><br/>Please refer to Chapter IX on “Requirements/obligations under International Agreements - Communications from International Agencies” of the Reserve Bank of India - Know Your Customer, Directions, 2025 dated November 28, 2025 (amended as on December 29, 2025) (“Directions”), as applicable, as per which, regulated entity shall ensure that in terms of section 51A of the Unlawful Activities (Prevention) (UAPA) Act, 1967 and amendments thereto, it does not have any account in the name of individuals / entities appearing in the lists of individuals and entities, suspected of having terrorist links, which are approved by and periodically circulated by the United Nations Security Council (UNSC).",
       "detectedAt": "2026-08-18T12:40:19.338Z"
-    },
-    {
-      "id": "rbi-notif-13668",
-      "title": "Reserve Bank of India (Regional Rural Banks - Responsible Business Conduct) Fourth Amendment Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13668&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NOT22685A29E921DAE48C8ACE94172CE0321DD.PDF",
-      "date": "Aug 6, 2026",
-      "circularNo": "RBI/2026-2027/226",
-      "summary": "Reserve Bank of India (Regional Rural Banks - Responsible Business Conduct) Fourth Amendment Directions, 2026<br/><br/>Certain instructions on matters related to engagement of recovery agents by Regional Rural Banks (RRBs) have been issued to RRBs under the Reserve Bank of India (Regional Rural Banks – Responsible Business Conduct) Directions, 2025. The extant instructions have since been reviewed and it has been decided to issue comprehensive instructions on conduct related matters in recovery of loan dues and engagement of recovery agencies to all RRBs (hereinafter referred to collectively as “RRBs” and individually as an “RRB”) under the aforesaid Directions.<br/><br/>2. In exercise of the powers conferred by Sections 21 and 35A of the Banking Regulation Act,1949, the Reserve Bank, being satisfied that it is necessary and expedient in public interest so to do, hereby issues the Amendment Directions hereinafter specified.",
-      "detectedAt": "2026-08-18T12:40:19.803Z"
     }
   ],
   "pendingDates": {}
