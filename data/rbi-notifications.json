@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-10-30T07:13:03.309Z",
+  "lastChecked": "2026-10-30T14:13:01.270Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13749",
+      "title": "Implementation of Section 51A of UAPA, 1967: Updates to UNSC’s 1988 (2011) Taliban Sanctions List: Amendment of 05 Entries",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13749&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NT30314AC275308034E98A5E239A91CEAA5A7.PDF",
+      "date": "Oct 30, 2026",
+      "circularNo": "RBI/2026-27/303",
+      "summary": "The Chairpersons/ CEOs of the Commercial Banks, Small Finance Banks, Payment Banks, Urban Co-operative Banks, Rural Co-operative Banks, Regional Rural Banks, Local Area Banks, Non-Banking Financial Companies, Asset Reconstruction Companies, All India Financial Institutions<br/><br/>Implementation of Section 51A of UAPA, 1967: Updates to UNSC’s 1988 (2011) Taliban Sanctions List: Amendment of 05 Entries<br/><br/>Please refer to Chapter IX on “Requirements/obligations under International Agreements - Communications from International Agencies” of the Reserve Bank of India - Know Your Customer, Directions, 2025 dated November 28, 2025 (amended time to time) (“Directions”), as applicable, as per which, regulated entity shall ensure that in terms of section 51A of the Unlawful Activities (Prevention) (UAPA) Act, 1967 and amendments thereto, it does not have any account in the name of individuals / entities appearing in the lists of individuals and entities, suspected of having terrorist links, which are approved by and periodically circulated by the United Nations Security Council (UNSC).",
+      "detectedAt": "2026-10-30T14:13:01.269Z"
+    },
     {
       "id": "rbi-notif-13747",
       "title": "Implementation of Section 51A of UAPA, 1967: Updates to UNSC’s 1267/ 1989 ISIL (Da'esh) & Al-Qaida Sanctions List: Removal of 03 Entries",
@@ -991,16 +1001,6 @@
       "circularNo": null,
       "summary": "Reserve Bank of India (Local Area Banks – Statutory Audit) Directions, 2026<br/><br/>In exercise of powers conferred by Section 30(1A) of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby issues the Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
       "detectedAt": "2026-08-18T13:29:44.253Z"
-    },
-    {
-      "id": "rbi-notif-13601",
-      "title": "Reserve Bank of India (Rural Co-operative Banks - Statutory Audit) Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13601&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/452MD687C391BD41D4A4BA803192EC00E5334.PDF",
-      "date": "Jul 31, 2026",
-      "circularNo": null,
-      "summary": "Reserve Bank of India (Rural Co-operative Banks - Statutory Audit) Directions, 2026<br/><br/>The Banking Regulation (Amendment) Act, 2020 (No. 39 of 2020), notified in the Gazette of India on September 29, 2020 (vide Notification No. 64 of that date), has come into force with effect from April 01, 2021 (Gazette Notification No. 4113 dated December 23, 2020), for Rural Co-operative Banks i.e., State Co-operative Banks (StCBs) and Central Co-operative Banks (CCBs). Accordingly, Reserve Bank of India (RBI), in exercise of its powers conferred under Section 30(1A) of the Banking Regulation Act, 1949 (BR Act), has framed the guidelines which shall be applicable to StCBs and CCBs for seeking prior approval of RBI for appointment, re-appointment or removal of Statutory Auditor (SA), and other related matters.<br/><br/>State Co-operative Banks (StCBs) and Central Co-operative Banks (CCBs) are required to obtain prior approval of RBI for appointment, re-appointment or removal of Statutory Auditor (SA) as per the provisions of Section 30(1A) of the BR Act, with effect from 1st April 2021, i.e., the date on which Banking Regulation (Amendment) Act, 2020 (Act 39 of 2020) came into effect.",
-      "detectedAt": "2026-08-18T13:29:44.862Z"
     }
   ],
   "pendingDates": {}
