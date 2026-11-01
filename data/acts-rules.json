@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-20T11:44:20.895Z",
+  "generatedAt": "2026-11-01T10:42:54.250Z",
   "acts": [
     {
       "id": "act-1",
@@ -38,9 +38,9 @@
       "summary": "Establishes the Reserve Bank of India and provides the statutory framework for the regulation of NBFCs under Chapter III-B, governing registration, reserve funds, and directions.",
       "checkMeta": {
         "amendedSignal": null,
-        "contentHash": "363740ab673670b6ef2ccf1cce7aeb14ca89f0e439ba3c5550a58263765fd24b",
+        "contentHash": "151cf290b9e46ddb6dd8f05b142bf1ac77bc8a66d053926b1ba81600e5a589b9",
         "sourceLastModified": null,
-        "lastCheckedAt": "2026-10-20T11:41:36.821Z",
+        "lastCheckedAt": "2026-11-01T10:40:16.353Z",
         "lastAmendmentDetectedAt": "2026-08-18T11:50:04.079Z"
       }
     },
@@ -69,7 +69,13 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/apr-2021/1618910643277.pdf",
       "enactedDate": "1992-04-12",
       "lastAmended": "Last amended in 2021",
-      "summary": "Establishes SEBI as the regulatory body for India's securities markets. Grants powers to protect investors, promote market development, and regulate intermediaries and listed companies."
+      "summary": "Establishes SEBI as the regulatory body for India's securities markets. Grants powers to protect investors, promote market development, and regulate intermediaries and listed companies.",
+      "checkMeta": {
+        "amendedSignal": "the Finance Act, 2021 (13 of 2021) w",
+        "contentHash": "b792974d549518819454fdc7e5bfbe80c3d008337134ea9fbb5da00566ccb6c1",
+        "sourceLastModified": "Tue, 02 Sep 2025 07:40:51 GMT",
+        "lastCheckedAt": "2026-11-01T10:40:19.915Z"
+      }
     },
     {
       "id": "act-6",
@@ -84,7 +90,7 @@
         "amendedSignal": null,
         "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "sourceLastModified": null,
-        "lastCheckedAt": "2026-10-20T11:41:42.510Z"
+        "lastCheckedAt": "2026-11-01T10:40:21.086Z"
       }
     },
     {
@@ -98,9 +104,9 @@
       "summary": "Governs credit bureaus (CIBIL, Equifax, Experian, CRIF High Mark) in India. Mandates that all lending NBFCs become members of all four CICs and update credit data monthly.",
       "checkMeta": {
         "amendedSignal": null,
-        "contentHash": "73f5c21bdd4606f92ae10d753765a051073c9f7614fc568e9b8d92c396b93b22",
+        "contentHash": "7e4f067cc3cf8a549d53bd59203dccbe3fbdb7942de6733cbfdb05e2aec1d2af",
         "sourceLastModified": null,
-        "lastCheckedAt": "2026-10-20T11:41:42.897Z",
+        "lastCheckedAt": "2026-11-01T10:40:21.984Z",
         "lastAmendmentDetectedAt": "2026-08-18T11:50:09.342Z"
       }
     },
@@ -133,7 +139,7 @@
         "amendedSignal": null,
         "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "sourceLastModified": null,
-        "lastCheckedAt": "2026-10-20T11:42:32.469Z"
+        "lastCheckedAt": "2026-11-01T10:41:12.258Z"
       }
     },
     {
@@ -176,7 +182,13 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/apr-2024/1712903397070.pdf",
       "enactedDate": "1956-09-04",
       "lastAmended": "Last amended in 2021",
-      "summary": "Prevents undesirable transactions in securities by regulating the business of dealing therein, governing stock exchanges, contracts in securities, and listing of securities."
+      "summary": "Prevents undesirable transactions in securities by regulating the business of dealing therein, governing stock exchanges, contracts in securities, and listing of securities.",
+      "checkMeta": {
+        "amendedSignal": "the Finance Act, 2021 (13 of 2021) w",
+        "contentHash": "4856291ade82cf071894cae44a2697ec73a5da7394c7fb75b894f856d748a6fc",
+        "sourceLastModified": "Tue, 02 Sep 2025 07:40:04 GMT",
+        "lastCheckedAt": "2026-11-01T10:42:52.203Z"
+      }
     },
     {
       "id": "act-13",
@@ -186,7 +198,13 @@
       "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/feb-2024/1708418233857.pdf",
       "enactedDate": "1996-08-10",
       "lastAmended": "Last amended in 2021",
-      "summary": "Provides for the regulation of depositories in securities and for matters connected therewith or incidental thereto. Establishes the legal framework for dematerialisation."
+      "summary": "Provides for the regulation of depositories in securities and for matters connected therewith or incidental thereto. Establishes the legal framework for dematerialisation.",
+      "checkMeta": {
+        "amendedSignal": "the International Financial Services Centres Authority Act, 2019 w",
+        "contentHash": "3d0b1918bea6553cc0dd36f697be6cb06a4499f3df4208fc305d9ab60d0cda2b",
+        "sourceLastModified": "Tue, 02 Sep 2025 07:42:24 GMT",
+        "lastCheckedAt": "2026-11-01T10:42:54.250Z"
+      }
     }
   ]
 }
