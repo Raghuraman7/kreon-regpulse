@@ -1,5 +1,5 @@
 {
-  "lastChecked": "2026-11-02T09:28:48.712Z",
+  "lastChecked": "2026-11-02T19:42:32.052Z",
   "count": 29,
   "circulars": [
     {
@@ -295,6 +295,9 @@
   ],
   "pendingDates": {},
   "skipped": [
+    "https://www.sebi.gov.in/legal/circulars/nov-2026/framework-for-issuance-of-depository-receipts-on-units-of-reits-_105558.html",
+    "https://www.sebi.gov.in/legal/circulars/nov-2026/framework-for-issuance-of-depository-receipts-on-units-of-invits-_105557.html",
+    "https://www.sebi.gov.in/legal/circulars/nov-2026/cooling-off-period-for-offer-for-sale-by-private-listed-invits_105539.html",
     "https://www.sebi.gov.in/legal/circulars/oct-2026/extension-of-timeline-with-respect-to-compliance-of-digital-accessibility-circulars_105523.html",
     "https://www.sebi.gov.in/legal/circulars/oct-2026/extension-of-timeline-for-compliance-with-terms-and-conditions-by-debenture-trustees-dts-for-carrying-out-activities-outside-the-purview-of-sebi_105454.html",
     "https://www.sebi.gov.in/legal/circulars/oct-2026/review-of-regulatory-requirement-for-maintenance-of-call-records-of-institutional-clients-by-research-analysts-or-research-entities_105400.html",
