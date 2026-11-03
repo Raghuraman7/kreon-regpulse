@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-11-03T08:59:45.146Z",
+  "lastChecked": "2026-11-03T16:57:48.516Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13750",
+      "title": "Foreign Exchange Management (Export and Import of Goods and Services) (Second Amendment) Regulations, 2026",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13750&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/FEMA23RA03112026F5D7706996DD3493DAD9E0899C64D4793.PDF",
+      "date": "Nov 2, 2026",
+      "circularNo": null,
+      "summary": "RESERVE BANK OF INDIA FOREIGN EXCHANGE DEPARTMENT CENTRAL OFFICE Mumbai 400 001<br/><br/>Notification No. FEMA 23(R)/(2)/2026-RB<br/><br/>Foreign Exchange Management (Export and Import of Goods and Services) (Second Amendment) Regulations, 2026",
+      "detectedAt": "2026-11-03T16:57:48.516Z"
+    },
     {
       "id": "rbi-notif-13749",
       "title": "Implementation of Section 51A of UAPA, 1967: Updates to UNSC’s 1988 (2011) Taliban Sanctions List: Amendment of 05 Entries",
@@ -991,16 +1001,6 @@
       "circularNo": null,
       "summary": "Reserve Bank of India (Local Area Banks - Internal Audit Function) Directions, 2026<br/><br/>A sound Internal Audit function is an integral component of a bank’s internal control and risk management framework. In view of the limitations of a transaction-centric audit approach, the bank is required to adopt Risk Based Internal Audit (RBIA), which places emphasis on the assessment of risk management systems and internal controls, in addition to selective transaction testing, in alignment with evolving governance standards and international best practices.<br/><br/>In exercise of the powers conferred by Section 35-A of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby, issues the Directions hereinafter specified.",
       "detectedAt": "2026-08-18T13:29:42.836Z"
-    },
-    {
-      "id": "rbi-notif-13605",
-      "title": "Reserve Bank of India (Local Area Banks – Statutory Audit) Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13605&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/448MDEB239D081FB94715A7DA64D5F34CC51D.PDF",
-      "date": "Jul 31, 2026",
-      "circularNo": null,
-      "summary": "Reserve Bank of India (Local Area Banks – Statutory Audit) Directions, 2026<br/><br/>In exercise of powers conferred by Section 30(1A) of the Banking Regulation Act, 1949, and all other provisions / laws enabling the Reserve Bank of India (‘RBI’) in this regard, RBI being satisfied that it is necessary and expedient in the public interest so to do, hereby issues the Directions hereinafter specified.<br/><br/>A. Short Title and Commencement",
-      "detectedAt": "2026-08-18T13:29:44.253Z"
     }
   ],
   "pendingDates": {}
