@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-11-25T02:42:42.172Z",
-  "count": 29,
+  "lastChecked": "2026-11-25T11:45:22.314Z",
+  "count": 30,
   "circulars": [
+    {
+      "id": "sebi-circ-105839",
+      "link": "https://www.sebi.gov.in/legal/circulars/nov-2026/simplification-of-client-on-boarding-and-rationalisation-of-risk-management-framework-at-kyc-registration-agencies_105839.html",
+      "title": "Simplification of client on-boarding and rationalisation of risk management framework at KYC Registration Agencies",
+      "date": "Nov 25, 2026",
+      "pdfUrl": "https://www.sebi.gov.in/sebi_data/attachdocs/nov-2026/1795605346389.pdf",
+      "department": null,
+      "summary": "Circular issued by SEBI: Simplification of client on-boarding and rationalisation of risk management framework at KYC Registration Agencies",
+      "detectedAt": "2026-11-25T11:45:22.314Z"
+    },
     {
       "id": "sebi-circ-105504",
       "link": "https://www.sebi.gov.in/legal/circulars/oct-2026/rationalisation-of-periodicity-of-kyc-review-for-fpis_105504.html",
@@ -295,6 +305,7 @@
   ],
   "pendingDates": {},
   "skipped": [
+    "https://www.sebi.gov.in/legal/circulars/nov-2026/half-yearly-review-of-significant-indices-under-sebi-index-providers-regulations-2024_105853.html",
     "https://www.sebi.gov.in/legal/circulars/nov-2026/review-of-margin-framework-for-commodity-derivatives-segment_105799.html",
     "https://www.sebi.gov.in/legal/circulars/nov-2026/reporting-requirement-under-foreign-account-tax-compliance-act-fatca-and-common-reporting-standard-crs-revised-through-income-tax-act-2025-read-with-income-tax-rules-2026_105705.html",
     "https://www.sebi.gov.in/legal/circulars/nov-2026/review-of-the-framework-for-accredited-investors_105618.html",
