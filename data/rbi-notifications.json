@@ -1,7 +1,17 @@
 {
-  "lastChecked": "2026-11-27T04:24:34.765Z",
+  "lastChecked": "2026-11-27T14:08:30.737Z",
   "count": 100,
   "notifications": [
+    {
+      "id": "rbi-notif-13759",
+      "title": "Section 42(1) of the Reserve Bank of India Act, 1934 - Change in Daily Minimum Cash Reserve Maintenance Requirement",
+      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13759&Mode=0",
+      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/310NTFF0FFDF6AF554020849CBE9D36E4E36E.PDF",
+      "date": "Nov 27, 2026",
+      "circularNo": "RBI/2026-27/310",
+      "summary": "Section 42(1) of the Reserve Bank of India Act, 1934 - Change in Daily Minimum Cash Reserve Maintenance Requirement<br/><br/>Please refer to our circular DoR.RET.REC.247/12.01.001/2026-27 dated October 09, 2026 on the captioned subject.<br/><br/>2. On the basis of an assessment of the current and evolving macroeconomic situation and liquidity conditions, it has been decided to reduce the minimum daily maintenance of the cash reserve ratio (CRR) from 99 per cent of the requirement to 90 per cent effective from the fortnight beginning December 1, 2026.",
+      "detectedAt": "2026-11-27T14:08:30.736Z"
+    },
     {
       "id": "rbi-notif-13758",
       "title": "Implementation of Section 51A of UAPA, 1967: Updates to UNSC’s 1267/ 1989 ISIL (Da'esh) & Al-Qaida Sanctions List: Amendment of 01 Entry",
@@ -991,16 +1001,6 @@
       "circularNo": "RBI/2026-27/235",
       "summary": "The Chairpersons/ CEOs of the Commercial Banks, Small Finance Banks, Payment Banks, Urban Co-operative Banks, Rural Co-operative Banks, Regional Rural Banks, Local Area Banks, Non-Banking Financial Companies, Asset Reconstruction Companies, All India Financial Institutions<br/><br/>Implementation of Section 51A of UAPA, 1967: Updates to UNSC’s 1267/ 1989 ISIL (Da'esh) & Al-Qaida Sanctions List: Amendment of 04 Entries<br/><br/>Please refer to Chapter IX on “Requirements/obligations under International Agreements - Communications from International Agencies” of the Reserve Bank of India - Know Your Customer, Directions, 2025 dated November 28, 2025 (amended as on December 29, 2025) (“Directions”), as applicable, as per which, regulated entity shall ensure that in terms of section 51A of the Unlawful Activities (Prevention) (UAPA) Act, 1967 and amendments thereto, it does not have any account in the name of individuals / entities appearing in the lists of individuals and entities, suspected of having terrorist links, which are approved by and periodically circulated by the United Nations Security Council (UNSC).",
       "detectedAt": "2026-08-18T13:29:35.425Z"
-    },
-    {
-      "id": "rbi-notif-13670",
-      "title": "Reserve Bank of India (Rural Co-operative Banks - Responsible Business Conduct) Fourth Amendment Directions, 2026",
-      "link": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13670&Mode=0",
-      "pdfUrl": "https://rbidocs.rbi.org.in/rdocs/notification/PDFs/NOT2288A0D38AEE93D4305B418F4B5B5D6BFFA.PDF",
-      "date": "Aug 6, 2026",
-      "circularNo": "RBI/2026-2027/228",
-      "summary": "Reserve Bank of India (Rural Co-operative Banks - Responsible Business Conduct) Fourth Amendment Directions, 2026<br/><br/>Certain instructions on matters related to engagement of recovery agents by Rural Co-operative Banks (RCBs) have been issued to RCBs under the Reserve Bank of India (Rural Co-operative Banks – Responsible Business Conduct) Directions, 2025. The extant instructions have since been reviewed and it has been decided to issue comprehensive instructions on conduct related matters in recovery of loan dues and engagement of recovery agencies to all RCBs (hereinafter referred to collectively as “RCBs” and individually as an “RCB”) under the aforesaid Directions.<br/><br/>2. In exercise of the powers conferred by Sections 21, 35A and 56 of the Banking Regulation Act,1949, the Reserve Bank, being satisfied that it is necessary and expedient in public interest so to do, hereby issues the Amendment Directions hereinafter specified.",
-      "detectedAt": "2026-08-18T13:29:36.037Z"
     }
   ],
   "pendingDates": {}
